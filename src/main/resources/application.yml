@@ -1,0 +1,20 @@
+# server port config
+server:
+  port: 8007
+  
+# oracle driver config
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: dn
+    password: dn
+    
+# mybatis config
+mybatis:
+  mapper-locations: mappers/**/*.xml
+  
+# logging level (root level - 전역 설정)
+logging:
+  level:
+    root: info
