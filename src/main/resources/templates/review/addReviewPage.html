@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>치료후기 작성</title>
+     <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+     <!--font-->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200;400&display=swap" rel="stylesheet">
+     <!-- jquery-->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <!--메인 스크립트-->
+     <script type="text/javascript" src="../resources/js/common.js"></script>
+     <!-- include summernote css/js -->
+     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <style>
+
+
+        .board.content {
+            min-width: 800px;
+            width: 1000px;
+            margin: 0px auto;
+            /*text-align: center;*/
+            margin-bottom: 200px;
+            margin-top:70px;
+        }
+
+
+        #qaTitle {
+            margin-top: 10px;
+            margin-bottom: 60px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+      
+        .line2 {
+            
+            border-bottom: 2px solid #85B1D6;
+            font-size: 0.8rem;
+            padding-bottom: 10px;
+            padding-top: 4px;
+            font-size: 0.9rem;
+            padding-left: 20px;
+        }
+
+        .btn {
+            background-color: #F5F5F5;
+            color: black;
+            width: 441px;
+            height: 31px;
+            border: none;
+            position: relative;
+           
+            border-radius: 4px;
+            margin-top: 10px;
+            margin-top: 12px;
+            
+        }
+        .btnSpace {
+            margin-right: 14px;
+        }
+
+        .btn:hover {
+            opacity: 30%;
+        }
+
+        /* .footer{
+            width: 100%;
+            height: 115px;
+            background-color: rgba(240, 239, 225, 1);
+            position: absolute;
+
+        } */
+
+        .board_wrap {
+            width: 900px;
+            margin-left: 50px;
+            font-size: 0.85rem;
+        }
+
+        #category {
+            width: 109px;
+            height: 31px;
+            /* border:1px solid #85B1D6;
+            border-radius: 10px; */
+            margin-bottom: 7px;
+            margin-right: 5px;
+            background-color: #F5F5F5;
+            border: 1px solid #C7C7C7;
+            border-radius: 4px;
+        }
+
+        #titleArea {
+            width: 760px;
+            height: 29px;
+            /* border:1px solid #85B1D6;
+            border-radius: 10px; */
+            padding-left: 10px;
+            padding-right: 10px;
+            border: 1px solid #C7C7C7;
+            border-radius: 4px;
+        }
+
+        .qTitle {
+            margin-bottom: 10px;
+        }
+
+        .btnArea {
+            margin-top: 8px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+ <!-- 헤더 -->
+ <header id="header">
+    <div class="header-container">
+        <!-- 로그인 -->
+        <div class="homemenu">
+            <!-- 로그인 안한 경우 -->
+            <ul class="nologin">
+                <a href="#">HOME</a>
+                <a href="#">로그인</a>
+                <a href="#">회원가입</a>
+            </ul>
+            <!-- 로그인 한 경우 -->
+            <ul class="userlogin" style="display: none;">
+                <a href="#">HOME</a>
+                <a href="#">로그아웃</a>
+                <a href="#">마이페이지</a>
+            </ul>
+        </div>
+        <div class="main-menu">
+            <!-- 로고 -->
+            <div class="logo">
+                <a href="#">
+                    <img src="../resources/images/common/logo.png"></img>
+                </a>
+            </div>
+            <!-- 메인 메뉴 -->
+            <div class="menulist">
+                <ul>
+                    <li><a href="#">병원소개</a>
+                        <ul class="sub-menulist">
+                            <li><a href="#">병원 소개</a></li>
+                            <li><a href="#">의료진 소개</a></li>
+                            <li><a href="#">의료 장비 소개</a></li>
+                            <li><a href="#">오시는 길</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">진료안내</a>
+                        <ul class="sub-menulist">
+                            <li><a href="#">진료 안내</a></li>
+                            <li><a href="#">진료 과목</a></li>
+                            <li><a href="#">진료 예약</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">고객센터</a></li>
+                    <li><a href="#">치료후기</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+    <!-- 내용 부분 -->
+    <div id="main">
+       
+        <!-- 내용 표시 부분 -->
+        <div class="board content">
+            <div id="qaTitle">치료후기 작성</div>
+            <div class="board_wrap">
+                <div class="qTitle">
+                    <select id="category">
+                        <option>카테고리</option>
+                        <option value="예약문의">정형외과</option>
+                        <option value="일반문의">내과</option>
+                        <option value="기타문의">외과</option>
+                        <option value="기타문의">안과</option>
+                    </select>
+       
+                    <input type="text" id="titleArea" maxlength="100" placeholder="제목을 입력해주세요">
+                </div>
+
+
+                    <div id="summernote"></div>
+                    <script>
+                      $('#summernote').summernote({
+                        // placeholder: 'Hello stand alone ui',
+                        tabsize: 2,
+                        height: 300,
+                        toolbar: [
+                          ['style', ['style']],
+                          ['font', ['bold', 'underline', 'clear']],
+                          ['color', ['color']],
+                          ['para', ['ul', 'ol', 'paragraph']],
+                          ['table', ['table']],
+                          ['insert', ['link', 'picture', 'video']],
+                          ['view', ['fullscreen', 'codeview', 'help']]
+                        ]
+                      });
+                    </script>
+
+                <div class="btnArea">
+                    <button class="btn btnSpace" id="gotoList">목록으로</button>
+                    <button class="btn" id="write">작성하기</button>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <!-- 푸터 -->
+    <!-- <footer id="footer">
+        <div class="footer_container footer">
+       
+        </div>
+    </footer> -->
+
+
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="flogo">
+                <img src="../resources/images/common/logo2.png">
+            </div>
+            <div class="finfo">
+                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                TEL 1544-9970 <br>
+                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

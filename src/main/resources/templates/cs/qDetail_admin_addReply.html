@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 관리자 답변등록</title>
+     <!-- 공통 css -->
+     <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+     <!-- font -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200;400&display=swap" rel="stylesheet">
+     <!-- jquery -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <!--메인 스크립트 -->
+     <script type="text/javascript" src="../resources/js/common.js"></script>
+    <style>
+
+
+        .board.content {
+            min-width: 800px;
+            width: 1000px;
+            margin: 0px auto;
+            /*text-align: center;*/
+            margin-bottom: 100px;
+            margin-top:30px;
+        }
+
+
+        #qaTitle {
+            margin-top: 24px;
+            margin-bottom: 46px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+      
+        .line2 {
+            
+            border-bottom: 2px solid #85B1D6;
+            font-size: 0.8rem;
+            padding-bottom: 10px;
+            padding-top: 4px;
+            font-size: 0.9rem;
+            padding-left: 20px;
+        }
+
+        .btn {
+            background-color: #85B1D6;
+            color: white;
+            width: 85px;
+            height: 28px;
+            border: none;
+            position: relative;
+            left: 42%;
+            border-radius: 4px;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            opacity: 30%;
+        }
+
+        .footer{
+            width: 100%;
+            height: 115px;
+            background-color: rgba(240, 239, 225, 1);
+            position: absolute;
+
+        }
+
+        .board_wrap {
+            width: 900px;
+            margin-left: 50px;
+            font-size: 0.85rem;
+        }
+
+        .ctBox {
+            min-height: 250px;
+            width: 858px;
+            padding: 20px;
+            border:1px solid #85B1D6;
+            border-radius: 10px;
+        }
+
+        .name,.date{
+            padding-left: 20px;
+        }
+
+        .name{
+            padding-top: 15px;
+        }
+
+        .date{
+            padding-bottom: 15px;
+        }
+
+        .replyBox{
+            width: 900px;
+            min-height: 80px;
+            height: 150px;
+            /*background-color: rgba(241, 249, 255, 1);*/
+            margin-top: 20px;
+            /*padding: 30px;*/
+            margin-bottom: 40px;
+            border-radius: 6px;
+
+           /* display: grid;
+            grid-template-columns : 2fr 12fr 2fr;
+            justify-items:self-start;
+            grid-gap:3rem;*/
+        }
+
+        .smallicon {
+            width: 21px;
+            margin-left: 5px;
+           
+        }
+
+        .replyIcon{
+            width: 12px;
+            margin-right: 8px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        #replyArea{
+            width: 760px;
+            height: 106px;
+            border:1px solid #85B1D6;
+            border-radius: 7px;
+            margin-right: 2px;
+            padding: 20px;
+            
+        }
+
+        .bigBtn {
+            width: 87.5px;
+            height: 147px;
+            background-color: #85B1D6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            /*display: inline;*/
+            position: relative;
+            bottom: 70px;
+            margin-left: 5px;
+           
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header id="header">
+        <div class="header-container">
+            <!-- 로그인 -->
+            <div class="homemenu">
+                <!-- 로그인 안한 경우 -->
+                <ul class="nologin">
+                    <a href="#">HOME</a>
+                    <a href="#">로그인</a>
+                    <a href="#">회원가입</a>
+                </ul>
+                <!-- 로그인 한 경우 -->
+                <ul class="userlogin" style="display: none;">
+                    <a href="#">HOME</a>
+                    <a href="#">로그아웃</a>
+                    <a href="#">마이페이지</a>
+                </ul>
+            </div>
+            <div class="main-menu">
+                <!-- 로고 -->
+                <div class="logo">
+                    <a href="#">
+                        <img src="../resources/images/common/logo.png"></img>
+                    </a>
+                </div>
+                <!-- 메인 메뉴 -->
+                <div class="menulist">
+                    <ul>
+                        <li><a href="#">병원소개</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">병원 소개</a></li>
+                                <li><a href="#">의료진 소개</a></li>
+                                <li><a href="#">의료 장비 소개</a></li>
+                                <li><a href="#">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">진료안내</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">진료 안내</a></li>
+                                <li><a href="#">진료 과목</a></li>
+                                <li><a href="#">진료 예약</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">고객센터</a></li>
+                        <li><a href="#">치료후기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- 내용 부분 -->
+    <div id="main">
+       
+        <!-- 내용 표시 부분 -->
+        <div class="board content">
+            <div id="qaTitle">문의상세</div>
+            <div class="board_wrap">
+                <div class="line2 bold"><span class="qTitle">[예약문의] 문의합니다</span></div>
+                <div class="name bold">김소민</div>
+                <div class="date bold">
+                    2021.12.08
+                    <span><img class="smallicon" src="../resources/images/sm/hit2.png" alt="조회수">2</span> 
+                    <span><img class="smallicon" src="../resources/images/sm/reply2.png" alt="답변수">1</span> 
+                </div>
+                <div class="ctBox">
+                    
+                    아래 정보를 기입하시면 더욱 빠르고 정확한 안내가 가능합니다 <br>
+                    예약 번호:  211 <br><br>
+
+                    예약을 다른 날짜로 변경하고 싶어요.<br> 
+                    가능한가요??
+                </div>
+                <div class="replyBox">
+                    <textarea id="replyArea"></textarea>
+                    <button class="bigBtn">답변등록</button>
+                </div>
+                <button class="btn" id="gotoList">목록으로</button>
+                <button class="btn" id="delete">삭제하기</button>
+            </div>
+        </div>
+       
+    </div>
+    <!-- 푸터 -->
+    <!-- <footer id="footer">
+        <div class="footer_container footer">
+       
+        </div>
+    </footer> -->
+
+    <!-- 푸터 -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="flogo">
+                <img src="../resources/images/common/logo2.png">
+            </div>
+            <div class="finfo">
+                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                TEL 1544-9970 <br>
+                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+</html>

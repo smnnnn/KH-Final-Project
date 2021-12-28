@@ -1,0 +1,281 @@
+/* 공통부분 */
+/*-------- 헤더 ----------*/
+
+* a{
+    text-decoration: none; 
+    color:#555;
+}
+*{
+    color:#555; 
+    margin:0; 
+    padding:0;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+ul li{
+    list-style-type: none;
+}
+#header{
+    border-bottom: 5px solid #F0EFE1; 
+    background-color: #fff; 
+    z-index: 1;
+}
+.fixed{
+    position: fixed; 
+    left: 0; 
+    top: 0; 
+    width: 100%;
+}
+
+#header .header-container{
+    height:110px;
+}
+
+#header .homemenu{
+    display:flex; 
+    flex-direction:row-reverse; 
+    margin-right:100px; 
+    font-size:12px; 
+    margin-top: 20px;
+}
+#header .homemenu a{
+    margin-left:20px;
+}
+#header .homemenu a:hover{
+    color: #85B1D6; 
+    font-weight: bold;
+}
+
+
+
+/* 수정한 부분 */
+#header .main-menu{
+    /* display:table; 
+    width:100%; */
+}
+/* #header .main-menu .logo, .menulist{
+    display:table-cell; 
+    vertical-align:middle;
+    text-align: center; 
+} */
+.main-menu {
+    display: grid;
+    grid-template-columns : 2fr 12fr 2fr;
+    height: 70px;
+    align-items: flex-end;
+    text-align: center;
+    
+}
+.menulist {
+    width: 100%;
+    /* position: relative; */
+    /* margin-bottom: 100px; */
+    margin-bottom: 30px;
+}
+
+
+
+
+
+
+
+#header .main-menu img{
+    width:150px; 
+    height:80px; 
+    padding-left:100px; 
+}
+
+
+#header .main-menu .menulist > ul > li{
+    display:inline-block; 
+    margin-right:50px; 
+    position: relative;
+    font-weight:900;
+    font-size:20px;
+    text-align: center;
+}
+#header .main-menu .menulist > ul > li > a:hover{
+    color: #DEB98B;
+}
+#header .sub-menulist{
+    font-size:13px; 
+    text-align:center; 
+    line-height:50px;
+    /* background-color: #F0EFE1; */
+    border: 3px solid #F0EFE1;
+    background-color: #fff;
+    width:120px;
+    display:none;
+    position:absolute;
+    top:68px;
+    left:-20px;
+}
+#header .menulist .dropon{
+    display:block;
+}
+#header .menulist .sub-menulist li:hover{
+    background-color: #F0EFE1;
+}
+#header .menulist .sub-menulist{
+    z-index: 1;
+} 
+#header .menu-active{
+    color: #DEB98B;
+}
+
+/*----------- 푸터 ----------*/
+#footer{
+    padding: 10px 0; 
+    background-color: #F0EFE1;
+}
+#footer .footer-container{
+    height:110px; 
+    display:flex; 
+    justify-content: flex-start; 
+    margin:20px 50px;
+}
+#footer .flogo img{
+    width:100px; 
+    height:100px
+}
+#footer .finfo{
+    font-size: 9px; 
+    margin-left: 10px; 
+    padding-top: 30px; 
+    color: #85B1D6;
+}
+
+/*------------ 메인 ---------*/
+/* overflow:auto는 내용 많아지면 자동 스크롤*/
+#main{
+    min-width:1280px; 
+    display: flex; 
+    overflow: auto;
+} 
+
+/* 메인화면의 화면비율 */
+#main #main-sidemenu{
+    width:200px; 
+    position:relative;
+}
+#main #main-content{
+    width:1200px; 
+    position:relative;
+}
+#main #aside{
+    width:150px; 
+    position:relative;
+}
+
+/* 서브메뉴있는 화면의 비율 */
+#main #side-menu{
+    width:300px; 
+    position: relative;
+}
+#main #content{
+    width:1100px; 
+    position: relative;
+}
+
+/* 빠른 메뉴 */
+#aside{
+    padding-left: 80px;
+}
+#aside .quick-menu{
+    width: 70px; 
+    height: 70px; 
+    align-items: center; 
+    display: block;
+    position: fixed;
+    text-align: center;
+    top : 200px;
+    right : 20px;
+}
+#aside .quick-menu li{
+    border: 1px solid #C4C4C4; 
+    background-color: #fff;
+}
+#aside .quick-menu li:first-of-type{
+    border-bottom: none;
+}
+#aside .quick-menu li:last-of-type{
+    border-top: none;
+}
+#aside .quick-menu li:hover{
+    border: 2px solid #85B1D6; 
+    transform:scale(1.05, 1.05);
+    transition-duration: 0.5s;
+}
+#aside .quick-menu img{
+    width: 50px; 
+    height: 50px; 
+    vertical-align: middle;
+}
+#aside .quick-menu p{
+    color: #85B1D6; 
+    font-size: 10px; 
+    padding-bottom: 5px;
+}
+
+/* 페이지 위로 이동 버튼 */
+#aside .move-to-top{
+    position: fixed; 
+    bottom: 60px; 
+    right: 25px;
+}
+#aside .move-to-top img{
+    width: 60px; 
+    height: 60px;
+}
+
+/* 사이드 메뉴 */
+#side-menu .sidenav{
+    width: 150px; 
+    margin: 50px;
+}
+#side-menu .sidenav > ul > li{
+    border:1px solid #F0EFE1; 
+    text-align: center; 
+    font-size: 13px; 
+    padding: 10px 0; 
+    font-weight: 700;
+    /* margin-bottom: 5px; */
+}
+#side-menu .sidenav > ul > li:hover{
+    cursor: pointer; 
+    background-color: #DEB98B;
+}
+#side-menu .sidenav > ul > li:hover a{
+    color:#fff;
+}
+.li-active {
+    background-color: #DEB98B;
+}
+.li-active > a{
+    color: #fff;
+}
+
+/* 경로 소개 */
+.path-info{
+    margin-bottom: 20px;
+}
+.path-info > ul{
+    margin: 0; padding:0;
+}
+.path-info > ul > li{
+    float: left; 
+    padding: 10px; 
+    font-size: 11px; 
+    text-align: center; 
+    font-weight: 700; 
+    border: 1px solid #F0EFE1;
+}
+.path-info > ul > li:first-of-type{
+    width: 80px; 
+    color: #DEB98B; 
+}
+.path-info > ul > li:nth-of-type(2){
+    width: 150px;
+}
+.path-info > ul > li:last-of-type{
+    width: 200px;
+}
