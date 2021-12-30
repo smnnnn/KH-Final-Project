@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+    <!-- swiper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    
+    <title>다나은 동물병원</title>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header id="header">
+        <div class="header-container">
+            <!-- 로그인 -->
+            <div class="homemenu">
+                <!-- 로그인 안한 경우 -->
+                <ul class="nologin">
+                    <a href="#">HOME</a>
+                    <a href="#">로그인</a>
+                    <a href="#">회원가입</a>
+                </ul>
+                <!-- 로그인 한 경우 -->
+                <ul class="userlogin" style="display: none;">
+                    <a href="#">HOME</a>
+                    <a href="#">로그아웃</a>
+                    <a href="#">마이페이지</a>
+                </ul>
+            </div>
+            <div class="main-menu">
+                <!-- 로고 -->
+                <div class="logo">
+                    <a href="#">
+                        <img src="/images/common/logo.png"></img>
+                    </a>
+                </div>
+                <!-- 메인 메뉴 -->
+                <div class="menulist">
+                    <ul>
+                        <li><a href="#">병원소개</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">병원 소개</a></li>
+                                <li><a href="#">의료진 소개</a></li>
+                                <li><a href="#">의료 장비 소개</a></li>
+                                <li><a href="#">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">진료안내</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">진료 안내</a></li>
+                                <li><a href="#">진료 과목</a></li>
+                                <li><a href="#">진료 예약</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">고객센터</a></li>
+                        <li><a href="#">치료후기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 공지 팝업 -->
+
+    <!-- 메인이미지 슬라이더 -->
+    <!-- Slider main container -->
+    <div class="swiper myswiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+                <img src="/images/nh/main_img1.png">
+                <div class="swiper-caption caption1 fade-in-box">
+                    <h1><strong>People & Pets Together</strong></h1>
+                    <h3>다나은 동물병원은 반려동물과 보호자가 함께하는 건강하고 행복한 삶을 위해 노력합니다.</h3>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="/images/nh/main_img2.png">
+                <div class="swiper-caption caption2 fade-in-box">
+                    <h1><strong>Enriching Pet's Life</strong></h1>
+                    <h3>반려동물의 삶의 질을 향상시킬 수 있도록 전문적인 치료를 제공합니다.</h3>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="/images/nh/main_img3.png">
+                <div class="swiper-caption caption3 fade-in-box">
+                    <h1><strong>최고의 의료진, 전문적인 진료서비스</strong></h1>
+                    <h3>최신식 의료장비를 갖추어 정확한 진단을 통해 반려동물의 건강한 삶에 도움을 드립니다.</h3>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+        
+    </div>
+
+    <!-- 내용 부분 -->
+    <div id="main">
+        <!-- 사이드 메뉴 -->
+        <div id="main-sidemenu">       
+        </div>
+        <!-- 내용 표시 부분 -->
+        <div id="main-content">
+            <h2>다나은 동물병원 진료과목 안내</h2>
+            <div class="department-wrap">
+                <div class="department">
+                    <div class="dep-img"><img src="/images/nh/department of internal.png"></div>
+                    <div class="dep-text">내과</div>
+                </div>
+                <div class="department">
+                    <div class="dep-img"><img src="/images/nh/department of surgery.png"></div>
+                    <div class="dep-text">외과</div>
+                </div>
+                <div class="department">
+                    <div class="dep-img"><img src="/images/nh/department of ophthalmology.png"></div>
+                    <div class="dep-text">안과</div>
+                </div>
+                <div class="department">
+                    <div class="dep-img"><img src="/images/nh/orthopedics.png"></div>
+                    <div class="dep-text">정형외과</div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="time-info-wrap">
+                    <h3>진료 시간 안내</h3>
+                    <div class="time-info">
+                        <div class="time-left">
+                            <p>TEL 1544-9970</p>
+                            <p>공휴일 휴무</p>
+                        </div>
+                        <div class="time-right">
+                            <ul>
+                                <li>
+                                    <span class="time-ele">월 - 금</span>
+                                    <span class="time-ele">10:00 - 18:00</span>
+                                </li>
+                                <li>
+                                    <span class="time-ele">토 - 일</span>
+                                    <span class="time-ele">10:00 - 17:00</span>
+                                </li>
+                                <li>
+                                    <span class="time-ele">점심시간</span>
+                                    <span class="time-ele">13:00 - 14:00</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="address-info">
+                    <h3>오시는 길</h3>
+                    <span class="addressinfo">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</span><br>
+                    <div class="button btn-5 address-btn" type="button">자세히 보기</div>
+                </div>
+            </div>
+           
+        </div>
+        <!-- 빠른 메뉴 부분 -->
+        <div id="aside">
+            <div class="quick-menu">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="/images/common/inquiry.png">
+                            <p>문의하기</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="/images/common/medical device.png">
+                            <p>의료 장비</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="/images/common/way to come.png">
+                            <p>오시는 길</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="move-to-top">
+                <a href="#"><img src="/images/common/arrow.png"></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="flogo">
+                <img src="/images/common/logo2.png">
+            </div>
+            <div class="finfo">
+                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                TEL 1544-9970 <br>
+                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const swiper = new Swiper('.myswiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            // 페이드효과
+            effect : 'fade',
+            // 무한루프
+            loop: true,
+            // 자동재생
+            autoplay: {
+                delay: 4000,
+            },
+            // Navigation arrows
+            navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+            },
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        
+        });
+    </script>
+
+</body>
+</html>
