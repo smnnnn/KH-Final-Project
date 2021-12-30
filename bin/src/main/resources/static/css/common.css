@@ -18,8 +18,6 @@ ul li{
     border-bottom: 5px solid #F0EFE1; 
     background-color: #fff; 
     z-index: 1;
-    z-index: 999;
-    position: fixed;
 }
 .fixed{
     position: fixed; 
@@ -47,6 +45,18 @@ ul li{
     font-weight: bold;
 }
 
+
+
+/* 수정한 부분 */
+#header .main-menu{
+    /* display:table; 
+    width:100%; */
+}
+/* #header .main-menu .logo, .menulist{
+    display:table-cell; 
+    vertical-align:middle;
+    text-align: center; 
+} */
 .main-menu {
     display: grid;
     grid-template-columns : 2fr 12fr 2fr;
@@ -62,11 +72,18 @@ ul li{
     margin-bottom: 30px;
 }
 
+
+
+
+
+
+
 #header .main-menu img{
     width:150px; 
     height:80px; 
     padding-left:100px; 
 }
+
 
 #header .main-menu .menulist > ul > li{
     display:inline-block; 
@@ -261,63 +278,4 @@ ul li{
 }
 .path-info > ul > li:last-of-type{
     width: 200px;
-}
-
-/* 버튼 - 활성화 */
-
-#type_btn{
-    width: 150px;
-    height: 40px;
-    margin-right: 2%;
-    background-color: rgba(133, 177, 214, 1);
-    color: white;
-    font-weight:bolder;
-    border : 0;
-    border-radius: 5px;
-    box-shadow: 1px 1px 1px 1px gray;
-    transition-duration: 0.3s;
-}
-
-#type_btn:hover{
-    color: rgba(133, 177, 214, 1);
-    background-color: white;
-    border : solid 1px rgba(133, 177, 214, 1);
-}
-
-#type_btn:active {
-    box-shadow : none;
-    border-radius: 5px;
-}
-
-
-/* 버튼 - 비활성화 */
-
-#type_btn_disabled {
-    margin : auto;
-    display: block;
-    background-color: rgb(218, 214, 214);
-    color: white;
-    width: 300px;
-    height: 40px;
-    margin-right: 2%;
-    font-weight:bolder;
-    border : 0;
-    border-radius: 5px;
-}
-
-/* 테이블 */
-
-table {
-    width: 800px;
-    border-collapse: collapse;
-    border: 2px solid rgba(133, 177, 214, 1);
-}
-
-th, td {
-    border-bottom: 1px solid rgba(133, 177, 214, 1);
-    padding: 1%;
-}
-
-tbody tr td {
-    text-align: center;
 }

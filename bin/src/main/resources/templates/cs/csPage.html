@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>csMain</title>
+     <!-- 공통 css -->
+     <!-- <link type="text/css" rel="stylesheet" href="../resources/css/common.css"> -->
+     <link type="text/css" rel="stylesheet" href="../../static/css/common.css">
+     <!--font-->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200;400&display=swap" rel="stylesheet">
+     <!-- jquery-->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <!-- 메인 스크립트-->
+     <script type="text/javascript" src="../resources/js/common.js"></script>
+
+    <style>
+
+        .board.content {
+            min-width: 800px;
+            width: 1200px;
+            margin: 0px auto;
+            /*text-align: center;*/
+            margin-bottom: 200px;
+            margin-top:100px;
+            
+        }
+
+        #qaTitle {
+            border-bottom: 4px solid #85B1D6;
+            width: 130px;
+            margin-bottom: 140px;
+        }
+
+
+        .side{
+            display: inline-block;
+        
+            width: 440px;
+            margin: 2.7px;
+            height: 100%;
+            padding: 2px;
+            padding-left: 120px;
+            font-size: 24px;
+            font-weight: bold;
+            height: 100%;
+            /* vertical-align은 다른 인라인 요소에 상대적으로 정렬한다. 
+                그 상대적 정렬 기준역활을 하는 helper클래스를 이용했다. */
+            vertical-align: top;
+
+
+        }
+
+        .contentWrap {
+            margin: 0px auto;
+            margin-top: 20px;
+           /* height: 650px;*/
+            height:100%
+        }
+        
+        /* 아코디언 박스 */
+        ul{list-style: none;}
+
+        .accordion-box{
+            width: 100%; max-width: 600px;
+           /*margin:  0 auto;*/
+            margin-bottom: 100px;
+        }
+        p.title{
+            width: 100%;  
+            line-height: 40px; 
+            /* background: rgba(240, 239, 225, 0.44); */
+            /* background: rgba(249, 249, 229, 0.4); */
+            /* background: rgba(249, 249, 229, 0.352); */
+            /* background: #F2EDD7; */
+            /* background: #FEFEFE; */
+            background: #FCF6F5;
+            color: black; 
+            box-sizing: border-box;
+            padding: 3px 10px;
+            font-size: 15px;
+            border-bottom: 1px solid #C4C4C4;
+            /* border-bottom: 1px solid #c6c5c5; */
+            /* border-bottom: 1px solid #755139; */
+            margin: 0px;
+        }
+        .con{
+            padding: 20px; 
+            display:none;
+            font-size: 13px;
+            text-align: right;
+            /* background: #7b9acc16; */
+            
+        }
+
+        /* .footer{
+            width: 100%;
+            height: 115px;
+            background-color: rgba(240, 239, 225, 1);
+            position: absolute;
+            margin: 0;
+        } */
+
+        .qnaImage {
+            margin: 80px;
+            width: 420px;
+        }
+
+        .fontSet {
+            font-weight: bolder;
+            /* font-size: 14px;
+            text-decoration-line: none; */
+            color: saddlebrown;
+        }
+
+    </style>
+</head>
+<body>
+ <!-- 헤더 -->
+ <header id="header">
+    <div class="header-container">
+        <!-- 로그인 -->
+        <div class="homemenu">
+            <!-- 로그인 안한 경우 -->
+            <ul class="nologin">
+                <a href="#">HOME</a>
+                <a href="#">로그인</a>
+                <a href="#">회원가입</a>
+            </ul>
+            <!-- 로그인 한 경우 -->
+            <ul class="userlogin" style="display: none;">
+                <a href="#">HOME</a>
+                <a href="#">로그아웃</a>
+                <a href="#">마이페이지</a>
+            </ul>
+        </div>
+        <div class="main-menu">
+            <!-- 로고 -->
+            <div class="logo">
+                <a href="#">
+                    <!-- <img src="../resources/images/common/logo.png"></img>-->
+                    <img src="../../static/images/common.logo.png"></img>
+                </a>
+            </div>
+            <!-- 메인 메뉴 -->
+            <div class="menulist">
+                <ul>
+                    <li><a href="#">병원소개</a>
+                        <ul class="sub-menulist">
+                            <li><a href="#">병원 소개</a></li>
+                            <li><a href="#">의료진 소개</a></li>
+                            <li><a href="#">의료 장비 소개</a></li>
+                            <li><a href="#">오시는 길</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">진료안내</a>
+                        <ul class="sub-menulist">
+                            <li><a href="#">진료 안내</a></li>
+                            <li><a href="#">진료 과목</a></li>
+                            <li><a href="#">진료 예약</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">고객센터</a></li>
+                    <li><a href="#">치료후기</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- 내용 부분 -->
+    <div id="main">
+       
+        <!-- 내용 표시 부분 -->
+        <div class="board content">
+            <div class="contentWrap">
+                <div class="side">
+                    <div id="qaTitle">자주묻는질문</div>
+                    <div class="accordian-box">
+                        <ul class="list">
+                            <li>
+                                <p class="title"> Q. 다나은 동물병원을 선택해야 하는 이유는 무엇인가요?</p>
+                                <div class="con">A.다나은 동물병원을 선택해야하는 이유입니다.<br><br>        
+                                    &nbsp&nbsp<a class="fontSet" href="#의료진 소개 페이지">[최고의 의료진]</a><br>
+                                    &nbsp&nbsp<a class="fontSet" href="#의료 장비 페이지">[탄탄한 최신 의료장비]</a><br>
+                                    &nbsp&nbsp<a class="fontSet" href="#진료예약 페이지">[간편한 예약 서비스]</a><br>
+                                </div>
+                            </li>
+                            <li>
+                                <p class="title">Q. 정형외과, 신경외과 외 다른 진료도 가능한가요?</p>
+                                <div class="con">A. 다나은 정형외과 신경외과 동물병원은 다양한 근골격계, 관절, 척추, <br>
+                                    신경계 질환에 대한 특화진료를 하는 국내 최초의 동물병원입니다.<br><br>
+                                    하지만, 정형외과/신경외과 외에도 각종 외상 및 일반 외과수술에 대해서<br>
+                                    도 전문적인 실력을 보유하고 있습니다. <br><br>
+                                    그밖에도 다양한 질환에 대한 검진과 종합건강검진 서비스도 있으니,<br>
+                                    자세한 내용은 홈페이지의 <a class="fontSet" href="#진료 안내 페이지">“진료안내(클릭)” </a>항목을 참고해주세요.</div>
+                            </li>
+                            <li>
+                                <p class="title">Q. 수술이나 재활치료 비용은 어떻게 되나요?</p>
+                                <div class="con">A. 수술이나 재활치료 비용은 환자의 상태, 질병의 종류, 적용되는 수술이나<br>
+                                    치료방법 등에 따라 담당 주치의 선생님의 판단에 의해 결정됩니다. <br><br>
+                                    처음 내원하시는 경우 예약시 간단하게 상태를 말씀해주시고
+                                    내원하시어 진료 상담을 받아보시기 바랍니다.</div>
+                            </li>
+                            <li>
+                                <p class="title">Q. 예약은 어떻게 하나요?</p>
+                                <div class="con">A.<a class="fontSet" href="#진료 예약 페이지"> [진료 예약 페이지]</a>로 이동</div>
+                            </li>
+                            <li>
+                                <p class="title">Q. 운영 시간이 어떻게 되나요?</p>
+                                <div class="con">
+                                    A. 다나은 동물병원 진료 시간 안내입니다.
+                                     <pre>
+                                              
+                                        평일 : 10:00 ~ 18:00 <br>     토요일 : 10:00 ~ 13:00<br>     일요일 및 공휴일 : 휴진</pre>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="side">
+                    <div id="goQna">문의게시판 이동</div>
+                    <div><a href="QABoard.html"><img class="qnaImage" src="../resources/images/sm/qa.png"></a></div>
+
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <!-- 푸터 -->
+    <!-- <footer id="footer">
+        <div class="footer_container footer">
+       
+        </div>
+    </footer> -->
+
+    <!-- 푸터 -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="flogo">
+                <img src="../resources/images/common/logo2.png">
+            </div>
+            <div class="finfo">
+                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                TEL 1544-9970 <br>
+                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+
+        $("p.title").on('click',function(){
+        $(this).next(".con").slideToggle(100);
+        });
+     </script>
+ 
+
+</body>
+</html>

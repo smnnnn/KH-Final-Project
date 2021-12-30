@@ -1,12 +1,15 @@
 // 헤더의 메뉴바
 $(document).ready(function(){
-    $('.menulist > ul > li').mouseenter(function(){
-        $(this).children('.sub-menulist').stop().slideDown();
+    $(".menulist > ul > li").mouseover(function(){
+        $(".sub-menulist").removeClass("dropon");
+
+        if(!$(this).children(".sub-menulist").attr("dropon")){
+            $(this).children(".sub-menulist").addClass("dropon");
+        } 
+        $(this).children(".sub-menulist").mouseleave(function(){
+            $(".sub-menulist").removeClass("dropon");
+        });
     });
-    $('.menulist > ul > li').mouseleave(function(){
-        $(this).children('.sub-menulist').stop().slideUp();
-    });
-    
 });
 
 // 스크롤
@@ -61,12 +64,16 @@ $(function(){
 });
 
 // 관리자 계정
-$(function(){
-    $(".admin-nameinfo").mouseenter(function(){
-        $(".sub-menulist2").stop().slideDown();       
-    });
+$(document).ready(function(){
+    $(".admin-nameinfo > span:first-of-type").mouseover(function(){
+        
+        $(".sub-menulist2").removeClass("dropon");
 
-    $(".admin-nameinfo").mouseleave(function(){
-        $(".sub-menulist2").stop().slideUp();
+        if(!$(".sub-menulist2").attr("dropon")){
+            $(".sub-menulist2").addClass("dropon");
+        } 
+        $(".sub-menulist2").mouseleave(function(){
+            $(".sub-menulist2").removeClass("dropon");
+        });
     });
 });
