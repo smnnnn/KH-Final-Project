@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../resources/js/common.js"></script>
+    <script type="text/javascript" src="../resources/js/he.js"></script>
+    
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="../resources/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/he.css">
+    <!-- common css-->
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    
+    <title>다나은 동물병원</title>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header id="header">
+        <div class="header-container">
+            <!-- 로그인 -->
+            <div class="homemenu">
+                <!-- 로그인 안한 경우 -->
+                <ul class="nologin">
+                    <a href="#">HOME</a>
+                    <a href="#">로그인</a>
+                    <a href="#">회원가입</a>
+                </ul>
+                <!-- 로그인 한 경우 -->
+                <ul class="userlogin" style="display: none;">
+                    <a href="#">HOME</a>
+                    <a href="#">로그아웃</a>
+                    <a href="#">마이페이지</a>
+                </ul>
+            </div>
+            <div class="main-menu">
+                <!-- 로고 -->
+                <div class="logo">
+                    <a href="#">
+                        <img src="../resources/images/common/logo.png"></img>
+                    </a>
+                </div>
+                <!-- 메인 메뉴 -->
+                <div class="menulist">
+                    <ul>
+                        <li><a href="#">병원소개</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">병원 소개</a></li>
+                                <li><a href="#">의료진 소개</a></li>
+                                <li><a href="#">의료 장비 소개</a></li>
+                                <li><a href="#">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">진료안내</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">진료 안내</a></li>
+                                <li><a href="#">진료 과목</a></li>
+                                <li><a href="#">진료 예약</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">고객센터</a></li>
+                        <li><a href="#">치료후기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 내용 부분 -->
+    <div id="main">
+        <!-- 사이드 메뉴 -->
+        <div id="side-menu"> 
+            <div class="sidenav">
+                <ul>
+                    <li><a href="#">진료 안내</a></li>
+                    <li><a href="#">진료 과목</a></li>
+                    <li class="li-active"><a href="#">진료 예약</a></li>
+                </ul>      
+            </div>
+        </div>
+        <!-- 내용 표시 부분 -->
+        <div id="content" class="reservation_content">
+            <!-- 현재 페이지 경로 표시 -->
+            <div class="path-info">
+                <ul>
+                    <li>HOME</li>
+                    <li>진료 안내</li>
+                    <li>진료 예약</li>
+                </ul>
+            </div>
+            <form>
+
+
+                <div class="reser_content">
+                    <div class="con_title">
+                        예약 정보 입력
+                    </div>
+                    <div id="title_line"></div><br>
+                    <span>예약자</span>
+                    <div class="username">
+                        나견주, 01012345678
+                    </div><br>
+                    <div class="reservation_form_content">
+                        <span>동물명*</span>
+                        <label id="dog_info_chk"><input type="checkbox" value="dog">등록된 동물 정보 가져오기</label>
+                        <br>
+                        <div class="text_input">
+                            <input type="text" id="dog_name" name="dog_name" required>
+                        </div>
+                        <br>
+                        <span>견종</span>
+                        <br>
+                        <div class="text_input">
+                            <input type="text" id="dog_breed" name="dog_breed">
+                        </div>
+                        <br>
+                        <span>성별*</span>
+                        <br>
+                        <select id="box_select" name="dog_gender" required>
+                            <option value="암컷">암컷</option>
+                            <option value="수컷">수컷</option>
+                        </select>
+                        <br><br>
+                        <span>나이</span>
+                        <br>
+                        <div class="text_input">
+                            <input type="number" id="dog_age" name="dog_age" placeholder="숫자로만 입력이 가능합니다.">
+                        </div>
+                        <br>
+                        <span>증상 및 요청</span><br>
+                        <div class="areaDiv">
+                            <textarea class="requestArea" id="request" placeholder="200자 이내만 입력이 가능합니다."></textarea>
+                            <span class="charCnt"><em>0</em>/200</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="agreement">
+                    <div class="con_title">
+                        개인정보 이용 동의
+                    </div>
+                    <div id="title_line"></div><br>
+                    <div id="agree_content">
+                        <br><br>
+                        <dl>
+                            <h3>개인정보 수집, 이용에 대한 동의(개인정보보호법 제15조)</h3> 
+                        </dl><br>
+                        <dl>
+                            <dt><h4>개인정보 수집 항목</h4></dt>
+                            <dd>성명, 홈페이지 ID, 동물정보</dd>
+                        </dl><br>
+                        <dl>
+                            <dt><h4>수집 및 이용목적</h4></dt>
+                            <dd>진료를 위한 회원정보, 동물정보</dd>
+                        </dl><br>
+                        <dl>
+                            <dt><h4>보유 및 이용기간</h4></dt>
+                            <dd>수집된 개인정보의 보유기간은 개인정보 제출 후 준영구 또는 개인정보 삭제 신청 시까지입니다. <br>
+                                삭제 요청시 다나은 동물병원은 개인의 정보를 재생이 불가능한 방법으로 즉시 파기합니다.
+                            </dd>
+                            <span>※ 귀하는 이에 대한 동의를 거부할 권리가 있으며, 다만 동의를 거부하실 경우 이와 관련된 업무 진행에 제약이 따를 수 있음을 알려드립니다.</span>
+                        </dl><br>
+                        <label><input type="checkbox" id="agree_chk" value="agree" required>약관에 동의합니다.</label>
+                        <br><br><br>
+                        <div  class="reservation_btn">
+                            <button type="submit" id="type_btn" onclick="reservation()">예약 신청</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <script>
+            // textArea 글자수 체크
+	        $('#request').on('keyup', function() {
+	            $('.charCnt').text(+$(this).val().length+"/200");
+	    
+	            if($(this).val().length > 200) {
+	                $(this).val($(this).val().substring(0, 200));
+	                $('.charCnt').text("200/200");
+	            }
+	        });           
+        </script>
+
+        <!-- 빠른 메뉴 부분 -->
+        <div id="aside">
+            <div class="quick-menu">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/inquiry.png">
+                            <p>문의하기</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/medical device.png">
+                            <p>의료 장비</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/way to come.png">
+                            <p>오시는 길</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="move-to-top">
+                <a href="#"><img src="../resources/images/common/arrow.png"></a>
+            </div>
+        </div>
+    </div>
+    <!-- 푸터 -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="flogo">
+                <img src="../resources/images/common/logo2.png">
+            </div>
+            <div class="finfo">
+                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                TEL 1544-9970 <br>
+                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+</html>

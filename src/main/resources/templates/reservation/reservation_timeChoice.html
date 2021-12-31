@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../resources/js/common.js"></script>
-    <!-- 공통 css -->
-    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    
     <!-- 나현 css (메인, 관리자)-->
     <link type="text/css" rel="stylesheet" href="../resources/css/nh.css">
-    <!-- 효은 css -->
     <link type="text/css" rel="stylesheet" href="../resources/css/he.css">
+    <!-- common css-->
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
     
     <title>다나은 동물병원</title>
 </head>
@@ -69,13 +69,13 @@
 
     <!-- 내용 부분 -->
     <div id="main">
-       <!-- 사이드 메뉴 -->
+        <!-- 사이드 메뉴 -->
        <div id="side-menu"> 
         <div class="sidenav">
             <ul>
-                <li class="li-active"><a href="#">진료 안내</a></li>
+                <li><a href="#">진료 안내</a></li>
                 <li><a href="#">진료 과목</a></li>
-                <li><a href="#">진료 예약</a></li>
+                <li class="li-active"><a href="#">진료 예약</a></li>
             </ul>      
         </div>
         </div>
@@ -86,64 +86,65 @@
                 <ul>
                     <li>HOME</li>
                     <li>진료 안내</li>
-                    <li>진료 안내</li>
+                    <li>진료 예약</li>
                 </ul>
             </div><br><br><br>
-            <div class="content_detail">
+            <div class="calendar_content">
                 <div class="con_title">
-                    진료 안내
+                    진료 날짜
                 </div>
                 <div id="title_line"></div><br>
-                <p>
-                원활한 진료를 위해 예약진료를 실시하고 있습니다.<br><br>
+                <div class="reser_date">
+                    <div class="calendar">
     
-                전화 예약 : 02-1544-9970<br>
-                온라인 예약 : 좌측에 ‘진료 예약’ 메뉴 이용<br><br>
-                    
-                평일 : 10:00 ~ 18:00<br>
-                주말 : 10:00 ~ 17:00<br>
-                점심시간: 매일 13:00~14:00<br>
-                공휴일 : 휴진<br>
-                진료 과목 별 휴진일 : <br><br>
-                <table id="table_rest">
+                        
+                    </div>
+                    <div class="quickDiv">
+                        <input type="button" id="type_btn" class="quick" value="빠른예약">
+                    </div>
+                </div>
+            </div><br><br><br><br><br>
+            
+            <div class="time_content">
+                <div class="con_title">
+                    진료 시간
+                </div>
+                <div id="title_line"></div><br>
+                <table class="time_table">
                     <colgroup>
-                        <col width="25%">
-                        <col width="25%">
-                        <col width="25%">
-                        <col width="25%">
+                        <col style="width: 25%;">
+                        <col style="width: 25%;">
+                        <col style="width: 25%;">
+                        <col style="width: 25%;">
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>내과</th>
-                            <th>외과</th>
-                            <th>안과</th>
-                            <th>정형외과</th>
+                            <th>진료 과목</th>
+                            <th>담당의</th>
+                            <th>진료일</th>
+                            <th>진료 시간</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>월</td>
-                            <td>화</td>
-                            <td>수</td>
-                            <td>목</td>
+                            <td>내과</td>
+                            <td>김소민</td>
+                            <td>2021.12.30</td>
+                            <td>
+                                <select id="reser_time">
+                                    <option value="10:00">10:00~11:00</option>
+                                    <option value="11:00">11:00~12:00</option>
+                                    <option value="12:00">12:00~13:00</option>
+                                    <option value="14:00">14:00~15:00</option>
+                                    <option value="15:00">15:00~16:00</option>
+                                    <option value="16:00">16:00~17:00</option>
+                                    <option value="17:00">17:00~18:00</option>
+                                </select>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-                </p><br><br><br><br><br>
-            </div>
-            
-            <div class="content_detail">
-                <div class="con_title">
-                    유의사항
-                </div>
-                <div id="title_line"></div><br>
-                <p>
-                    * 내원 전, 전화 또는 홈페이지로 사전 예약해 주시기 바랍니다.<br>
-                    * 진료는 예약제로 운영됩니다.<br>
-                    * 사전 예약은 최소 2일 전 예약을 원칙으로 합니다.<br>
-                    * 예약 취소는 예약된 진료일 2일 전까지 가능합니다.<br>
-                    * 법정공휴일은 휴진이며 해당 과 담당의의 스케줄에 따라 요청된 날짜에 진료가 불가능  할 수 있습니다.<br>
-                </p>
+                
             </div>
         </div>
         <!-- 빠른 메뉴 부분 -->
@@ -188,6 +189,7 @@
             </div>
         </div>
     </footer>
+
 
 </body>
 </html>
