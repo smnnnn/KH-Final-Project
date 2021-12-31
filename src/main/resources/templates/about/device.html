@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+
+    <title>의료 장비 소개</title>
+</head>	
+ <div th:replace="fragments/header.html"></div>
+ 
+     <!-- 내용 부분 -->
+    <div id="main">
+        <!-- 사이드 메뉴 -->
+        <div id="side-menu"> 
+            <div class="sidenav">
+                <ul>
+                    <li><a href="#">병원 소개</a></li>
+                    <li><a href="#">의료진 소개</a></li>
+                    <li class="li-active"><a href="#">의료 장비 소개</a></li>
+                    <li><a href="#">오시는 길</a></li>
+                </ul>      
+            </div>
+        </div>
+        <!-- 내용 표시 부분 -->
+        <div id="content">
+            <!-- 현재 페이지 경로 표시 -->
+            <div class="path-info">
+                <ul>
+                    <li>HOME</li>
+                    <li>병원 소개</li>
+                    <li>의료 장비 소개</li>
+                </ul>
+            </div>
+            <br>
+           <div class="hospital-info">
+                <div class="info-title">의료 장비 소개</div>
+                <div class="info-subtitle vdevice">철저한 감염관리와 반려동물 환자의 안락한 치료를 위해 설계되었으며,
+                    최첨단 장비와 시설에 과감한 투자를 통해 최고의 치료 환경을 제공합니다.</div>
+                <div class="vdevice-info-box">
+                    <div class="vdevice-info-btn">
+                        <ul class="vdevice-select">
+                            <!-- click하면 ajax로 해당 장비들 아래에 표시. class속성에 vde-active 추가(아닌경우 제거)-->
+                            <li class="vdevice-subject vde-active">영상장비</li>
+                            <li class="vdevice-subject">정형외과</li>
+                            <li class="vdevice-subject">내과</li>
+                            <li class="vdevice-subject">외과</li>
+                            <li class="vdevice-subject">안과</li>
+                        </ul>
+                    </div>
+                    <div class="vdevice-list">
+                        <div class="vdevice-tb-row">
+                            <div class="vdevice-img">
+                                <img src="../resources/images/nh/device/CT.png">
+                            </div>
+                            <div class="vdevice-info">
+                                <div class="vdevice-name">
+                                    <h3 class="vd-name">CT
+                                        <span class="vd-model">GE light speed plus</span>
+                                    </h3>
+                                </div>
+                                <div class="vdevice-content">
+                                    신체에 방사선을 연속적으로 투과 시킴으로써 얻어지는 다수의 단층영상을 통해 진단하는 검사장비.
+                                    연속되는 다수의 단층영상을 통해 신체의 모든 부위를 겹침 없이 영상화함으로써 신체 전반의 보다 
+                                    정확한 해부학적 구조 및 병변을 평가할 수 있습니다.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vdevice-tb-row">
+                            <div class="vdevice-img">
+                                <img src="../resources/images/nh/device/x-ray.png">
+                            </div>
+                            <div class="vdevice-info">
+                                <div class="vdevice-name">
+                                    <h3 class="vd-name">X-RAY
+                                        <span class="vd-model">comed titan 2000v</span>
+                                    </h3>
+                                </div>
+                                <div class="vdevice-content">
+                                    방사선을 신체에 투과시켜 얻어지는 영상을 통해 진단하는 검사 장비. 두개골, 척추, 사지 골격과 관절
+                                    등의 병변 뿐 아니라 심장과 폐 그리고 간담도계, 소화기계, 비뇨기계 등 흉강 및 복강 내 장기의 
+                                    이상유무를 전반적으로 확인할 수 있으며, 조영 촬영을 통해 비뇨기계 및 소화기계의 보다 정밀한 
+                                    검사가 가능합니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+        <!-- 빠른 메뉴 부분 -->
+        <div id="aside">
+            <div class="quick-menu">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/inquiry.png">
+                            <p>문의하기</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/medical device.png">
+                            <p>의료 장비</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/way to come.png">
+                            <p>오시는 길</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="move-to-top">
+                <a href="#"><img src="../resources/images/common/arrow.png"></a>
+            </div>
+        </div>
+    </div>
+ 
+ <div th:replace="fragments/footer.html"></div>
+</html>
