@@ -1,71 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="../resources/js/common.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet"> 
     <!-- 공통 css -->
     <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
     <!-- 나현 css (메인, 관리자)-->
     <link type="text/css" rel="stylesheet" href="../resources/css/nh.css">
     <!-- 효은 css -->
     <link type="text/css" rel="stylesheet" href="../resources/css/he.css">
+    <!-- 공통 js -->
+    <script type="text/javascript" src="../resources/js/common.js"></script>
     
     <title>다나은 동물병원</title>
 </head>
 <body>
-    <!-- 헤더 -->
-    <header id="header">
-        <div class="header-container">
-            <!-- 로그인 -->
-            <div class="homemenu">
-                <!-- 로그인 안한 경우 -->
-                <ul class="nologin">
-                    <a href="#">HOME</a>
-                    <a href="#">로그인</a>
-                    <a href="#">회원가입</a>
-                </ul>
-                <!-- 로그인 한 경우 -->
-                <ul class="userlogin" style="display: none;">
-                    <a href="#">HOME</a>
-                    <a href="#">로그아웃</a>
-                    <a href="#">마이페이지</a>
-                </ul>
-            </div>
-            <div class="main-menu">
-                <!-- 로고 -->
-                <div class="logo">
-                    <a href="#">
-                        <img src="../resources/images/common/logo.png"></img>
-                    </a>
-                </div>
-                <!-- 메인 메뉴 -->
-                <div class="menulist">
-                    <ul>
-                        <li><a href="#">병원소개</a>
-                            <ul class="sub-menulist">
-                                <li><a href="#">병원 소개</a></li>
-                                <li><a href="#">의료진 소개</a></li>
-                                <li><a href="#">의료 장비 소개</a></li>
-                                <li><a href="#">오시는 길</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">진료안내</a>
-                            <ul class="sub-menulist">
-                                <li><a href="#">진료 안내</a></li>
-                                <li><a href="#">진료 과목</a></li>
-                                <li><a href="#">진료 예약</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">고객센터</a></li>
-                        <li><a href="#">치료후기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
+<div th:replace="fragments/header.html"></div>
 
     <!-- 내용 부분 -->
     <div id="main">
@@ -175,19 +129,8 @@
             </div>
         </div>
     </div>
+    
     <!-- 푸터 -->
-    <footer id="footer">
-        <div class="footer-container">
-            <div class="flogo">
-                <img src="../resources/images/common/logo2.png">
-            </div>
-            <div class="finfo">
-                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
-                TEL 1544-9970 <br>
-                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
-            </div>
-        </div>
-    </footer>
-
+    <div th:replace="fragments/footer.html"></div>
 </body>
 </html>
