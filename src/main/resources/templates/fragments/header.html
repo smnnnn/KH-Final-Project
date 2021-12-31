@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+    <!-- swiper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    
+    <title>다나은 동물병원</title>
+</head>	
+<body>
+    <!-- 헤더 -->
+    <header id="mainheader">
+        <div class="header-container">
+            <!-- 로그인 -->
+            <div class="homemenu">
+                <!-- 로그인 안한 경우 -->
+                <ul class="nologin">
+                    <a href="#">HOME</a>
+                    <a href="#">로그인</a>
+                    <a href="#">회원가입</a>
+                </ul>
+                <!-- 로그인 한 경우 -->
+                <ul class="userlogin" style="display: none;">
+                    <a href="#">HOME</a>
+                    <a href="#">로그아웃</a>
+                    <a href="#">마이페이지</a>
+                </ul>
+            </div>
+            <div class="main-menu">
+                <!-- 로고 -->
+                <div class="logo">
+                    <a href="#">
+                        <img src="/images/common/logo.png"></img>
+                    </a>
+                </div>
+                <!-- 메인 메뉴 -->
+                <div class="menulist">
+                    <ul>
+                        <li><a href="#">병원소개</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">병원 소개</a></li>
+                                <li><a href="#">의료진 소개</a></li>
+                                <li><a href="#">의료 장비 소개</a></li>
+                                <li><a href="#">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">진료안내</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">진료 안내</a></li>
+                                <li><a href="#">진료 과목</a></li>
+                                <li><a href="#">진료 예약</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">고객센터</a></li>
+                        <li><a href="#">치료후기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
