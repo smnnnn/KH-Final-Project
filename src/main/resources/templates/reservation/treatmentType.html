@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../resources/js/common.js"></script>
+    
+    <!-- common css-->
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="../resources/css/nh.css">
+    <!-- 효은 css -->
+    <link type="text/css" rel="stylesheet" href="../resources/css/he.css">
+    
+    <title>다나은 동물병원</title>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header id="header">
+        <div class="header-container">
+            <!-- 로그인 -->
+            <div class="homemenu">
+                <!-- 로그인 안한 경우 -->
+                <ul class="nologin">
+                    <a href="#">HOME</a>
+                    <a href="#">로그인</a>
+                    <a href="#">회원가입</a>
+                </ul>
+                <!-- 로그인 한 경우 -->
+                <ul class="userlogin" style="display: none;">
+                    <a href="#">HOME</a>
+                    <a href="#">로그아웃</a>
+                    <a href="#">마이페이지</a>
+                </ul>
+            </div>
+            <div class="main-menu">
+                <!-- 로고 -->
+                <div class="logo">
+                    <a href="#">
+                        <img src="../resources/images/common/logo.png"></img>
+                    </a>
+                </div>
+                <!-- 메인 메뉴 -->
+                <div class="menulist">
+                    <ul>
+                        <li><a href="#">병원소개</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">병원 소개</a></li>
+                                <li><a href="#">의료진 소개</a></li>
+                                <li><a href="#">의료 장비 소개</a></li>
+                                <li><a href="#">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">진료안내</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">진료 안내</a></li>
+                                <li><a href="#">진료 과목</a></li>
+                                <li><a href="#">진료 예약</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">고객센터</a></li>
+                        <li><a href="#">치료후기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 내용 부분 -->
+    <div id="main">
+        <!-- 사이드 메뉴 -->
+        <div id="side-menu"> 
+            <div class="sidenav">
+                <ul>
+                    <li><a href="#">진료 안내</a></li>
+                    <li class="li-active"><a href="#">진료 과목</a></li>
+                    <li><a href="#">진료 예약</a></li>
+                </ul>      
+            </div>
+        </div>
+       
+        <!-- 내용 표시 부분 -->
+        <div id="content">
+            <!-- 현재 페이지 경로 표시 -->
+            <div class="path-info">
+                <ul>
+                    <li>HOME</li>
+                    <li>진료 안내</li>
+                    <li>진료 과목</li>
+                </ul>
+            </div> <br><br><br>
+            <div class="content_detail">
+                <div class="con_title">
+                    진료 과목
+                </div>
+                <div id="title_line"></div><br>
+                <p>
+                    다나은 동물병원에서는 <a href="#medicine" id="inside_link">내과</a>, <a href="#surgery" id="inside_link">외과</a>, 
+                                        <a href="#Ophthalmology" id="inside_link">안과</a>, <a href="#Orthopedics" id="inside_link">정형외과</a> 진료를 실시하고 있습니다.
+                </p><br><br><br><br><br>
+            </div>
+            
+            <div class="content_detail">
+                <div class="con_title">
+                    <a name="medicine">내과</a>
+                </div>
+                <div id="title_line"></div><br>
+                <ul class="treatment_type">
+                    <li>
+                        <dl>
+                            <dt><h4>· 비뇨/생식기 내과</h4></dt>
+                            <dd>
+                                만성/급성 신부전 (포도 중독 포함), 요로결석, 자궁축농증, 임신 진단, 방광염, 요실금에 대한 진단/치료
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 내분기 내과</h4></dt>
+                            <dd>
+                                부신피질기능항진증 (쿠싱병), 부신피질기능저하증, 당뇨, 갑상선기능 항진증, 갑상선 기능 저하증 등에 대한 진단/치료
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 호흡기 내과</h4></dt>
+                            <dd>
+                                기관지 폐렴, 비염, 천식 등에 대한 진단/치료
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 소화기 내과</h4></dt>
+                            <dd>
+                                내시경 검사, 위장관 내 이물, 설사, 변비, 소화기 기생충 감염 등에 대한 진단/치료.
+                                췌장염, 담낭염, 담석증, 간염
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 면역질환 내과</h4></dt>
+                            <dd>
+                                면역매개성용혈성 빈혈/면역 매개성 혈소판 감소증, 류마티스 관절염 등과 같은 자가면역 질환에 대한 진단/치료
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 감염 내과</h4></dt>
+                            <dd>
+                                진드기, 주혈 기생충, 켄넬 코프, 파보장염, 코로나장염, 심장사상충 등과 같은 전염성 질환에 대한 진단/치료
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 내시경</h4></dt>
+                            <dd>
+                                비침습적 방법으로 내시경을 이용한 이물 제거 및 조직 검사
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 피부</h4></dt>
+                            <dd>
+                                혈청 검사, 피내 접종을 통한 알러젠 검사, 식이 관리 및 식이테스트를 통한 피부 질환의 원인 진단/치료
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div><br><br><br><br><br>
+            <div class="content_detail">
+                <div class="con_title">
+                    <a name="surgery">외과</a>
+                </div>
+                <div id="title_line"></div><br>
+                <ul class="treatment_type">
+                    <li>
+                        <dl>
+                            <dt><h4>· 비뇨기계 외과</h4></dt>
+                            <dd>
+                                일반외과의 비뇨기계는 신장(콩팥), 요관, 방광, 요도 등으로 구성되어 있습니다.
+                                모든 비뇨기계에 결석이 발생 할 수 있으며 그 중에 방광 결석 제거 수술은 동물병원에서 가장 많이 시행되는 일반외과 수술 중에 하나입니다.
+                                각 비뇨기계의 결석 제거 외에도 수신증 (Hydronephrosis) 으로 인하여 편측 신장을 제거하는 신장제거 수술이 있으며, 신장, 요관, 방광, 요도, 모든 비뇨기계에 종양이 발생할 수 있습니다.
+                                6~7세 이상의 노령견/노령묘에서 비뇨기계 건강검진이 필요합니다.  
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 소화기 외과</h4></dt>
+                            <dd>
+                                일반외과의 소화기계는 구강, 식도, 위, 소장, 대장, 항문, 간, 담낭 등으로 구성됩니다.
+                                구강 부위는 침샘 낭종, 구개열 수술, 위, 소장 부위는 이물 수술, 간의 종양, 담낭의 점액 낭종 등의 수술이 있으며, 소화기계의 가장 많은 수술은 식도, 위, 소장 부위의 이물 수술입니다.
+                                위, 소장, 대장, 간, 담낭 등의 모든 소화기에 노령견에서 종양이 발생하고 있습니다. 소화기계의 치료는 이물, 종양의 제거를 위한 수술적인 치료가 진행됩니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 종양 외과</h4></dt>
+                            <dd>
+                                비뇨기, 소화기, 생식기, 피부 등 모든 신체 부위에서 종양이 발생할 수 있습니다.
+                                종양의 치료는 내과적으로 항암제를 이용한 약물치료와 수술적인 제거로 가능합니다.
+                                반려견이 식욕 감소, 원인 모를 체중 감소, 구토, 설사 등의 소화기 증상, 기력 저하 등을 보인다면 종양을 의심해 볼 수 있습니다.  
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 호흡기 외과</h4></dt>
+                            <dd>
+                                반려견의 호흡기는 코, 비강, 기관, 기관지, 폐 등으로 구성됩니다.
+                                콧구멍 협착의 교정 수술, 연구개 노장의 교정 수술이 반려동물에게 많이 시행되는 호흡기 수술입니다.
+                                기관허탈 환자의 경우 증상이 가벼운 경우는 약물 치료로도 관리가 가능하지만 중증의 기관허탈 환자에서는 수술적인 교정이 필요합니다. 기관내 스텐트 삽입을 통하여 중증의 기관허탈 환자를 효과적으로 치료할 수 있습니다. 
+                                그 외에도 폐의 염전 (Lung lobe torsion) 시에 폐의 절제 수술을 할 수 있습니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 중성화 수술</h4></dt>
+                            <dd>
+                                남아 중성화 수술은 사나운 성격, 성적 행위, 영역 표시 등의 교정뿐만 아니라, 고환, 전립선 등의 생식기 종양을 예방, 치료 할 수 있는 방법입니다.
+                                여아 중성화 수술은 동물병원에서 가장 많은 시행되는 수술인 유선종양, 자궁축농증을 비롯하여 자궁 종양, 난소 종양 등의 질병을 예방, 치료 할 수 있습니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 탈장 교정 수술</h4></dt>
+                            <dd>
+                                탈장은 복부를 구성하는 배벽의 결함으로 복부 내용물이 돌출되는 경우입니다.
+                                탈장이 발생하는 부위는 배꼽 (제대 허니아, umbilical hernia), 서혜부 허니아 (Inguinal hernia), 회음부 허니아 (Perineal hernia), 횡격막 허니아 (Diaphragmatic hernia) 등이 있습니다.
+                                탈장은 대개 유전적이고 태아형성결함으로 나타나지만 외상에 의해서도 발생하기도 합니다.
+                                탈장의 치료는 외과적인 수술만으로 가능합니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 신경외과(디스크 질환)</h4></dt>
+                            <dd>
+                                디스크 질환은 (IVDD: Intervertebral disc disease) 외상, 퇴행성원인 등에 의한 척수병증 (목/등/허리: Cervical/ Thoracolumbar myelopathy) 이며, 이로 인해 사지 혹은 뒷다리가 불완전 혹은 완전마비 되는 질병입니다.
+                                보행은 가능하지만 운동기능이 많이 감소하고 통증 호소를 하는 경우는 약물치료, 한방재활 치료를 할 수 있습니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 마취</h4></dt>
+                            <dd>
+                                외과, 안과 수술을 받는 환자는 반드시 마취를 통하여 수술이 진행됩니다. 작은 종괴의 제거와 같은 간단한 시술은 부분마취, 주사마취 등으로 진행되고, 개복 이상의 수술은 반드시 호흡마취 하에 진행 됩니다. 
+                                마취 전 검사는 흉부, 복부 X-RAY, 혈액검사, 혈압 검사 등입니다. 마취 전 검사를 통하여 환자의 상태를 면밀히 확인하고 환자에게 최적화된 마취를 실시합니다. 
+                                마취중인 환자는 심박수, 호흡, 체온, 혈압 등을 실시간으로 체크하여 수술 받는 환자가 안정적인 상태에서 마취되고 있는지 지속적으로 확인합니다. 
+                                마취만큼 중요한 것이 수술 중, 수술 후 진통입니다. 수술의 정도에 따라 필요한 경우 마약성 진통제를 이용하여 환자가 부드럽게 마취에서 회복하고, 수술로 인한 통증을 느끼지 않도록 관리하고 있습니다.
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div><br><br><br><br><br>
+            <div class="content_detail">
+                <div class="con_title">
+                    <a name="Ophthalmology">안과</a>
+                </div>
+                <div id="title_line"></div><br>
+                <ul class="treatment_type">
+                    <li>
+                        <dl>
+                            <dt><h4>· 각막질환</h4></dt>
+                            <dd>
+                                각막에 발생하는 질환은 각막염, 가벼운 각막 궤양, 깊은 각막 궤양, 데스메막류, 각막 천공, SCCED (Spontaneous chronic corneal epithelial defects) 등으로 다양합니다. 
+                                각막궤양은 반려동물 안과 질환 중 가장 많은 내원 이유로 꼽히고 있습니다. 
+                                시츄, 페키니즈와 같은 단두종에서 특히나 각막궤양이 많이 발생하고 있으며, 
+                                2차 감염이나 추가적인 각막 손상이 발생하기 이전에 조기에 진단하고 치료하는 것이 중요합니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 녹내장</h4></dt>
+                            <dd>
+                                녹내장시에 증상은 심한 충혈, 동공의 산대, 각막이 뿌옇게 보이고, 시력 저하, 통증을 호소합니다. 여러 위험 인자 중 안압 상승 (30 mmHg 이상)이 가장 중요하며, 약물 혹은 수술적인 방법으로 치료가 가능합니다.
+                                백내장과 함께 시력을 영구적으로 잃게 하는 주요 안과 질환입니다. 반려동물의 경우 급성으로 안압이 높게 오르며, 안압을 저하시켜 주는 적절한 치료가 필요합니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 망막 질환</h4></dt>
+                            <dd>
+                                반려동물의 망막 질환으로는 망막의 박리, 진행성 망막위축증, 시신경염, SARD (Sudden Aquired Reninal Disease) 등이 있으며, 치료가 어려우며 시력을 잃는 경우가 많습니다. 
+                                망막의 치료는 약물치료, 망막박리의 경우 레이져를 이용한 수술적인 치료가 가능합니다. 
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 안검 질환</h4></dt>
+                            <dd>
+                                반려동물의 안검(눈꺼풀)은 상, 하안검과 제 3안검으로 구성되어 있습니다. 
+                                안검이 내번되거나 외번되면 각막염을 일을 킬 수 있으며 안검에 잘못난 털(첩모)에 의해서도 각막 상처가 발생할 수 있습니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 안구 건조증</h4></dt>
+                            <dd>
+                                반려동물의 정상 눈물량은 1분간 눈물량 검사지로 15mm 이상이 되어야 합니다. 안구 건조증의 원인은 약물독성, 면역매개성, 신경원성, 외상 등 다양하게 알려져 있으며, 증상은 결막의 충혈, 점액성 눈꼽이 많으며, 2차 감염이 동반된 경우 농성 안구삼출물을 보입니다. 
+                                만성인 경우, 각막염, 각막 착색, 각막 혈관화 등의 증상을 보입니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 유루증</h4></dt>
+                            <dd>
+                                반려동물의 눈물은 위눈꺼풀 외측과 제 3안검에서 생성되어 배출됩니다. 유루증은 눈물샘에서 생성된 눈물이 사용되고 내안각 부위의 상, 하 누점을 통해서 원활히 배출되지 못하고 넘쳐흐르는 것입니다. 
+                                눈꺼풀의 잘못난 털의 자극으로 과도하게 눈물이 생성되거나, 안검의 내번증, 누관의 폐색 등이 원인입니다. 푸들, 말티즈, 비숑프리제 견종에서 많이 발생하고 있습니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 포도막염</h4></dt>
+                            <dd>
+                                포도막은 동공을 이루는 갈색의 홍채와 모양체, 안구 뒤부분의 맥락막으로 구성되어 있습니다. 홍채, 모양체, 맥락막 각 부위의 감염과 면역매개성으로 발생하며, 종양 (림포마) 에 의한 2차적인 포도막염도 발생할 수 있습니다. 
+                                통증, 유루증, 충혈, 축동, 안구내 유착, 안구내 염증물, 각막 부종, 심한 경우, 안구내 축농, 안구내 출혈, 망막박리 등의 증상을 보이게 됩니다.
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div><br><br><br><br><br>
+            <div class="content_detail">
+                <div class="con_title">
+                    <a name="Orthopedics">정형외과</a>
+                </div>
+                <div id="title_line"></div><br>
+                <ul class="treatment_type">
+                    <li>
+                        <dl>
+                            <dt><h4>· 골절</h4></dt>
+                            <dd>
+                                뼈가 골절된 경우, 다리를 들고 다니거나 걷지 않는 등의 증상을 포함하여, 골절 부위 주변 피부가 붓거나 밥을 먹지 않는 증상을 보이기도 합니다. 
+                                골절은 시간이 지날수록 골절은 시간이 지날수록 증상이 악화되므로 바로 동물병원에 내원하여 도움을 받아야 합니다.
+                                골절은 앞다리뼈뿐만 아니라, 뒷다리뼈, 발가락뼈, 골반뼈 골절도 발생할 수 있습니다.
+                                대부분 수술적 교정이 필요하며, 수내정 핀, 플레이트, 외고정 등을 이용해 교정할 수 있습니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 슬개골 탈구</h4></dt>
+                            <dd>
+                                슬개골 탈구란, 무릎뼈인 슬개골이 관절내 있어야할 자리에서 벗어나 안쪽으로 빠져 있는 상태를 말합니다.
+                                슬개골 탈구는 시간이 지날수록 점점 정도가 진행되며, 진행될 수록 십자 인대 파열 등 주변 인대에 부상을 일으킬 수 있습니다. 
+                                경미한 슬개골 탈구의 경우, 운동 제한 및 내복약으로 관리해볼 수 있으나, 더 심각한 슬개골 탈구의 경우 수술적 교정이 필요합니다.
+                            </dd>
+                        </dl>
+                    </li>
+                    <br>
+                    <li>
+                        <dl>
+                            <dt><h4>· 전십자 인대 단열</h4></dt>
+                            <dd>
+                                경골(Tibia) 의 앞쪽으로의 움직임을 막아주는 전십자인대의 단열시 환자는 심한 통증호소와 함께 다리를 딛지 못하게 됩니다. 관절의 퇴행성 변화 및 외상, 결렬한 움직임의 결과로 전십자 인대가 단열됩니다. 
+                                전십자 인대의 단열은 매우 활동적이거나 체중이 많이 나가는 반려견, 노령견에서 많이 발생하고 있습니다. 슬개골 탈구와 마찬가지로 뒷다리의 문제지만 슬개골 탈구보다 발절음, 통증이 더욱 심한 것이 일반적입니다.
+                                신체검사와 X-RAY 검사로 진단이 가능합니다. 체중이 작거나 부분 단열인 경우 약물치료, 재활치료로 좋은 결과를 보이기도 합니다.
+                                6~7Kg 이상의 중형견 이상에서는 불안정하고 보행이 어려운 관절의 구조를 개선시키기 위하여 필히 TPLO (Tibial Plateau Leveling Osteotomy: 정강이뼈 고원 평편화 뼈자름술) 수술이 필요합니다.
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 빠른 메뉴 부분 -->
+        <div id="aside">
+            <div class="quick-menu">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/inquiry.png">
+                            <p>문의하기</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/medical device.png">
+                            <p>의료 장비</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/way to come.png">
+                            <p>오시는 길</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="move-to-top">
+                <a href="#"><img src="../resources/images/common/arrow.png"></a>
+            </div>
+        </div>
+    </div>
+    <!-- 푸터 -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="flogo">
+                <img src="../resources/images/common/logo2.png">
+            </div>
+            <div class="finfo">
+                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                TEL 1544-9970 <br>
+                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+</html>
