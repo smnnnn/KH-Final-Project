@@ -1,0 +1,213 @@
+@charset "UTF-8";
+
+
+#main {/*margin-top: 3%;*/ margin-bottom: 3%; margin-left: 3%;}
+
+#side_menu { display: flex; align-items: flex-start;}
+.sub_menu { width: 150px; height: auto; border: 5px solid #F0EFE1; margin-right: 60px;}
+.sub_menu ul { width: 100%; height: auto; }
+.sub_menu ul li { width: 100%; height: 60px; line-height: 60px; border-bottom: 5px solid #F0EFE1; }
+.sub_menu ul li:last-child { border-bottom: 0; }
+.sub_menu ul li a { 
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+    box-sizing: border-box; 
+    padding: 0 20px; 
+    text-decoration-line : none; 
+    font-weight:900;
+    font-size:16px;
+    text-align: center;
+}
+.sub_menu ul li a:hover, .sub_menu ul li a:active, .sub_menu ul li a.active { 
+    transition-duration: 0.5s;
+    color: #DEB98B;
+    font-size:18px; 
+}
+/*.sub { width: calc(100% - 300px); }
+.sub h2{ text-align: left; }*/
+
+.con_title {
+    font-size:large;
+    font-weight:bolder;
+}
+
+#title_line{
+    width : 20%;
+    margin-top: 7px;
+    border-bottom: solid 5px rgba(133, 177, 214, 1);
+}
+
+.content_detail {
+    line-height:25px;
+}
+
+#table_rest {
+    border-color: rgba(133, 177, 214, 1);
+    width : 800px;
+}
+
+#inside_link{
+    text-decoration : none;
+}
+
+#inside_link:hover{
+    text-decoration : none;
+    color: rgba(133, 177, 214, 1);
+}
+
+/*.fix{
+    position: fixed;
+    text-align: center;
+    background-color: rgba(133, 177, 214, 1);
+    color: white;
+    font-weight:bolder;
+    border-radius: 50%;
+    width : 80px;
+    height: 80px;
+    line-height: 80px;
+    bottom: 20px;
+    margin-left: 3%;
+}
+
+.fix:hover{
+    transform: translateY(-20px);
+}*/
+
+
+/* 03 */
+
+#type_btn2{
+    width: 150px;
+    height: 40px;
+    margin-right: 2%;
+    background-color: rgb(110, 107, 107);
+    color: white;
+    font-weight:bolder;
+    border : 0;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px gray;
+    transition-duration: 0.3s;
+}
+
+#type_btn2:hover{
+    color: rgb(110, 107, 107);
+    background-color: white;
+    border : solid 1px rgb(110, 107, 107);
+}
+
+#type_btn2:active {
+    box-shadow : none;
+    border-radius: 5px;
+}
+
+
+/* 04 */
+
+
+.calendar{
+    border: 1px solid #C4C4C4; 
+    margin: 0 auto;
+    width: 800px;
+    height: 300px;
+}
+
+.quick{
+    float: right;
+    
+}
+
+.quickDiv{
+    margin-top: 2%;
+    width: 912px;
+}
+
+/*table {
+    width: 800px;
+    border-collapse: collapse;
+    border: 2px solid rgba(133, 177, 214, 1);
+}
+
+th, td {
+    border-bottom: 1px solid rgba(133, 177, 214, 1);
+    padding: 1%;
+}
+
+tbody tr td {
+    text-align: center;
+}*/
+
+.time_content table{
+    margin:auto;
+}
+
+
+#reser_time {
+    width: 130px;
+    height: 30px;
+}
+
+#reser_time option{
+    text-align: center;
+    font-size: 15px;
+}
+
+/* 05 */
+
+.username{
+    color: rgba(133, 177, 214, 1);
+    font-weight: bold;
+}
+
+.reservation_content{
+    display: inline-block;
+
+}
+
+.reser_content{
+    margin-top: 5%;
+    width: 55%;
+    float: left; 
+}
+
+.agreement{
+    margin-top: 5%;
+    width: 45%;
+    float: right;
+}
+
+#dog_info_chk{ float: right;  margin-bottom: 1%; margin-right: 24%;}
+
+.text_input input{
+    width: 400px;
+    height: 20px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding: 5px;
+    font-size: 15px;
+}
+
+#box_select{
+    width: 415px;
+    height: 35px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding: 5px;
+    font-size: 15px;
+}
+
+#agree_content dl span {
+    font-size: 13px;
+}
+
+.requestArea{
+    width: 415px;
+    height: 300px;
+    margin-top: 1%;
+    padding: 5px;
+    resize: none;
+}
+
+.reservation_btn #type_btn{
+    width: 500px;
+}
