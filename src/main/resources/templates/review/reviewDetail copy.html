@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>치료후기 상세</title>
+     <!--메뉴바 css-->
+     <!-- <link type="text/css" rel="stylesheet" href="../resources/css/nh.css"> -->
+     <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+     <!--font-->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200;400&display=swap" rel="stylesheet">
+     <!-- jquery-->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <!--메인스크립트-->
+     <script type="text/javascript" src="../resources/js/common.js"></script>
+    <style>
+
+
+        .board.content {
+            min-width: 800px;
+            width: 1000px;
+            margin: 0px auto;
+            /*text-align: center;*/
+            margin-bottom: 80px;
+            margin-top:40px;
+        }
+
+
+        #qaTitle {
+            margin-top: 10px;
+            margin-bottom: 59px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+      
+        .qTitle {
+            font-size: 18px;
+        }
+        .line2 {
+            
+            border-bottom: 2px solid #85B1D6;
+            font-size: 0.8rem;
+            padding-bottom: 10px;
+            padding-top: 4px;
+         
+            padding-left: 19px;
+        }
+
+        .btn {
+            background-color: #85B1D6;
+            color: white;
+            width: 75px;
+            height: 28px;
+            border: none;
+            position: relative;
+            left: 40%;
+            border-radius: 4px;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            opacity: 30%;
+        }
+
+        /* .footer{
+            width: 100%;
+            height: 115px;
+            background-color: rgba(240, 239, 225, 1);
+            position: absolute;
+
+        } */
+
+        .board_wrap {
+            width: 900px;
+            margin-left: 50px;
+            font-size: 0.85rem;
+        }
+
+        .ctBox {
+            min-height: 248px;
+            width: 834px;
+            padding: 32px;
+            border:1px solid #85B1D6;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            /* padding-top: 35px;
+            padding-bottom: 35px; */
+        }
+
+        .name,.date{
+            padding-left: 19px;
+            font-size: 1rem;
+        }
+
+        .name{
+            padding-top: 19px;
+        }
+
+        .date{
+            padding-bottom: 19px;
+        }
+
+        .replyBox{
+            width: 840px;
+            min-height: 80px;
+            background-color: rgba(241, 249, 255, 1);
+            margin-top: 30px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 6px;
+
+            display: grid;
+            grid-template-columns : 2fr 12fr 2fr;
+            justify-items:self-start;
+            grid-gap:3rem;
+        }
+
+        .smallicon {
+            width: 21px;
+            margin-left: 5px;
+           
+        }
+
+        .replyIcon{
+            width: 12px;
+            margin-right: 8px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .btnArea {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+     <!-- 헤더 -->
+     <header id="header">
+        <div class="header-container">
+            <!-- 로그인 -->
+            <div class="homemenu">
+                <!-- 로그인 안한 경우 -->
+                <ul class="nologin">
+                    <a href="#">HOME</a>
+                    <a href="#">로그인</a>
+                    <a href="#">회원가입</a>
+                </ul>
+                <!-- 로그인 한 경우 -->
+                <ul class="userlogin" style="display: none;">
+                    <a href="#">HOME</a>
+                    <a href="#">로그아웃</a>
+                    <a href="#">마이페이지</a>
+                </ul>
+            </div>
+            <div class="main-menu">
+                <!-- 로고 -->
+                <div class="logo">
+                    <a href="#">
+                        <img src="../resources/images/common/logo.png"></img>
+                    </a>
+                </div>
+                <!-- 메인 메뉴 -->
+                <div class="menulist">
+                    <ul>
+                        <li><a href="#">병원소개</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">병원 소개</a></li>
+                                <li><a href="#">의료진 소개</a></li>
+                                <li><a href="#">의료 장비 소개</a></li>
+                                <li><a href="#">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">진료안내</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">진료 안내</a></li>
+                                <li><a href="#">진료 과목</a></li>
+                                <li><a href="#">진료 예약</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">고객센터</a></li>
+                        <li><a href="#">치료후기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 내용 부분 -->
+    <div id="main">
+       
+        <!-- 내용 표시 부분 -->
+        <div class="board content">
+            <div id="qaTitle">치료후기</div>
+            <div class="board_wrap">
+                <div class="line2 bold"><span class="qTitle">[정형외과] AAI 수술과 슬개골 탈구 수술 후기</span></div>
+                <div class="name bold">김소민</div>
+                <div class="date bold">
+                    2021.12.08
+                    <span><img class="smallicon" src="../resources/images/sm/hit2.png" alt="조회수">2</span> 
+                    <!-- <span><img class="smallicon" src="../resources/images/sm/reply2.png" alt="답변수">1</span>  -->
+                </div>
+                <div class="ctBox">
+                    
+                    생후 5개월경부터 점차 다리를 쓰지 못하고 잘 일어서있지 못하던 치치. 다른 병원에서는 슬개골탈구가 심한 4기라는 진단을 받았고 슬개골탈구 수술을 위해 정형외과 신경외과 전문동물병원을 찾아 내원하였습니다.<br><br>
+
+                    엑스레이 검사와 CT 검사를 받았는데 1-2번 경추뼈의 불안정한 상태로 인한 환축추아탈구가 있어 수술이 필요하다고 했습니다<br><br>
+
+                    이처럼 뚜렷하게 슬개골탈구와 같은 문제가 있다하라도 현재 보이는 보행장애가 정형외과적 문제인지 신경계의 문제인지를 정확하게 감별하는 것이 매우 중요하다고 합니다.<br>
+                    여러 분야 전문가 원장님들이 상주하고 계신 다나은 동물 병원에서 정확한 진단을 해주셔서 치치는 수술 끝에 점차 정상 보행을 되찾게 되었습니다.<br><br>
+
+                    양쪽 슬개골탈구도 매우 심한 상태로 슬개골탈구 교정술을 실시하여 뒷다리의 배열도 교정하였습니다.<br><br>
+
+                    <img src="../resources/images/sm/testimage.png"><br>
+
+                    <br>
+                    <iframe width="auto" height="auto" src="https://www.youtube.com/embed/JWqmuaZGANM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <br><br>
+                    이제 치치는 완전히 회복해서 뛰어다닐 정도랍니다~~*^^*<br>
+                    다나은 동물병원 감사합니다~~!<br>
+                </div>
+                <!-- <div class="replyBox">
+                    <span class="bold"><img class="replyIcon" src="../resources/images/sm/rep.png">답변</span>
+                    <span>안녕하세요. 고객님 예약 번호 조회 결과 17일 오후 두시 예약하신걸로 나옵니다.  20일 이후로 시간 관계없이 변경 가능합니다. 변경 원하시는 날짜와 시간이 있으시면 남겨주세요.</span>
+                    <span class="bold">2021.12.09</span>
+                </div> -->
+                <div class="btnArea">
+                    <button class="btn" id="gotoList">목록으로</button>
+                    <button class="btn" id="modify">수정하기</button>
+                    <button class="btn" id="delete">삭제하기</button>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <!-- 푸터 -->
+    <!-- <footer id="footer">
+        <div class="footer_container footer">
+       
+        </div>
+    </footer> -->
+
+
+
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="flogo">
+                <img src="../resources/images/common/logo2.png">
+            </div>
+            <div class="finfo">
+                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                TEL 1544-9970 <br>
+                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
