@@ -17,16 +17,17 @@
     <title>의료진 소개</title>
 </head>	
  <div th:replace="fragments/header.html"></div>
-     <!-- 내용 부분 -->
+ 
+    <!-- 내용 부분 -->
     <div id="main">
         <!-- 사이드 메뉴 -->
         <div id="side-menu"> 
             <div class="sidenav">
                 <ul>
-                    <li class="li-active"><a href="#">병원 소개</a></li>
-                    <li><a href="#">의료진 소개</a></li>
-                    <li><a href="#">의료 장비 소개</a></li>
-                    <li><a href="#">오시는 길</a></li>
+                    <li><a th:href="@{/about/hospital}">병원 소개</a></li>
+                    <li class="li-active"><a th:href="@{/about/team}">의료진 소개</a></li>
+                    <li><a th:href="@{/about/device}">의료 장비 소개</a></li>
+                    <li><a th:href="@{/about/location}">오시는 길</a></li>
                 </ul>      
             </div>
         </div>
@@ -37,28 +38,37 @@
                 <ul>
                     <li>HOME</li>
                     <li>병원 소개</li>
-                    <li>병원 소개</li>
+                    <li>의료진 소개</li>
                 </ul>
             </div>
             <br>
            <div class="hospital-info">
-                <div class="info-title">다나은 소개</div>
-                <div class="info-subtitle">“기능을 되살리고, 생명을 살리며, 동물과 인간의 건강한 공존에 기여한다.” <br>
-                    We restore function, save lives, and contribute to the healthy coexistence of animals and humans.</div>
-                <div class="info-content">
-                    <img src="../resources/images/nh/info_img.png">
-                    <div class="info-text">
-                        다나은 동물병원은 반려동물과 보호자가 함께하는 건강하고 행복한 삶을 위해 노력합니다.
-                        최신 의료 장비와 국내 최고 수준 전문 의료진의 분과별 협진을 통해 정확한 진단과 최적의 진료를 제공합니다.
-                        다나은 의료진은 대학병원과 2차동물병원에서 오랫동안 근무하며 수의외과학 박사 과정을 마치고 해외에서 수련해 
-                        온 전문의료진들로 구성되어 있습니다. 
+                <div class="info-title">의료진 소개</div>
+                <div class="info-subtitle">다나은 동물병원의 최고의 전문 의료진을 소개합니다.</div>
+                <div class="veterinary-info-box">
+                    <img src="/images/nh/medical_team.png">
+                    <div class="vinfo-content">
+                        <span class="vinfo-name">김소민 원장</span>
+                        <span class="vinfo-subject">내과</span>
+                        <div class="vinfo-wrap">
+                            <h4>약력 및 기본정보</h4>
+                            <div class="vcontent">
+                                University of Wisconsin-Madison 생화학 졸업<br>
+                                충남대학교 수의과대학 학사 졸업<br>
+                                충남대학교 수의과대학 내과학 석사 졸업<br>
+                                현)서울 다나은 동물병원 원장<br>
+                            </div>
+                        </div>
+                        <div class="vinfo-wrap">
+                            <h4>경력사항</h4>
+                            <div class="vcontent">
+                                2010 전북대학교 동물의료센터 전공의<br>
+                                2014 전북대학교 수의과대학원 석사과정(내과)<br>
+                                2016 캐나다 벤쿠버 Pet Center Animal Hospital 근무<br>
+                                2018 한국임상수의학회 춘계학술대회 발표<br>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="info-text2">
-                    병원의 모든 구성원들은 진심어린 동물사랑을 바탕으로 하여 수의학적 원칙과 객관적 근거에 입각한 참된 
-                    진료서비스를 제공하기 위해 다각도의 노력을 기울이고 있습니다. <br><br>
-                    질병으로 고통받는 동물들에게 보호자님들이 만족하는 최고의 진료서비스를 제공할 수 있도록 최선의 노력을 
-                    다하겠습니다.
                 </div>
            </div>
         </div>
@@ -68,26 +78,26 @@
                 <ul>
                     <li>
                         <a href="#">
-                            <img src="../resources/images/common/inquiry.png">
+                            <img src="/images/common/inquiry.png">
                             <p>문의하기</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../resources/images/common/medical device.png">
+                        <a th:href="@{/about/device}">
+                            <img src="/images/common/medical device.png">
                             <p>의료 장비</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../resources/images/common/way to come.png">
+                        <a th:href="@{/about/location}">
+                            <img src="/images/common/way to come.png">
                             <p>오시는 길</p>
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="move-to-top">
-                <a href="#"><img src="../resources/images/common/arrow.png"></a>
+                <a href="#"><img src="/images/common/arrow.png"></a>
             </div>
         </div>
     </div>
