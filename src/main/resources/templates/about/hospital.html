@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../resources/js/common.js"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+    
+    <title>병원 소개</title>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header id="header">
+        <div class="header-container">
+            <!-- 로그인 -->
+            <div class="homemenu">
+                <!-- 로그인 안한 경우 -->
+                <ul class="nologin">
+                    <a href="#">HOME</a>
+                    <a href="#">로그인</a>
+                    <a href="#">회원가입</a>
+                </ul>
+                <!-- 로그인 한 경우 -->
+                <ul class="userlogin" style="display: none;">
+                    <a href="#">HOME</a>
+                    <a href="#">로그아웃</a>
+                    <a href="#">마이페이지</a>
+                </ul>
+            </div>
+            <div class="main-menu">
+                <!-- 로고 -->
+                <div class="logo">
+                    <a href="#">
+                        <img src="../resources/images/common/logo.png"></img>
+                    </a>
+                </div>
+                <!-- 메인 메뉴 -->
+                <div class="menulist">
+                    <ul>
+                        <li><a href="#" class="menu-active">병원소개</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">병원 소개</a></li>
+                                <li><a href="#">의료진 소개</a></li>
+                                <li><a href="#">의료 장비 소개</a></li>
+                                <li><a href="#">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">진료안내</a>
+                            <ul class="sub-menulist">
+                                <li><a href="#">진료 안내</a></li>
+                                <li><a href="#">진료 과목</a></li>
+                                <li><a href="#">진료 예약</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">고객센터</a></li>
+                        <li><a href="#">치료후기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 내용 부분 -->
+    <div id="main">
+        <!-- 사이드 메뉴 -->
+        <div id="side-menu"> 
+            <div class="sidenav">
+                <ul>
+                    <li class="li-active"><a href="#">병원 소개</a></li>
+                    <li><a href="#">의료진 소개</a></li>
+                    <li><a href="#">의료 장비 소개</a></li>
+                    <li><a href="#">오시는 길</a></li>
+                </ul>      
+            </div>
+        </div>
+        <!-- 내용 표시 부분 -->
+        <div id="content">
+            <!-- 현재 페이지 경로 표시 -->
+            <div class="path-info">
+                <ul>
+                    <li>HOME</li>
+                    <li>병원 소개</li>
+                    <li>병원 소개</li>
+                </ul>
+            </div>
+            <br>
+           <div class="hospital-info">
+                <div class="info-title">다나은 소개</div>
+                <div class="info-subtitle">“기능을 되살리고, 생명을 살리며, 동물과 인간의 건강한 공존에 기여한다.” <br>
+                    We restore function, save lives, and contribute to the healthy coexistence of animals and humans.</div>
+                <div class="info-content">
+                    <img src="../resources/images/nh/info_img.png">
+                    <div class="info-text">
+                        다나은 동물병원은 반려동물과 보호자가 함께하는 건강하고 행복한 삶을 위해 노력합니다.
+                        최신 의료 장비와 국내 최고 수준 전문 의료진의 분과별 협진을 통해 정확한 진단과 최적의 진료를 제공합니다.
+                        다나은 의료진은 대학병원과 2차동물병원에서 오랫동안 근무하며 수의외과학 박사 과정을 마치고 해외에서 수련해 
+                        온 전문의료진들로 구성되어 있습니다. 
+                    </div>
+                </div>
+                <div class="info-text2">
+                    병원의 모든 구성원들은 진심어린 동물사랑을 바탕으로 하여 수의학적 원칙과 객관적 근거에 입각한 참된 
+                    진료서비스를 제공하기 위해 다각도의 노력을 기울이고 있습니다. <br><br>
+                    질병으로 고통받는 동물들에게 보호자님들이 만족하는 최고의 진료서비스를 제공할 수 있도록 최선의 노력을 
+                    다하겠습니다.
+                </div>
+           </div>
+        </div>
+        <!-- 빠른 메뉴 부분 -->
+        <div id="aside">
+            <div class="quick-menu">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/inquiry.png">
+                            <p>문의하기</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/medical device.png">
+                            <p>의료 장비</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../resources/images/common/way to come.png">
+                            <p>오시는 길</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="move-to-top">
+                <a href="#"><img src="../resources/images/common/arrow.png"></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="flogo">
+                <img src="../resources/images/common/logo2.png">
+            </div>
+            <div class="finfo">
+                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                TEL 1544-9970 <br>
+                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
