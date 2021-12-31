@@ -14,6 +14,7 @@
     <!-- 자바스크립트 -->
     <script type="text/javascript" src="/js/common.js"></script> 
 
+
     <title>병원 위치 소개</title>
 </head>	
  <div th:replace="fragments/header.html"></div>
@@ -24,10 +25,10 @@
         <div id="side-menu"> 
             <div class="sidenav">
                 <ul>
-                    <li><a href="#">병원 소개</a></li>
-                    <li><a href="#">의료진 소개</a></li>
-                    <li><a href="#">의료 장비 소개</a></li>
-                    <li class="li-active"><a href="#">오시는 길</a></li>
+                    <li><a th:href="@{/about/hospital}">병원 소개</a></li>
+                    <li><a th:href="@{/about/team}">의료진 소개</a></li>
+                    <li><a th:href="@{/about/device}">의료 장비 소개</a></li>
+                    <li class="li-active"><a th:href="@{/about/location}">오시는 길</a></li>
                 </ul>      
             </div>
         </div>
@@ -45,8 +46,12 @@
            <div class="hospital-info">
                 <div class="info-title">오시는 길</div>
                 <div class="info-subtitle">다나은 동물병원으로 오시는 길을 안내해드립니다.</div>
+                
+                <!-- 지도 api 영역 -->
                 <div class="map-area">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.37819968094!2d127.03072031558709!3d37.49899723575032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9ec255555555%3A0x3565475c3365c5bb!2zS0jsoJXrs7TqtZDsnKHsm5A!5e0!3m2!1sko!2skr!4v1640971609050!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
+                
                 <h4 class="new-addressInfo c1">서울특별시 강남구 테헤란로 10길 9 그랑프리빌딩 4F, 5F, 7F</h4>
                 <h5 class="addressInfo c1">서울특별시 강남구 역삼동 823-42</h5>
                 <div class="transInfo">
@@ -71,26 +76,26 @@
                 <ul>
                     <li>
                         <a href="#">
-                            <img src="../resources/images/common/inquiry.png">
+                            <img src="/images/common/inquiry.png">
                             <p>문의하기</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../resources/images/common/medical device.png">
+                        <a th:href="@{/about/device}">
+                            <img src="/images/common/medical device.png">
                             <p>의료 장비</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../resources/images/common/way to come.png">
+                        <a th:href="@{/about/location}">
+                            <img src="/images/common/way to come.png">
                             <p>오시는 길</p>
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="move-to-top">
-                <a href="#"><img src="../resources/images/common/arrow.png"></a>
+                <a href="#"><img src="/images/common/arrow.png"></a>
             </div>
         </div>
     </div>

@@ -24,10 +24,10 @@
         <div id="side-menu"> 
             <div class="sidenav">
                 <ul>
-                    <li class="li-active"><a href="#">병원 소개</a></li>
-                    <li><a href="#">의료진 소개</a></li>
-                    <li><a href="#">의료 장비 소개</a></li>
-                    <li><a href="#">오시는 길</a></li>
+                    <li class="li-active"><a th:href="@{/about/hospital}">병원 소개</a></li>
+                    <li><a th:href="@{/about/team}">의료진 소개</a></li>
+                    <li><a th:href="@{/about/device}">의료 장비 소개</a></li>
+                    <li><a th:href="@{/about/location}">오시는 길</a></li>
                 </ul>      
             </div>
         </div>
@@ -47,7 +47,7 @@
                 <div class="info-subtitle">“기능을 되살리고, 생명을 살리며, 동물과 인간의 건강한 공존에 기여한다.” <br>
                     We restore function, save lives, and contribute to the healthy coexistence of animals and humans.</div>
                 <div class="info-content">
-                    <img src="../resources/images/nh/info_img.png">
+                    <img src="/images/nh/info_img.png">
                     <div class="info-text">
                         다나은 동물병원은 반려동물과 보호자가 함께하는 건강하고 행복한 삶을 위해 노력합니다.
                         최신 의료 장비와 국내 최고 수준 전문 의료진의 분과별 협진을 통해 정확한 진단과 최적의 진료를 제공합니다.
@@ -69,26 +69,26 @@
                 <ul>
                     <li>
                         <a href="#">
-                            <img src="../resources/images/common/inquiry.png">
+                            <img src="/images/common/inquiry.png">
                             <p>문의하기</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <img src="../resources/images/common/medical device.png">
-                            <p>의료 장비</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="../resources/images/common/way to come.png">
-                            <p>오시는 길</p>
-                        </a>
-                    </li>
+	                    <li>
+	                        <a th:href="@{/about/device}">
+	                            <img src="/images/common/medical device.png">
+	                            <p>의료 장비</p>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a th:href="@{/about/location}">
+	                            <img src="/images/common/way to come.png">
+	                            <p>오시는 길</p>
+	                        </a>
+	                    </li>
                 </ul>
             </div>
             <div class="move-to-top">
-                <a href="#"><img src="../resources/images/common/arrow.png"></a>
+                <a href="#"><img src="/images/common/arrow.png"></a>
             </div>
         </div>
     </div>

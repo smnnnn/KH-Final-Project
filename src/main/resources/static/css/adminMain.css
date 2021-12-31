@@ -401,6 +401,9 @@ tr.colored > td:last-child > a{
 tr.colored > td:last-child > a:hover{
     color: #85B1D6;
 }
+tr.colored > td:last-child > a.deleteele:hover{
+    color: #d10000;
+}
 .pagingarea{
     margin-right: 100px;
 }

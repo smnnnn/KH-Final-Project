@@ -1,18 +1,18 @@
 <body>
     <!-- 헤더 -->
-    <header id="mainheader">
+    <header id="header">
         <div class="header-container">
             <!-- 로그인 -->
             <div class="homemenu">
                 <!-- 로그인 안한 경우 -->
                 <ul class="nologin">
-                    <a href="#">HOME</a>
+                    <a th:href="@{/main}">HOME</a>
                     <a href="#">로그인</a>
                     <a href="#">회원가입</a>
                 </ul>
                 <!-- 로그인 한 경우 -->
                 <ul class="userlogin" style="display: none;">
-                    <a href="#">HOME</a>
+                    <a th:href="@{/main}">HOME</a>
                     <a href="#">로그아웃</a>
                     <a href="#">마이페이지</a>
                 </ul>
@@ -20,7 +20,7 @@
             <div class="main-menu">
                 <!-- 로고 -->
                 <div class="logo">
-                    <a href="#">
+                    <a th:href="@{/main}">
                         <img src="/images/common/logo.png"></img>
                     </a>
                 </div>
@@ -29,10 +29,10 @@
                     <ul>
                         <li><a href="#">병원소개</a>
                             <ul class="sub-menulist">
-                                <li><a href="#">병원 소개</a></li>
-                                <li><a href="#">의료진 소개</a></li>
-                                <li><a href="#">의료 장비 소개</a></li>
-                                <li><a href="#">오시는 길</a></li>
+                                <li><a th:href="@{/about/hospital}">병원 소개</a></li>
+                                <li><a th:href="@{/about/team}">의료진 소개</a></li>
+                                <li><a th:href="@{/about/device}">의료 장비 소개</a></li>
+                                <li><a th:href="@{/about/location}">오시는 길</a></li>
                             </ul>
                         </li>
                         <li><a href="#">진료안내</a>

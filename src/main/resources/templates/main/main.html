@@ -117,7 +117,7 @@
 	                <div class="address-info">
 	                    <h3>오시는 길</h3>
 	                    <span class="addressinfo">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</span><br>
-	                    <div class="button btn-5 address-btn" type="button">자세히 보기</div>
+	                    <div class="button btn-5 address-btn" type="button" onclick="location.href='/about/location'">자세히 보기</div>
 	                </div>
 	            </div>
 	           
@@ -133,13 +133,13 @@
 	                        </a>
 	                    </li>
 	                    <li>
-	                        <a href="#">
+	                        <a th:href="@{/about/device}">
 	                            <img src="/images/common/medical device.png">
 	                            <p>의료 장비</p>
 	                        </a>
 	                    </li>
 	                    <li>
-	                        <a href="#">
+	                        <a th:href="@{/about/location}">
 	                            <img src="/images/common/way to come.png">
 	                            <p>오시는 길</p>
 	                        </a>

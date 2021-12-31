@@ -24,10 +24,10 @@
         <div id="side-menu"> 
             <div class="sidenav">
                 <ul>
-                    <li><a href="#">병원 소개</a></li>
-                    <li><a href="#">의료진 소개</a></li>
-                    <li class="li-active"><a href="#">의료 장비 소개</a></li>
-                    <li><a href="#">오시는 길</a></li>
+                    <li><a th:href="@{/about/hospital}">병원 소개</a></li>
+                    <li><a th:href="@{/about/team}">의료진 소개</a></li>
+                    <li class="li-active"><a th:href="@{/about/device}">의료 장비 소개</a></li>
+                    <li><a th:href="@{/about/location}">오시는 길</a></li>
                 </ul>      
             </div>
         </div>
@@ -60,7 +60,7 @@
                     <div class="vdevice-list">
                         <div class="vdevice-tb-row">
                             <div class="vdevice-img">
-                                <img src="../resources/images/nh/device/CT.png">
+                                <img src="/images/nh/device/CT.png">
                             </div>
                             <div class="vdevice-info">
                                 <div class="vdevice-name">
@@ -77,7 +77,7 @@
                         </div>
                         <div class="vdevice-tb-row">
                             <div class="vdevice-img">
-                                <img src="../resources/images/nh/device/x-ray.png">
+                                <img src="/images/nh/device/x-ray.png">
                             </div>
                             <div class="vdevice-info">
                                 <div class="vdevice-name">
@@ -103,26 +103,26 @@
                 <ul>
                     <li>
                         <a href="#">
-                            <img src="../resources/images/common/inquiry.png">
+                            <img src="/images/common/inquiry.png">
                             <p>문의하기</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../resources/images/common/medical device.png">
+                        <a th:href="@{/about/device}">
+                            <img src="/images/common/medical device.png">
                             <p>의료 장비</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../resources/images/common/way to come.png">
+                        <a th:href="@{/about/location}">
+                            <img src="/images/common/way to come.png">
                             <p>오시는 길</p>
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="move-to-top">
-                <a href="#"><img src="../resources/images/common/arrow.png"></a>
+                <a href="#"><img src="/images/common/arrow.png"></a>
             </div>
         </div>
     </div>

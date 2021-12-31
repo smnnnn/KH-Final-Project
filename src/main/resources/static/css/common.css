@@ -17,18 +17,9 @@ ul li{
 #header{
     border-bottom: 5px solid #F0EFE1; 
     background-color: #fff; 
-    z-index: 1;
     z-index: 999;
-    position: fixed;
 }
 
-/* 메인페이지의 헤더만 아래 적용 (swiper때문에 적용을 다르게 함) */
-#mainheader{
-    border-bottom: 5px solid #F0EFE1; 
-    background-color: #fff; 
-    z-index: 999;
-    position: fixed;
-}
 .fixed{
     position: fixed; 
     left: 0; 
@@ -107,7 +98,7 @@ ul li{
     background-color: #F0EFE1;
 }
 .menulist .sub-menulist{
-    z-index: 1;
+    z-index: 999;
 } 
 .menu-active{
     color: #DEB98B;
