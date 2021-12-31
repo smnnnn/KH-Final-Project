@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="../resources/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/adminMain.css">
+    <!-- 효은 css -->
+    <link type="text/css" rel="stylesheet" href="../resources/css/he.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/adminSub.css">
+    <!-- 공통 js -->
+    <script type="text/javascript" src="../resources/js/common.js"></script>
+    
+    <title>다나은 동물병원</title>
+</head>
+<body>
+    <!-- 관리자페이지 메뉴바 -->
+    <div id="adminpage-wrap">
+        <div id="admin-menu">
+            <div class="logo-area">
+                <img src="../resources/images/common/logo.png">
+            </div>
+            <div class="admin-menuList">
+                <ul class="menu-icon">
+                    <li class="activemenu"><a href="#">
+                        <img src="../resources/images/admin/member_manage.png" class="menuiconimg">
+                        <p class="ai">회원 관리</p>
+                    </a></li>
+                    <li><a href="#">
+                        <img src="../resources/images/admin/reserve_manage.png" class="menuiconimg">
+                        <p class="ai">예약 관리</p><img src="../resources/images/admin/downarrow.png" class="downarrow"></a>
+                        <ul class="menucate">
+                            <li><a href="#"><p class="ai2">
+                                
+                                예약 목록 관리</p></a></li>                  
+                            <li><a href="#">
+                                <p class="ai2">
+                                <img src="../resources/images/admin/holiday.png" class="submenuiconimg">
+                                    휴일 관리</p>
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">
+                        <img src="../resources/images/admin/qna_manage.png" class="menuiconimg">
+                        <p class="ai">문의 관리</p>
+                    </a></li>
+                    <li><a href="#">
+                        <img src="../resources/images/admin/hospital_manage.png" class="menuiconimg">
+                        <p class="ai">병원 관리</p><img src="../resources/images/admin/downarrow.png" class="downarrow"></a>
+                        <ul class="menucate">
+                            <li><a href="#"><p class="ai2">
+                                <img src="../resources/images/admin/doctor.png" class="submenuiconimg">
+                                의료진 관리</p></a></li>
+                            <li><a href="#"><p class="ai2">
+                                <img src="../resources/images/admin/doctor_insert.png" class="submenuiconimg">
+                                의료진 등록</p></a>
+                            </li>                    
+                            <li><a href="#"><p class="ai2">의료장비 관리</p></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">
+                        <img src="../resources/images/admin/display_manage.png" class="menuiconimg">
+                        <p class="ai">화면 관리</p>
+                    </a></li>
+                    <li><a href="#">
+                        <img src="../resources/images/admin/config_manage.png" class="menuiconimg">
+                        <p class="ai">계정 관리</p>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 관리자 페이지 내용 -->
+        <div id="admincontent-wrap">
+            <!-- 화면 상단 바(공통) -->
+            <div class="topinfo">
+                <p>다나은 동물병원</p>
+                <div class="admin-nameinfo">
+                    <img src="../resources/images/admin/member_manage.png">
+                    <span>서브관리자</span><span>님</span>
+                    <ul class="sub-menulist2">
+                        <li><a href="#">마이페이지</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 내용 부분 : admincontent-main 안에 작성 -->
+            <div class="admincontent-main">
+                <div class="manage_wrap">
+                    <h3>병원 휴일 설정</h3><br><br>
+                    <div class="holiday_btn">
+                        <input type="button" id="type_btn" value="전체">
+                        <input type="button" id="type_btn" value="내과">
+                        <input type="button" id="type_btn" value="외과">
+                        <input type="button" id="type_btn" value="안과">
+                        <input type="button" id="type_btn" value="정형외과">
+                    </div>
+                    <br>
+                    <div id="div_calendar">
+                        <div class="holiday_calendar">
+    
+                        </div>
+                    </div>
+                    <br><br>
+                   <div id="div_btn">
+                       <input type="button" id="type_btn2" value="수정">
+                       <input type="button" id="type_btn2" value="취소">
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
