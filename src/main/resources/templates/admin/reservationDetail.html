@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+
+    <title>다나은 관리자|예약관리</title>
+</head>
+<body>
+ <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='2')"></div>
+            <!-- 내용 부분 : admincontent-main 안에 작성 -->
+            <div class="admincontent-main">
+                <h3 class="pagetitle">예약 정보 관리</h3>
+                <form action="" method="" class="">
+                    <table class="tblstyle2">
+                        <colgroup>
+                            <col width="20%">
+                            <col width="80%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>진료 과목</th>
+                                <td>
+                                    <select disabled>
+                                        <option name="" value="">내과</option>
+                                        <option name="" value="">외과</option>
+                                        <option name="" value="">안과</option>
+                                        <option name="" value="">정형외과</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>담당 수의사</th>
+                                <td>
+                                    <input type="text" class="" name="" id="" value="김소민" readonly>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>예약일</th>
+                                <td>
+                                    <input type="text" class="" name="" id="" value="2021.10.10 10:00~11:00" readonly>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>예약자 이름</th>
+                                <td>
+                                    <input type="text" class="" name="" id="" value="홍길동" readonly>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>전화번호</th>
+                                <td>
+                                    <input type="text" class="" name="" id="" value="010-1234-5667" readonly> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>반려견 이름</th>
+                                <td>
+                                    <input type="text" class="" name="" id="" value="망고" readonly> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>견종</th>
+                                <td>
+                                    <input type="text" class="" name="" id="" value="말티즈" readonly> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>성별</th>
+                                <td>
+                                    <select disabled>
+                                        <option name="dogGender" value="암컷" selected>암컷</option>
+                                        <option name="dogGender" value="수컷">수컷</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>나이</th>
+                                <td>
+                                    <input type="text" class="" name="" id="" value="3" readonly> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>증상 및 요청사항</th>
+                                <td>
+                                    <textarea class="textarea-stl " id="" readonly>사료를 잘 삼키지 못해요</textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>예약상태</th>
+                                <td>
+                                    <input type="text" class="" name="" id="" value="예약완료" readonly> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 유효성 검사 후 버튼 활성화 : btn-b , 비활성화 : btn-disabled -->
+                    <div class="btnarea2">
+                        <button class="btn-b">예약정보 수정</button>
+                        <button class="btn-c btns" type="button" onclick="">예약정보 삭제</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
