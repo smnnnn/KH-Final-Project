@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+
+    <title>다나은 관리자|병원관리</title>
+</head>	
+<body>
+ <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='4-1')"></div>
+            <!-- 내용 부분 : admincontent-main 안에 작성 -->
+            <div class="admincontent-main">
+                <div class="conditionarea">
+                    <div class="sortarea">
+                        <div class="sort1">
+                            <h3>의료 장비 관리</h3>
+                        </div>
+                        <div class="sort1">
+                            <h3>장비 구분별로 보기</h3>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>내과</label>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>외과</label>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>안과</label>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>정형외과</label>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>영상장비</label>
+                        </div>
+                    </div>
+                    <div class="searcharea">
+                        <select class="selecttype">
+                            <option name="searchcondition" value="id" class="opt" selected>문의내용</option>
+                        </select>
+                        <div class="listTotal">
+                            <p class="totalCnt">총 32,000건</p>
+                            <div class="sortArea">
+                                <div class="inp_text search">
+                                    <input type="text" name="searchvalue" class="searchvalue" placeholder="검색어를 입력하세요">
+                                    <button class="btn-a" onclick="">검색</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-area">
+                    <button class="btn-ab" onclick="">+&nbsp;&nbsp;장비 추가</button>
+                </div>
+                <div class="list-tbl">
+                    <table class="tblstyle">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="30%">
+                            <col width="20%">
+                            <col width="10%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>구분</th>
+                                <th>의료 장비명</th>
+                                <th>장비 설명</th>
+                                <th>등록일</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="colored">
+                                <td>1</td>
+                                <td>영상장비</td>
+                                <td>CT</td>
+                                <td class="contentstyle">신체에 방사선을 연속적으로 투과해서 검사하는 장비입니다.</td>
+                                <td>2021.11.20 12:22:33</td>
+                                <td><a href="#">상세보기</a></td>
+                            </tr>
+                            <tr class="colored">
+                                <td>1</td>
+                                <td>영상장비</td>
+                                <td>CT</td>
+                                <td class="contentstyle">신체에 방사선을 연속적으로 투과해서 검사하는 장비입니다.</td>
+                                <td>2021.11.20 12:22:33</td>
+                                <td><a href="#">상세보기</a></td>
+                            </tr>
+                            <tr class="colored">
+                                <td>1</td>
+                                <td>영상장비</td>
+                                <td>CT</td>
+                                <td class="contentstyle">신체에 방사선을 연속적으로 투과해서 검사하는 장비입니다.</td>
+                                <td>2021.11.20 12:22:33</td>
+                                <td><a href="#">상세보기</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="paging pagingarea">
+                    <span class="first"><a href="#"><span class="blind"></span></a></span>
+                    <span class="prev"><a href="#"><span class="blind"></span></a></span>
+                    <a href="#">1</a>
+                    <span class="current">2</span>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <span class="next"><a href="#"><span class="blind"></span></a></span>
+                    <span class="last"><a href="#"><span class="blind"></span></a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

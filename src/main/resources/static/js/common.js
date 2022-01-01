@@ -70,3 +70,11 @@ $(function(){
         $(".sub-menulist2").stop().slideUp();
     });
 });
+
+// 관리자페이지 서브메뉴 고정
+$(function(){
+    $(".menucate").parent('li.activemenu').children('ul.menucate').slideDown('slow');
+    $(".menucate").parent('li.activemenu').children('ul.menucate').css('background-color', '#2C2C2C');
+
+}); 
+

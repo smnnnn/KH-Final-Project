@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+
+    <title>다나은 관리자|예약관리</title>
+</head>
+<body>
+ <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='2')"></div>
+            <!-- 내용 부분 : admincontent-main 안에 작성 -->
+            <div class="admincontent-main">
+                <div class="conditionarea">
+                    <div class="sortarea">
+                        <div class="sort1">
+                            <h3>진료 과목별로 보기</h3>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>내과</label>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>외과</label>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>안과</label>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>정형외과</label>
+                        </div>
+                        <div class="sort1">
+                            <h3>오늘 날짜 보기</h3>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>예약시간순</label>
+                            <input type="radio" name="sortcondition" vale="" id="">
+                            <label>진료과목순</label>
+                        </div>
+                    </div>
+                    <div class="searcharea">
+                        <select class="selecttype">
+                            <option name="searchcondition" value="id" class="opt" selected>예약자 이름</option>
+                            <option name="searchcondition" value="id" class="opt" selected>반려견 이름</option>
+                            <option name="searchcondition" value="id" class="opt" selected>예약상태</option>
+                        </select>
+                        <div class="listTotal">
+                            <p class="totalCnt">총 32,000건</p>
+                            <div class="sortArea">
+                                <div class="inp_text search">
+                                    <input type="text" name="searchvalue" class="searchvalue" placeholder="검색어를 입력하세요">
+                                    <button class="btn-a" onclick="">검색</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-tbl">
+                    <table class="tblstyle">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="10%">
+                            <col width="10%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>진료과목</th>
+                                <th>예약자 이름</th>
+                                <th>전화번호</th>
+                                <th>반려견 이름</th>
+                                <th>예약일</th>
+                                <th>예약상태</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="colored">
+                                <td>1</td>
+                                <td>내과</td>
+                                <td>홍길동</td>
+                                <td>010-1234-5678</td>
+                                <td>망고</td>
+                                <td>2021.10.11 10:00~11:00</td>
+                                <td>예약완료</td>
+                                <td><a href="#">상세보기</a></td>
+                            </tr>
+                            <tr class="colored">
+                                <td>1</td>
+                                <td>내과</td>
+                                <td>홍길동</td>
+                                <td>010-1234-5678</td>
+                                <td>망고</td>
+                                <td>2021.10.11 10:00 ~ 11:00</td>
+                                <td>예약완료</td>
+                                <td><a href="#">상세보기</a></td>
+                            </tr>
+ 
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="paging pagingarea">
+                    <span class="first"><a href="#"><span class="blind"></span></a></span>
+                    <span class="prev"><a href="#"><span class="blind"></span></a></span>
+                    <a href="#">1</a>
+                    <span class="current">2</span>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <span class="next"><a href="#"><span class="blind"></span></a></span>
+                    <span class="last"><a href="#"><span class="blind"></span></a></span>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+</body>
+</html>

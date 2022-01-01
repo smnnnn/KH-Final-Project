@@ -1,11 +1,23 @@
 /*------------- 관리자페이지 화면 공통 --------------*/
+html, body{
+    height: 100%;       
+    margin: 0;
+    padding: 0;
+}
 #adminpage-wrap{
     display: flex;
     height: 100%;
 }
+#admin-menu{
+    width: 250px;
+    background-color: #2C2C2C;
+    height: 100%;
+    position: fixed;
+}
 #admincontent-wrap{
     width: 100%;
     font-size: 13px;
+    padding-left: 250px;
 }
 /* 상단 페이지 정보 */
 .topinfo{
@@ -59,12 +71,6 @@
     display:block;
 }
 /* 메인 메뉴바 */
-#admin-menu{
-    width: 250px;
-    background-color: #2C2C2C;
-    /* height: 100vh; */
-    height: 100%;
-}
 .logo-area > img{
     width: 200px;
     height: 100px;
@@ -93,7 +99,7 @@
 }
 .menu-icon > li > a{
     display: table;
-    margin: 20px;
+    margin: 10px 20px;
 }
 .ai{
    display: table-cell;
@@ -119,6 +125,10 @@
 .activemenu{
     background-color:#85B1D6;
 }
+.activesubmenu{
+    color:#85B1D6;
+}
+
 /* 일반버튼 */
 .btn-a{
     width: 100px;

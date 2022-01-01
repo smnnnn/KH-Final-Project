@@ -17,4 +17,10 @@ public class MainController {
 	public String redirectMain() {
 		return "redirect:/";
 	}
+	
+	/* admin main page*/
+	@GetMapping("/admin")
+	public String adminMain() {
+		return "admin/dashboard";
+	}
 }

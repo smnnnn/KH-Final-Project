@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+
+    <title>다나은 관리자|회원관리</title>
+</head>	
+<body>
+ <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='1')"></div>
+             <!-- 내용 부분 : admincontent-main 안에 작성 -->
+            <div class="admincontent-main">
+                <div class="infowrap">
+                    <h3 class="pagetitle">회원 정보 관리</h3>
+                    <div class="member-info-area">
+                        <img src="/images/admin/member_manage.png">
+                        <h3>kh123</h3>
+                    </div>
+                </div>
+                <form action="" method="" class="formstyle2">
+                    <div class="content-wrap2">
+                        <div class="contentitem">
+                            <h3>회원정보</h3>
+                            <div class="text-area">
+                                <h4>이름</h4>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                            </div>
+                            <div class="text-area">
+                                <h4>이메일</h4>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                            </div>
+                            <div class="text-area">
+                                <h4>전화번호</h4>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                            </div>
+                            <div class="text-area">
+                                <h4>주소</h4>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                            </div>
+                            <div class="text-area">
+                                <h4>회원상태</h4>
+                                <select disabled>
+                                    <option name="memberStatus" value="">회원</option>
+                                    <option name="memberStatus" value="">회원탈퇴</option>
+                                </select>
+                            </div>
+                            <!-- 탈퇴상태인 경우만 탈퇴사유 칸 생성-->
+                            <div class="text-area">
+                                <h4>탈퇴사유</h4>
+                                <input type="text" class="disabled" name="" id="" value="시스템 에러 및 서비스 속도" readonly>
+                            </div>
+                            <div class="text-area">
+                                <h4>가입일</h4>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                            </div>
+                        </div>
+
+                        <div class="contentitem">
+                            <h3>반려견 정보</h3>
+                            <div class="text-area">
+                                <h4>이름</h4>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                            </div>
+                            <div class="text-area">
+                                <h4>성별</h4>
+                                <select disabled>
+                                    <option name="dogGender" value="암컷" selected>암컷</option>
+                                    <option name="dogGender" value="수컷">수컷</option>
+                                </select>
+                                <select disabled>
+                                    <option name="dogGender" value="암컷" selected>암컷</option>
+                                    <option name="dogGender" value="수컷">수컷</option>
+                                </select>
+                            </div>
+                            <div class="text-area">
+                                <h4>나이</h4>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                            </div>
+                            <div class="text-area">
+                                <h4>견종</h4>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                            </div>
+                            <div class="text-area">
+                                <h4>중성화 유무</h4>
+                                <select disabled>
+                                    <option name="neuteredStatus" value="예" selected>예</option>
+                                    <option name="neuteredStatus" value="아니오">아니오</option>
+                                    <option name="neuteredStatus" value="모름">모름</option>
+                                </select>
+                                <select disabled>
+                                    <option name="neuteredStatus" value="예" selected>예</option>
+                                    <option name="neuteredStatus" value="아니오">아니오</option>
+                                    <option name="neuteredStatus" value="모름">모름</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-wrap cs1">
+                        <h3>예약내역</h3>
+                        <table class="tblstyle">
+                            <colgroup>
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="20%">
+                                <col width="50%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>예약일</th>
+                                    <th>진료과목</th>
+                                    <th>반려견 이름</th>
+                                    <th>증상 및 요청사항</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="colored2">
+                                    <td>2021.10.20</td>
+                                    <td>내과</td>
+                                    <td>마루</td>
+                                    <td>눈에 반점이 보이고 눈꼽이 자주 껴요</td>
+                                </tr>
+                                <tr class="colored2">
+                                    <td>2021.10.20</td>
+                                    <td>내과</td>
+                                    <td>마루</td>
+                                    <td>눈에 반점이 보이고 눈꼽이 자주 껴요</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 유효성 검사 후 버튼 활성화 : btn-b , 비활성화 : btn-disabled -->
+                    <div class="btnarea2">
+                        <button class="btn-b">회원 정보 수정</button>
+                        <button class="btn-c btns" type="button" onclick="">회원 삭제</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+ 
+</body>
+</html>

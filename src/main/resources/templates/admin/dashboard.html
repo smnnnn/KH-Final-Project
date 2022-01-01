@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+
+    <title>다나은 관리자페이지</title>
+</head>	
+<body>
+ <div th:replace="fragments/adminMenu.html"></div>
+            <!-- 내용 부분 : admincontent-main 안에 작성 -->
+            <div class="admincontent-main">
+                <div class="manageinfo-wrap">
+                    <div class="manageinfo">
+                        <h3>회원 현황</h3>
+                        <div class="managedata">
+                            <ul class="datalist">
+                                <li><span>신규 회원</span><span>3</span><span>명</span></li>
+                                <li><span>탈퇴 회원</span><span>3</span><span>명</span></li>
+                                <li><span>총 회원수</span><span>80</span><span>명</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="manageinfo mi1">
+                        <h3>예약 현황</h3>
+                        <div class="managedata">
+                            <ul class="datalist">
+                                <li><span>내과</span><span>10</span><span>건</span></li>
+                                <li><span>외과</span><span>5</span><span>건</span></li>
+                                <li><span>안과</span><span>5</span><span>건</span></li>
+                                <li><span>정형외과</span><span>5</span><span>건</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="manageinfo">
+                        <h3>문의 현황</h3>
+                        <div class="managedata">
+                            <ul class="datalist">
+                                <li><span>새 문의</span><span>10</span><span>건</span></li>
+                                <li><span>답변 대기</span><span>5</span><span>건</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="visitinfo">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

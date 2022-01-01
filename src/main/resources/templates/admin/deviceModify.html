@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+
+    <title>다나은 관리자|병원관리</title>
+</head>	
+<body>
+ <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='4-1')"></div>
+            <!-- 내용 부분 : admincontent-main 안에 작성 -->
+            <div class="admincontent-main">
+                <h3 class="pagetitle">의료 장비 수정</h3>
+                <form action="" method="" class="">
+                    <table class="tblstyle2">
+                        <colgroup>
+                            <col width="20%">
+                            <col width="80%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>구분</th>
+                                <td>
+                                    <select>
+                                        <option name="" value="">내과</option>
+                                        <option name="" value="">외과</option>
+                                        <option name="" value="" selected>안과</option>
+                                        <option name="" value="">정형외과</option>
+                                        <option name="" value="">영상장비</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>장비 사진</th>
+                                <td class="tdstyle">
+                                    <div class="dfile"></div>
+                                    <input type="file" name="" class="mdevice-upload">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>장비명</th>
+                                <td>
+                                    <input type="text" class="" name="" id="" value="안압계" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>모델명</th>
+                                <td>
+                                    <input type="text" class="" name="" id="" value="Tonovet" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>장비 설명</th>
+                                <td>
+                                    <textarea class="textarea-stl" id="" >안압 측정은 모든 안과 환자에게 시행하는 기본 검사 중 하나이며, 
+                                        녹내장 환자의 진단과 치료 효과의 판단 및 경과 관찰에 필수적인 
+                                        안과 검사이다. 또한 안구내 염증으로 안압이 낮아지는 포도막염 
+                                        환자의 진단과 치료 과정에도 안압측정은 효과적으로 사용됩니다.</textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 유효성 검사 후 버튼 활성화 : btn-b , 비활성화 : btn-disabled -->
+                    <div class="btnarea2">
+                        <button class="btn-b">수정</button>
+                        <button class="btn-c btns" type="button" onclick="">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
