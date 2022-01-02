@@ -1,9 +1,12 @@
 package com.kh.project.cs.model.vo;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("Search") //못읽어옴
 public class Search {
 
-	private String searchCondition;
-	private String searchValue;
+	private String searchCondition; //검색조건
+	private String searchValue; //검색어
 	
 	public Search() {}
 

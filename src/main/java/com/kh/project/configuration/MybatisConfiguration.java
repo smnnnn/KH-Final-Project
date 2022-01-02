@@ -8,4 +8,5 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan(basePackages="com.kh.project", annotationClass=Mapper.class)
 public class MybatisConfiguration {
 
+	
 }
