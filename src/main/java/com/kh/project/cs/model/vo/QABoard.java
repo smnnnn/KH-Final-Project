@@ -9,7 +9,7 @@ public class QABoard {
 	private int QHit;
 	private Date createDate;
 	private Date modifyDate;
-	private long QContent;
+	private String QContent;
 	private String status;
 	private String secretStatus;
 	private int userNo;
@@ -17,8 +17,27 @@ public class QABoard {
 	private Answer answer;
 	
 	QABoard() {}
+	
+	
 
-	public QABoard(int qNo, String qTitle, int qHit, Date createDate, Date modifyDate, long qContent, String status,
+	public QABoard(int qNo, String qTitle, int qHit, Date createDate, Date modifyDate, String qContent, String status,
+			String secretStatus, int userNo, int categoryNo) {
+		super();
+		QNo = qNo;
+		QTitle = qTitle;
+		QHit = qHit;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		QContent = qContent;
+		this.status = status;
+		this.secretStatus = secretStatus;
+		this.userNo = userNo;
+		this.categoryNo = categoryNo;
+	}
+
+
+
+	public QABoard(int qNo, String qTitle, int qHit, Date createDate, Date modifyDate, String qContent, String status,
 			String secretStatus, int userNo, int categoryNo, Answer answer) {
 		super();
 		QNo = qNo;
@@ -74,11 +93,11 @@ public class QABoard {
 		this.modifyDate = modifyDate;
 	}
 
-	public long getQContent() {
+	public String getQContent() {
 		return QContent;
 	}
 
-	public void setQContent(long qContent) {
+	public void setQContent(String qContent) {
 		QContent = qContent;
 	}
 
