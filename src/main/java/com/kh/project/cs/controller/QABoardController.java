@@ -58,7 +58,7 @@ public class QABoardController {
 		log.info("boardList : ",map.get("boardList"));
 		
 		mv.addAllObjects(map);
-		mv.setViewName("qaBoard/list"); //엥?
+		mv.setViewName("cs/QABoardList"); 
 		
 		return mv;
 		

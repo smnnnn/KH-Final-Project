@@ -12,8 +12,8 @@ public class QABoard {
 	private String QContent;
 	private String status;
 	private String secretStatus;
-	private int userNo;
-	private int categoryNo;
+	private String userName;
+	private String categoryName;
 	private Answer answer;
 	
 	QABoard() {}
@@ -21,7 +21,7 @@ public class QABoard {
 	
 
 	public QABoard(int qNo, String qTitle, int qHit, Date createDate, Date modifyDate, String qContent, String status,
-			String secretStatus, int userNo, int categoryNo) {
+			String secretStatus, String userName, String categoryName) {
 		super();
 		QNo = qNo;
 		QTitle = qTitle;
@@ -31,14 +31,14 @@ public class QABoard {
 		QContent = qContent;
 		this.status = status;
 		this.secretStatus = secretStatus;
-		this.userNo = userNo;
-		this.categoryNo = categoryNo;
+		this.userName = userName;
+		this.categoryName = categoryName;
 	}
 
 
 
 	public QABoard(int qNo, String qTitle, int qHit, Date createDate, Date modifyDate, String qContent, String status,
-			String secretStatus, int userNo, int categoryNo, Answer answer) {
+			String secretStatus, String userName, String categoryName, Answer answer) {
 		super();
 		QNo = qNo;
 		QTitle = qTitle;
@@ -48,8 +48,8 @@ public class QABoard {
 		QContent = qContent;
 		this.status = status;
 		this.secretStatus = secretStatus;
-		this.userNo = userNo;
-		this.categoryNo = categoryNo;
+		this.userName = userName;
+		this.categoryName = categoryName;
 		this.answer = answer;
 	}
 
@@ -117,20 +117,20 @@ public class QABoard {
 		this.secretStatus = secretStatus;
 	}
 
-	public int getUserNo() {
-		return userNo;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public int getCategoryNo() {
-		return categoryNo;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setCategoryNo(int categoryNo) {
-		this.categoryNo = categoryNo;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public Answer getAnswer() {
@@ -145,7 +145,7 @@ public class QABoard {
 	public String toString() {
 		return "QABoard [QNo=" + QNo + ", QTitle=" + QTitle + ", QHit=" + QHit + ", createDate=" + createDate
 				+ ", modifyDate=" + modifyDate + ", QContent=" + QContent + ", status=" + status + ", secretStatus="
-				+ secretStatus + ", userNo=" + userNo + ", categoryNo=" + categoryNo + ", answer=" + answer + "]";
+				+ secretStatus + ", userName=" + userName + ", categoryName=" + categoryName + ", answer=" + answer + "]";
 	}
 	
 	
