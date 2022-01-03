@@ -8,15 +8,15 @@
     <!-- 폰트  -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet"> 
     <!-- 공통 css -->
-    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
     <!-- 나현 css (메인, 관리자)-->
-    <link type="text/css" rel="stylesheet" href="../resources/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
     <!-- 효은 css -->
-    <link type="text/css" rel="stylesheet" href="../resources/css/he.css">
+    <link type="text/css" rel="stylesheet" href="/css/he.css">
     <!-- 공통 js -->
-    <script type="text/javascript" src="../resources/js/common.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
     
-    <title>다나은 동물병원</title>
+    <title>진료안내</title>
 </head>
 <body>
 <div th:replace="fragments/header.html"></div>
@@ -27,9 +27,9 @@
        <div id="side-menu"> 
         <div class="sidenav">
             <ul>
-                <li class="li-active"><a href="#">진료 안내</a></li>
-                <li><a href="#">진료 과목</a></li>
-                <li><a href="#">진료 예약</a></li>
+                <li class="li-active"><a th:href="@{/reservation/notice}">진료 안내</a></li>
+                <li><a th:href="@{/reservation/treatmentType}">진료 과목</a></li>
+                <li><a th:href="@{/reservation/reservation_typeChoice}">진료 예약</a></li>
             </ul>      
         </div>
         </div>
@@ -106,26 +106,26 @@
                 <ul>
                     <li>
                         <a href="#">
-                            <img src="../resources/images/common/inquiry.png">
+                            <img src="/images/common/inquiry.png">
                             <p>문의하기</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../resources/images/common/medical device.png">
+                        <a th:href="@{/about/device}">
+                            <img src="/images/common/medical device.png">
                             <p>의료 장비</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../resources/images/common/way to come.png">
+                        <a th:href="@{/about/location}">
+                            <img src="/images/common/way to come.png">
                             <p>오시는 길</p>
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="move-to-top">
-                <a href="#"><img src="../resources/images/common/arrow.png"></a>
+                <a href="#"><img src="/images/common/arrow.png"></a>
             </div>
         </div>
     </div>
