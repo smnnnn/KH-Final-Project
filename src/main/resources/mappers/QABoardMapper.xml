@@ -11,8 +11,8 @@
 		<result property="QContent" column="Q_CONTENT"/>
 		<result property="status" column="STATUS"/>
 		<result property="secretStatus" column="SECRET_STATUS"/>
-		<result property="userNo" column="USER_NO"/>
-		<result property="categoryNo" column="CATEGORY_NO"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="categoryName" column="CATEGORY_NAME"/>
 	</resultMap>
 	
 	<select id="getListCount" parameterType="com.kh.project.cs.model.vo.Search" resultType="Integer">
@@ -20,8 +20,8 @@
 			SELECT
 			   COUNT(*)
 	      FROM QUESTION Q
-	      <if test="searchCondition.equals('작성자')">
-	      	JOIN MEMBER ON(USER_NO=Q.USER_NO)
+	      <if test="searchCondition != null and searchValue != null and searchCondition.equals('작성자')">
+	      	JOIN MEMBER USING(USER_NO)
 	      </if>
 	     WHERE STATUS = 'N'
 	     <if test="searchCondition != null and searchValue != null">

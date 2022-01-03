@@ -17,7 +17,7 @@ public interface QABoardMapper {
 //	int endRow = startRow + pi.getBoardLimit() - 1;
 //	List<QABoard> selectQAList(PageInfo pi, Search search); //맵에다 담아서 넘겨야 할까? startrow,endrow,searchCondition,searchValue
 	
-	List<QABoard> selectQAList(int startRow, int endRow, Search search); // 이렇게 전달이 되는지?
+	List<QABoard> selectQAList(int startRow, int endRow, String searchCondition, String searchValue); 
 	
 	QABoard selectQA(int Qno);
 	

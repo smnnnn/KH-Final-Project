@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>문의 게시판 목록</title>
+    <!-- css -->
+    <link type="text/css" rel="stylesheet" href="/css/sm/QABoardList.css">
+	</head>
+<body>
+
+ <div th:replace="fragments/header.html"></div>
+    <!-- 내용 부분 -->
+    <div id="main">
+       
+        <!-- 내용 표시 부분 -->
+        <div class="board content">
+            <div>
+                <div id="qaTitle">Q&A</div>
+                <div class="line2">
+                    <select id="sb" class="basic">
+                        <option value="선택">제목</option>
+                        <option value="">내용</option>
+                        <option value="">작성자</option>
+                    </select>
+                    <span><input type="text" class="basic"></span>
+                    <a href="">
+                        <img id="search" src="/images/sm/search2.png"></img>
+                    </a>
+                </div>
+                <div class="line">
+                    <span class="space2">NO</span>
+                    <span class="space space1">SUBJECT</span>
+                    <span class="space">NAME</span>
+                    <span class="space">DATE</span>
+                    <span class="space">HIT</span>
+                </div>
+                <div class="bd_container" th:each="board : ${boardList}">
+                    <div class="item item1" th:text="${board.QNo}"></div>
+                    <div class="item">
+                    	<!-- 클릭시 해당 글번호 상세 페이지로 이동 -->
+                    	<a th:href="@{/qaDetail(QNo=${board.QNo})}">
+                    	<!-- 비밀글이면 lock,아니면 unlock 아이콘-->
+                        <span th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png"></span>
+                       	<span th:if="${board.secretStatus} == 'N'"><img id="key" src="/images/sm/unlock2.png"></span>
+                        <!-- 카테고리명 -->
+                        [<span th:text="${board.categoryName}"></span>] 
+                        <!-- 글제목 -->
+                        <span th:text="${board.QTitle}"></span>
+                        <!-- 댓글 달렸을 경우와 아닐 경우 구분 아이콘-->
+                        <span><img id="answer" src="/images/sm/answer2.png"></span> 
+                        </a>
+                    </div>
+                    <!-- 사용자 이름 -->
+                    <div class="item bold" th:text="${board.userName}"></div>
+                    <!-- 작성 날짜(수정 했을 경우 수정 날짜로 업데이트 필요 -->
+                    <div class="item" th:text="${#dates.format(board.createDate, 'yyyy.MM.dd')}"></div>
+                    <!-- 조회수 -->
+                    <div class="item" th:text="${board.QHit}">조회수</div>                  
+                </div>
+
+                <!-- 페이징바 -->
+                <!-- http://localhost:8007/qaBoard/list?page=9 -->
+                <div class="paging">
+                	<!-- 맨 처음 페이지 이동 버튼(<<) -->
+                    <span><a href=list?page=1>&lt;&lt;</a></span><!-- <img id="arrow" src="/images/sm/left-arrow.png"> -->
+                    <!-- 이전 페이지로(<) -->
+                    <span th:if="${pi.page > 1}"><a th:href="@{/qaBoard/list(page=${pi.page - 1})}">&lt;</a></span>
+                    <span th:unless="${pi.page > 1}"><a href="#">&lt;</a></span>
+  
+  					<!-- startPage ~ endPage 최대 10개의 페이지 목록 -->                
+                    <th:block th:each="num : ${#numbers.sequence(pi.startPage,pi.endPage)}">
+                    	<!-- 현재 페이지에 밑줄 css -->
+                    	<th:block th:if="${num == pi.page}">
+                    		<a href="#" class="current_page"><span th:text="${num}"></span></a>
+                    	</th:block>
+                    	<!-- 그 외 그냥 표시 -->
+                    	<th:block th:unless="${num == pi.page}">
+                    		<a th:href="@{/qaBoard/list(page=${num})}"><span th:text="${num}"></span></a>
+                    	</th:block>
+                    </th:block>
+
+                    <!-- 다음 페이지로(>) -->
+                    <span th:if="${pi.page < pi.maxPage}"><a th:href="@{/qaBoard/list(page=${pi.page + 1})}">&gt;</a></span>
+                    <span th:unless="${pi.page < pi.maxPage}"><a href="#">&gt;</a></span>
+
+                    <!-- 맨 끝으로 이동 버튼(>>) -->
+                    <span><a th:href="@{/qaBoard/list(page=${pi.maxPage})}">&gt;&gt;</a></span><!-- $gt;&gt; -->
+                </div>
+	
+
+                <button id="writeBtn">글쓰기</button>
+            </div>
+        </div>
+       
+    </div>
+
+    <!-- 푸터 -->
+	<div th:replace="fragments/footer.html"></div>
+
+
+</body>
+</html>
