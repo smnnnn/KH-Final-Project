@@ -21,9 +21,9 @@ public interface QABoardMapper {
 	
 	QABoard selectQA(int Qno);
 	
-	int insertQA(QABoard qaBoard);
+	int insertQA(QABoard qaBoard); //유저넘버랑 카테고리 넘버
 	
-	int increaseCount(int rvNo);
+	int increaseCount(int qNo);
 	
 	int updateQA(QABoard qaBoard);
 	

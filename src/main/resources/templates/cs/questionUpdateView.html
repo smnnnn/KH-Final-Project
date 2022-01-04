@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 상세</title>
+     <!-- css -->
+	 <link type="text/css" rel="stylesheet" href="/css/sm/questionPage.css">
+     <!-- 공통 css -->
+     <link type="text/css" rel="stylesheet" href="/css/common.css">
+     <!--font-->
+     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200;400&display=swap" rel="stylesheet">
+     <!-- jquery-->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <!--메인 스크립트 -->
+     <script type="text/javascript" src="/js/common.js"></script>
+
+</head>
+<body>
+    <!-- 헤더 -->
+ 	<div th:replace="fragments/header.html"></div>
+
+    <!-- 내용 부분 -->
+    <div>
+       <form th:action="@{/qaBoard/update}" method="post">
+       <input type="hidden" name="QNo" th:value="${board.QNo}">
+        <!-- 내용 표시 부분 -->
+        <div class="board content">
+            <div id="qaTitle">수정하기</div>
+            <div class="board_wrap">
+
+                <div class="qTitle">
+      
+                    <select id="category" name="categoryNo">
+                        <option value="10" th:selected="${board.categoryName} =='일반문의'">일반문의</option>
+                        <option value="20" th:selected="${board.categoryName} =='예약문의'">예약문의</option>
+                        <option value="30" th:selected="${board.categoryName} =='기타문의'">기타문의</option>
+                    </select>
+       
+                    <input type="text" id="titleArea" maxlength="100" name="QTitle" th:value="${board.QTitle}">
+
+                </div>
+                <textarea name="QContent" class="ctBox" maxlength="4000" th:text="${board.QContent}">
+                </textarea>
+
+                <div class="checks">
+
+                    <input type="radio" class="lockYN" id="unlock" name="secretStatus" value="N" th:checked="${board.secretStatus} == 'N'">
+                    <label for="unlock">공개글</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" class="lockYN" id="lock" name="secretStatus" value="Y" th:checked="${board.secretStatus} == 'Y'">
+                    <label for="lock">비밀글</label>
+
+                </div>
+
+                <div class="btnArea">
+                    <button class="btn btnSpace" id="gotoList">취소</button>
+                    <button class="btn" id="write" type="submit">수정</button>
+                </div>
+            </div>
+        </div>
+      </form> 
+    </div>
+    
+    <!-- 푸터 -->
+	<div th:replace="fragments/footer.html"></div>
+
+
+
+</body>
+</html>

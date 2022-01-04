@@ -22,13 +22,14 @@ public class QABoardServiceImpl implements QABoardService {
 	
 	@Autowired
 	public QABoardServiceImpl(QABoardMapper boardMapper) {
+		
 		this.boardMapper = boardMapper;
 	}
 	
 	@Override
 	public int getListCount(Search search) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return boardMapper.getListCount(search);
 	}
 
 
@@ -61,6 +62,36 @@ public class QABoardServiceImpl implements QABoardService {
 		//페이지 인포
 //		return boardMapper.selectQAList(pi, search); 
 		return returnMap;
+	}
+
+	@Override
+	public int increaseCount(int qNo) {
+
+		return boardMapper.increaseCount(qNo);
+	}
+
+	@Override
+	public QABoard selectQA(int qNo) {
+		
+		return boardMapper.selectQA(qNo);
+	}
+
+	@Override
+	public int insertQA(QABoard qaBoard) {
+		
+		return boardMapper.insertQA(qaBoard);
+	}
+
+	@Override
+	public int updateQA(QABoard qaBoard) {
+		
+		return boardMapper.updateQA(qaBoard);
+	}
+
+	@Override
+	public int deleteQA(int qNo) {
+		
+		return boardMapper.deleteQA(qNo);
 	}
 
 

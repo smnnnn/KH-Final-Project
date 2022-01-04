@@ -1,235 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의 작성</title>
+    <title>게시판 상세</title>
+     <!-- css -->
+	 <link type="text/css" rel="stylesheet" href="/css/sm/questionPage.css">
      <!-- 공통 css -->
-     <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+     <link type="text/css" rel="stylesheet" href="/css/common.css">
      <!--font-->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200;400&display=swap" rel="stylesheet">
      <!-- jquery-->
      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
      <!--메인 스크립트 -->
-     <script type="text/javascript" src="../resources/js/common.js"></script>
-    <style>
+     <script type="text/javascript" src="/js/common.js"></script>
 
-
-        .board.content {
-            min-width: 800px;
-            width: 1000px;
-            margin: 0px auto;
-            /*text-align: center;*/
-            /* margin-bottom: 130px; */
-            margin-bottom: 200px;
-            margin-top:70px;
-        }
-
-
-        #qaTitle {
-            margin-top: 10px;
-            margin-bottom: 60px;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-/*       
-        .line2 {
-            
-            border-bottom: 2px solid #85B1D6;
-            font-size: 0.8rem;
-            padding-bottom: 10px;
-            padding-top: 4px;
-            font-size: 0.9rem;
-            padding-left: 20px;
-        } */
-
-        .btn {
-            background-color: #85B1D6;
-            /* background-color: #7b9acc; */
-            color: white;
-            width: 441px;
-            height: 28px;
-            border: none;
-            position: relative;
-           
-            border-radius: 4px;
-            margin-top: 10px;
-            margin-top: 12px;
-            
-        }
-        .btnSpace {
-            margin-right: 14px;
-        }
-
-        .btn:hover {
-            opacity: 30%;
-        }
-
-        .btnArea {
-            margin-top: 5px;
-        }
-        /* .footer{
-            width: 100%;
-            height: 115px;
-            background-color: rgba(240, 239, 225, 1);
-            position: absolute;
-
-        } */
-
-        .board_wrap {
-            width: 900px;
-            margin-left: 50px;
-            font-size: 0.85rem;
-        }
-
-        .ctBox {
-            min-height: 250px;
-            width: 860px;
-            padding: 20px;
-            border:1px solid #85B1D6;
-            /* border:1px solid #7b9acc; */
-            border-radius: 10px;
-        }
-
-        .name,.date{
-            padding-left: 20px;
-        }
-
-        .name{
-            padding-top: 15px;
-        }
-
-        .date{
-            padding-bottom: 15px;
-        }
-
-        .replyBox{
-            width: 840px;
-            min-height: 80px;
-            background-color: rgba(241, 249, 255, 1);
-            margin-top: 30px;
-            padding: 30px;
-            margin-bottom: 40px;
-            border-radius: 6px;
-
-            display: grid;
-            grid-template-columns : 2fr 12fr 2fr;
-            justify-items:self-start;
-            grid-gap:3rem;
-        }
-
-        .smallicon {
-            width: 21px;
-            margin-left: 5px;
-           
-        }
-
-        .replyIcon{
-            width: 12px;
-            margin-right: 8px;
-        }
-
-        .bold {
-            font-weight: bold;
-        }
-
-        #category {
-            width: 109px;
-            height: 27px;
-            border:1px solid #85B1D6;
-            /* border:1px solid #7b9acc; */
-            border-radius: 10px;
-            margin-bottom: 7px;
-            margin-right: 5px;
-        }
-
-        #titleArea {
-            width: 740px;
-            height: 27px;
-            border:1px solid #85B1D6;
-            /* border:1px solid #7b9acc; */
-            border-radius: 10px;
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-        .qTitle {
-            margin-bottom: 10px;
-        }
-
-
-        .checks {position: relative; margin-top: 15px; margin-left: 4px;} 
-        .checks input[type="radio"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
-        .checks input[type="radio"] + label { display: inline-block; position: relative; padding-left: 30px; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
-        .checks input[type="radio"] + label:before { content: ''; position: absolute; left: 0; top: -4px; width: 17px; height: 17px; text-align: center; background: #f4f4f4; border: 1px solid #85B1D6; border-radius: 100%; box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); }
-        .checks input[type="radio"] + label:active:before, .checks input[type="radio"]:checked + label:active:before { box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1); }
-        .checks input[type="radio"]:checked + label:before { background: #E9ECEE; border-color: #85B1D6; }
-        .checks input[type="radio"]:checked + label:after { content: ''; position: absolute; top: 1px; left: 5px; width: 9px; height: 9px; background: #ffffff; border-radius: 100%; box-shadow: inset 0px 0px 10px #85B1D6; }
-        
-
-    </style>
 </head>
 <body>
     <!-- 헤더 -->
-    <header id="header">
-        <div class="header-container">
-            <!-- 로그인 -->
-            <div class="homemenu">
-                <!-- 로그인 안한 경우 -->
-                <ul class="nologin">
-                    <a href="#">HOME</a>
-                    <a href="#">로그인</a>
-                    <a href="#">회원가입</a>
-                </ul>
-                <!-- 로그인 한 경우 -->
-                <ul class="userlogin" style="display: none;">
-                    <a href="#">HOME</a>
-                    <a href="#">로그아웃</a>
-                    <a href="#">마이페이지</a>
-                </ul>
-            </div>
-            <div class="main-menu">
-                <!-- 로고 -->
-                <div class="logo">
-                    <a href="#">
-                        <img src="../resources/images/common/logo.png"></img>
-                    </a>
-                </div>
-                <!-- 메인 메뉴 -->
-                <div class="menulist">
-                    <ul>
-                        <li><a href="#">병원소개</a>
-                            <ul class="sub-menulist">
-                                <li><a href="#">병원 소개</a></li>
-                                <li><a href="#">의료진 소개</a></li>
-                                <li><a href="#">의료 장비 소개</a></li>
-                                <li><a href="#">오시는 길</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">진료안내</a>
-                            <ul class="sub-menulist">
-                                <li><a href="#">진료 안내</a></li>
-                                <li><a href="#">진료 과목</a></li>
-                                <li><a href="#">진료 예약</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">고객센터</a></li>
-                        <li><a href="#">치료후기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
+ 	<div th:replace="fragments/header.html"></div>
 
     <!-- 내용 부분 -->
-    <div id="main">
-       
+    <div>
+       <form th:action="@{/qaBoard/insert}" method="post">
         <!-- 내용 표시 부분 -->
         <div class="board content">
             <div id="qaTitle">문의하기</div>
@@ -243,24 +38,24 @@
                 </div> -->
                 <div class="qTitle">
       
-                    <select id="category">
-                        <option value="예약문의">예약문의</option>
-                        <option value="일반문의">일반문의</option>
-                        <option value="기타문의">기타문의</option>
+                    <select id="category" name="categoryNo">
+                        <option value="10">일반문의</option>
+                        <option value="20">예약문의</option>
+                        <option value="30">기타문의</option>
                     </select>
        
-                    <input type="text" id="titleArea" maxlength="100">
+                    <input type="text" id="titleArea" maxlength="100" name="QTitle">
 
                 </div>
-                <textarea class="ctBox" maxlength="4000"> 아래 정보를 기입하시면 더욱 빠르고 정확한 안내가 가능합니다 
+                <textarea name="QContent" class="ctBox" maxlength="4000"> 아래 정보를 기입하시면 더욱 빠르고 정확한 안내가 가능합니다 
  예약 번호:
                 </textarea>
 
                 <div class="checks">
 
-                    <input type="radio" class="lockYN" id="unlock" name="lockYN" value="unlock">
+                    <input type="radio" class="lockYN" id="unlock" name="secretStatus" value="N">
                     <label for="unlock">공개글</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" class="lockYN" id="lock" name="lockYN" value="lock" checked>
+                    <input type="radio" class="lockYN" id="lock" name="secretStatus" value="Y" checked>
                     <label for="lock">비밀글</label>
 
                 </div>
@@ -271,30 +66,15 @@
                 </div>-->
                 <div class="btnArea">
                     <button class="btn btnSpace" id="gotoList">취소</button>
-                    <button class="btn" id="write">등록</button>
+                    <button class="btn" id="write" type="submit">등록</button>
                 </div>
             </div>
         </div>
-       
+      </form> 
     </div>
+    
     <!-- 푸터 -->
-    <!-- <footer id="footer">
-        <div class="footer_container footer">
-       
-        </div>
-    </footer> -->
-    <footer id="footer">
-        <div class="footer-container">
-            <div class="flogo">
-                <img src="../resources/images/common/logo2.png">
-            </div>
-            <div class="finfo">
-                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
-                TEL 1544-9970 <br>
-                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
-            </div>
-        </div>
-    </footer>
+	<div th:replace="fragments/footer.html"></div>
 
 
 

@@ -15,10 +15,32 @@ public class QABoard {
 	private String userName;
 	private String categoryName;
 	private Answer answer;
+	private int userNo;
+	private int categoryNo;
 	
 	QABoard() {}
 	
 	
+
+	public QABoard(int qNo, String qTitle, int qHit, Date createDate, Date modifyDate, String qContent, String status,
+			String secretStatus, String userName, String categoryName, Answer answer, int userNo, int categoryNo) {
+		super();
+		QNo = qNo;
+		QTitle = qTitle;
+		QHit = qHit;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		QContent = qContent;
+		this.status = status;
+		this.secretStatus = secretStatus;
+		this.userName = userName;
+		this.categoryName = categoryName;
+		this.answer = answer;
+		this.userNo = userNo;
+		this.categoryNo = categoryNo;
+	}
+
+
 
 	public QABoard(int qNo, String qTitle, int qHit, Date createDate, Date modifyDate, String qContent, String status,
 			String secretStatus, String userName, String categoryName) {
@@ -141,12 +163,42 @@ public class QABoard {
 		this.answer = answer;
 	}
 
+	
+	public int getUserNo() {
+		return userNo;
+	}
+
+
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+
+
+	public int getCategoryNo() {
+		return categoryNo;
+	}
+
+
+
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "QABoard [QNo=" + QNo + ", QTitle=" + QTitle + ", QHit=" + QHit + ", createDate=" + createDate
 				+ ", modifyDate=" + modifyDate + ", QContent=" + QContent + ", status=" + status + ", secretStatus="
-				+ secretStatus + ", userName=" + userName + ", categoryName=" + categoryName + ", answer=" + answer + "]";
+				+ secretStatus + ", userName=" + userName + ", categoryName=" + categoryName + ", answer=" + answer
+				+ ", userNo=" + userNo + ", categoryNo=" + categoryNo + "]";
 	}
+
+
+
+	
 	
 	
 }
