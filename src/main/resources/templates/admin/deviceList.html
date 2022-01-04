@@ -14,6 +14,7 @@
     <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
     <!-- 자바스크립트 -->
     <script type="text/javascript" src="/js/common.js"></script> 
+    <script type="text/javascript" src="/js/nh.js"></script> 
 
     <title>다나은 관리자|병원관리</title>
 </head>	
@@ -28,15 +29,15 @@
                         </div>
                         <div class="sort1">
                             <h3>장비 구분별로 보기</h3>
-                            <input type="radio" name="sortcondition" vale="" id="">
+                            <input type="radio" name="sortcondition" value="" id="">
                             <label>내과</label>
-                            <input type="radio" name="sortcondition" vale="" id="">
+                            <input type="radio" name="sortcondition" value="" id="">
                             <label>외과</label>
-                            <input type="radio" name="sortcondition" vale="" id="">
+                            <input type="radio" name="sortcondition" value="" id="">
                             <label>안과</label>
-                            <input type="radio" name="sortcondition" vale="" id="">
+                            <input type="radio" name="sortcondition" value="" id="">
                             <label>정형외과</label>
-                            <input type="radio" name="sortcondition" vale="" id="">
+                            <input type="radio" name="sortcondition" value="" id="">
                             <label>영상장비</label>
                         </div>
                     </div>
@@ -56,7 +57,7 @@
                     </div>
                 </div>
                 <div class="btn-area">
-                    <button class="btn-ab" onclick="">+&nbsp;&nbsp;장비 추가</button>
+                    <button class="btn-ab" onclick="location.href='/admin/hospital/registDevice'">+&nbsp;&nbsp;장비 추가</button>
                 </div>
                 <div class="list-tbl">
                     <table class="tblstyle">
@@ -64,8 +65,8 @@
                             <col width="10%">
                             <col width="10%">
                             <col width="20%">
-                            <col width="30%">
-                            <col width="20%">
+                            <col width="25%">
+                            <col width="25%">
                             <col width="10%">
                         </colgroup>
                         <thead>
@@ -73,36 +74,27 @@
                                 <th>No</th>
                                 <th>구분</th>
                                 <th>의료 장비명</th>
-                                <th>장비 설명</th>
+                                <th>장비 모델명</th>
                                 <th>등록일</th>
                                 <th>관리</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="colored">
-                                <td>1</td>
-                                <td>영상장비</td>
-                                <td>CT</td>
-                                <td class="contentstyle">신체에 방사선을 연속적으로 투과해서 검사하는 장비입니다.</td>
-                                <td>2021.11.20 12:22:33</td>
-                                <td><a href="#">상세보기</a></td>
+                            <tr th:each="device, i : ${mdeviceList}" class="colored">
+	                            <td th:text="${i.index+1}"></td>
+	                            <th:block th:switch="${device.categoryCode}">
+                                	<td th:case="1">내과</td>	
+                                	<td th:case="2">외과</td>
+                                	<td th:case="3">안과</td>
+                                	<td th:case="4">정형외과</td>
+                                	<td th:case="5">영상장비</td>                            	
+	                            </th:block>
+                                <td th:text="${device.deviceName}"></td>
+                                <td class="contentstyle" th:text="${device.deviceModel}"></td>
+                                <td th:text="${#dates.format(device.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td><a th:href="@{/admin/hospital/deviceDetail(no=${device.deviceNo})}">상세보기</a></td>
                             </tr>
-                            <tr class="colored">
-                                <td>1</td>
-                                <td>영상장비</td>
-                                <td>CT</td>
-                                <td class="contentstyle">신체에 방사선을 연속적으로 투과해서 검사하는 장비입니다.</td>
-                                <td>2021.11.20 12:22:33</td>
-                                <td><a href="#">상세보기</a></td>
-                            </tr>
-                            <tr class="colored">
-                                <td>1</td>
-                                <td>영상장비</td>
-                                <td>CT</td>
-                                <td class="contentstyle">신체에 방사선을 연속적으로 투과해서 검사하는 장비입니다.</td>
-                                <td>2021.11.20 12:22:33</td>
-                                <td><a href="#">상세보기</a></td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -121,6 +113,13 @@
             </div>
         </div>
     </div>
+    <script>
+    	const message = '[[${deviceResultMessage}]]';
+    	if(message){
+    		alert(message);
+    	}
+    	
+    </script>
 
 </body>
 </html>

@@ -9,6 +9,10 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521:xe
     username: dn
     password: dn
+  # file upload
+  servlet: 
+    multipart:
+      max-file-size: 10MB
     
 # mybatis config
 mybatis:
@@ -18,3 +22,6 @@ mybatis:
 logging:
   level:
     root: info
+
+
+        

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.project.admin.hospitalManage.model.dao.HospitalManageMapper">
+
+	<resultMap id="deviceResultMap" type="com.kh.project.hospital.model.vo.MedicalDevice">
+		<id property="deviceNo" column="DEVICE_NO"/>
+		<result property="deviceName" column="DEVICE_NAME"/>
+		<result property="deviceModel" column="DEVICE_MODEL"/>
+		<result property="deviceContent" column="DEVICE_CONTENT"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="categoryCode" column="CATEGORY_CODE"/>
+	</resultMap>
+	
+	<resultMap id="deviceFileResultMap" type="com.kh.project.hospital.model.vo.MDeviceFile">
+		<id property="dfileNo" column="DFILE_NO"/>
+		<result property="dchangeName" column="DCHANGE_NAME"/>
+		<result property="dfilePath" column="DFILE_PATH"/>
+		<result property="deviceNo" column="DEVICE_NO"/>
+	</resultMap>
+
+	<select id="selectMedicalDeviceList" resultMap="deviceResultMap">
+		SELECT
+			   DEVICE_NO
+			 , DEVICE_NAME
+			 , DEVICE_MODEL
+			 , DEVICE_CONTENT
+			 , CREATE_DATE
+			 , MODIFY_DATE
+			 , STATUS
+			 , CATEGORY_CODE
+		  FROM MEDICAL_DEVICE
+		 WHERE STATUS = 'Y'		
+		 ORDER BY DEVICE_NO 
+	</select>
+	
+	<select id="selectMedicalDeviceByNo" parameterType="_int" resultMap="deviceResultMap">
+		SELECT
+			   DEVICE_NO
+			 , DEVICE_NAME
+			 , DEVICE_MODEL
+			 , DEVICE_CONTENT
+			 , CREATE_DATE
+			 , MODIFY_DATE
+			 , STATUS
+			 , CATEGORY_CODE
+		  FROM MEDICAL_DEVICE
+	 	 WHERE DEVICE_NO = #{ deviceNo }	
+	</select>
+	
+	<select id="selectDeviceFileByNo" parameterType="_int" resultMap="deviceFileResultMap">
+		SELECT
+		       DFILE_NO
+		     , DCHANGE_NAME
+		     , DFILE_PATH
+		     , DEVICE_NO
+		  FROM DEVICE_FILE
+		 WHERE DEVICE_NO = #{ deviceNo }
+	</select>
+
+	<insert id="registMedicalDevice" parameterType="com.kh.project.hospital.model.vo.MedicalDevice">
+		INSERT
+		  INTO MEDICAL_DEVICE
+		(
+			DEVICE_NO
+		  , DEVICE_NAME
+		  , DEVICE_MODEL
+		  , DEVICE_CONTENT
+		  , CREATE_DATE
+		  , MODIFY_DATE
+		  , STATUS
+		  , CATEGORY_CODE
+		)
+		VALUES
+		(
+			SEQ_DEVICE_NO.NEXTVAL
+		  , #{ deviceName }
+		  , #{ deviceModel }
+		  , #{ deviceContent }
+		  , SYSDATE
+		  , SYSDATE
+		  , DEFAULT
+		  , #{ categoryCode }
+		)
+	</insert>
+	
+	<insert id="registDeviceFile" parameterType="com.kh.project.hospital.model.vo.MDeviceFile">
+		<selectKey keyProperty="deviceNo" order="BEFORE" resultType="_int">
+			SELECT
+				   SEQ_DEVICE_NO.CURRVAL
+			  FROM DUAL
+		</selectKey>
+		INSERT
+		  INTO DEVICE_FILE
+		(
+			DFILE_NO
+		  , DCHANGE_NAME
+		  , DFILE_PATH
+		  , DEVICE_NO
+		)
+		VALUES
+		(
+			SEQ_DFILE_NO.NEXTVAL
+		  , #{ dchangeName }
+		  , #{ dfilePath }
+		  , #{ deviceNo }
+		)
+	</insert>
+
+	<update id="modifyMedicalDevice" parameterType="com.kh.project.hospital.model.vo.MedicalDevice">
+		UPDATE MEDICAL_DEVICE
+		   SET DEVICE_NAME = #{ deviceName }
+		     , DEVICE_MODEL = #{ deviceModel }
+			 , DEVICE_CONTENT = #{ deviceContent }
+			 , MODIFY_DATE = SYSDATE
+			 , CATEGORY_CODE = #{ categoryCode }
+	     WHERE DEVICE_NO = #{ deviceNo }		     
+	</update>
+	
+	<update id="modifyDeviceFile" parameterType="com.kh.project.hospital.model.vo.MDeviceFile">
+		UPDATE DEVICE_FILE
+		   SET DCHANGE_NAME = #{ dchangeName }
+		     , DFILE_PATH = #{ dfilePath }
+		 WHERE DEVICE_NO = #{ deviceNo }	
+	</update>
+
+
+
+</mapper>
