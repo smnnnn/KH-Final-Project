@@ -8,86 +8,21 @@
     <!-- 폰트  -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
     <!-- 공통 css -->
-    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
     <!-- 나현 css (메인, 관리자)-->
-    <link type="text/css" rel="stylesheet" href="../resources/css/nh.css">
-    <link type="text/css" rel="stylesheet" href="../resources/css/adminMain.css">
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
     <!-- 효은 css -->
-    <link type="text/css" rel="stylesheet" href="../resources/css/he.css">
-    <link type="text/css" rel="stylesheet" href="../resources/css/adminSub.css">
+    <link type="text/css" rel="stylesheet" href="/css/he.css">
+    <link type="text/css" rel="stylesheet" href="/css/adminSub.css">
     <!-- 공통 js -->
-    <script type="text/javascript" src="../resources/js/common.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
     
-    <title>다나은 동물병원</title>
+    <title>다나은 동물병원|의료진 관리</title>
 </head>
 <body>
     <!-- 관리자페이지 메뉴바 -->
-    <div id="adminpage-wrap">
-        <div id="admin-menu">
-            <div class="logo-area">
-                <img src="../resources/images/common/logo.png">
-            </div>
-            <div class="admin-menuList">
-                <ul class="menu-icon">
-                    <li class="activemenu"><a href="#">
-                        <img src="../resources/images/admin/member_manage.png" class="menuiconimg">
-                        <p class="ai">회원 관리</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="../resources/images/admin/reserve_manage.png" class="menuiconimg">
-                        <p class="ai">예약 관리</p><img src="../resources/images/admin/downarrow.png" class="downarrow"></a>
-                        <ul class="menucate">
-                            <li><a href="#"><p class="ai2">
-                                
-                                예약 목록 관리</p></a></li>                  
-                            <li><a href="#"><p class="ai2">
-                                <img src="../resources/images/admin/holiday.png" class="submenuiconimg">
-                                휴일 관리</p></a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">
-                        <img src="../resources/images/admin/qna_manage.png" class="menuiconimg">
-                        <p class="ai">문의 관리</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="../resources/images/admin/hospital_manage.png" class="menuiconimg">
-                        <p class="ai">병원 관리</p><img src="../resources/images/admin/downarrow.png" class="downarrow"></a>
-                        <ul class="menucate">
-                            <li><a href="#"><p class="ai2">
-                                <img src="../resources/images/admin/doctor.png" class="submenuiconimg">
-                                의료진 관리</p></a></li>
-                            <li><a href="#"><p class="ai2">
-                                <img src="../resources/images/admin/doctor_insert.png" class="submenuiconimg">
-                                의료진 등록</p></a>
-                            </li>                    
-                            <li><a href="#"><p class="ai2">의료장비 관리</p></a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">
-                        <img src="../resources/images/admin/display_manage.png" class="menuiconimg">
-                        <p class="ai">화면 관리</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="../resources/images/admin/config_manage.png" class="menuiconimg">
-                        <p class="ai">계정 관리</p>
-                    </a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- 관리자 페이지 내용 -->
-        <div id="admincontent-wrap">
-            <!-- 화면 상단 바(공통) -->
-            <div class="topinfo">
-                <p>다나은 동물병원</p>
-                <div class="admin-nameinfo">
-                    <img src="../resources/images/admin/member_manage.png">
-                    <span>서브관리자</span><span>님</span>
-                    <ul class="sub-menulist2">
-                        <li><a href="#">마이페이지</a></li>
-                        <li><a href="#">로그아웃</a></li>
-                    </ul>
-                </div>
-            </div>
+    <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='4')"></div>
 
             <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
@@ -106,19 +41,19 @@
                             <span id="doc_treatment">진료 과목 : 내과</span><br><br>
                             <div class="profile">약력 및 기본 정보 : <br>
                                 <textarea class="adminArea">
-                                    전북대학교 수의과대학 졸업
-                                    웨스턴 동물의료센터 진료수의사
-                                    참누리 동물병원 진료수의사
-                                    충남대학교 외과 석사
-                                    현) 청담 이리온 동물병원 외과 과장
+                                전북대학교 수의과대학 졸업
+                                웨스턴 동물의료센터 진료수의사
+                                참누리 동물병원 진료수의사
+                                충남대학교 외과 석사
+                                현) 청담 이리온 동물병원 외과 과장
                                 </textarea>
                             </div><br>
                             <div class="career">경력 사항: <br>
                                 <textarea class="adminArea">
-                                    2012, Purdue University AMC Rotation, Indiana St., USA
-                                    2018, AO Principles in small animal fracture management, San Diego, CA, USA
-                                    2019 한국임상수의학회 추계학술대회 발표 : Diagnosis and surgical
-                                    correction of true diaphragmatic hernia in a cat
+                                2012, Purdue University AMC Rotation, Indiana St., USA
+                                2018, AO Principles in small animal fracture management, San Diego, CA, USA
+                                2019 한국임상수의학회 추계학술대회 발표 : Diagnosis and surgical
+                                correction of true diaphragmatic hernia in a cat
                                 </textarea>
                             </div><br>
                             <span id="holi">휴무일 : 월요일</span><br><br>

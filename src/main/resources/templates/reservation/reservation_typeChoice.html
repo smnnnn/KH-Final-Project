@@ -55,6 +55,7 @@
                 </p>
             </div><br><br><br><br><br>
             
+            <form th:action="@{/reservation/reservation_timeChoice}" method="post">
             <div class="reservation_type_content">
                 <div class="con_title">
                     진료 유형
@@ -63,12 +64,13 @@
                 <p>
                     원하시는 진료 과목을 선택하세요.
                 </p><br>
-                <input type="button" id="type_btn" value="내과">
-                <input type="button" id="type_btn" value="외과">
-                <input type="button" id="type_btn" value="안과">
-                <input type="button" id="type_btn" value="정형외과">
+                <input type="submit" id="type_btn" value="내과">
+                <input type="submit" id="type_btn" value="외과">
+                <input type="submit" id="type_btn" value="안과">
+                <input type="submit" id="type_btn" value="정형외과">
                 <br>
             </div>
+            </form>
         </div>
         <!-- 빠른 메뉴 부분 -->
         <div id="aside">
@@ -103,5 +105,21 @@
     <!-- 푸터 -->
     <div th:replace="fragments/footer.html"></div>
 
+	
+	
+	<!-- <script>
+		$(function(){
+			$.ajax({
+				url : "/reservation/reservation_timeChoice",
+				success : function(data){
+					console.log(data);
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
+		});
+	</script>
+ -->
 </body>
 </html>
