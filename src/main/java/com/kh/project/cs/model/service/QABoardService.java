@@ -13,4 +13,15 @@ public interface QABoardService {
 //	List<QABoard> selectQAList(int page, Search search);
 	
 	Map<String, Object> selectQAList(int page, Search search);
+
+	int increaseCount(int qNo);
+
+	QABoard selectQA(int qNo);
+	
+	int insertQA(QABoard qaBoard);
+
+	int updateQA(QABoard qaBoard);
+
+	int deleteQA(int qNo);
+	
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.project.subAdmin.model.dao.SubAdminMapper">
+
+	<insert id="registVeterinarian" parameterType="com.kh.project.subAdmin.model.vo.Veterinarian">
+		INSERT
+		  INTO
+		(
+			VNO
+		  , VNAME
+		  , TNO
+		  , PROFILE
+		  , CAREER
+		  , STATUS
+		  , PHONE
+		)
+		VALUES
+		(
+			SEQ_VNO.NEXTVAL
+		  , #{ vname }
+		  , #{ tno }
+		  , #{ profile }
+		  , #{ career }
+		  , DEFAULT
+		  , #{ phone }
+		)
+	</insert>
+
+</mapper>

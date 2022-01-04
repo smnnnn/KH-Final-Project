@@ -8,13 +8,13 @@
     <!-- 폰트  -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet"> 
     <!-- common css-->
-    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
     <!-- 나현 css (메인, 관리자)-->
-    <link type="text/css" rel="stylesheet" href="../resources/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
     <!-- 효은 css -->
-    <link type="text/css" rel="stylesheet" href="../resources/css/he.css">
+    <link type="text/css" rel="stylesheet" href="/css/he.css">
     <!-- common js -->
-    <script type="text/javascript" src="../resources/js/common.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
     
     <title>다나은 동물병원</title>
 </head>
@@ -28,9 +28,9 @@
        <div id="side-menu"> 
         <div class="sidenav">
             <ul>
-                <li><a href="#">진료 안내</a></li>
-                <li><a href="#">진료 과목</a></li>
-                <li class="li-active"><a href="#">진료 예약</a></li>
+                <li><a th:href="@{/reservation/notice}">진료 안내</a></li>
+                <li><a th:href="@{/reservation/treatmentType}">진료 과목</a></li>
+                <li class="li-active"><a th:href="@{/reservation/reservation_typeChoice}">진료 예약</a></li>
             </ul>      
         </div>
         </div>
@@ -55,6 +55,7 @@
                 </p>
             </div><br><br><br><br><br>
             
+            <form th:action="@{/reservation/reservation_timeChoice}" method="post">
             <div class="reservation_type_content">
                 <div class="con_title">
                     진료 유형
@@ -63,11 +64,13 @@
                 <p>
                     원하시는 진료 과목을 선택하세요.
                 </p><br>
-                <input type="button" id="type_btn" value="내과">
-                <input type="button" id="type_btn" value="외과">
-                <input type="button" id="type_btn" value="안과">
-                <input type="button" id="type_btn" value="정형외과">
+                <input type="submit" id="type_btn" value="내과">
+                <input type="submit" id="type_btn" value="외과">
+                <input type="submit" id="type_btn" value="안과">
+                <input type="submit" id="type_btn" value="정형외과">
+                <br>
             </div>
+            </form>
         </div>
         <!-- 빠른 메뉴 부분 -->
         <div id="aside">
@@ -75,26 +78,26 @@
                 <ul>
                     <li>
                         <a href="#">
-                            <img src="../resources/images/common/inquiry.png">
+                            <img src="/images/common/inquiry.png">
                             <p>문의하기</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../resources/images/common/medical device.png">
+                        <a th:href="@{/about/device}">
+                            <img src="/images/common/medical device.png">
                             <p>의료 장비</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="../resources/images/common/way to come.png">
+                        <a th:href="@{/about/location}">
+                            <img src="/images/common/way to come.png">
                             <p>오시는 길</p>
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="move-to-top">
-                <a href="#"><img src="../resources/images/common/arrow.png"></a>
+                <a href="#"><img src="/images/common/arrow.png"></a>
             </div>
         </div>
     </div>
@@ -102,5 +105,21 @@
     <!-- 푸터 -->
     <div th:replace="fragments/footer.html"></div>
 
+	
+	
+	<!-- <script>
+		$(function(){
+			$.ajax({
+				url : "/reservation/reservation_timeChoice",
+				success : function(data){
+					console.log(data);
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
+		});
+	</script>
+ -->
 </body>
 </html>
