@@ -95,6 +95,8 @@
 		     , Q_CONTENT
 		     , Q.STATUS
 		     , SECRET_STATUS
+		     , USER_NO
+		     , CATEGORY_NO
 		     , USER_NAME
 		     , CATEGORY_NAME
 		  FROM QUESTION Q
