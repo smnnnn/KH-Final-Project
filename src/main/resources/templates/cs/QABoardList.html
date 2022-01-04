@@ -8,10 +8,18 @@
     <title>문의 게시판 목록</title>
     <!-- css -->
     <link type="text/css" rel="stylesheet" href="/css/sm/QABoardList.css">
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
 	</head>
 <body>
 
+ <!-- 헤더 -->
  <div th:replace="fragments/header.html"></div>
+
     <!-- 내용 부분 -->
     <div id="main">
        
@@ -19,16 +27,19 @@
         <div class="board content">
             <div>
                 <div id="qaTitle">Q&A</div>
-                <div class="line2">
-                    <select id="sb" class="basic">
-                        <option value="선택">제목</option>
-                        <option value="">내용</option>
-                        <option value="">작성자</option>
+                <div class="line2">          
+                	<form action="/qaBoard/list">
+                    <select name="searchCondition" id="sb" class="basic">
+                        <option value="title" th:selected="${search.searchCondition}=='title'">제목</option>
+                        <option value="content" th:selected="${search.searchCondition}=='content'">내용</option>
+                        <option value="writer" th:selected="${search.searchCondition}=='writer'">작성자</option>
                     </select>
-                    <span><input type="text" class="basic"></span>
-                    <a href="">
+                    <span><input type="text" name="searchValue" class="basic" th:value="${search.searchValue}"></span>
+                    <button id="searchBtn" type="submit">
                         <img id="search" src="/images/sm/search2.png"></img>
-                    </a>
+                    </button>
+                    </form>
+                    
                 </div>
                 <div class="line">
                     <span class="space2">NO</span>
@@ -41,7 +52,7 @@
                     <div class="item item1" th:text="${board.QNo}"></div>
                     <div class="item">
                     	<!-- 클릭시 해당 글번호 상세 페이지로 이동 -->
-                    	<a th:href="@{/qaDetail(QNo=${board.QNo})}">
+                    	<a th:href="@{/qaBoard(QNo=${board.QNo})}">
                     	<!-- 비밀글이면 lock,아니면 unlock 아이콘-->
                         <span th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png"></span>
                        	<span th:if="${board.secretStatus} == 'N'"><img id="key" src="/images/sm/unlock2.png"></span>
@@ -62,6 +73,11 @@
                 </div>
 
                 <!-- 페이징바 -->
+                
+                <th:block th:if="${ search.searchCondition != null and search.searchValue != null }">
+                
+                </th:block>
+                
                 <!-- http://localhost:8007/qaBoard/list?page=9 -->
                 <div class="paging">
                 	<!-- 맨 처음 페이지 이동 버튼(<<) -->
@@ -91,7 +107,7 @@
                 </div>
 	
 
-                <button id="writeBtn">글쓰기</button>
+                <button id="writeBtn" onclick="location.href='/qaBoard/insert'">글쓰기</button>
             </div>
         </div>
        

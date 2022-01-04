@@ -13,6 +13,8 @@
 		<result property="secretStatus" column="SECRET_STATUS"/>
 		<result property="userName" column="USER_NAME"/>
 		<result property="categoryName" column="CATEGORY_NAME"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="categoryNo" column="CATEGORY_NO"/>
 	</resultMap>
 	
 	<select id="getListCount" parameterType="com.kh.project.cs.model.vo.Search" resultType="Integer">
@@ -20,19 +22,17 @@
 			SELECT
 			   COUNT(*)
 	      FROM QUESTION Q
-	      <if test="searchCondition != null and searchValue != null and searchCondition.equals('작성자')">
-	      	JOIN MEMBER USING(USER_NO)
-	      </if>
-	     WHERE STATUS = 'N'
+	      JOIN MEMBER USING(USER_NO)	  
+	     WHERE Q.STATUS = 'N'
 	     <if test="searchCondition != null and searchValue != null">
 	     	<choose>
-	     		<when test="searchCondition.equals('제목')">
+	     		<when test="searchCondition.equals('title')">
 	     			AND Q_TITLE LIKE '%' || #{ searchValue } || '%'
 	     		</when>
-	     		<when test="searchCondition.equals('내용')">
+	     		<when test="searchCondition.equals('content')">
 	     			AND Q_CONTENT LIKE '%' || #{ searchValue } || '%'
 	     		</when>
-	     		<when test="searchCondition.equals('작성자')">
+	     		<when test="searchCondition.equals('writer')">
 	     			AND USER_NAME LIKE '%' || #{ searchValue } || '%'
 	     		</when>
 	     	</choose>
@@ -62,13 +62,13 @@
 		 	 WHERE Q.STATUS = 'N'
 			 <if test="searchCondition != null and searchValue != null">
 		     	<choose>
-		     		<when test="searchCondition.equals('제목')">
+		     		<when test="searchCondition.equals('title')">
 		     			AND Q_TITLE LIKE '%' || #{ searchValue } || '%'
 		     		</when>
-		     		<when test="searchCondition.equals('내용')">
+		     		<when test="searchCondition.equals('content')">
 		     			AND Q_CONTENT LIKE '%' || #{ searchValue } || '%'
 		     		</when>
-		     		<when test="searchCondition.equals('작성자')">
+		     		<when test="searchCondition.equals('writer')">
 		     			AND USER_NAME LIKE '%' || #{ searchValue } || '%'
 		     		</when>
 		     	</choose>
@@ -76,6 +76,74 @@
 		 	 ORDER BY Q_NO DESC) A)
   WHERE RNUM BETWEEN #{ startRow } AND #{ endRow }	<!-- ?부분 pi에서 가져온 스타트로우랑 엔드로우로 수정 -->  
 	</select>
+	
+	
+	<insert id="increaseCount" parameterType="_int">
+		UPDATE QUESTION
+		   SET Q_HIT = Q_HIT + 1
+		 WHERE Q_NO = #{ qNo }
+	</insert>
 
+
+	<select id="selectQA" parameterType="_int" resultMap="qaBoardResultMap">
+		SELECT
+               Q_NO
+		     , Q_TITLE
+		     , Q_HIT
+		     , CREATE_DATE
+		     , MODIFY_DATE
+		     , Q_CONTENT
+		     , Q.STATUS
+		     , SECRET_STATUS
+		     , USER_NAME
+		     , CATEGORY_NAME
+		  FROM QUESTION Q
+		  JOIN CATEGORY USING(CATEGORY_NO)
+		  JOIN MEMBER USING(USER_NO)
+		 WHERE Q.STATUS = 'N'
+		   AND Q_NO = #{ Qno }
+	</select>
+	
+	<insert id="insertQA" parameterType="com.kh.project.cs.model.vo.QABoard">
+		INSERT
+			INTO QUESTION
+			(
+				Q_NO
+			  , Q_TITLE
+			  , CREATE_DATE
+			  , Q_CONTENT
+			  , STATUS
+			  , SECRET_STATUS
+			  , USER_NO
+			  , CATEGORY_NO	
+			)
+			VALUES
+			(
+			  	SEQ_Q_NO.NEXTVAL
+			  , #{ QTitle }
+			  , SYSDATE
+			  , #{ QContent }
+			  , 'N'
+			  , #{ secretStatus }
+			  , #{ userNo }
+			  , #{ categoryNo } 
+			)
+	</insert>
+	
+	<update id="updateQA" parameterType="com.kh.project.cs.model.vo.QABoard">
+		UPDATE QUESTION
+		   SET Q_TITLE = #{ QTitle }
+		     , MODIFY_DATE = SYSDATE
+		     , Q_CONTENT = #{ QContent }
+		     , SECRET_STATUS = #{ secretStatus }
+		     , CATEGORY_NO = #{ categoryNo }
+		    WHERE Q_NO = #{ QNo }
+	</update>
+	
+	<delete id="deleteQA" parameterType="_int">
+		UPDATE QUESTION
+		   SET STATUS = 'Y'
+		 WHERE Q_NO = #{ Qno } 
+	</delete>
 	
 </mapper>

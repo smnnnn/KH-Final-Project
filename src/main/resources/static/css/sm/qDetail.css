@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+
+
+        .board.content {
+            min-width: 800px;
+            width: 1000px;
+            margin: 0px auto;
+            /*text-align: center;*/
+            margin-bottom: 80px;
+            margin-top:40px;
+        }
+
+
+        #qaTitle {
+            margin-top: 15px;
+            margin-bottom: 46px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+      
+        .line2 {
+            
+            border-bottom: 2px solid #85B1D6;
+            font-size: 0.8rem;
+            padding-bottom: 10px;
+            padding-top: 4px;
+            font-size: 0.9rem;
+            padding-left: 20px;
+        }
+
+        .btn {
+            background-color: #85B1D6;
+            color: white;
+            width: 85px;
+            height: 28px;
+            border: none;
+            position: relative;
+            left: 40%;
+            border-radius: 4px;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            opacity: 30%;
+        }
+
+        .footer{
+            width: 100%;
+            height: 115px;
+            background-color: rgba(240, 239, 225, 1);
+            position: absolute;
+
+        }
+
+        .board_wrap {
+            width: 900px;
+            margin-left: 50px;
+            font-size: 0.85rem;
+        }
+
+        .ctBox {
+            min-height: 250px;
+            width: 860px;
+            padding: 20px;
+            border:1px solid #85B1D6;
+            border-radius: 10px;
+        }
+
+        .name,.date{
+            padding-left: 20px;
+        }
+
+        .name{
+            padding-top: 15px;
+        }
+
+        .date{
+            padding-bottom: 15px;
+        }
+
+        .replyBox{
+            width: 840px;
+            min-height: 80px;
+            background-color: rgba(241, 249, 255, 1);
+            margin-top: 24px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 6px;
+
+            display: grid;
+            grid-template-columns : 2fr 12fr 2fr;
+            justify-items:self-start;
+            grid-gap:3rem;
+        }
+
+        .smallicon {
+            width: 21px;
+            margin-left: 5px;
+           
+        }
+
+        .replyIcon{
+            width: 12px;
+            margin-right: 8px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
