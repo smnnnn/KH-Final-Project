@@ -6,7 +6,7 @@
             </div>
             <div class="admin-menuList">
                 <ul class="menu-icon">
-                    <li th:classappend="${currnet == '1'} ? activemenu"><a th:href="@{/admin/memberManage/list}">
+                    <li th:classappend="${currnet == '1'} ? activemenu"><a th:href="@{/admin/member/list}">
                         <img src="/images/admin/member_manage.png" class="menuiconimg">
                         <p class="ai">회원 관리</p>
                     </a></li>
@@ -27,7 +27,7 @@
                         <p class="ai">병원 관리</p><img src="/images/admin/downarrow.png" class="downarrow"></a>
                         <ul class="menucate">
                             <li><a href="#"><p class="ai2" th:classappend="${currnet == '4'} ? ' ' + activesubmenu">의료진 관리</p></a></li>                  
-                            <li><a href="#"><p class="ai2" th:classappend="${currnet == '4-1'} ? ' ' + activesubmenu">의료장비 관리</p></a></li>
+                            <li><a th:href="@{/admin/hospital/deviceList}"><p class="ai2" th:classappend="${currnet == '4-1'} ? ' ' + activesubmenu">의료장비 관리</p></a></li>
                         </ul>
                     </li>
                     <li th:classappend="${currnet == '5'} ? activemenu"><a href="#">
