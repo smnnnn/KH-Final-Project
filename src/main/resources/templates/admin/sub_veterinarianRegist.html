@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
+    <!-- 효은 css -->
+    <link type="text/css" rel="stylesheet" href="/css/he.css">
+    <link type="text/css" rel="stylesheet" href="/css/adminSub.css">
+    <!-- 공통 js -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <!-- 효은 js -->
+    <script type="text/javascript" src="/js/he.js"></script>
+    
+    <title>다나은 동물병원|의료진 등록</title>
+</head>
+<body>
+    <!-- 관리자페이지 메뉴바 -->
+    <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='4-1')"></div>
+    
+            <!-- 내용 부분 : admincontent-main 안에 작성 -->
+            <div class="admincontent-main">
+                <div class="manage_wrap">
+                    <h3>의료진 등록</h3><br><br>
+                    
+                    <br>
+                    <div class="search_result">
+                        <div class="REcontent">
+                            <form action="/admin/sub_veterinarianRegist" method="post">
+                                <label id="treatment_type">진료 과목<br>
+                                    <select id="treat_select" name="tno">
+                                        <option value="1">내과</option>
+                                        <option value="2">외과</option>
+                                        <option value="3">안과</option>
+                                        <option value="4">정형외과</option>
+                                    </select>
+                                </label><br><br>
+                                <label id="nameLa">이름<br>
+                                    <div class="text_input">
+                                        <input type="text" id="input_name" placeholder="한글로 2~15자 이내" required>
+                                    </div>
+                                </label><br><br>
+                                <div class="profile">약력 및 기본 정보 <br>
+                                    <textarea class="adminArea" id="input_profile" required></textarea>               
+                                </div><br>
+                                <div class="career">경력 사항 <br>
+                                    <textarea class="adminArea" id="input_career" required></textarea>
+                                </div><br>
+                                <label id="nameLa">휴무일<br>
+                                    <div class="text_input">
+                                        <input type="text" id="input_holiday" placeholder="예시: 월요일" required>                                        
+                                    </div>
+                                </label><br><br>
+                                <label id="nameLa">연락처<br>
+                                    <div class="text_input">
+                                        <input type="text"  id="input_phone" name="doc_phone" placeholder="-제외 숫자만 입력" required>                                        
+                                    </div>
+                                </label>
+                                <br><br><br><br><br>
+                                <div id="divBtn">
+                                    <button type="submit" id="updateBtn" onclick="doctor_insert()">저장</button>
+                                    <button type="reset" id="type_btn2">취소</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

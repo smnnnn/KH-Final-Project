@@ -2,6 +2,7 @@ package com.kh.project.reservation.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -21,5 +22,10 @@ public class ReservationController {
 	@GetMapping("reservation_typeChoice")
 	public String Reservation_typeChoice() {
 		return "reservation/reservation_typeChoice";
+	}
+	
+	@PostMapping("reservation_timeChoice")
+	public String Reservation_timeChoice() {
+		return "reservation/reservation_timeChoice";
 	}
 }
