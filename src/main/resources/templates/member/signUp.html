@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- css -->
+    <link type="text/css" rel="stylesheet" href="/css/member/signUp.css">
+    
+<title>다나은 동물병원</title>
+</head>
+    <body>
+        <div class="photo">
+            <img class="logo" src="resources/image/회원서비스3.png">
+        </div>
+        <div class="wrapper">
+            <img src="resources/image/설명.png"> 
+            <div class="infoForm item">
+                <label class="etc">회원 가입을 위해 모든 항목을 기입해주십시오.</label><br><br>
+                <label for="userid" class="label">아이디 </label> 
+                <input class ="input all" type="text" name="userid" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요" required>
+                <input type="button" class="button1" value="중복확인">  
+                <br>
+                <label for="userpwd" class="label">비밀번호 </label> 
+                <input class ="input all" type="password" name="userpwd" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요" required>
+                <br>
+                <label for="userpwd" class="label">비밀번호 재확인 </label> 
+                <input class ="input all" type="password" name="userpwd2" maxlength="15" placeholder="비밀번호를 입력하세요" required>
+                <label id="pwdCheck_div2">&nbsp;</label>
+
+                <br>
+                <label for="username" class="label">이름 </label> 
+                <input class ="input all" type="text" name="username" placeholder="이름입력" required>
+                <label id="pwdCheck_div2">&nbsp;</label>
+                <br>
+                <label for="phone" class="label">휴대폰 번호 </label> 
+                <input class ="input all" type="tel" name="phone" placeholder="-없이 입력" required>
+                <label id="pwdCheck_div2">&nbsp;</label>
+                <br>
+                <label for="phone" class="label">이메일 </label> 
+                <input class ="input all" type="email" name="email" placeholder="-없이 입력" required>
+                @ <select class ="select all" name="email">
+                    <option value="naver.com" selected>naver.com</option> 
+                    <option value="hanmail.net">hanmail.net</option> 
+                    <option value="nate.com">nate.com</option> 
+                    <option value="gmail.com">gmail.com</option> 
+                </select>
+                <label id="pwdCheck_div2">&nbsp;</label>
+                <br>
+                <label class="label">주소 </label> 
+                <input type="text" name="address"
+                class ="select all" placeholder="우편번호" readonly>
+                <button type="button" class="button1" id="postcodify_search_button">검색</button>
+                <br>
+                <label class="label"> </label> 
+                <input type="text" name="address"
+                class ="input2 all" placeholder="도로명주소" readonly>
+                <br>
+                <label class="label"> </label> 
+                <input type="text" name="address"
+                class ="input2 all" placeholder="상세주소">
+                <br>
+                <label for="petname" class="label">반려견 이름 </label> 
+                <input class ="input all" type="text" name="petname" placeholder="반려견이름" required>
+                <label id="pwdCheck_div2">&nbsp;</label>
+                <br>
+                <label for="petage" class="label">반려견 나이 </label> 
+                <input class ="input all" type="text" name="petage" placeholder="반려견나이" required>
+                <label id="pwdCheck_div2">&nbsp;</label>
+                <br>
+                <label for="petbreed" class="label">견종 </label> 
+                <select class ="input all" name="breed" required>
+                    <option value="골든 리트리버">골든 리트리버</option>
+                    <option value="말티즈">말티즈</option>
+                    <option value="비글">비글</option>
+                    <option value="시바 이누">시바 이누</option>
+                    <option value="시베리안 허스키">시베리안 허스키</option>
+                    <option value="시츄">시츄</option>
+                    <option value="요크셔테리어">요크셔테리어</option>
+                    <option value="진돗개">진돗개</option>
+                    <option value="푸들">푸들</option>
+                    <option value="포메라니언">포메라니언</option>
+                    <option value="기타">기타</option>
+                </select>  
+                <br>
+                <label for="petbreed" class="label">중성화 유무 </label> 
+                <select class ="select all" name="neuteredStatus" required>
+                    <option value="예">예</option> 
+                    <option value="아니요">아니요</option> 
+                    <option value="모름">모름</option> 
+                </select>  
+                <br>
+                <label for="petbreed" class="label" name="neuteredStatus" >반려견 성별 </label> 
+                <select class ="select all" name="dogGender" required>
+                    <option value="암">암</option> 
+                    <option value="수">수</option> 
+                    <option value="모름">모름</option>
+                </select>  
+                <br>
+
+                
+                
+
+                <input type="button" class="button2" value="가입하기">   
+
+            </div>
+
+        </div>
+
+
+        <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	
+	<!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
+	<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
+    <script>
+		// 사용자 입력 값 유효성 검사용 함수
+		function validate(){
+			return true;
+		}
+		
+		$("#idCheck").on('click', function () {
+			var userId = $("[name=userId]");
+			// 아이디 중복 시 false, 아이디 사용 가능 시 true 값을 가지는 변수
+			var isUsable = false;
+			
+			if(!userId || userId.val().length < 8){
+				alert("아이디는 최소 4자리 이상이어야 합니다.");
+				userId.focus();
+			}else{
+				$.ajax({
+					url : "${contextPath}/idCheck",
+					type : "post",
+					data : {userId : userId.val() },
+					success : function (result) {
+						console.log(result);
+						if(result == "fail"){
+							alert("사용할 수 없는 아이디 입니다.");
+							userId.focus();
+						}else{
+							if(confirm("사용 가능한 아이디 입니다. 사용하시겠습니까?")){
+								// 더 이상 아이디 입력 공간을 바꿀 수 없도록 처리
+								userId.attr('readonly', true);
+								/* 사용 가능한 아이디라는 flag */
+								isUsable = true;
+							} else{
+								// 다시 아이디 입력 공간을 바꿀 수 있도록 처리
+								userId.attr('readonly', false);   //attr 제이쿼리 메소드
+								userId.focus();
+								/* 사용 불가능한 아이디라는 flag */
+								isUsable = false;
+							}
+						}
+						
+						/* 아이디 중복 체크 후 중복이 아니며 사용하겠다고 선택한 경우
+						버튼의 disabled 속성 제거 */
+						if(isUsable){
+							$("#joinBtn").removeAttr("disabled");
+						}else{
+							$("#joinBtn").attr("disabled", true);
+						}
+						
+						
+						
+					},
+					error : function (e) {
+						console.log(e);
+					}
+				});
+			}
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
