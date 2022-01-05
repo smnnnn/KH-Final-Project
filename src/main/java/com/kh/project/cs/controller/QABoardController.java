@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.project.cs.model.service.QABoardService;
+import com.kh.project.cs.model.vo.Answer;
 import com.kh.project.cs.model.vo.QABoard;
 import com.kh.project.cs.model.vo.Search;
 
@@ -189,6 +191,24 @@ public class QABoardController {
 		
 		return "redirect:/qaBoard/list";
 	}
+	
+	@ResponseBody
+	@RequestMapping("insertReply")
+	public Answer insertReply(int qno, String AContent){
+		
+		Answer answer = new Answer();
+		answer.setQNo(qno);
+		answer.setAContent(AContent);
+		
+		answer = qaBoardService.insertReply(answer);
+		
+		log.info("answer : {}", answer);
+	
+		
+		return answer;
+	}
+	
+	
 	
 	
 }

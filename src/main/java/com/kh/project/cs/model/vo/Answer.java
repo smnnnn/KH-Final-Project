@@ -11,7 +11,7 @@ public class Answer {
 	private String status;
 	private int QNo;
 	
-	Answer() {}
+	public Answer() {}
 
 	public Answer(int aNo, String aContent, Date createDate, Object modifyDateLDate, String status, int qNo) {
 		super();

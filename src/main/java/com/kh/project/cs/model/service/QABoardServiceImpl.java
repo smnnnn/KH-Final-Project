@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.project.cs.controller.QABoardController;
 import com.kh.project.cs.model.dao.QABoardMapper;
+import com.kh.project.cs.model.vo.Answer;
 import com.kh.project.cs.model.vo.PageInfo;
 import com.kh.project.cs.model.vo.QABoard;
 import com.kh.project.cs.model.vo.Search;
@@ -73,7 +74,11 @@ public class QABoardServiceImpl implements QABoardService {
 	@Override
 	public QABoard selectQA(int qNo) {
 		
-		return boardMapper.selectQA(qNo);
+		QABoard board = boardMapper.selectQA(qNo);
+		/* 댓글 조회 추가 */
+		board.setAnswer(boardMapper.selectAnswer(qNo));
+		
+		return board;
 	}
 
 	@Override
@@ -92,6 +97,20 @@ public class QABoardServiceImpl implements QABoardService {
 	public int deleteQA(int qNo) {
 		
 		return boardMapper.deleteQA(qNo);
+	}
+
+	@Override
+	public Answer insertReply(Answer answer) {
+
+		Answer newAnswer = null;
+		
+		int result = boardMapper.insertReply(answer);
+		
+		if(result > 0) {
+			newAnswer = boardMapper.selectAnswer(answer.getQNo());
+		}
+		
+		return newAnswer;
 	}
 
 

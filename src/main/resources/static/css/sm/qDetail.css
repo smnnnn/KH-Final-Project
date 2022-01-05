@@ -62,7 +62,7 @@
         }
 
         .ctBox {
-            min-height: 250px;
+            min-height: 340px;
             width: 860px;
             padding: 20px;
             border:1px solid #85B1D6;
@@ -82,26 +82,69 @@
         }
 
         .replyBox{
-            width: 840px;
-            min-height: 80px;
+            width: 822px;
+            min-height: 90px;
             background-color: rgba(241, 249, 255, 1);
             margin-top: 24px;
-            padding: 30px;
+            padding: 40px;
+
             margin-bottom: 40px;
-            border-radius: 6px;
+            border-radius: 8px;
+
 
             display: grid;
-            grid-template-columns : 2fr 12fr 2fr;
+            grid-template-columns : 1.5fr 7fr 1.7fr;
             justify-items:self-start;
-            grid-gap:3rem;
+            grid-gap:2rem;
+        }
+        
+        .replyBox2{
+        	width: 822px;
+        	min-height:90px;
+        	background-color: rgba(241, 249, 255, 1);
+        	margin-top: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+    		padding-top:30px;
+        }
+        
+        #noneReply {
+        	text-align:center; 
+        	font-weight:bold; 
+        	font-size:0.9rem;
+			position:relative;
+			bottom:8px;
         }
 
+		.plsWait {
+			width:43px;		
+			margin-left:31%;
+			margin-top:22px;
+			
+		}
+		
         .smallicon {
             width: 21px;
             margin-left: 5px;
            
         }
+        .miniBtn {
+            width: 34px;
+            background-color: #85B1D6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin: 4px;
+        }
 
+        .miniBtn:hover {
+            opacity: 30%;
+        }
+
+		.btns {
+			margin-left:21px;
+		}
         .replyIcon{
             width: 12px;
             margin-right: 8px;
@@ -109,4 +152,44 @@
 
         .bold {
             font-weight: bold;
+        }
+        
+        .addreplyBox{
+            width: 900px;
+            min-height: 80px;
+            height: 150px;
+            /*background-color: rgba(241, 249, 255, 1);*/
+            margin-top: 20px;
+            /*padding: 30px;*/
+            margin-bottom: 40px;
+            border-radius: 6px;
+
+           /* display: grid;
+            grid-template-columns : 2fr 12fr 2fr;
+            justify-items:self-start;
+            grid-gap:3rem;*/
+        }
+        
+         #replyArea{
+            width: 760px;
+            height: 106px;
+            border:1px solid #85B1D6;
+            border-radius: 7px;
+            margin-right: 2px;
+            padding: 20px;
+            
+        }
+
+        .bigBtn {
+            width: 87.5px;
+            height: 147px;
+            background-color: #85B1D6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            /*display: inline;*/
+            position: relative;
+            bottom: 70px;
+            margin-left: 5px;
+           
         }

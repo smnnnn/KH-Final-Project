@@ -17,6 +17,15 @@
 		<result property="categoryNo" column="CATEGORY_NO"/>
 	</resultMap>
 	
+	<resultMap id="answerResultMap" type="com.kh.project.cs.model.vo.Answer">
+		<id property="ANo" column="A_NO"/>
+		<result property="AContent" column="A_CONTENT"/>
+		<result property="createDate" column="A_CREATE_DATE"/>
+		<result property="modifyDateLDate" column="A_MODIFY_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="QNo" column="Q_NO"/>
+	</resultMap>
+	
 	<select id="getListCount" parameterType="com.kh.project.cs.model.vo.Search" resultType="Integer">
 	<!-- resultType int 맞나? 검색어 넘어올 경우 동적쿼리 추가 -->
 			SELECT
@@ -95,8 +104,6 @@
 		     , Q_CONTENT
 		     , Q.STATUS
 		     , SECRET_STATUS
-		     , USER_NO
-		     , CATEGORY_NO
 		     , USER_NAME
 		     , CATEGORY_NAME
 		  FROM QUESTION Q
@@ -147,5 +154,40 @@
 		   SET STATUS = 'Y'
 		 WHERE Q_NO = #{ Qno } 
 	</delete>
+	
+	<select id="selectAnswer" resultMap="answerResultMap">
+		SELECT
+		       A_NO
+		     , A_CONTENT
+		     , A_CREATE_DATE
+		     , A_MODIFY_DATE
+		     , STATUS
+		     , Q_NO
+		  FROM ANSWER
+		 WHERE Q_NO = #{ qNo }
+		   AND STATUS = 'N' 
+	</select>
+	
+	<insert id="insertReply" parameterType="com.kh.project.cs.model.vo.Answer">
+		INSERT
+			INTO ANSWER
+			(
+		       A_NO
+		     , A_CONTENT
+		     , A_CREATE_DATE
+		     , A_MODIFY_DATE
+		     , STATUS
+		     , Q_NO
+		    )
+		    VALUES
+		    (
+		       SEQ_A_NO.NEXTVAL
+		     , #{ AContent }
+		     , SYSDATE
+		     , NULL
+		     , DEFAULT
+		     , #{ QNo }
+		   )
+	</insert>
 	
 </mapper>

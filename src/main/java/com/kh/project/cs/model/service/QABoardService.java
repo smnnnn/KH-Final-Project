@@ -3,6 +3,7 @@ package com.kh.project.cs.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.project.cs.model.vo.Answer;
 import com.kh.project.cs.model.vo.QABoard;
 import com.kh.project.cs.model.vo.Search;
 
@@ -23,5 +24,7 @@ public interface QABoardService {
 	int updateQA(QABoard qaBoard);
 
 	int deleteQA(int qNo);
+
+	Answer insertReply(Answer answer);
 	
 }
