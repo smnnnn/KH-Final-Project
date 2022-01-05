@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.project.subAdmin.model.dao.SubAdminMapper">
 
+
+	<resultMap id="VeterinarianResultMap" type="com.kh.project.subAdmin.model.vo.VeterinarianAndHoliday">
+		<id property="vno" column="VNO"/>
+		<result property="vname" column="VNAME"/>
+		<result property="tno" column="TNO"/>
+		<result property="profile" column="PROFILE"/>
+		<result property="career" column="CAREER"/>
+		<result property="status" column="STATUS"/>
+		<result property="phone" column="PHONE"/>
+	
+			<association property="day" javaType="com.kh.project.subAdmin.model.vo.Holiday">
+				<id property="vno" column="VNO"/>
+				<result property="day" column="DAY"/>
+			</association>	
+	</resultMap>
+	
 	<insert id="registVeterinarian" parameterType="com.kh.project.subAdmin.model.vo.Veterinarian">
 		INSERT
 		  INTO VETERINARIAN
@@ -40,4 +56,26 @@
 		 )
 	</insert>
 
+
+	<select id="findVeterinarian" resultMap="VeterinarianResultMap">
+		SELECT
+			   A.VNO
+			 , A.VNAME
+			 , A.TNO
+			 , A.PROFILE
+			 , A.CAREER
+			 , B.DAY
+			 , A.PHONE
+		  FROM VETERINARIAN A
+		  JOIN HOLIDAY B ON (A.VNO = B.VNO)
+		 WHERE A.VNAME = #{vname}
+	</select>
+	
+	<update id="modifyVeterinarian" parameterType="com.kh.project.subAdmin.model.vo.Veterinarian">
+		UPDATE VETERINARIAN
+		   SET PROFILE = #{ profile }
+		     , CAREER = #{ career }
+		     , PHONE = #{ phone }
+		 WHERE VNO = #{ vno }
+	</update>
 </mapper>
