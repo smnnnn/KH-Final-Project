@@ -117,12 +117,11 @@ public class HospitalManageController {
 	@PostMapping("modifyDevice")
 	public String modifyDevice(MedicalDevice medicalDevice, @RequestParam MultipartFile deviceFile, @RequestParam String originFileName,
 			HttpServletRequest request, RedirectAttributes rttr) throws IllegalStateException, IOException {
-
-//		log.info("medicalDevice : {}", medicalDevice);		
-//		log.info("originFileName : {}", originFileName);	
 		
 		String root = request.getSession().getServletContext().getRealPath("/");
 		String uploadPath = root + "uploadFiles\\device";
+		
+		MDeviceFile mdeviceFile = new MDeviceFile();
 		
 		if(!deviceFile.isEmpty()) {
 			// 파일변경이 이루어졌다는 뜻
@@ -136,7 +135,6 @@ public class HospitalManageController {
 			if(!file.exists()) file.mkdirs();
 			deviceFile.transferTo(new File(uploadPath + "\\" + changeName));
 			
-			MDeviceFile mdeviceFile = new MDeviceFile();
 			mdeviceFile.setDchangeName(changeName);
 			mdeviceFile.setDfilePath("/uploadFiles/device/");
 			mdeviceFile.setDeviceNo(medicalDevice.getDeviceNo());
@@ -150,8 +148,8 @@ public class HospitalManageController {
 		
 		if(result > 0) {
 			// 기존 파일삭제
-			if(medicalDevice.getMdeviceFile().getDeletedName() != null) {
-				File deletedFile = new File(uploadPath + "\\" + medicalDevice.getMdeviceFile().getDeletedName());
+			if(mdeviceFile != null) {
+				File deletedFile = new File(uploadPath + "\\" + mdeviceFile.getDeletedName());
 				deletedFile.delete();
 			}
 			rttr.addFlashAttribute("deviceResultMessage", "장비 정보 수정에 성공하였습니다.");
@@ -166,8 +164,22 @@ public class HospitalManageController {
 	}
 	
 	@GetMapping("deleteDevice/{deviceNo}")
-	public String deleteDevice(@PathVariable int deviceNo, RedirectAttributes rttr) {
-		log.info("deletedeviceNo : {}", deviceNo);
+	public String deleteDevice(@PathVariable int deviceNo, RedirectAttributes rttr, HttpServletRequest request) {
+
+		String root = request.getSession().getServletContext().getRealPath("/");
+		String filePath = root + "uploadFiles\\device";
+		
+		// 해당장비의 파일정보
+		MDeviceFile mdeviceFile = hospitalManageService.selectDeviceFile(deviceNo);
+		
+		int result = hospitalManageService.deleteDevice(deviceNo);
+		
+		if(result > 0) {
+			File deleteFile = new File(filePath + "\\" + mdeviceFile.getDchangeName());
+			deleteFile.delete();
+			
+			rttr.addFlashAttribute("deviceResultMessage", "장비 정보 삭제에 성공하였습니다.");
+		}
 		
 		return "redirect:/admin/hospital/deviceList";
 	}

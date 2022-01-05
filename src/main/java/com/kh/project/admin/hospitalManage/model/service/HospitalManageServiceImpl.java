@@ -70,4 +70,21 @@ public class HospitalManageServiceImpl implements HospitalManageService {
 		return result;
 	}
 
+	@Transactional
+	@Override
+	public int deleteDevice(int deviceNo) {
+		/* MEDICAL_DEVICE status 'N'으로 변경 */
+		int deviceResult = hospitalManageMapper.deleteDevice(deviceNo);
+		
+		/* DEVICE_FILE 삭제 */
+		int fileResult = hospitalManageMapper.deleteDeviceFile(deviceNo);
+		
+		return deviceResult > 0 && fileResult > 0 ? 1 : 0;
+	}
+
+	@Override
+	public MDeviceFile selectDeviceFile(int deviceNo) {
+		return hospitalManageMapper.selectDeviceFileByNo(deviceNo);
+	}
+
 }

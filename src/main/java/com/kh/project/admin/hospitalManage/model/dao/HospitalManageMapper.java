@@ -24,4 +24,8 @@ public interface HospitalManageMapper {
 
 	int modifyDeviceFile(MDeviceFile mdeviceFile);
 
+	int deleteDevice(int deviceNo);
+
+	int deleteDeviceFile(int deviceNo);
+
 }
