@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+.wrapper{
+            width: 1200px;
+            height: 1080px;
+            margin: auto;
+            display: flex; 
+            align-items: flex-start;      
+            justify-content: flex-start;
+        }
+
+        .infoForm{
+            border: 1px solid gainsboro;
+            width: 800px;   
+            margin-left: 10px;    
+            height: 608px;
+        }
+
+        .logo{
+            width: 100%;
+            margin-left: 0px;
+            margin-top: 0px;
+        }
+        .item{
+            align-self: flex-start;
+            display: inline-block;
+        }
+
+
+        .label{
+            min-width: 160px;
+            display:inline-block;
+            margin-top: 25px;
+            margin-left: 130px;
+            font-weight: bold;
+            font-size: xx-large;
+        }
+
+        .label2{
+            min-width: 160px;
+            display:inline-block;
+            margin-top: 25px;
+            margin-left: 130px;
+            font-weight: bold;
+            font-size: large;
+        }
+
+
+        .etc{
+            color: rgb(167, 164, 164);
+            font-weight: bolder;
+            margin-left: 130px;
+        }
+
+        .all{
+            display:inline-block;
+            height: 60px;
+            border: 2px solid rgb(185, 183, 183);
+            border-bottom: 0px solid rgb(185, 183, 183);
+            background-color: rgb(241, 241, 241);
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 400px;
+            padding-left: 50px;
+            margin-left: 170px;
+        }
+
+
+        .button{
+            display: inline;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10px;
+            width: 250px;
+            text-align: center;
+            height: 50px;
+            background-color: rgb(43, 53, 88);
+            color: white;
+            font-size: large;
+            font-weight: bolder;
+        }
+
+        .btn1{
+            margin-left: 130px;
+            background-color: white;
+            border: 1px solid rgb(185, 183, 183);
+            color: rgb(0, 102, 213);
+
+        }
+        .btn2{
+            margin-left: 30px;
+            background-color: rgb(185, 183, 183);
+            color: black;
+        }
+
+
+        .login{
+            display:inline-block;
+            background-image:url(resources/image/user.png);
+            background-position: 10px 10px;
+		    background-repeat: no-repeat;
+		    background-size: 30px 30px;
+        }
+
+        .pwd{
+            display:inline-block;
+            background-image:url(resources/image/unlock.png);
+            background-position: 10px 10px;
+		    background-repeat: no-repeat;
+		    background-size: 30px 30px;
+            border-bottom: 2px solid rgb(185, 183, 183);
+
+        }
+
+        a{
+            color: rgb(90, 90, 90);
+            font-weight: bolder;
+            margin-left: 10px;
+        }
+
+        input:focus,
+        select:focus {
+	    outline: none;
+        }
+        .button:hover {
+	    cursor: pointer;
+        }
+
+        input, select{
+            height: 30px;
+            border: 1px solid gainsboro;
+            border-radius: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            display:inline-block;
+            width: 180px;
+        }
