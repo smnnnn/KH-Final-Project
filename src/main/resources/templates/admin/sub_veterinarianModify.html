@@ -19,6 +19,13 @@
     <script type="text/javascript" src="/js/common.js"></script>
     
     <title>다나은 동물병원|의료진 관리</title>
+<script>
+	const successMessage = '[[${ successMessage }]]';
+	
+	if(successMessage){
+		alert(successMessage);
+	}
+</script>
 </head>
 <body>
     <!-- 관리자페이지 메뉴바 -->
@@ -29,48 +36,113 @@
                 <div class="manage_wrap">
                     <h3>의료진 관리</h3><br><br>
                     <div class="search_doctor">
-                        <input type="search" class="text_input_admin" placeholder="검색할 의료진의 이름을 입력하세요.">
+                    <form id="searchV">
+                        <input type="search" class="text_input_admin" placeholder="검색할 의료진의 이름을 입력하세요." name="vname">
                         <input type="button" id="type_btn" value="검색">
+                    </form>
                     </div>
+                    
+                    <script>
+                    	$(function(){
+                    		$("#searchV input[type=button]").on('click', function(){
+                    			let vname = $("#searchV [name=vname]").val();
+                    			
+                    			$.ajax({
+                    				url : "/admin/sub_veterinarianModify/vname/" + vname,
+                    				type : "get",
+                    				dataType : "json",
+                    				success : function(data){
+                    					
+                    					let name="";
+                    					let treatment="";
+                    					let profile="";
+                    					let career="";
+                    					let holiday="";
+                    					let phone="";
+                    					let vno="";
+                    					
+                    					for(let index in data){
+                    						name += data[index].vname
+                    					}
+                    					$(".REcontent #vvname").html(name);
+                    					
+                    					for(let index in data){
+                    						if(data[index].tno == '1'){
+                    							treatment += '내과'
+                    						} else if(data[index].tno == '2'){
+                    							treatment += '외과'
+                    						} else if(data[index].tno == '3'){
+                    							treatment += '안과'
+                    						} else if(data[index].tno == '4'){
+                    							treatment += '정형외과'
+                    						}
+                    					}
+                    					$(".REcontent #vtreatment").html(treatment);
+                    					
+                    					for(let index in data){
+                    						profile += data[index].profile
+                    					}
+                    					$(".REcontent #vprofile").html(profile);
+                    					
+                    					for(let index in data){
+                    						career += data[index].career
+                    					}
+                    					$(".REcontent #vcareer").html(career);
+                    					
+                    					for(let index in data){
+                    						holiday += data[index].day.day
+                    					}
+                    					$(".REcontent #holi").html(holiday);
+                    					
+                    					for(let index in data){
+                    						phone += data[index].phone
+                    					}
+                    					$(".REcontent #phone_input").val(phone);
+                    					
+                    					for(let index in data){
+                    						vno += data[index].vno
+                    					}
+                    					$(".REcontent #vno").val(vno);
+                    					
+                    				},
+                    				error : function(e){
+                    					console.log(e);
+                    				}
+                    			});
+                    		});
+                    	});
+                    </script>
+                    
                     <div id="admin_line"></div><br>
                     <br>
+                    <div class="vmodify">
+                    <form th:action="@{/admin/sub_veterinarianModify}" method="post" enctype="multipart/form-data">
                     <div class="search_result">
                         <div class="REcontent">
-
-                            <span id="doc_name">의료진 김소민</span><br><br>
-                            <span id="doc_treatment">진료 과목 : 내과</span><br><br>
+                        <input type="hidden" name="vno" id="vno">			
+                            의료진: <span id="vvname"></span><br><br>
+                            진료 과목 : <span id="vtreatment"></span><br><br>
                             <div class="profile">약력 및 기본 정보 : <br>
-                                <textarea class="adminArea">
-                                전북대학교 수의과대학 졸업
-                                웨스턴 동물의료센터 진료수의사
-                                참누리 동물병원 진료수의사
-                                충남대학교 외과 석사
-                                현) 청담 이리온 동물병원 외과 과장
-                                </textarea>
+                                <textarea class="adminArea" id="vprofile" name="profile" required></textarea>
                             </div><br>
                             <div class="career">경력 사항: <br>
-                                <textarea class="adminArea">
-                                2012, Purdue University AMC Rotation, Indiana St., USA
-                                2018, AO Principles in small animal fracture management, San Diego, CA, USA
-                                2019 한국임상수의학회 추계학술대회 발표 : Diagnosis and surgical
-                                correction of true diaphragmatic hernia in a cat
-                                </textarea>
+                                <textarea class="adminArea" id="vcareer" name="career" required></textarea>
                             </div><br>
-                            <span id="holi">휴무일 : 월요일</span><br><br>
-                            <span id="doc_tellNum">연락처 : 
-                                <input type="text"  class="text_input_admin" id="phone_input" name="doc_phone" value="010-1234-5678">
+                            휴무일 : <span id="holi"></span><br><br>
+                            연락처 : <span> 
+                                <input type="text"  class="text_input_admin" id="phone_input" name="phone" required>
                             </span>
-
                         </div>
                     </div>
                     <br><br>
-                   <div id="div_btn">
-                       <input type="button" id="updateBtn" value="수정">
-                       <input type="button" id="type_btn2" value="취소">
-                   </div>
+                   	<div id="div_btn">
+                       <button type="submit" id="updateBtn">수정</button>
+                       <button type="reset" id="type_btn2">취소</button>
+                  	 </div>                      
+                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+       
 </body>
 </html>

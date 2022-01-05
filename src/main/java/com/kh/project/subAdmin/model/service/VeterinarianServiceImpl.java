@@ -1,5 +1,7 @@
 package com.kh.project.subAdmin.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -32,6 +34,19 @@ public class VeterinarianServiceImpl implements VeterinarianService{
 	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.SERIALIZABLE, rollbackFor= {Exception.class})
 	public int registHoliday(Holiday holiday) {
 		return subAdminMapper.registHoliday(holiday);
+	}
+
+
+	@Override
+	public List<Veterinarian> findVeterinarian(String vname) {
+		return subAdminMapper.findVeterinarian(vname);
+	}
+
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.SERIALIZABLE, rollbackFor= {Exception.class})
+	public int modifyVeterinarian(Veterinarian veterinarianModify) {
+		return subAdminMapper.modifyVeterinarian(veterinarianModify);
 	}
 
 	
