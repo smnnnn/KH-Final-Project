@@ -21,6 +21,13 @@
     <script type="text/javascript" src="/js/he.js"></script>
     
     <title>다나은 동물병원|의료진 등록</title>
+<script>// 타임리프에선 [[대괄호]] 두 겹 안에 넣어줘야 함
+	const successMessage = '[[${ successMessage }]]';
+	
+	if(successMessage){
+		alert(successMessage);
+	}
+</script>
 </head>
 <body>
     <!-- 관리자페이지 메뉴바 -->
@@ -34,7 +41,7 @@
                     <br>
                     <div class="search_result">
                         <div class="REcontent">
-                            <form action="/admin/sub_veterinarianRegist" method="post">
+                            <form th:action="@{/admin/sub_veterinarianRegist}" method="post" enctype="multipart/form-data">
                                 <label id="treatment_type">진료 과목<br>
                                     <select id="treat_select" name="tno">
                                         <option value="1">내과</option>
@@ -45,23 +52,23 @@
                                 </label><br><br>
                                 <label id="nameLa">이름<br>
                                     <div class="text_input">
-                                        <input type="text" id="input_name" placeholder="한글로 2~15자 이내" required>
+                                        <input type="text" id="input_name" name="vname" placeholder="한글로 2~15자 이내" required>
                                     </div>
                                 </label><br><br>
                                 <div class="profile">약력 및 기본 정보 <br>
-                                    <textarea class="adminArea" id="input_profile" required></textarea>               
+                                    <textarea class="adminArea" id="input_profile" name="profile" required></textarea>               
                                 </div><br>
                                 <div class="career">경력 사항 <br>
-                                    <textarea class="adminArea" id="input_career" required></textarea>
+                                    <textarea class="adminArea" id="input_career" name="career" required></textarea>
                                 </div><br>
                                 <label id="nameLa">휴무일<br>
                                     <div class="text_input">
-                                        <input type="text" id="input_holiday" placeholder="예시: 월요일" required>                                        
+                                        <input type="text" id="input_holiday" name="day" placeholder="예시: 월요일" required>                                        
                                     </div>
                                 </label><br><br>
                                 <label id="nameLa">연락처<br>
                                     <div class="text_input">
-                                        <input type="text"  id="input_phone" name="doc_phone" placeholder="-제외 숫자만 입력" required>                                        
+                                        <input type="text"  id="input_phone" name="phone" placeholder="-제외 숫자만 입력" required>                                        
                                     </div>
                                 </label>
                                 <br><br><br><br><br>

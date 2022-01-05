@@ -4,7 +4,7 @@
 
 	<insert id="registVeterinarian" parameterType="com.kh.project.subAdmin.model.vo.Veterinarian">
 		INSERT
-		  INTO
+		  INTO VETERINARIAN
 		(
 			VNO
 		  , VNAME
@@ -17,13 +17,27 @@
 		VALUES
 		(
 			SEQ_VNO.NEXTVAL
-		  , #{ vname }
+		  , #{ vname, jdbcType=VARCHAR }
 		  , #{ tno }
-		  , #{ profile }
-		  , #{ career }
+		  , #{ profile, jdbcType=VARCHAR }
+		  , #{ career, jdbcType=VARCHAR }
 		  , DEFAULT
-		  , #{ phone }
+		  , #{ phone, jdbcType=VARCHAR }
 		)
+	</insert>
+	
+ 	<insert id="registHoliday" parameterType="com.kh.project.subAdmin.model.vo.Holiday">
+		INSERT
+		  INTO HOLIDAY
+		(
+			DAY
+		  , VNO
+		)
+		VALUES
+		(	
+			#{ day }
+		  , SEQ_VNO.CURRVAL
+		 )
 	</insert>
 
 </mapper>
