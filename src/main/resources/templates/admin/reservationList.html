@@ -84,27 +84,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="colored">
-                                <td>1</td>
-                                <td>내과</td>
-                                <td>홍길동</td>
-                                <td>010-1234-5678</td>
-                                <td>망고</td>
-                                <td>2021.10.11 10:00~11:00</td>
-                                <td>예약완료</td>
-                                <td><a href="#">상세보기</a></td>
+                            <tr th:each="res, i : ${reservationList}" class="colored">
+                                <td th:text="${i.index+1}">1</td>
+                                <th:block th:switch="${res.tNo}">
+                                	<td th:case="1">내과</td>	
+                                	<td th:case="2">외과</td>
+                                	<td th:case="3">안과</td>
+                                	<td th:case="4">정형외과</td>                           	
+	                            </th:block>
+                                <td th:text="${res.userName}"></td>
+                                <td th:text="${res.phone}"></td>
+                                <td th:text="${res.dog.name}"></td>
+                                <td th:text="${#dates.format(res.reservationDate, 'yyyy-MM-dd')} + '  ' + ${res.reservationTime}"></td>
+                                <td th:text="${res.reservationStatus}"></td>
+                                <td><a th:href="@{/admin/reservation/detail(no=${res.reservationNo})}">상세보기</a></td>
                             </tr>
-                            <tr class="colored">
-                                <td>1</td>
-                                <td>내과</td>
-                                <td>홍길동</td>
-                                <td>010-1234-5678</td>
-                                <td>망고</td>
-                                <td>2021.10.11 10:00 ~ 11:00</td>
-                                <td>예약완료</td>
-                                <td><a href="#">상세보기</a></td>
-                            </tr>
- 
                         </tbody>
                     </table>
                 </div>
@@ -124,5 +118,12 @@
         </div>
     </div> 
 
+    <script>
+    	const message = '[[${reservationResultMessage}]]';
+    	if(message){
+    		alert(message);
+    	}
+    	
+    </script>
 </body>
 </html>

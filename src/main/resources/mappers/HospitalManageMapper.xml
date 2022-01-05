@@ -125,6 +125,17 @@
 		 WHERE DEVICE_NO = #{ deviceNo }	
 	</update>
 
-
+	<update id="deleteDevice" parameterType="_int">
+		UPDATE MEDICAL_DEVICE
+		   SET STATUS = 'N'
+		 WHERE DEVICE_NO = #{ deviceNo }  
+	</update>
+	
+	<delete id="deleteDeviceFile" parameterType="_int">
+		DELETE 
+		  FROM DEVICE_FILE
+		 WHERE DEVICE_NO = #{ deviceNo }
+	</delete>
+	
 
 </mapper>

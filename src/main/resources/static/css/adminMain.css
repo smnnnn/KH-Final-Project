@@ -121,8 +121,8 @@ html, body{
 }
 
 .admincontent-main{
-	height: 100%;
-    margin: 50px 50px 100px;   
+	min-height: 900px;
+    margin: 50px;   
 }
 .activemenu{
     background-color:#85B1D6;

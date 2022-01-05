@@ -14,7 +14,7 @@
                         <img src="/images/admin/reserve_manage.png" class="menuiconimg">
                         <p class="ai">예약 관리</p><img src="/images/admin/downarrow.png" class="downarrow"></a>
                         <ul class="menucate">
-                            <li><a th:href="@{/admin/}"><p class="ai2" th:classappend="${currnet == '2'} ? ' ' + activesubmenu">예약 목록 관리</p></a></li>                  
+                            <li><a th:href="@{/admin/reservation/list}"><p class="ai2" th:classappend="${currnet == '2'} ? ' ' + activesubmenu">예약 목록 관리</p></a></li>                  
                             <li><a th:href="@{/admin/}"><p class="ai2" th:classappend="${currnet == '2-1'} ? ' ' + activesubmenu">휴일 관리</p></a></li>
                         </ul>
                     </li>
