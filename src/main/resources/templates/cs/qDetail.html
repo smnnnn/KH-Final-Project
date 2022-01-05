@@ -2,6 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
 
+	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+	<!-- default header name is X-CSRF-TOKEN -->
+	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,17 +52,56 @@
                     예약을 다른 날짜로 변경하고 싶어요.<br> 
                     가능한가요??
                 </pre>
+                
+                <!-- 답변 영역 -->
+                
+                <!-- 회원 -->
+                <!-- 답변 달렸을 경우 -->
+                <th:block th:if="${board.answer} != null">     
                 <div class="replyBox">
-                    <span class="bold"><img class="replyIcon" src="/images/sm/rep.png">답변</span>
-                    <span>안녕하세요. 고객님 예약 번호 조회 결과 17일 오후 두시 예약하신걸로 나옵니다.  20일 이후로 시간 관계없이 변경 가능합니다. 변경 원하시는 날짜와 시간이 있으시면 남겨주세요.</span>
-                    <span class="bold">2021.12.09</span>
+                    <span class="bold"><img class="replyIcon" src="/images/sm/rep.png"> 답변</span>
+                    <span class="bold" th:text="${board.answer.AContent}">안녕하세요. 고객님 예약 번호 조회 결과 17일 오후 두시 예약하신걸로 나옵니다.  20일 이후로 시간 관계없이 변경 가능합니다. 변경 원하시는 날짜와 시간이 있으시면 남겨주세요.</span>
+                    <span class="bold">
+                    [[${#dates.format(board.answer.createDate, 'yyyy.MM.dd. HH:mm')}]]
+                    
+ 					<!-- admin한테만 버튼 보이게 나중에 처리 -->             
+                    <span class="btns">
+                    <button class="miniBtn">수정</button><button class="miniBtn">삭제</button>
+                    </span>
+                    <!-- 여기까지 admin -->
+                    </span>
+                    
                 </div>
-                <input type="hidden" name="QNo" th:value="${board.QNo}">
+                </th:block> 
+                <!-- 답변 안달렸을 경우 -->
+                <!-- 
+                <th:block th:unless="${board.answer} != null">
+                <div class="replyBox2" >
+                <span><img class="plsWait" src="/images/sm/conversation.png"></span>
+                <span id="noneReply">아직 등록된 답변이 없습니다. 조금만 기다려 주세요.</span>
+                </div>
+                </th:block>
+                 -->
+ 
+                 
+                <!-- 관리자 -->
+ 				<!-- 답변 안달았을 경우 -->
+ 				<th:block th:unless="${board.answer} != null">
+ 				    <div class="addreplyBox">
+                    <textarea id="replyArea" name="AContent"></textarea>
+                    <button class="bigBtn" onclick="addReply();">답변등록</button>
+                </div>
+ 				</th:block>
+ 				<!-- 답변 달았을 경우 -->
+                
+<!--                  <input type="hidden" name="QNo" th:value="${board.QNo}"> -->
                 <button class="btn" id="gotoList" onclick="location.href='/qaBoard/list'">목록으로</button>
- <!--               <th:block th:if="${loginUser.userNo == QABoard.userNo}">--> 
+
                 <button class="btn" id="modify" onclick="updateBoardView();">수정하기</button>
                 <button class="btn" id="delete" onclick="deleteBoard();">삭제하기</button>
- <!--                </th:block>--> 
+ 
+
+ 
             </div>
         </div> 
     </div>
@@ -73,10 +116,55 @@
 	</th:block>-->
 
 
+	<!-- 답변 등록  -->
+	<script>
+	/*경로 맨앞에 admin붙이냐 마냐*/
+	
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$(function() {
+		    $(document).ajaxSend(function(e, xhr, options) {
+		        xhr.setRequestHeader(header, token);
+		    });
+		});
+		
+		function addReply() {
+			qno = '[[${board.QNo}]]';
+			$.ajax({
+				url : "/qaBoard/insertReply", 
+				type : "post",
+				dataType : "json",
+				data : { qno : qno, AContent : $("#replyArea").val() },
+				success : function(data) {
+					console.log(data);
+					
+					let html = '';
+					
+					
+					html +=
+						   
+		            '<div class="replyBox"><span class="bold"><img class="replyIcon" src="/images/sm/rep.png"> 답변</span><span class="bold">'
+		            + data.acontent + '</span><span class="bold">' + data.a_create_date;
+					/*바꿔*/
+					
+					$("#replyArea").html(html);
+					
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			});
+
+		}
+	</script>
+	
+
+
 	<form name="boardForm">
 		<input type="hidden" name="QNo" th:value="${board.QNo}">
 	</form>
 	
+	<!-- 작성한 사람에게만 보이는 스크립트 -->
 	<script>
 		function updateBoardView() {
 			document.forms.boardForm.action = "/qaBoard/updateView";

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.kh.project.cs.model.vo.Answer;
 import com.kh.project.cs.model.vo.PageInfo;
 import com.kh.project.cs.model.vo.QABoard;
 import com.kh.project.cs.model.vo.Search;
@@ -28,4 +29,8 @@ public interface QABoardMapper {
 	int updateQA(QABoard qaBoard);
 	
 	int deleteQA(int Qno);
+
+	Answer selectAnswer(int qNo);
+
+	int insertReply(Answer answer);
 }
