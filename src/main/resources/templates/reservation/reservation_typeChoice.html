@@ -16,7 +16,7 @@
     <!-- common js -->
     <script type="text/javascript" src="/js/common.js"></script>
     
-    <title>다나은 동물병원</title>
+    <title>진료예약</title>
 </head>
 <body>
     <!-- 헤더 -->
@@ -55,8 +55,8 @@
                 </p>
             </div><br><br><br><br><br>
             
-            <form th:action="@{/reservation/reservation_timeChoice}" method="post">
-            <div class="reservation_type_content">
+            <form th:action="@{/reservation/reservation_timeChoice}" method="post" enctype="multipart/form-data">
+            <div class="reservation_type_content"> 
                 <div class="con_title">
                     진료 유형
                 </div>
@@ -64,10 +64,10 @@
                 <p>
                     원하시는 진료 과목을 선택하세요.
                 </p><br>
-                <input type="submit" id="type_btn" value="내과">
-                <input type="submit" id="type_btn" value="외과">
-                <input type="submit" id="type_btn" value="안과">
-                <input type="submit" id="type_btn" value="정형외과">
+                <button type="submit" id="type_btn" value="1" name="tno">내과</button>
+                <button type="submit" id="type_btn" value="2" name="tno">외과</button>
+                <button type="submit" id="type_btn" value="3" name="tno">안과</button>
+                <button type="submit" id="type_btn" value="4" name="tno">정형외과</button>
                 <br>
             </div>
             </form>
