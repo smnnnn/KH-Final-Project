@@ -26,5 +26,11 @@ public interface QABoardService {
 	int deleteQA(int qNo);
 
 	Answer insertReply(Answer answer);
+
+	Answer selectReply(int qno);
+
+	int updateReply(Answer answer);
+
+	int deleteReply(int qno);
 	
 }

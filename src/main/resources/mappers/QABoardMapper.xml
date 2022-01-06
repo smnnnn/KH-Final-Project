@@ -3,12 +3,12 @@
 <mapper namespace="com.kh.project.cs.model.dao.QABoardMapper">
 
 	<resultMap id="qaBoardResultMap" type="com.kh.project.cs.model.vo.QABoard">
-		<id property="QNo" column="Q_NO"/>
-		<result property="QTitle" column="Q_TITLE"/>
-		<result property="QHit" column="Q_HIT"/>
+		<id property="qno" column="Q_NO"/>
+		<result property="qtitle" column="Q_TITLE"/>
+		<result property="qhit" column="Q_HIT"/>
 		<result property="createDate" column="CREATE_DATE"/>
 		<result property="modifyDate" column="MODIFY_DATE"/>
-		<result property="QContent" column="Q_CONTENT"/>
+		<result property="qcontent" column="Q_CONTENT"/>
 		<result property="status" column="STATUS"/>
 		<result property="secretStatus" column="SECRET_STATUS"/>
 		<result property="userName" column="USER_NAME"/>
@@ -18,12 +18,12 @@
 	</resultMap>
 	
 	<resultMap id="answerResultMap" type="com.kh.project.cs.model.vo.Answer">
-		<id property="ANo" column="A_NO"/>
-		<result property="AContent" column="A_CONTENT"/>
+		<id property="ano" column="A_NO"/>
+		<result property="acontent" column="A_CONTENT"/>
 		<result property="createDate" column="A_CREATE_DATE"/>
 		<result property="modifyDateLDate" column="A_MODIFY_DATE"/>
 		<result property="status" column="STATUS"/>
-		<result property="QNo" column="Q_NO"/>
+		<result property="qno" column="Q_NO"/>
 	</resultMap>
 	
 	<select id="getListCount" parameterType="com.kh.project.cs.model.vo.Search" resultType="Integer">
@@ -90,7 +90,7 @@
 	<insert id="increaseCount" parameterType="_int">
 		UPDATE QUESTION
 		   SET Q_HIT = Q_HIT + 1
-		 WHERE Q_NO = #{ qNo }
+		 WHERE Q_NO = #{ qno }
 	</insert>
 
 
@@ -110,7 +110,7 @@
 		  JOIN CATEGORY USING(CATEGORY_NO)
 		  JOIN MEMBER USING(USER_NO)
 		 WHERE Q.STATUS = 'N'
-		   AND Q_NO = #{ Qno }
+		   AND Q_NO = #{ qno }
 	</select>
 	
 	<insert id="insertQA" parameterType="com.kh.project.cs.model.vo.QABoard">
@@ -129,9 +129,9 @@
 			VALUES
 			(
 			  	SEQ_Q_NO.NEXTVAL
-			  , #{ QTitle }
+			  , #{ qtitle }
 			  , SYSDATE
-			  , #{ QContent }
+			  , #{ qcontent }
 			  , 'N'
 			  , #{ secretStatus }
 			  , #{ userNo }
@@ -141,18 +141,18 @@
 	
 	<update id="updateQA" parameterType="com.kh.project.cs.model.vo.QABoard">
 		UPDATE QUESTION
-		   SET Q_TITLE = #{ QTitle }
+		   SET Q_TITLE = #{ qtitle }
 		     , MODIFY_DATE = SYSDATE
-		     , Q_CONTENT = #{ QContent }
+		     , Q_CONTENT = #{ qcontent }
 		     , SECRET_STATUS = #{ secretStatus }
 		     , CATEGORY_NO = #{ categoryNo }
-		    WHERE Q_NO = #{ QNo }
+		    WHERE Q_NO = #{ qno }
 	</update>
 	
 	<delete id="deleteQA" parameterType="_int">
 		UPDATE QUESTION
 		   SET STATUS = 'Y'
-		 WHERE Q_NO = #{ Qno } 
+		 WHERE Q_NO = #{ qno } 
 	</delete>
 	
 	<select id="selectAnswer" resultMap="answerResultMap">
@@ -164,7 +164,7 @@
 		     , STATUS
 		     , Q_NO
 		  FROM ANSWER
-		 WHERE Q_NO = #{ qNo }
+		 WHERE Q_NO = #{ qno }
 		   AND STATUS = 'N' 
 	</select>
 	
@@ -182,12 +182,25 @@
 		    VALUES
 		    (
 		       SEQ_A_NO.NEXTVAL
-		     , #{ AContent }
+		     , #{ acontent }
 		     , SYSDATE
 		     , NULL
 		     , DEFAULT
-		     , #{ QNo }
+		     , #{ qno }
 		   )
 	</insert>
+	
+	<update id="updateAnswer" parameterType="com.kh.project.cs.model.vo.Answer">
+		UPDATE ANSWER
+		   SET A_CONTENT = #{ acontent }
+		     , A_MODIFY_DATE = SYSDATE
+		 WHERE Q_NO = #{ qno }
+	</update>
+	
+	<delete id="deleteAnswer" parameterType="_int">
+		UPDATE ANSWER
+		   SET STATUS = 'Y'
+		 WHERE Q_NO = #{ qno }
+	</delete>
 	
 </mapper>

@@ -20,7 +20,7 @@ public interface QABoardMapper {
 	
 	List<QABoard> selectQAList(int startRow, int endRow, String searchCondition, String searchValue); 
 	
-	QABoard selectQA(int Qno);
+	QABoard selectQA(int qNo);
 	
 	int insertQA(QABoard qaBoard); //유저넘버랑 카테고리 넘버
 	
@@ -28,9 +28,13 @@ public interface QABoardMapper {
 	
 	int updateQA(QABoard qaBoard);
 	
-	int deleteQA(int Qno);
+	int deleteQA(int qNo);
 
 	Answer selectAnswer(int qNo);
 
 	int insertReply(Answer answer);
+
+	int updateAnswer(Answer answer);
+
+	int deleteAnswer(int qno);
 }
