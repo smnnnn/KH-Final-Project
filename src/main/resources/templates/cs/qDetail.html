@@ -36,7 +36,9 @@
                 <div class="line2 bold">[<span th:text="${board.categoryName}"></span>] <span class="qTitle" th:text="${board.qtitle}"></span></div>
                 <div class="name bold" th:text="${board.userName}">김소민</div>
                 <div class="date bold">
-                	<span th:text="${#dates.format(board.createDate, 'yyyy. MM. dd.   HH:mm')}"></span>                 
+
+                	<span th:if="${board.modifyDate} != null" th:text="${#dates.format(board.modifyDate, 'yyyy. MM. dd.   HH:mm')}"></span>   
+                	<span th:unless="${board.modifyDate} != null" th:text="${#dates.format(board.createDate, 'yyyy. MM. dd.   HH:mm')}"></span>              
                     <span><img class="smallicon" src="/images/sm/hit2.png" alt="조회수"> <span th:text="${board.qhit}"></span></span> 
                  
                     <img class="smallicon" src="/images/sm/reply2.png" alt="답변수">
@@ -63,9 +65,13 @@
                 <div class="replyBox">
                     <span class="bold"><img class="replyIcon" src="/images/sm/rep.png"> 답변</span>
                     <pre class="bold acontent" th:text="${board.answer.acontent}">안녕하세요. 고객님 예약 번호 조회 결과 17일 오후 두시 예약하신걸로 나옵니다.  20일 이후로 시간 관계없이 변경 가능합니다. 변경 원하시는 날짜와 시간이 있으시면 남겨주세요.</pre>
-                    <span class="bold">
+                    <span class="bold">                
+                    <th:block th:if="${board.answer.modifyDate} != null">  
+                    [[${#dates.format(board.answer.modifyDate, 'yyyy.MM.dd. HH:mm')}]]
+                    </th:block>
+                    <th:block th:unless="${board.answer.modifyDate} != null"> 
                     [[${#dates.format(board.answer.createDate, 'yyyy.MM.dd. HH:mm')}]]
-                    
+                    </th:block>
  					<!-- admin한테만 버튼 보이게 나중에 처리 -->             
                     <span class="btns">
                     <button class="miniBtn" onclick="updateReplyView();">수정</button><button class="miniBtn" onclick="deleteReply();">삭제</button>
@@ -164,8 +170,8 @@
 		
 	</script>
 	
-	<!-- 답변 있을 때만 답변 수정, 삭제 -->
-	<th:block th:if="${board.answer} != null">
+
+
 	<script>
 		function updateReplyView() {
 			
@@ -200,6 +206,14 @@
 				success : function(data) {
 					console.log(data)
 					/*수정후 화면*/
+					date = '[[${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd.  HH:mm')}]]';
+					acontent = $("[name=aContent]").val();
+					const div = document.getElementById('ifadd');
+					div.innerHTML =
+						'<div class="replyBox"><span class="bold"><img class="replyIcon" src="/images/sm/rep.png"> 답변</span><pre class="bold acontent">'
+			            + acontent + '</pre><span class="bold">' + date + 
+			            '<span class="btns"><button class="miniBtn" onclick="updateReplyView();">수정</button><button class="miniBtn" onclick="deleteReply();">삭제</button></span></span>';
+					
 				},
 				error : function(e) {
 					console.log(e);
@@ -221,6 +235,11 @@
 				success : function(data) {
 					console.log(data)
 					/*삭제 화면 처리*/
+					const acontent = document.querySelector(".acontent");
+					let text = acontent.innerText;
+					const div = document.getElementById('ifadd');
+					div.innerHTML =
+						'<div class="addreplyBox" id="addreplyBox"><textarea id="replyArea" name="aContent"></textarea><button class="bigBtn" onclick="updateReply();">답변수정</button></div>';
 				},
 				error : function(e) {
 					console.log(e);
@@ -231,7 +250,7 @@
 	
 	
 	
-	</th:block>
+
 
 
 	<form name="boardForm">

@@ -73,11 +73,51 @@
                 </div>
 
                 <!-- 페이징바 -->
-                
+                <!-- 검색 했을때 -->
                 <th:block th:if="${ search.searchCondition != null and search.searchValue != null }">
-                
+                <th:block th:with="paramVal='&searchCondition='+${search.searchCondition}+'&searchValue='+${search.searchValue}">
+                	
+                	<div class="paging">
+                	<!-- http://localhost:8007/qaBoard/list?page=1&searchCondition=title&searchValue=1 -->
+                	<!-- <a th:href="@{'/pathvars/single/' + ${item.id}}"> -->
+                	<!-- 맨 처음 페이지 이동 버튼(<<) -->
+                    <span><a th:href="@{/qaBoard/list(page=1)} + ${paramVal}">&lt;&lt;</a></span><!-- <img id="arrow" src="/images/sm/left-arrow.png"> -->
+                    <!-- 이전 페이지로(<) -->
+                    <span th:if="${pi.page > 1}"><a th:href="@{/qaBoard/list(page=${pi.page - 1})} + ${paramVal}">&lt;</a></span>
+                    <span th:unless="${pi.page > 1}"><a href="#">&lt;</a></span>
+  
+  					<!-- startPage ~ endPage 최대 10개의 페이지 목록 -->                
+                    <th:block th:each="num : ${#numbers.sequence(pi.startPage,pi.endPage)}">
+                    	<!-- 현재 페이지에 밑줄 css -->
+                    	<th:block th:if="${num == pi.page}">
+                    		<a href="#" class="current_page"><span th:text="${num}"></span></a>
+                    	</th:block>
+                    	<!-- 그 외 그냥 표시 -->
+                    	<th:block th:unless="${num == pi.page}">
+                    		<!-- 검색결과 없을 경우 endPage 0으로 뜨는거 방지 -->
+                    		<th:block th:if="${num} > 0">
+                    			<a th:href="@{/qaBoard/list(page=${num})} + ${paramVal}"><span th:text="${num}"></span></a>
+                    		</th:block>
+                    		<th:block th:unless="${num} > 0">
+                    			<span></span>
+                    		</th:block>
+                    	</th:block>
+                    </th:block>
+
+                    <!-- 다음 페이지로(>) -->
+                    <span th:if="${pi.page < pi.maxPage}"><a th:href="@{/qaBoard/list(page=${pi.page + 1})} + ${paramVal}">&gt;</a></span>
+                    <span th:unless="${pi.page < pi.maxPage}"><a href="#">&gt;</a></span>
+
+                    <!-- 맨 끝으로 이동 버튼(>>) -->
+                    <span><a th:href="@{/qaBoard/list(page=${pi.maxPage})} + ${paramVal}">&gt;&gt;</a></span><!-- $gt;&gt; -->
+                </div>               	
                 </th:block>
+                </th:block>
+  
                 
+                <!-- 검색 안했을때 -->
+                <th:block th:unless="${ search.searchCondition != null and search.searchValue != null }">
+                <!-- list?searchCondition=title&searchValue=1 -->
                 <!-- http://localhost:8007/qaBoard/list?page=9 -->
                 <div class="paging">
                 	<!-- 맨 처음 페이지 이동 버튼(<<) -->
@@ -105,6 +145,7 @@
                     <!-- 맨 끝으로 이동 버튼(>>) -->
                     <span><a th:href="@{/qaBoard/list(page=${pi.maxPage})}">&gt;&gt;</a></span><!-- $gt;&gt; -->
                 </div>
+                </th:block>
 	
 
                 <button id="writeBtn" onclick="location.href='/qaBoard/insert'">글쓰기</button>
