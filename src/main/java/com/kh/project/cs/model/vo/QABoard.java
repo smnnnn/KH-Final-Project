@@ -20,11 +20,6 @@ public class QABoard {
 	private Answer answer;
 	private int userNo;
 	private int categoryNo;
-	
-
-
-	
-	
-	
+	private String userId;
 	
 }

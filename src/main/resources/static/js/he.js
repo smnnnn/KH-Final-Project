@@ -49,3 +49,11 @@ function doctor_insert(){
         return false;
     }
 }
+
+function doctor_modify(){
+	let phone = document.getElementById('phone_input');
+	
+	if(!check(/^[0-9]{10,11}$/, phone, "전화번호는 숫자로 10~11자 이내만 허용됩니다.")){
+        return false;
+    }
+}

@@ -14,15 +14,16 @@
     <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
     <!-- 자바스크립트 -->
     <script type="text/javascript" src="/js/common.js"></script> 
+    <script type="text/javascript" src="/js/nh.js"></script> 
 
     <title>다나은 관리자|병원관리</title>
 </head>	
 <body>
- <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='4-1')"></div>
+ <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='4-2')"></div>
             <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
                 <h3 class="pagetitle">의료 장비 추가</h3>
-                <form action="" method="" class="">
+                <form th:action="@{/admin/hospital/registDevice}" method="post" enctype="multipart/form-data">
                     <table class="tblstyle2">
                         <colgroup>
                             <col width="20%">
@@ -32,12 +33,12 @@
                             <tr>
                                 <th>구분</th>
                                 <td>
-                                    <select required>
-                                        <option name="" value="">내과</option>
-                                        <option name="" value="">외과</option>
-                                        <option name="" value="" selected>안과</option>
-                                        <option name="" value="">정형외과</option>
-                                        <option name="" value="">영상장비</option>
+                                    <select name="categoryCode" required>
+                                        <option value="1">내과</option>
+                                        <option value="2">외과</option>
+                                        <option value="3">안과</option>
+                                        <option value="4">정형외과</option>
+                                        <option value="5">영상장비</option>
                                     </select>
                                 </td>
                             </tr>
@@ -45,34 +46,33 @@
                                 <th>장비 사진</th>
                                 <td class="tdstyle">
                                     <div class="dfile"></div>
-                                    <input type="file" name="" class="mdevice-upload" required>
+                                    <input type="file" name="deviceFile" class="mdevice-upload" id="mdevice-img" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>장비명</th>
                                 <td>
-                                    <input type="text" class="" name="" id="" required>
+                                    <input type="text" name="deviceName" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>모델명</th>
                                 <td>
-                                    <input type="text" class="" name="" id="" required>
+                                    <input type="text" name="deviceModel" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>장비 설명</th>
                                 <td>
-                                    <textarea class="textarea-stl" id="" required></textarea>
+                                    <textarea class="textarea-stl" name="deviceContent" required></textarea>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <!-- 유효성 검사 후 버튼 활성화 : btn-b , 비활성화 : btn-disabled -->
                     <div class="btnarea2">
-                        <button class="btn-b">추가</button>
-                        <button class="btn-c btns" type="button" onclick="">취소</button>
+                        <button class="btn-b" type="submit">추가</button>
+                        <button class="btn-c btns" type="button" onclick="location.href='/admin/hospital/deviceList'">취소</button>
                     </div>
                 </form>
             </div>

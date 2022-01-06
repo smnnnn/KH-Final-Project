@@ -1,5 +1,6 @@
 package com.kh.project.subAdmin.model.vo;
 
+
 /* 의료진 */
 public class Veterinarian {
 
@@ -85,6 +86,7 @@ public class Veterinarian {
 		return "Veterinarian [vno=" + vno + ", vname=" + vname + ", tno=" + tno + ", profile=" + profile + ", career="
 				+ career + ", status=" + status + ", phone=" + phone + "]";
 	}
+
 	
 	
 }
