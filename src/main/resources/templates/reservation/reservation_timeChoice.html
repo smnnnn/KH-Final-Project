@@ -74,16 +74,16 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>진료 과목</th>
                             <th>담당의</th>
+                            <th>진료 과목</th>
                             <th>진료일</th>
                             <th>진료 시간</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>내과</td>
-                            <td>김소민</td>
+                        <tr th:each="info : ${VList}">
+                            <td th:text="${info.vname}"></td>
+                            <td th:text="${info.tno.tname}"></td>
                             <td>2021.12.30</td>
                             <td>
                                 <select id="reser_time">

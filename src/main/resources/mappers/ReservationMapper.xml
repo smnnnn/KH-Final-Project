@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.project.reservation.model.dao.ReservationMapper">
+	<resultMap id="VeterinarianResultMap" type="com.kh.project.reservation.model.vo.VeterinarianAndTreatmentType">
+		<id property="vno" column="VNO"/>
+		<result property="vname" column="VNAME"/>
+		<result property="status" column="STATUS"/>
+		
+		<association property="tno" javaType="com.kh.project.reservation.model.vo.TreatmentType">
+			<id property="tno" column="TNO"/>
+			<result property="tname" column="TNAME"/>
+		</association>
+		
+	</resultMap>
+
+
+	<select id="findVname" resultMap="VeterinarianResultMap">
+		SELECT
+			   A.VNAME
+			 , B.TNAME
+		  FROM VETERINARIAN A
+		  JOIN TREATMENT_TYPE B ON (A.TNO = B.TNO)
+		 WHERE A.TNO = #{tno}
+	</select>
+
+</mapper>
