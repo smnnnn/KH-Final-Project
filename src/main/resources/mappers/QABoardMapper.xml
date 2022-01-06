@@ -21,7 +21,7 @@
 		<id property="ano" column="A_NO"/>
 		<result property="acontent" column="A_CONTENT"/>
 		<result property="createDate" column="A_CREATE_DATE"/>
-		<result property="modifyDateLDate" column="A_MODIFY_DATE"/>
+		<result property="modifyDate" column="A_MODIFY_DATE"/>
 		<result property="status" column="STATUS"/>
 		<result property="qno" column="Q_NO"/>
 	</resultMap>

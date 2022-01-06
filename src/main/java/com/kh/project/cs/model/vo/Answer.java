@@ -13,7 +13,8 @@ public class Answer {
 	private String acontent; //
 	@JsonFormat(pattern = "yyyy.MM.dd HH:mm")
 	private Date createDate;
-	private Object modifyDateLDate;
+	@JsonFormat(pattern = "yyyy.MM.dd HH:mm")
+	private Date modifyDate;
 	private String status;
 	private int qno; //
 	
