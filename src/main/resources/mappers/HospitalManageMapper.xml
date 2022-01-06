@@ -32,7 +32,7 @@
 			 , CATEGORY_CODE
 		  FROM MEDICAL_DEVICE
 		 WHERE STATUS = 'Y'		
-		 ORDER BY DEVICE_NO 
+		 ORDER BY DEVICE_NO DESC
 	</select>
 	
 	<select id="selectMedicalDeviceByNo" parameterType="_int" resultMap="deviceResultMap">

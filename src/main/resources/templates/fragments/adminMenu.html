@@ -18,7 +18,7 @@
                             <li><a th:href="@{/admin/}"><p class="ai2" th:classappend="${currnet == '2-1'} ? ' ' + activesubmenu">휴일 관리</p></a></li>
                         </ul>
                     </li>
-                    <li th:classappend="${currnet == '3'} ? activemenu"><a href="#">
+                    <li th:classappend="${currnet == '3'} ? activemenu"><a th:href="@{/admin/cs/list}">
                         <img src="/images/admin/qna_manage.png" class="menuiconimg">
                         <p class="ai">문의 관리</p>
                     </a></li>
@@ -29,10 +29,6 @@
                             <li><a href="#"><p class="ai2" th:classappend="${currnet == '4'} ? ' ' + activesubmenu">의료진 관리</p></a></li>                  
                             <li><a href="#"><p class="ai2" th:classappend="${currnet == '4-1'} ? ' ' + activesubmenu">의료진 등록</p></a></li>
                             <li><a th:href="@{/admin/hospital/deviceList}"><p class="ai2" th:classappend="${currnet == '4-2'} ? ' ' + activesubmenu">의료장비 관리</p></a></li>
-
-                            
-
-
                         </ul>
                     </li>
                     <li th:classappend="${currnet == '5'} ? activemenu"><a href="#">
