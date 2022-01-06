@@ -9,8 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -76,7 +80,7 @@ public class QABoardController {
 	
 	/*http://localhost:8007/qaBoard?QNo=100*/
 	@GetMapping("") 
-	public String selectQA(@RequestParam("QNo") int QNo, Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String selectQA(@RequestParam("qno") int QNo, Model model, HttpServletRequest request, HttpServletResponse response) {
 		//int qNo = Integer.parseInt(request.getParameter("QNo")); // ?
 		
 		/* cookie 활용한 조회수 무한 증가 방지 처리 */
@@ -149,9 +153,9 @@ public class QABoardController {
 	
 	// 수정 화면
 	@RequestMapping("updateView")
-	public String updateQAView(int QNo, Model model) {
+	public String updateQAView(int qNo, Model model) {
 		
-		QABoard board = qaBoardService.selectQA(QNo);
+		QABoard board = qaBoardService.selectQA(qNo);
 		
 		if(board != null) {
 			model.addAttribute("board",board);
@@ -165,7 +169,7 @@ public class QABoardController {
 	@PostMapping("update")
 	public String updateQA(QABoard qaBoard, Model model) {
 	
-		int QNo = qaBoard.getQNo();
+		int QNo = qaBoard.getQno();
 		
 		int result = qaBoardService.updateQA(qaBoard);
 		if(result > 0) {
@@ -174,13 +178,13 @@ public class QABoardController {
 			log.info("문의 수정 실패");
 		}	
 		
-		return "redirect:/qaBoard?QNo=" + QNo;
+		return "redirect:/qaBoard?qno=" + QNo;
 	}
 	
 	@RequestMapping("delete")
-	public String deleteQA(int QNo) {
+	public String deleteQA(int qNo) {
 		
-		int result = qaBoardService.deleteQA(QNo);
+		int result = qaBoardService.deleteQA(qNo);
 		if(result > 0) {
 			log.info("삭제 성공");
 		} else{
@@ -197,8 +201,9 @@ public class QABoardController {
 	public Answer insertReply(int qno, String AContent){
 		
 		Answer answer = new Answer();
-		answer.setQNo(qno);
-		answer.setAContent(AContent);
+		answer.setQno(qno);
+
+		answer.setAcontent(AContent);
 		
 		answer = qaBoardService.insertReply(answer);
 		
@@ -208,7 +213,32 @@ public class QABoardController {
 		return answer;
 	}
 	
+//	@ResponseBody
+//	@GetMapping("/updateReply/{qno}")
+//	public Answer updateAnswerView(@PathVariable int qno) {
+//		
+//		Answer answer = qaBoardService.selectReply(qno);
+//		
+//		return answer;
+//	}
 	
+
+	@ResponseBody
+	@PutMapping("/updateReply/{qno}")
+	public int updateAnswer(@PathVariable int qno, @RequestBody Answer answer) {
+		
+		log.info("answer {} : " , answer);
+		int updateAnswer = qaBoardService.updateReply(answer);
+		
+		return updateAnswer;
+	}
 	
+	@ResponseBody
+	@DeleteMapping("/deleteReply/{qno}")
+	public int deleteBook(@PathVariable int qno) {
+		log.info("삭제 요청 qno : {}, qno");
+		
+		return qaBoardService.deleteReply(qno);
+	}
 	
 }

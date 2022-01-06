@@ -107,10 +107,29 @@ public class QABoardServiceImpl implements QABoardService {
 		int result = boardMapper.insertReply(answer);
 		
 		if(result > 0) {
-			newAnswer = boardMapper.selectAnswer(answer.getQNo());
+			newAnswer = boardMapper.selectAnswer(answer.getQno());
+			//
 		}
 		
 		return newAnswer;
+	}
+
+	@Override
+	public Answer selectReply(int qno) {
+		
+		return boardMapper.selectAnswer(qno);
+	}
+
+	@Override
+	public int updateReply(Answer answer) {
+		
+		return boardMapper.updateAnswer(answer);
+	}
+
+	@Override
+	public int deleteReply(int qno) {
+		
+		return boardMapper.deleteAnswer(qno);
 	}
 
 

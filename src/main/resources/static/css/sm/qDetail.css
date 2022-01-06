@@ -193,3 +193,14 @@
             margin-left: 5px;
            
         }
+        
+        /* pre 화면에 안깨지게 */
+        .acontent {
+        	max-width:800px;
+        	word-wrap: break-word;
+        	white-space: pre-wrap;
+        	white-space: -moz-pre-wrap;
+        	white-space: -pre-wrap;
+        	white-space: -o-pre-wrap;
+        	word-break:break-all;
+        }

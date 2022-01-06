@@ -25,7 +25,7 @@
     <!-- 내용 부분 -->
     <div>
        <form th:action="@{/qaBoard/update}" method="post">
-       <input type="hidden" name="QNo" th:value="${board.QNo}">
+       <input type="hidden" name="qno" th:value="${board.qno}">
         <!-- 내용 표시 부분 -->
         <div class="board content">
             <div id="qaTitle">수정하기</div>
@@ -39,10 +39,10 @@
                         <option value="30" th:selected="${board.categoryName} =='기타문의'">기타문의</option>
                     </select>
        
-                    <input type="text" id="titleArea" maxlength="100" name="QTitle" th:value="${board.QTitle}">
+                    <input type="text" id="titleArea" maxlength="100" name="qtitle" th:value="${board.qtitle}">
 
                 </div>
-                <textarea name="QContent" class="ctBox" maxlength="4000" th:text="${board.QContent}">
+                <textarea name="qcontent" class="ctBox" maxlength="4000" th:text="${board.qcontent}">
                 </textarea>
 
                 <div class="checks">
