@@ -47,7 +47,7 @@
 		  FROM RESERVATION_INFORMATION R
 		  JOIN MEMBER M USING(USER_NO)
 		  JOIN VETERINARIAN USING(VNO)
-		 ORDER BY RESERVATION_NO
+		 ORDER BY RESERVATION_NO DESC
 	</select>
 	
 	<select id="selectInputDog" resultMap="inputDogResultMap">

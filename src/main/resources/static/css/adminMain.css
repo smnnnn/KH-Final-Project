@@ -391,6 +391,7 @@ table.tblstyle{
     width: 1000px;
     border-collapse: collapse;
     border: 2px solid #C4C4C4;
+    table-layout: fixed;
 }
 table.tblstyle > thead > tr{
     background-color:#C4C4C4;
@@ -514,6 +515,9 @@ tr.colored > td:last-child > a.deleteele:hover{
 }
 .tblstyle2 > tbody > tr > td > input, .tblstyle2 > tbody > tr > td > select{
     padding: 0 5px;
+}
+.iptstyle{
+	width: 600px !important;
 }
 
 /* 의료 장비 목록 페이지 */
