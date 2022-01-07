@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<script>
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      //initialDate: '2020-09-12',
+      //locale : "ko",
+      //editable: true,
+      selectable: true, 
+      //businessHours: true,
+      //dayMaxEvents: true, // allow "more" link when too many events
+      //hiddenDays:[1],
+      // 이벤트명 : function(){} : 각 날짜에 대한 이벤트를 통해 처리할 내용..
+      select: function(arg) { 
+    
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = ("0" + (1 + date.getMonth())).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+        let today = year + "-" + month + "-" + day;
+        
+        // 무슨 요일인지 확인 용..
+        let dayy = String(arg.start);
+        let week = dayy.split(" ");
+        
+        if(arg.startStr < today) {  //과거 선택한 경우 false
+          console.log('false');
+        } else if(week[0] === 'Mon'){   // 휴무일 선택한 경우 false
+          console.log('false')
+        } else {  // 예약 가능한 일자 선택한 경우 일자 예약 success
+          console.log(arg.startStr); //날짜 보내기
+          console.log(week[0]); //요일 확인용
+        }
+
+
+        
+        //var title = prompt('입력할 일정:'); // title 값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가 
+        //if (title) { 
+          //calendar.addEvent({ 
+            //title: title, 
+            //start: arg.start, 
+            //end: arg.end, 
+            //allDay: arg.allDay, 
+            //backgroundColor:"yellow", 
+            //textColor:"blue" 
+          //}) 
+          //} 
+          //calendar.unselect() 
+        }
+
+    });
+
+    calendar.render();
+  });
+
+</script>

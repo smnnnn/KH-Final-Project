@@ -8,14 +8,16 @@
     <!-- 폰트  -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet"> 
     <!-- common css-->
-    <link type="text/css" rel="stylesheet" href="/css/common.css">
-    <!-- 나현 css (메인, 관리자)-->
-    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <link type="text/css" rel="stylesheet" href="/css/common.css">   
     <!-- 효은 css (메인, 관리자)-->
     <link type="text/css" rel="stylesheet" href="/css/he.css">
+    <link type="text/css" rel="stylesheet" href="/css/calendar.css"/>
     <!-- common js -->
     <script type="text/javascript" src="/js/common.js"></script>
-    
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <!-- 캘린더 js -->
+	<script type="text/javascript" src="/js/calendar.js"></script>
+   
     <title>진료 예약</title>
 </head>
 <body>
@@ -50,8 +52,9 @@
                 </div>
                 <div id="title_line"></div><br>
                 <div class="reser_date">
-                    <div class="calendar">
-    
+                <!-- 캘린더 -->
+                    <div class="calendar" id="calendar">
+    				
                         
                     </div>
                     <div class="quickDiv">
@@ -59,6 +62,55 @@
                     </div>
                 </div>
             </div><br><br><br><br><br>
+            
+            
+   <!-- 캘린더 일자 선택 -->         
+  <script>
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      //initialDate: '2020-09-12',
+      //locale : "ko",
+      //editable: true,
+      selectable: true, 
+      //businessHours: true,
+      //dayMaxEvents: true, // allow "more" link when too many events
+      //hiddenDays:[1],
+      // 이벤트명 : function(){} : 각 날짜에 대한 이벤트를 통해 처리할 내용..
+      select: function(arg) { 
+    
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = ("0" + (1 + date.getMonth())).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+        let today = year + "-" + month + "-" + day;
+        
+        // 무슨 요일인지 확인 용
+        let dayy = String(arg.start);
+        let week = dayy.split(" ");
+        
+        if(arg.startStr < today) {  //과거 선택한 경우 false
+          console.log('false');
+        } else if(week[0] === 'Mon'){   // 휴무일 선택한 경우 false
+          console.log('false')
+        } else {  // 예약 가능한 일자 선택한 경우 일자 예약 success
+          console.log(arg.startStr); //날짜 보내기
+          console.log(week[0]); //요일 확인용
+        }
+
+          //calendar.unselect() 
+        }
+
+    });
+
+    calendar.render();
+  });
+
+</script> 
+            
+            
             
             <div class="time_content">
                 <div class="con_title">

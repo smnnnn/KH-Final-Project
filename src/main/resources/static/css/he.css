@@ -109,10 +109,9 @@
 
 
 .calendar{
-    border: 1px solid #C4C4C4; 
     margin: 0 auto;
-    width: 800px;
-    height: 300px;
+    width: 900px;
+    height: 600px;
 }
 
 .quick{
