@@ -93,6 +93,6 @@
             font-size: small;
         }
 
-        #pwdCheck_div2{
-            background-color: red;
+        .invalid{
+		    color: red;
         }
