@@ -14,6 +14,7 @@
     <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
     <!-- 자바스크립트 -->
     <script type="text/javascript" src="/js/common.js"></script> 
+    <script type="text/javascript" src="/js/nh.js"></script> 
 
     <title>다나은 관리자|문의관리</title>
 </head>	
@@ -21,40 +22,44 @@
  <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='3')"></div>
             <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
-                <div class="conditionarea">
-                    <div class="sortarea">
-                        <div class="sort1">
-                            <h3>문의 종류별로 보기</h3>
-                            <input type="radio" name="sortcondition" vale="" id="">
-                            <label>일반문의</label>
-                            <input type="radio" name="sortcondition" vale="" id="">
-                            <label>예약문의</label>
-                            <input type="radio" name="sortcondition" vale="" id="">
-                            <label>기타문의</label>
-                        </div>
-                        <div class="sort1">
-                            <h3>답변 여부별로 보기</h3>
-                            <input type="radio" name="sortcondition" vale="" id="">
-                            <label>미답변</label>
-                            <input type="radio" name="sortcondition" vale="" id="">
-                            <label>완료</label>
-                        </div>
-                    </div>
-                    <div class="searcharea">
-                        <select class="selecttype">
-                            <option name="searchcondition" value="id" class="opt" selected>문의내용</option>
-                        </select>
-                        <div class="listTotal">
-                            <p class="totalCnt">총 32,000건</p>
-                            <div class="sortArea">
-                                <div class="inp_text search">
-                                    <input type="text" name="searchvalue" class="searchvalue" placeholder="검색어를 입력하세요">
-                                    <button class="btn-a" onclick="">검색</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            	<!-- 목록 정렬 & 검색 -->
+	                <div class="conditionarea">
+	                    <div class="sortarea">
+	                        <div class="sort1">
+	                            <h3>문의 종류별로 보기</h3>
+	                            <input type="radio" name="csCategory" value="1" th:checked="${sort == 1}">
+	                            <label>일반문의</label>
+	                            <input type="radio" name="csCategory" value="2" th:checked="${sort == 2}">
+	                            <label>예약문의</label>
+	                            <input type="radio" name="csCategory" value="3" th:checked="${sort == 3}">
+	                            <label>기타문의</label>
+	                        </div>
+	                        <div class="sort1">
+	                            <h3>답변 여부별로 보기</h3>
+	                            <input type="radio" name="csCategory" value="4" th:checked="${sort == 4}">
+	                            <label>미답변</label>
+	                            <input type="radio" name="csCategory" value="5" th:checked="${sort == 5}">
+	                            <label>완료</label>
+	                        </div>
+	                    </div>
+			            <form th:action="@{/admin/cs/list}" method="get" class="searcharea">
+	                    <div class="searcharea">
+	                        <select class="selecttype" name="searchCategory">
+	                            <option value="1" class="opt">문의내용</option>
+	                            <option value="2" class="opt">답변내용</option>
+	                        </select>
+	                        <div class="listTotal">
+	                            <p class="totalCnt" th:text="총 + ' ' + ${pagination.totalListCount} + ' ' + 건"></p>
+	                            <div class="sortArea">
+	                                <div class="inp_text search">
+	                                    <input type="text" name="searchKeyword" class="searchvalue" placeholder="검색어를 입력하세요">
+	                                    <button class="btn-a">검색</button>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+			            </form>
+	                </div>
                 <div class="list-tbl">
                     <table class="tblstyle">
                         <colgroup>
@@ -86,26 +91,31 @@
                                 	<td th:case="30">기타문의</td>                          	
 	                            </th:block>
                                 <td th:text="${question.userId}"></td>
-                                <td th:text="${question.QTitle}" class="contentstyle"></td>
+                                <td th:text="${question.qtitle}" class="contentstyle"></td>
                                 <td th:text="${#dates.format(question.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                <td th:if="${question.answer.ANo == 0 || question.answer.status == 'Y'}" class="unresolved">미답변</td>
-                                <td th:unless="${question.answer.ANo == 0 || question.answer.status == 'Y'}">답변완료</td>
-                                <td><a th:href="@{/admin/cs/detail(no=${question.QNo})}">상세보기</a></td>
+                                <td th:if="${question.answer.ano == 0 || question.answer.status == 'Y'}" class="unresolved">미답변</td>
+                                <td th:unless="${question.answer.ano == 0 || question.answer.status == 'Y'}">답변완료</td>
+                                <td><a th:href="@{/admin/cs/detail(no=${question.qno})}">상세보기</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 
                 <div class="paging pagingarea">
-                    <span class="first"><a href="#"><span class="blind"></span></a></span>
-                    <span class="prev"><a href="#"><span class="blind"></span></a></span>
-                    <a href="#">1</a>
-                    <span class="current">2</span>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <span class="next"><a href="#"><span class="blind"></span></a></span>
-                    <span class="last"><a href="#"><span class="blind"></span></a></span>
+                	<!-- 첫 페이지로 이동 -->
+                    <span class="first"><a th:href="@{/admin/cs/list(page=1, sort=${sort})}"><span class="blind"></span></a></span>
+                    <!-- 이전 페이지로 이동 -->
+                    <span th:if="${pagination.page > 1}" class="prev"><a th:href="@{/admin/cs/list(page=${pagination.page-1}, sort=${sort})}"><span class="blind"></span></a></span>
+                    <span th:unless="${pagination.page > 1}" class="prev"><a href="#"><span class="blind"></span></a></span>
+                    <!-- 페이지 넘버 -->
+                     <th:block th:each="i : ${#numbers.sequence(pagination.startPage,pagination.endPage)}">
+                   		<a th:text="${i}" th:classappend="${pagination.page == i} ? current" th:href="@{/admin/cs/list(page=${i}, sort=${sort})}"></a>                    
+                    </th:block> 
+                    <!-- 다음 페이지로 이동 -->
+                    <span th:if="${pagination.page < pagination.maxPage}" class="next"><a th:href="@{/admin/cs/list(page=${pagination.page+1}, sort=${sort})}"><span class="blind"></span></a></span>
+                    <span th:unless="${pagination.page < pagination.maxPage}" class="next"><a href="#"><span class="blind"></span></a></span> 
+                    <!-- 마지막 페이지로 이동 -->
+                    <span class="last"><a th:href="@{/admin/cs/list(page=${pagination.maxPage}, sort=${sort})}"><span class="blind"></span></a></span>
                 </div>
             </div>
         </div>
@@ -116,7 +126,7 @@
     	if(message){
     		alert(message);
     	}
-    	
+  
     </script>
     
 </body>

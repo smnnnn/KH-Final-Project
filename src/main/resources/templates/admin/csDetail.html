@@ -60,27 +60,27 @@
                             <tr>                            
                                 <th>문의 제목</th>
                                 <td>
-                                    <input type="text" class="iptstyle" name="QTitle" th:value="${question.QTitle}" readonly>
+                                    <input type="text" class="iptstyle" name="qtitle" th:value="${question.qtitle}" readonly>
                                 </td>
                             </tr>                            
                             <tr>
                                 <th>문의 내용</th>
                                 <td>
-                                    <textarea class="textarea-stl" name="Qcontent" th:text="${question.QContent}" readonly></textarea>
+                                    <textarea class="textarea-stl" name="qcontent" th:text="${question.qcontent}" readonly></textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <th>답변 여부</th>
                                 <td>
-                                    <input type="text" th:if="${question.answer.ANo == 0 || question.answer.status == 'Y'}" class="unresolved" value="미답변" readonly>
-                                    <input type="text" th:unless="${question.answer.ANo == 0 || question.answer.status == 'Y'}" value="답변완료" readonly>
+                                    <input type="text" th:if="${question.answer.ano == 0 || question.answer.status == 'Y'}" class="unresolved" value="미답변" readonly>
+                                    <input type="text" th:unless="${question.answer.ano == 0 || question.answer.status == 'Y'}" value="답변완료" readonly>
                                 </td>
                             </tr>
-                            <th:block th:if="${question.answer.ANo != 0 && question.answer.status == 'N'}">
+                            <th:block th:if="${question.answer.ano != 0 && question.answer.status == 'N'}">
                             <tr>
                                 <th>답변 내용</th>
                                 <td>
-                                    <textarea class="textarea-stl" name="answer.AContent" th:text="${question.answer.AContent}" readonly></textarea>      
+                                    <textarea class="textarea-stl" name="answer.acontent" th:text="${question.answer.acontent}" readonly></textarea>      
                                 </td>
                             </tr> 
                             <tr>                            
@@ -94,8 +94,8 @@
                     </table>
 
                     <div class="btnarea2">
-                        <button class="btn-b" type="button" th:onclick="'location.href=\'' + @{/qaBoard(QNo=${question.QNo})} + '\';'">문의글로 이동</button>
-                        <button class="btn-c btns" type="button" th:onclick="|javascript:questionDelete('${question.QNo}','${question.answer.ANo}')|">문의글 삭제</button>
+                        <button class="btn-b" type="button" th:onclick="'location.href=\'' + @{/qaBoard(qno=${question.qno})} + '\';'">문의글로 이동</button>
+                        <button class="btn-c btns" type="button" th:onclick="|javascript:questionDelete('${question.qno}','${question.answer.ano}')|">문의글 삭제</button>
                     </div>
                 </form>
             </div>
@@ -104,9 +104,9 @@
 
     <script>
     	// 매개변수로 해당 장비번호 전달
-    	function questionDelete(QNo, ANo){
+    	function questionDelete(qno, ano){
     		if(confirm("해당 문의내역을 삭제하시겠습니까?")){
-    			location.href="/admin/cs/delete?QNo=" + QNo + "&ANo=" + ANo;
+    			location.href="/admin/cs/delete?qno=" + qno + "&ano=" + ano;
     		}
     	}
     </script>       

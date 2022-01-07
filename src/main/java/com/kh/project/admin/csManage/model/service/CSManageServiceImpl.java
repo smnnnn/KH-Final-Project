@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.project.admin.common.model.vo.Pagination;
 import com.kh.project.admin.csManage.model.dao.CSManageMapper;
-import com.kh.project.cs.model.vo.QABoard;
+import com.kh.project.admin.csManage.model.vo.Question;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,34 +24,48 @@ public class CSManageServiceImpl implements CSManageService {
 	}
 	
 	@Override
-	public List<QABoard> selectQuestionList() {
+	public int getListCount(int sort) {
+		// 전체 글 목록 갯수 조회 or 정렬기준 갯수 조회
+		return csManageMapper.getListCount(sort);
+	}
+	
+	@Override
+	public int getAnswerStatusCount(int sort) {
+		// 답변여부별 갯수 조회
 		
-		/* 문의 목록 조회 */
-		List<QABoard> questionList = csManageMapper.selectQuestionList();
+		return csManageMapper.getAnswerStatusCount(sort);
+	}
+	
+	@Override
+	public List<Question> selectQuestionList(int startRow, int endRow, int sort) {
 		
+		List<Question> questionList = csManageMapper.selectQuestionList(startRow, endRow, sort);
+				
 		return questionList;
 	}
 
 	@Override
-	public QABoard selectQuestionByNo(int no) {
+	public Question selectQuestionByNo(int no) {
 		
-		QABoard question = csManageMapper.selectQuestionByNo(no);
+		Question question = csManageMapper.selectQuestionByNo(no);
 		
 		return question;
 	}
 
 	@Transactional
 	@Override
-	public int deleteQuestion(int QNo, int ANo) {
+	public int deleteQuestion(int qno, int ano) {
 				
 		int answerResult = 1;
-		if(ANo != 0) {
-			answerResult = csManageMapper.deleteAnswer(ANo);
+		if(ano != 0) {
+			answerResult = csManageMapper.deleteAnswer(ano);
 		}
 		
-		int result = csManageMapper.deleteQuestion(QNo);
+		int result = csManageMapper.deleteQuestion(qno);
 		
 		return result > 0 && answerResult > 0 ? 1 : 0;
 	}
+
+
 
 }

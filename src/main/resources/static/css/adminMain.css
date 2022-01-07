@@ -264,6 +264,9 @@ PAGING
 .paging .first a:after {margin-left:-9px;transform:rotate(135deg);}
 .paging .last a:after{margin-left:0px;transform:rotate(-45deg);}
 
+.formstyle3{
+	display : flex;	
+}
 
 /*-------- 관리자페이지 데시보드 ---------*/
 .manageinfo-wrap{

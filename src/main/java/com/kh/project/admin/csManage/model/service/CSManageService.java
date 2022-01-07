@@ -2,14 +2,18 @@ package com.kh.project.admin.csManage.model.service;
 
 import java.util.List;
 
-import com.kh.project.cs.model.vo.QABoard;
+import com.kh.project.admin.csManage.model.vo.Question;
 
 public interface CSManageService {
 
-	List<QABoard> selectQuestionList();
+	List<Question> selectQuestionList(int startRow, int endRow, int sort);
 
-	QABoard selectQuestionByNo(int no);
+	Question selectQuestionByNo(int no);
 
-	int deleteQuestion(int QNo, int ANo);
+	int deleteQuestion(int qno, int ano);
+
+	int getListCount(int sort);
+
+	int getAnswerStatusCount(int sort);
 
 }
