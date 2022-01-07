@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.project.admin.reservationManage.model.dao.ReservationManageMapper">
+
+	<resultMap id="reservationResultMap" type="com.kh.project.admin.reservationManage.model.vo.ReservationManage">
+		<id property="reservationNo" column="RESERVATION_NO"/>
+		<result property="tNo" column="TNO"/>
+		<result property="vName" column="VNAME"/>
+		<result property="reservationDate" column="RESERVATION_DATE"/>
+		<result property="reservationTime" column="RESERVATION_TIME"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="dogNo" column="DOG_NO"/>
+		<result property="symptom" column="SYMPTOM"/>
+		<result property="reservationStatus" column="RESERVATION_STATUS"/>
+	</resultMap>
+
+	<resultMap id="dogResultMap" type="com.kh.project.admin.reservationManage.model.vo.Dog">
+		<id property="reservationNo" column="RESERVATION_NO"/>
+		<result property="no" column="DOG_NO"/>
+		<result property="name" column="DOG_NAME"/>
+		<result property="breed" column="BREED"/>
+		<result property="gender" column="DOG_GENDER"/>
+		<result property="age" column="DOG_AGE"/>
+	</resultMap>
+	
+	<resultMap id="inputDogResultMap" type="com.kh.project.admin.reservationManage.model.vo.Dog">
+		<id property="reservationNo" column="RESERVATION_NO"/>
+		<result property="name" column="IN_DOG_NAME"/>
+		<result property="breed" column="IN_BREED"/>
+		<result property="gender" column="IN_DOG_GENDER"/>
+		<result property="age" column="IN_DOG_AGE"/>
+	</resultMap>
+	
+	<select id="selectReservationList" resultMap="reservationResultMap">
+		SELECT 
+		       RESERVATION_NO
+		     , RESERVATION_DATE
+		     , RESERVATION_TIME
+		     , RESERVATION_STATUS
+		     , SYMPTOM
+		     , R.TNO
+		     , USER_NAME
+		     , M.PHONE 
+		     , VNAME
+		     , DOG_NO
+		  FROM RESERVATION_INFORMATION R
+		  JOIN MEMBER M USING(USER_NO)
+		  JOIN VETERINARIAN USING(VNO)
+		 ORDER BY RESERVATION_NO DESC
+	</select>
+	
+	<select id="selectInputDog" resultMap="inputDogResultMap">
+		SELECT 
+		       RESERVATION_NO
+		     , IN_DOG_NAME
+		     , IN_BREED
+		     , IN_DOG_GENDER
+		     , IN_DOG_AGE
+		  FROM RESERVATION_INFORMATION   
+		  JOIN DOG_INFORMATION_INPUT USING(RESERVATION_NO)
+		 WHERE RESERVATION_NO = #{ reservationNo }
+	</select>
+	
+	<select id="selectDog" resultMap="dogResultMap">
+		SELECT 
+		       RESERVATION_NO
+		     , DOG_NO  
+		     , DOG_NAME
+		     , BREED
+		     , DOG_GENDER
+		     , DOG_AGE
+		  FROM RESERVATION_INFORMATION   
+		  JOIN DOG_INFORMATION USING(DOG_NO)
+		 WHERE RESERVATION_NO = #{ reservationNo }		
+	</select>	
+	
+	<select id="selectReservationByNo" resultMap="reservationResultMap">
+		SELECT 
+		       RESERVATION_NO
+		     , RESERVATION_DATE
+		     , RESERVATION_TIME
+		     , RESERVATION_STATUS
+		     , SYMPTOM
+		     , R.TNO
+		     , USER_NAME
+		     , M.PHONE 
+		     , VNAME
+		     , DOG_NO
+		  FROM RESERVATION_INFORMATION R
+		  JOIN MEMBER M USING(USER_NO)
+		  JOIN VETERINARIAN USING(VNO)
+	     WHERE RESERVATION_NO = #{ no }
+	</select>
+	
+	<update id="modifyReservation" parameterType="com.kh.project.admin.reservationManage.model.vo.ReservationManage">
+		UPDATE RESERVATION_INFORMATION
+		   SET TNO = #{ tNo }
+		     , RESERVATION_DATE = #{ reservationDate }
+		     , RESERVATION_TIME = #{ reservationTime }
+		     , RESERVATION_STATUS = #{ reservationStatus }
+		     , SYMPTOM = #{ symptom }
+		 WHERE RESERVATION_NO = #{ reservationNo }
+	</update>
+	
+	<update id="modifyInputDog" parameterType="com.kh.project.admin.reservationManage.model.vo.Dog">
+		UPDATE DOG_INFORMATION_INPUT
+		   SET IN_DOG_NAME = #{ name }
+		     , IN_BREED = #{ breed }
+		     , IN_DOG_GENDER = #{ gender }
+		     , IN_DOG_AGE = #{ age }
+		 WHERE RESERVATION_NO = #{ reservationNo }
+	</update>
+	
+	<delete id="deleteReservation" parameterType="_int">
+		DELETE
+		  FROM RESERVATION_INFORMATION
+		 WHERE RESERVATION_NO = #{ reservationNo }
+	</delete>
+	
+	<delete id="deleteInputDog" parameterType="_int">
+		DELETE
+		  FROM DOG_INFORMATION_INPUT
+		 WHERE RESERVATION_NO = #{ reservationNo }
+	</delete>
+	
+	
+
+</mapper>
