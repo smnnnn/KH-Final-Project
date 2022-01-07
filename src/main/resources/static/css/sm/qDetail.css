@@ -24,10 +24,10 @@
         .line2 {
             
             border-bottom: 2px solid #85B1D6;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             padding-bottom: 10px;
             padding-top: 4px;
-            font-size: 0.9rem;
+            font-size: 1rem;
             padding-left: 20px;
         }
 
@@ -62,15 +62,25 @@
         }
 
         .ctBox {
-            min-height: 340px;
+            min-height: 280px;
             width: 860px;
             padding: 20px;
             border:1px solid #85B1D6;
             border-radius: 10px;
+            font-size:0.9rem;
+            
+            max-width:860px;
+        	word-wrap: break-word;
+        	white-space: pre-wrap;
+        	white-space: -moz-pre-wrap;
+        	white-space: -pre-wrap;
+        	white-space: -o-pre-wrap;
+        	word-break:break-all;
         }
 
         .name,.date{
             padding-left: 20px;
+            font-size: 0.9rem;
         }
 
         .name{
@@ -88,7 +98,7 @@
             margin-top: 24px;
             padding: 40px;
 
-            margin-bottom: 40px;
+            margin-bottom: 32px;
             border-radius: 8px;
 
 
@@ -96,6 +106,8 @@
             grid-template-columns : 1.5fr 7fr 1.7fr;
             justify-items:self-start;
             grid-gap:2rem;
+            
+            font-size:0.9rem;
         }
         
         .replyBox2{
@@ -161,7 +173,7 @@
             /*background-color: rgba(241, 249, 255, 1);*/
             margin-top: 20px;
             /*padding: 30px;*/
-            margin-bottom: 40px;
+            margin-bottom: 57px;
             border-radius: 6px;
 
            /* display: grid;
@@ -172,24 +184,27 @@
         
          #replyArea{
             width: 760px;
-            height: 106px;
+            height: 120px;
             border:1px solid #85B1D6;
             border-radius: 7px;
             margin-right: 2px;
             padding: 20px;
+            margin-top:9px;
+            font-size:0.9rem;
+            
             
         }
 
         .bigBtn {
             width: 87.5px;
-            height: 147px;
+            height: 164px;
             background-color: #85B1D6;
             color: white;
             border: none;
             border-radius: 6px;
             /*display: inline;*/
             position: relative;
-            bottom: 70px;
+            bottom: 76px;
             margin-left: 5px;
            
         }
