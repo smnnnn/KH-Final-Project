@@ -42,8 +42,13 @@
                                 <li><a th:href="@{/reservation/reservation_typeChoice}">진료 예약</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">고객센터</a></li>
-                        <li><a href="#">치료후기</a></li>
+                        <li><a th:href="@{/csPage}">고객센터</a>
+                        	<ul class="sub-menulist">
+                                <li><a th:href="@{/csPage}">고객센터 메인</a></li>
+                                <li><a th:href="@{/qaBoard/list}">문의 게시판</a></li>                        
+                            </ul>
+                        </li>
+                        <li><a th:href="@{/review/list}">치료후기</a></li>
                     </ul>
                 </div>
             </div>
