@@ -91,7 +91,7 @@
         }
 
         .paging {
-            margin-top: 135px;
+            margin-top: 100px;
             text-align:center;
             font-size: 0.8rem;
         }
@@ -132,8 +132,8 @@
         #writeBtn {
             background-color: #85B1D6;
             color: white;
-            width: 65px;
-            height: 28px;
+            width: 67px;
+            height: 29px;
             border: none;
             position: relative;
             left: 95%;
