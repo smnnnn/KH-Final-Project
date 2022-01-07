@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.project.admin.csManage.model.dao.CSManageMapper">
 
-	<resultMap id="questionResultMap" type="com.kh.project.cs.model.vo.QABoard">
-		<id property="QNo" column="Q_NO"/>
-		<result property="QTitle" column="Q_TITLE"/>
-		<result property="QHit" column="Q_HIT"/>
+	<resultMap id="questionResultMap" type="com.kh.project.admin.csManage.model.vo.Question">
+		<id property="qno" column="Q_NO"/>
+		<result property="qtitle" column="Q_TITLE"/>
+		<result property="qhit" column="Q_HIT"/>
 		<result property="createDate" column="CREATE_DATE"/>
 		<result property="modifyDate" column="MODIFY_DATE"/>
-		<result property="QContent" column="Q_CONTENT"/>
+		<result property="qcontent" column="Q_CONTENT"/>
 		<result property="status" column="STATUS"/>
 		<result property="secretStatus" column="SECRET_STATUS"/>
 		<result property="userNo" column="USER_NO"/>
@@ -19,37 +19,58 @@
 		<association property="answer" resultMap="answerResultMap"/>
 	</resultMap>
 
-	<resultMap id="answerResultMap" type="com.kh.project.cs.model.vo.Answer">
-		<id property="ANo" column="A_NO"/>
-		<result property="AContent" column="A_CONTENT"/>
+	<resultMap id="answerResultMap" type="com.kh.project.admin.csManage.model.vo.Answer">
+		<id property="ano" column="A_NO"/>
+		<result property="acontent" column="A_CONTENT"/>
 		<result property="createDate" column="A_CREATE_DATE"/>
-		<result property="modifyDateLDate" column="A_MODIFY_DATE"/>
+		<result property="modifyDate" column="A_MODIFY_DATE"/>
 		<result property="status" column="A_STATUS"/>
-		<result property="QNo" column="Q_NO"/>
+		<result property="qno" column="Q_NO"/>
 	</resultMap>
 	
 	<select id="selectQuestionList" resultMap="questionResultMap">
-		SELECT
-		       Q_NO
-		     , Q_TITLE
-		     , Q_HIT
-		     , Q.CREATE_DATE
-		     , Q_CONTENT
-		     , USER_NO
-		     , USER_ID
-		     , USER_NAME
-		     , CATEGORY_NO
-		     , CATEGORY_NAME
-		     , A_NO
-		     , A_CONTENT
-		     , A_CREATE_DATE
-		     , A.STATUS A_STATUS
-		  FROM QUESTION Q
-		  JOIN MEMBER USING(USER_NO)
-		  JOIN CATEGORY USING(CATEGORY_NO)
-		  LEFT JOIN ANSWER A USING(Q_NO)
-		 WHERE Q.STATUS = 'N'
-		 ORDER BY Q_NO DESC
+		SELECT *
+		  FROM(SELECT 
+		             ROWNUM RNUM
+		           , T.*
+			    FROM(SELECT
+			               Q_NO
+			             , Q_TITLE
+			             , Q_HIT
+			             , Q.CREATE_DATE
+			             , Q_CONTENT
+			             , USER_NO
+			             , USER_ID
+			             , USER_NAME
+			             , CATEGORY_NO
+			             , CATEGORY_NAME
+			             , A_NO
+			             , A_CONTENT
+			             , A_CREATE_DATE
+			             , A.STATUS A_STATUS
+			          FROM QUESTION Q
+			          JOIN MEMBER USING(USER_NO)
+			          JOIN CATEGORY USING(CATEGORY_NO)
+			          LEFT JOIN ANSWER A USING(Q_NO)
+			         WHERE Q.STATUS = 'N'
+			         <if test="sort == 1">
+					   AND CATEGORY_NO = 10
+					 </if>
+			         <if test="sort == 2">
+					   AND CATEGORY_NO = 20
+					 </if>
+			         <if test="sort == 3">
+					   AND CATEGORY_NO = 30
+					 </if>		
+			         <if test="sort == 4">
+					   AND A_NO IS NULL
+					 </if>	
+			         <if test="sort == 5">
+					   AND A_NO IS NOT NULL
+          			   AND A.STATUS = 'N'
+					 </if>						 					 			 					 
+			         ORDER BY Q_NO DESC) T)
+		  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="selectQuestionByNo" resultMap="questionResultMap">
@@ -78,14 +99,48 @@
 	<update id="deleteAnswer" parameterType="_int">
 		UPDATE ANSWER
 		   SET STATUS = 'Y'
-		 WHERE A_NO = #{ ANo }
+		 WHERE A_NO = #{ ano }
 	</update>
 	
 	<update id="deleteQuestion" parameterType="_int">
 		UPDATE QUESTION
 		   SET STATUS = 'Y'
-		 WHERE Q_NO = #{ QNo }
+		 WHERE Q_NO = #{ qno }
 	</update>
 	
+	<select id="getListCount" parameterType="_int" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM QUESTION
+		 WHERE STATUS = 'N'	
+		 <if test="sort == 1">
+		   AND CATEGORY_NO = 10
+		 </if>
+		 <if test="sort == 2">
+		   AND CATEGORY_NO = 20
+		 </if>
+		 <if test="sort == 3">
+		   AND CATEGORY_NO = 30
+		 </if>		 		 		 	
+	</select>
+	
+	<select id="getAnswerStatusCount" parameterType="_int" resultType="_int">
+	SELECT COUNT(*)
+	  FROM(SELECT
+		           Q_NO
+		         , Q.STATUS
+		         , A_NO
+		         , A.STATUS AST
+		      FROM QUESTION Q
+		      LEFT JOIN ANSWER A USING(Q_NO)
+		     WHERE Q.STATUS = 'N') R
+	  <if test="sort == 4">
+	 	WHERE A_NO IS NULL
+	  </if>     
+	  <if test="sort == 5">
+		WHERE A_NO IS NOT NULL
+		  AND AST = 'N'
+	  </if>
+	</select>
 
 </mapper>

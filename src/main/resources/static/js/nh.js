@@ -13,6 +13,13 @@ $(function(){
     });
 });
 
+// 문의목록에서 정렬 라디오버튼 선택시
+$(function(){
+    $('input[type=radio][name=csCategory]').change(function(){
+		let sort = this.value;
+    	location.href="/admin/cs/list?page=1&sort=" + sort;
+    });
+ });
 
 
  
