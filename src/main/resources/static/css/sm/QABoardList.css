@@ -8,7 +8,7 @@
             margin: 0px auto;
             /*text-align: center;*/
             margin-bottom: 80px;
-            margin-top:80px;
+            margin-top:40px;
         }
 
         .bd_container {
@@ -41,7 +41,7 @@
 
         #qaTitle {
             margin-top: 20px;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: bold;
         }
 
@@ -51,7 +51,7 @@
 
         .basic {
             border: 1.4px solid #85B1D6;
-            height: 24px;
+            height: 25px;
             margin-top: 20px;
             margin-bottom: 20px;
             border-radius: 4px;
