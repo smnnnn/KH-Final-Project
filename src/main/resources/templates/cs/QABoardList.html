@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
     <!-- 공통 css -->
     <link type="text/css" rel="stylesheet" href="/css/common.css">
-    <!-- 자바스크립트 -->
+    <!-- 헤더스크립트 -->
     <script type="text/javascript" src="/js/common.js"></script> 
 	</head>
 <body>
@@ -148,11 +148,43 @@
                 </th:block>
 	
 
-                <button id="writeBtn" onclick="location.href='/qaBoard/insert'">글쓰기</button>
+                <button id="writeBtn" onclick="location.href='/qaBoard/insert'">문의하기</button>
             </div>
         </div>
        
     </div>
+
+      <!-- 빠른 메뉴 부분 -->
+	        <div id="aside">
+	            <div class="quick-menu">
+	                <ul>
+	                    <li>
+	                    	<!-- 로그인 안했을시 로그인 페이지로 변경하기 -->
+	                        <a th:href="@{/qaBoard/insert}">
+	                            <img src="/images/common/inquiry.png">
+	                            <p>문의하기</p>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a th:href="@{/about/device}">
+	                            <img src="/images/common/medical device.png">
+	                            <p>의료 장비</p>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a th:href="@{/about/location}">
+	                            <img src="/images/common/way to come.png">
+	                            <p>오시는 길</p>
+	                        </a>
+	                    </li>
+	                </ul>
+	            </div>
+	            <div class="move-to-top">
+	                <a href="#"><img src="/images/common/arrow.png"></a>
+	            </div>
+	        </div>
+	
+    
 
     <!-- 푸터 -->
 	<div th:replace="fragments/footer.html"></div>

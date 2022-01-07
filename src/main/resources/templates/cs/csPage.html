@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>csMain</title>
      <!-- 공통 css -->
-     <!-- <link type="text/css" rel="stylesheet" href="../resources/css/common.css"> -->
-     <link type="text/css" rel="stylesheet" href="../../static/css/common.css">
+     <link type="text/css" rel="stylesheet" href="/css/common.css">
      <!--font-->
      <link rel="preconnect" href="https://fonts.googleapis.com">
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200;400&display=swap" rel="stylesheet">
      <!-- jquery-->
      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-     <!-- 메인 스크립트-->
-     <script type="text/javascript" src="../resources/js/common.js"></script>
+     <!-- 헤더스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
 
     <style>
 
@@ -83,7 +81,7 @@
             box-sizing: border-box;
             padding: 3px 10px;
             font-size: 15px;
-            border-bottom: 1px solid #C4C4C4;
+            border-bottom: 1px solid #C4CDD4;
             /* border-bottom: 1px solid #c6c5c5; */
             /* border-bottom: 1px solid #755139; */
             margin: 0px;
@@ -116,61 +114,17 @@
             text-decoration-line: none; */
             color: saddlebrown;
         }
+        
+        #goQna {
+        	margin-left:10px;
+        	margin-bottom:5px;
+        }
 
     </style>
 </head>
 <body>
  <!-- 헤더 -->
- <header id="header">
-    <div class="header-container">
-        <!-- 로그인 -->
-        <div class="homemenu">
-            <!-- 로그인 안한 경우 -->
-            <ul class="nologin">
-                <a href="#">HOME</a>
-                <a href="#">로그인</a>
-                <a href="#">회원가입</a>
-            </ul>
-            <!-- 로그인 한 경우 -->
-            <ul class="userlogin" style="display: none;">
-                <a href="#">HOME</a>
-                <a href="#">로그아웃</a>
-                <a href="#">마이페이지</a>
-            </ul>
-        </div>
-        <div class="main-menu">
-            <!-- 로고 -->
-            <div class="logo">
-                <a href="#">
-                    <!-- <img src="../resources/images/common/logo.png"></img>-->
-                    <img src="../../static/images/common.logo.png"></img>
-                </a>
-            </div>
-            <!-- 메인 메뉴 -->
-            <div class="menulist">
-                <ul>
-                    <li><a href="#">병원소개</a>
-                        <ul class="sub-menulist">
-                            <li><a href="#">병원 소개</a></li>
-                            <li><a href="#">의료진 소개</a></li>
-                            <li><a href="#">의료 장비 소개</a></li>
-                            <li><a href="#">오시는 길</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">진료안내</a>
-                        <ul class="sub-menulist">
-                            <li><a href="#">진료 안내</a></li>
-                            <li><a href="#">진료 과목</a></li>
-                            <li><a href="#">진료 예약</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">고객센터</a></li>
-                    <li><a href="#">치료후기</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
+ <div th:replace="fragments/header.html"></div>
 
     <!-- 내용 부분 -->
     <div id="main">
@@ -185,9 +139,9 @@
                             <li>
                                 <p class="title"> Q. 다나은 동물병원을 선택해야 하는 이유는 무엇인가요?</p>
                                 <div class="con">A.다나은 동물병원을 선택해야하는 이유입니다.<br><br>        
-                                    &nbsp&nbsp<a class="fontSet" href="#의료진 소개 페이지">[최고의 의료진]</a><br>
-                                    &nbsp&nbsp<a class="fontSet" href="#의료 장비 페이지">[탄탄한 최신 의료장비]</a><br>
-                                    &nbsp&nbsp<a class="fontSet" href="#진료예약 페이지">[간편한 예약 서비스]</a><br>
+                                    &nbsp&nbsp<a class="fontSet" href="/about/team">[최고의 의료진]</a><br>
+                                    &nbsp&nbsp<a class="fontSet" href="/about/device">[탄탄한 최신 의료장비]</a><br>
+                                    &nbsp&nbsp<a class="fontSet" href="/reservation/reservation_typeChoice">[간편한 예약 서비스]</a><br>
                                 </div>
                             </li>
                             <li>
@@ -197,7 +151,7 @@
                                     하지만, 정형외과/신경외과 외에도 각종 외상 및 일반 외과수술에 대해서<br>
                                     도 전문적인 실력을 보유하고 있습니다. <br><br>
                                     그밖에도 다양한 질환에 대한 검진과 종합건강검진 서비스도 있으니,<br>
-                                    자세한 내용은 홈페이지의 <a class="fontSet" href="#진료 안내 페이지">“진료안내(클릭)” </a>항목을 참고해주세요.</div>
+                                    자세한 내용은 홈페이지의 <a class="fontSet" href="/reservation/treatmentType">“진료과목 안내(클릭)” </a>항목을 참고해주세요.</div>
                             </li>
                             <li>
                                 <p class="title">Q. 수술이나 재활치료 비용은 어떻게 되나요?</p>
@@ -208,7 +162,7 @@
                             </li>
                             <li>
                                 <p class="title">Q. 예약은 어떻게 하나요?</p>
-                                <div class="con">A.<a class="fontSet" href="#진료 예약 페이지"> [진료 예약 페이지]</a>로 이동</div>
+                                <div class="con">A.<a class="fontSet" href="/reservation/reservation_typeChoice"> [진료 예약 페이지]</a>로 이동하기</div>
                             </li>
                             <li>
                                 <p class="title">Q. 운영 시간이 어떻게 되나요?</p>
@@ -217,6 +171,7 @@
                                      <pre>
                                               
                                         평일 : 10:00 ~ 18:00 <br>     토요일 : 10:00 ~ 13:00<br>     일요일 및 공휴일 : 휴진</pre>
+                            	</div>
                             </li>
                             
                         </ul>
@@ -224,33 +179,49 @@
                 </div>
                 <div class="side">
                     <div id="goQna">문의게시판 이동</div>
-                    <div><a href="QABoard.html"><img class="qnaImage" src="../resources/images/sm/qa.png"></a></div>
+                    <div><a href="/qaBoard/list"><img class="qnaImage" src="/images/sm/qa.png"></a></div>
 
                 </div>
             </div>
         </div>
        
     </div>
+    
+      <!-- 빠른 메뉴 부분 -->
+	        <div id="aside">
+	            <div class="quick-menu">
+	                <ul>
+	                    <li>
+	                    	<!-- 로그인 안했을시 로그인 페이지로 이동 변경하기 -->
+	                        <a th:href="@{/qaBoard/insert}">
+	                            <img src="/images/common/inquiry.png">
+	                            <p>문의하기</p>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a th:href="@{/about/device}">
+	                            <img src="/images/common/medical device.png">
+	                            <p>의료 장비</p>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a th:href="@{/about/location}">
+	                            <img src="/images/common/way to come.png">
+	                            <p>오시는 길</p>
+	                        </a>
+	                    </li>
+	                </ul>
+	            </div>
+	            <div class="move-to-top">
+	                <a href="#"><img src="/images/common/arrow.png"></a>
+	            </div>
+	        </div>
+	  
+    
+    
+    
     <!-- 푸터 -->
-    <!-- <footer id="footer">
-        <div class="footer_container footer">
-       
-        </div>
-    </footer> -->
-
-    <!-- 푸터 -->
-    <footer id="footer">
-        <div class="footer-container">
-            <div class="flogo">
-                <img src="../resources/images/common/logo2.png">
-            </div>
-            <div class="finfo">
-                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
-                TEL 1544-9970 <br>
-                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
-            </div>
-        </div>
-    </footer>
+	<div th:replace="fragments/footer.html"></div>
 
 
 

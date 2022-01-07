@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>치료후기 상세</title>
      <!-- 공통 css -->
-     <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+     <link type="text/css" rel="stylesheet" href="/css/common.css">
      <!--font-->
      <link rel="preconnect" href="https://fonts.googleapis.com">
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
      <!-- jquery-->
      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
      <!--메인스크립트-->
-     <script type="text/javascript" src="../resources/js/common.js"></script>
+     <script type="text/javascript" src="/js/common.js"></script>
     <style>
 
 
@@ -87,7 +87,7 @@
             padding: 32px;
             border:1px solid #85B1D6;
             border-radius: 10px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             /* padding-top: 35px;
             padding-bottom: 35px; */
         }
@@ -138,59 +138,22 @@
         .btnArea {
             margin-top: 30px;
         }
+
+        .resInfo {
+
+            margin-left: 65%;
+  
+        }
+
+        .doctor {
+            margin-left: 74.6%;
+   
+        }
     </style>
 </head>
 <body>
-     <!-- 헤더 -->
-     <header id="header">
-        <div class="header-container">
-            <!-- 로그인 -->
-            <div class="homemenu">
-                <!-- 로그인 안한 경우 -->
-                <ul class="nologin">
-                    <a href="#">HOME</a>
-                    <a href="#">로그인</a>
-                    <a href="#">회원가입</a>
-                </ul>
-                <!-- 로그인 한 경우 -->
-                <ul class="userlogin" style="display: none;">
-                    <a href="#">HOME</a>
-                    <a href="#">로그아웃</a>
-                    <a href="#">마이페이지</a>
-                </ul>
-            </div>
-            <div class="main-menu">
-                <!-- 로고 -->
-                <div class="logo">
-                    <a href="#">
-                        <img src="../resources/images/common/logo.png"></img>
-                    </a>
-                </div>
-                <!-- 메인 메뉴 -->
-                <div class="menulist">
-                    <ul>
-                        <li><a href="#">병원소개</a>
-                            <ul class="sub-menulist">
-                                <li><a href="#">병원 소개</a></li>
-                                <li><a href="#">의료진 소개</a></li>
-                                <li><a href="#">의료 장비 소개</a></li>
-                                <li><a href="#">오시는 길</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">진료안내</a>
-                            <ul class="sub-menulist">
-                                <li><a href="#">진료 안내</a></li>
-                                <li><a href="#">진료 과목</a></li>
-                                <li><a href="#">진료 예약</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">고객센터</a></li>
-                        <li><a href="#">치료후기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
+ 	<!-- 헤더 -->
+ 	<div th:replace="fragments/header.html"></div>
 
     <!-- 내용 부분 -->
     <div id="main">
@@ -200,11 +163,12 @@
             <div id="qaTitle">치료후기</div>
             <div class="board_wrap">
                 <div class="line2 bold"><span class="qTitle">[정형외과] AAI 수술과 슬개골 탈구 수술 후기</span></div>
-                <div class="name bold">김소민</div>
+                <div class="name bold"><span>김소민</span><span class="doctor">담당 의사선생님: <span>이효은</span></span></div>
                 <div class="date bold">
                     2021.12.08
-                    <span><img class="smallicon" src="../resources/images/sm/hit2.png" alt="조회수">2</span> 
+                    <span><img class="smallicon" src="/images/sm/hit2.png" alt="조회수">2</span> 
                     <!-- <span><img class="smallicon" src="../resources/images/sm/reply2.png" alt="답변수">1</span>  -->
+                    <span class="resInfo">치료일자: <span>2022. 01.01</span></span>
                 </div>
                 <div class="ctBox">
                     
@@ -217,7 +181,7 @@
 
                     양쪽 슬개골탈구도 매우 심한 상태로 슬개골탈구 교정술을 실시하여 뒷다리의 배열도 교정하였습니다.<br><br>
 
-                    <img src="../resources/images/sm/testimage.png"><br>
+                    <img src="/images/sm/testimage.png"><br>
 
                     <br>
                     <iframe width="auto" height="auto" src="https://www.youtube.com/embed/JWqmuaZGANM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -248,7 +212,7 @@
     <footer id="footer">
         <div class="footer-container">
             <div class="flogo">
-                <img src="../resources/images/common/logo2.png">
+                <img src="/images/common/logo2.png">
             </div>
             <div class="finfo">
                 주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
