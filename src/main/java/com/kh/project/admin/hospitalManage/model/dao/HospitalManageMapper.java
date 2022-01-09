@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.kh.project.admin.common.model.vo.Search;
 import com.kh.project.hospital.model.vo.MDeviceFile;
 import com.kh.project.hospital.model.vo.MedicalDevice;
 
@@ -14,7 +15,7 @@ public interface HospitalManageMapper {
 	
 	int registDeviceFile(MDeviceFile mdeviceFile);
 
-	List<MedicalDevice> selectMedicalDeviceList();
+	List<MedicalDevice> selectMedicalDeviceList(Search search);
 
 	MedicalDevice selectMedicalDeviceByNo(int deviceNo);
 
@@ -27,5 +28,7 @@ public interface HospitalManageMapper {
 	int deleteDevice(int deviceNo);
 
 	int deleteDeviceFile(int deviceNo);
+
+	int getListCount(Search search);
 
 }
