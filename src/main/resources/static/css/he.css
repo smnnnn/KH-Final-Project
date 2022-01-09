@@ -110,8 +110,8 @@
 
 .calendar{
     margin: 0 auto;
-    width: 900px;
-    height: 600px;
+    width: 800px;
+    height: 500px;
 }
 
 .quick{
@@ -119,10 +119,17 @@
     
 }
 
+.reserBtn{
+    float: right;
+    margin-bottom: 10px;
+    
+}
+
 .quickDiv{
     margin-top: 2%;
     width: 912px;
 }
+
 
 /*table {
     width: 800px;
