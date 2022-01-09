@@ -2,9 +2,12 @@ package com.kh.project.reservation.model.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /* 진료 예약 정보 */
 public class ReservationInfo {
 	private int reservation_no;				// 예약 번호
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date reservation_date;			// 예약 날짜
 	private String reservation_time;		// 예약 시간
 	private String reservation_status;		// 예약 상태
@@ -42,8 +45,8 @@ public class ReservationInfo {
 		return reservation_date;
 	}
 
-	public void setReservation_date(Date reservation_date) {
-		this.reservation_date = reservation_date;
+	public void setReservation_date(Date date) {
+		this.reservation_date = date;
 	}
 
 	public String getReservation_time() {

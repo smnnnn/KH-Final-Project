@@ -16,11 +16,39 @@
 
 	<select id="findVname" resultMap="VeterinarianResultMap">
 		SELECT
-			   A.VNAME
+			   A.VNO
+			 , A.VNAME
+			 , B.TNO
 			 , B.TNAME
 		  FROM VETERINARIAN A
 		  JOIN TREATMENT_TYPE B ON (A.TNO = B.TNO)
 		 WHERE A.TNO = #{tno}
 	</select>
 
+
+	<insert id="inputReser" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">
+		INSERT
+		  INTO RESERVATION_INFORMATION
+		  (
+		  	   RESERVATION_NO
+		  	 , RESERVATION_DATE
+		  	 , RESERVATION_TIME
+		  	 , RESERVATION_STATUS
+		  	 , SYMPTOM
+		  	 , TNO
+		  	 , USER_NO
+		  	 , VNO
+		  )
+		  VALUES
+		  (
+		  	    SEQ_RESERVATION_NO.NEXTVAL
+		  	  , #{ reservation_date }
+		  	  , #{ reservation_time }
+		  	  , DEFAULT
+		  	  , 'ㅇㅇ'
+		  	  , #{ tno }
+		  	  , '1'
+		  	  , #{ vno }
+		  )
+	</insert>
 </mapper>

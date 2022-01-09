@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.project.reservation.model.dao.ReservationMapper;
+import com.kh.project.reservation.model.vo.ReservationInfo;
 import com.kh.project.reservation.model.vo.VeterinarianAndTreatmentType;
 import com.kh.project.subAdmin.model.vo.Veterinarian;
 
@@ -22,6 +23,12 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public List<VeterinarianAndTreatmentType> findVname(int tno) {
 		return reservationMapper.findVname(tno);
+	}
+
+	@Override
+	public int inputReser(ReservationInfo reservationInfo) {
+		return reservationMapper.inputReser(reservationInfo);
+		
 	}
 
 }
