@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.project.admin.common.model.vo.Pagination;
+import com.kh.project.admin.common.model.vo.Search;
 import com.kh.project.admin.reservationManage.model.service.ReservationManageService;
 import com.kh.project.admin.reservationManage.model.vo.ReservationManage;
 
@@ -30,11 +32,28 @@ public class ReservationManageController {
 	}
 	
 	@GetMapping("list")
-	public String reservationList(Model model) {
+	public String reservationList(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "0") int sort
+			, Search search) {
 		
-		List<ReservationManage> reservationList = reservationManageService.selectReservationList();
+		/* 예약 목록 전체 갯수 조회 */
+		int totalListCount = reservationManageService.getListCount(sort, search);
 		
-		model.addAttribute("reservationList", reservationList);
+		/* Pagination 객체 => 5 : 하단에 보여질 페이질 목록 수, 10 : 한 페이지에 보여질 목록 최대 */
+		Pagination pagination = new Pagination(page, totalListCount, 5, 10);
+		
+		/* 예약 목록 조회 => 페이징 처리 */
+		int startRow = (pagination.getPage() - 1) * pagination.getListLimit() + 1;
+		int endRow = startRow + pagination.getListLimit() - 1;
+		
+		List<ReservationManage> reservationList = reservationManageService.selectReservationList(startRow, endRow, sort, search);
+		
+		if(reservationList != null) {
+			model.addAttribute("reservationList", reservationList);			
+		}
+		
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("sort", sort);
+		model.addAttribute("search", search);
 		
 		return "admin/reservationList";
 	}

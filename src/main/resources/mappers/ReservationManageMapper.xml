@@ -32,22 +32,64 @@
 		<result property="age" column="IN_DOG_AGE"/>
 	</resultMap>
 	
-	<select id="selectReservationList" resultMap="reservationResultMap">
-		SELECT 
-		       RESERVATION_NO
-		     , RESERVATION_DATE
-		     , RESERVATION_TIME
-		     , RESERVATION_STATUS
-		     , SYMPTOM
-		     , R.TNO
-		     , USER_NAME
-		     , M.PHONE 
-		     , VNAME
-		     , DOG_NO
-		  FROM RESERVATION_INFORMATION R
-		  JOIN MEMBER M USING(USER_NO)
-		  JOIN VETERINARIAN USING(VNO)
-		 ORDER BY RESERVATION_NO DESC
+	<select id="selectReservationList" parameterType="com.kh.project.admin.common.model.vo.Search" resultMap="reservationResultMap">
+		SELECT *
+		FROM(SELECT 
+		           ROWNUM RNUM
+		         , T.*
+		    FROM(SELECT
+				       RESERVATION_NO
+				     , RESERVATION_DATE
+				     , RESERVATION_TIME
+				     , RESERVATION_STATUS
+				     , SYMPTOM
+				     , R.TNO
+				     , USER_NAME
+				     , M.PHONE 
+				     , VNAME
+				     , DOG_NO
+		          FROM RESERVATION_INFORMATION R
+		          JOIN MEMBER M USING(USER_NO)
+				  JOIN VETERINARIAN USING(VNO)
+				 <if test="sort == 1">
+				 WHERE R.TNO = 1		   
+				 </if>
+				 <if test="sort == 2">
+				 WHERE R.TNO = 2
+				 </if>
+				 <if test="sort == 3">
+				 WHERE R.TNO = 3
+				 </if>	
+				 <if test="sort == 4">
+				 WHERE R.TNO = 4
+				 </if>
+				 <if test="sort == 5">
+				 WHERE TO_CHAR(RESERVATION_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+				 </if>	
+				 <if test="sort == 6">
+				 WHERE TO_CHAR(RESERVATION_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+				 </if>	
+				 <if test="searchCategory == 1">
+		 		 WHERE USER_NAME LIKE '%'||#{searchKeyword}||'%'
+				 </if>
+				 <if test="searchCategory == 2">
+				  LEFT JOIN DOG_INFORMATION_INPUT USING(RESERVATION_NO)
+				  LEFT JOIN DOG_INFORMATION USING(DOG_NO)
+				 WHERE DOG_NAME LIKE '%'||#{searchKeyword}||'%'
+				    OR IN_DOG_NAME LIKE '%'||#{searchKeyword}||'%'	 
+				 </if>	
+				 <if test="searchCategory == 3">
+				 WHERE RESERVATION_STATUS LIKE '%'||#{searchKeyword}||'%'		 
+				 </if>	
+				 <choose>
+				 <when test="sort == 6">
+				 ORDER BY R.TNO, TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99') DESC) T)
+				 </when>
+				 <otherwise>
+		         ORDER BY 2 DESC, TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99') DESC) T)				 
+				 </otherwise>
+				 </choose>
+		  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="selectInputDog" resultMap="inputDogResultMap">
@@ -123,7 +165,45 @@
 		  FROM DOG_INFORMATION_INPUT
 		 WHERE RESERVATION_NO = #{ reservationNo }
 	</delete>
-	
+
+	<select id="getListCount" parameterType="com.kh.project.admin.common.model.vo.Search" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM RESERVATION_INFORMATION
+		 <if test="sort == 1">
+		 WHERE TNO = 1		   
+		 </if>
+		 <if test="sort == 2">
+		 WHERE TNO = 2
+		 </if>
+		 <if test="sort == 3">
+		 WHERE TNO = 3
+		 </if>	
+		 <if test="sort == 4">
+		 WHERE TNO = 4
+		 </if>	
+		 <if test="sort == 5">
+		 WHERE TO_CHAR(RESERVATION_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		 ORDER BY TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99')
+		 </if>	
+		 <if test="sort == 6">
+		 WHERE TO_CHAR(RESERVATION_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		 ORDER BY TNO
+		 </if>		
+		 <if test="searchCategory == 1">
+		  JOIN MEMBER USING(USER_NO)
+ 		 WHERE USER_NAME LIKE '%'||#{searchKeyword}||'%'
+		 </if>
+		 <if test="searchCategory == 2">
+		  LEFT JOIN DOG_INFORMATION_INPUT USING(RESERVATION_NO)
+		  LEFT JOIN DOG_INFORMATION USING(DOG_NO)
+		 WHERE DOG_NAME LIKE '%'||#{searchKeyword}||'%'
+		    OR IN_DOG_NAME LIKE '%'||#{searchKeyword}||'%'	 
+		 </if>	
+		 <if test="searchCategory == 3">
+		 WHERE RESERVATION_STATUS LIKE '%'||#{searchKeyword}||'%'		 
+		 </if>			 	 		 		 	 		 		 	
+	</select>	
 	
 
 </mapper>

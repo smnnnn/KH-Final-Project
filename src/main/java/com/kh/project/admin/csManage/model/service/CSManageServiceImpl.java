@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.project.admin.common.model.vo.Pagination;
+import com.kh.project.admin.common.model.vo.Search;
 import com.kh.project.admin.csManage.model.dao.CSManageMapper;
 import com.kh.project.admin.csManage.model.vo.Question;
 
@@ -24,22 +24,31 @@ public class CSManageServiceImpl implements CSManageService {
 	}
 	
 	@Override
-	public int getListCount(int sort) {
+	public int getListCount(int sort, Search search) {
 		// 전체 글 목록 갯수 조회 or 정렬기준 갯수 조회
-		return csManageMapper.getListCount(sort);
+		int result = 0;
+		if(sort != 0) {
+			result = csManageMapper.getListCount(sort);
+		} else {
+			result = csManageMapper.getSearchListCount(search);
+		}
+		return result;
 	}
 	
 	@Override
 	public int getAnswerStatusCount(int sort) {
-		// 답변여부별 갯수 조회
-		
+		// 답변여부별 갯수 조회		
 		return csManageMapper.getAnswerStatusCount(sort);
 	}
 	
 	@Override
-	public List<Question> selectQuestionList(int startRow, int endRow, int sort) {
+	public List<Question> selectQuestionList(int startRow, int endRow, int sort, Search search) {
 		
-		List<Question> questionList = csManageMapper.selectQuestionList(startRow, endRow, sort);
+		search.setStartRow(startRow);
+		search.setEndRow(endRow);
+		search.setSort(sort);
+		
+		List<Question> questionList = csManageMapper.selectQuestionList(search);
 				
 		return questionList;
 	}
