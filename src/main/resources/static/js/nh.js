@@ -1,3 +1,11 @@
+// 의료진소개 textarea 자동높이조절
+$(function(){
+	$('textarea[name=txtarea]').each(function(){
+		var tareaHeight = $(this).prop('scrollHeight');
+		$(this).css('height', tareaHeight);
+	});
+});
+
 // 의료장비 선택파일 화면에 표시
 $(function(){
     $('#mdevice-img').change(function(){
@@ -43,3 +51,11 @@ $(function(){
     	location.href="/admin/reservation/list?page=1&sort=" + sort;
     });
 });
+
+
+// 장비소개페이지 - 장비목록 표시 
+$(function(){
+	$("")
+});
+
+

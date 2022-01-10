@@ -241,30 +241,31 @@
 
 /* 의료진 소개 내용 */
 .veterinary-info-box{
-    display: block; 
+    display: flex; 
     margin: 80px 0;
 }
-.veterinary-info-box > img{
-    max-width: 50%; 
-    height: auto; 
+.vinfo-img > img{
+    width: 500px;
+    height: 500px; 
     vertical-align: middle; 
-    float: left;
 }
-.veterinary-info-box .vinfo-content{
+.vinfo-img{
+	float: left;
+}
+.vinfo-content{
     float: right; 
     width: 50%; 
-    margin-bottom:100px;
 }
-.vinfo-content .vinfo-name{
+.vinfo-name{
     margin: 30px 0; 
     font-weight: 800; 
     font-size: 30px;
 }
-.vinfo-content .vinfo-subject{
+.vinfo-subject{
     margin-left: 10px;
 }
 .vinfo-wrap{
-    margin: 50px 0;
+    margin: 20px 0 0;
 }
 .vinfo-wrap > h4{
     border-bottom: 1px solid #C4C4C4; 
@@ -277,6 +278,14 @@
     margin: 30px 0; 
     line-height: 30px; 
     font-size: 15px;
+}
+.tarea{
+	width : 500px;
+ 	height : auto; 
+	overflow-y : hidden;
+	border : none;
+	resize : none; 
+	background-color : #fff;
 }
 
 /* 의료 장비 소개 내용 */
@@ -310,23 +319,23 @@
     margin-bottom: 100px;
 }
 .vdevice-tb-row{
+	width : 1100px;
     border-bottom: 1px solid #C4C4C4;
     min-height: 200px;
-    display: table;
+    display: flex;
 }
 .vdevice-img{
-    display: table-cell; 
     vertical-align: middle;
 } 
 .vdevice-img > img{
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
     margin: 0 20px;
+    padding : 20px 0;
 }
-.vdevice-info{
-    display: table-cell; 
+.vdevice-info{ 
     vertical-align: middle;
-    padding: 0 20px;
+    padding: 20px;
 }
 .vdevice-name{
     margin: 10px 0; 
