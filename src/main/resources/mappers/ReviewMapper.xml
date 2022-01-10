@@ -2,6 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.project.review.model.dao.ReviewMapper">
 
+	<resultMap id="reviewResultMap" type="com.kh.project.review.model.vo.Review">
+		<id property="rvno" column="RV_NO"/>
+		<result property="rvtitle" column="RV_TITLE"/>
+		<result property="rvcontent" column="RV_CONTENT"/>
+		<result property="rvhit" column="RV_HIT"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="tno" column="TNO"/>
+		<result property="tname" column="TNAME"/>
+		<result property="resNo" column="RESERVATION_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<collection property="photoList" resultMap="reviewUploadResultMap"></collection>
+	</resultMap>
+	
+	<resultMap id="reviewUploadResultMap" type="com.kh.project.review.model.vo.ReviewUpload">
+		<id property="fileNo" column="FILE_NO"/>
+		<result property="rvno" column="RV_NO"/> <!-- 식별에서 비식별로 바꿈 -->
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="originName" column="ORIGIN_NAME"/>
+		<result property="changedName" column="CHANGED_NAME"/>
+		<result property="status" column="STATUS"/>
+	</resultMap>
+	
+	<select id="selectReviewList" resultMap="reviewResultMap">
+		  SELECT 
+		        RV_NO
+		      , RV_TITLE
+		      , RV_CONTENT
+		      , CREATE_DATE
+		      , MODIFY_DATE
+		      , R.STATUS
+		      , TNAME 
+		      , USER_NO 
+		      , USER_ID
+		      , FILE_PATH
+		      , CHANGED_NAME
+		   FROM REVIEW R
+		   LEFT JOIN RV_UPLOAD USING(RV_NO)
+		   JOIN MEMBER USING(USER_NO)
+		   JOIN TREATMENT_TYPE USING(TNO)
+		  WHERE R.STATUS = 'N'
+		    ORDER BY RV_NO DESC
+	</select>
+
 
 
 

@@ -73,6 +73,10 @@
             grid-template-columns: repeat(5, 1fr);
             place-items: center;
         }
+        
+        .minHeight{
+           min-height:109px;
+        }
 
 </style>
 <body>
@@ -88,16 +92,28 @@
             <div class="slideWrap">
                <div class="reviewSlide">  
 
-                   <div class="contentBox">
-                       <div class="item"><div class="crop"><img class="uploadImg" src="/images/sm/cuttie.jpg"></div></div>
+                   <div class="contentBox" th:each="review : ${reviewList}">
+                       <div class="item">
+                       
+                       <div class="crop" th:if="${review.photoList.get(0).changedName != null}"><img class="uploadImg" th:src="${review.photoList.get(0).filePath}+${review.photoList.get(0).changedName}"></div>
+                       <div class="thumnail" th:unless="${review.photoList.get(0).changedName != null}"></div>
+                       </div>
                        <div class="item reviewTitle">
                            <a href="#">
-                               <span>[외과]</span>십자인대 파열 수술 받았어요
+                               [<span th:text="${review.tname}">진료과목</span>][[${review.rvtitle}]]
                            </a>
                         </div>
-                       <div class="item reviewContent">2021.12.25</div>
                        <div class="item reviewContent">
-                            <a href="#">
+                       <th:block th:if="${review.modifyDate} != null">
+                       	[[${#dates.format(review.modifyDate, 'yyyy.MM.dd')}]]
+                       </th:block>
+                       <th:block th:unless="${review.modifyDate} != null">
+                       	[[${#dates.format(review.createDate, 'yyyy.MM.dd')}]]
+                       </th:block>
+                       </div>
+                       <div class="item reviewContent minHeight">
+                            <a href="#" th:utext="${review.rvcontent}"> <!-- th:utext는 html 태그 이스케이프 처리 안함 -->
+                            	
                                 우리집 래브라도 리트리버 맥스가 신나게 뛰어놀다가 그만 다리를 다쳤는데 엑스레이를 찍어보니 십자인대 파열이라지 뭐에요 수술을 해야한다고...
                             </a>
                        </div>
