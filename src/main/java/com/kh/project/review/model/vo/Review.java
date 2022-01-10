@@ -21,7 +21,8 @@ public class Review {
 	private int userNo;						// 회원번호
 	private String userId;					// 회원아이디
 	
-	private List<ReviewUpload> photoList;	// 사진첨부파일
+//	private List<ReviewUpload> photoList;	// 사진첨부파일
+	private ReviewUpload thumbnail;			// 썸네일
 
 	public Review() {}
 }

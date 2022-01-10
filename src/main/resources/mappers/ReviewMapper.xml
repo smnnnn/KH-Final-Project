@@ -15,7 +15,8 @@
 		<result property="resNo" column="RESERVATION_NO"/>
 		<result property="userNo" column="USER_NO"/>
 		<result property="userId" column="USER_ID"/>
-		<collection property="photoList" resultMap="reviewUploadResultMap"></collection>
+<!-- 	<collection property="photoList" resultMap="reviewUploadResultMap"></collection> -->
+		<association property="thumbnail" resultMap="reviewUploadResultMap"></association>
 	</resultMap>
 	
 	<resultMap id="reviewUploadResultMap" type="com.kh.project.review.model.vo.ReviewUpload">
@@ -49,7 +50,53 @@
 	</select>
 
 
-
+	<insert id="insertReview" parameterType="com.kh.project.review.model.vo.Review">
+		INSERT 
+			INTO REVIEW
+			(
+				RV_NO
+			  , RV_TITLE
+			  , RV_CONTENT
+			  , CREATE_DATE
+			  , STATUS
+			  , TNO
+			  , RESERVATION_NO
+			  , USER_NO
+			)
+			VALUES
+			(
+				SEQ_RV_NO.NEXTVAL
+			  , #{ rvtitle }
+			  , #{ rvcontent }
+			  ,	SYSDATE
+			  , DEFAULT
+			  , #{ tno }
+			  , #{ resNo }
+			  , #{ userNo }
+			)
+	</insert>
+	
+	<insert id="insertRvupload" parameterType="com.kh.project.review.model.vo.ReviewUpload">
+		INSERT
+			INTO RV_UPLOAD
+			(
+				FILE_NO
+			  , RV_NO
+			  , FILE_PATH
+			  , ORIGIN_NAME
+			  , CHANGED_NAME
+			  , STATUS
+			)
+			VALUES
+			(
+				SEQ_FILE_NO.NEXTVAL
+			  , SEQ_RV_NO.CURRVAL
+			  , #{ filePath }
+			  , #{ originName }
+			  , #{ changedName }
+			  , DEFAULT
+			)
+	</insert>
 
 
 
