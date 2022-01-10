@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.project.reservation.model.service.ReservationService;
+import com.kh.project.reservation.model.vo.DogInformationInput;
 import com.kh.project.reservation.model.vo.ReservationInfo;
 import com.kh.project.reservation.model.vo.VeterinarianAndTreatmentType;
 
@@ -60,7 +62,7 @@ public class ReservationController {
 	}
 	
 	@PostMapping("reservation_form")
-	public String Reservation_form(ReservationInfo reservationInfo){
+	public String Reservation_form(ReservationInfo reservationInfo, Model model){
 		
 		/*ReservationInfo reservationInfo, , @RequestParam("reservation_date") @DateTimeFormat(pattern="yyyy-MM-dd") Date formatDate*/
 		
@@ -72,11 +74,33 @@ public class ReservationController {
 		
 		 /* 왜 날짜 형태가 포멧 안되고 Sun Jan 16 00:00:00 KST 2022 형태로 들어갈까 */
 		
-		String reser = String.valueOf(reservationInfo);
-		log.info(reser);
+			/*
+			 * String reser = String.valueOf(reservationInfo); log.info(reser);
+			 */
 		
 		reservationService.inputReser(reservationInfo);
 		
+		/*
+		 * int no = reservationInfo.getReservation_no(); String nno = ""+no;
+		 * log.info(nno);
+		 */
+	
+		model.addAttribute("reservationInfo", reservationInfo);
+		
 		return "reservation/reservation_form";
+	}
+	
+	@PostMapping("reservation_form/input")
+	public String Reservation_form_input(DogInformationInput dogInfo, ReservationInfo reservationInfo, RedirectAttributes rttr) { 
+		/*@RequestParam("symptom") String symptom, @RequestParam("reservation_no") int reservation_no,*/
+		
+		reservationService.registDog(dogInfo);
+		reservationService.modifyReser(reservationInfo);
+		/*
+		 * String reser = String.valueOf(reservationInfo); log.info(reser);
+		 */
+		
+		rttr.addFlashAttribute("successMessage", "진료 예약이 완료되었습니다.");
+		return "redirect:/main";
 	}
 }
