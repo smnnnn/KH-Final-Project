@@ -66,8 +66,9 @@
                     </div>
                     <!-- 사용자 이름 -->
                     <div class="item bold" th:text="${board.userName}"></div>
-                    <!-- 작성 날짜(수정 했을 경우 수정 날짜로 업데이트 필요 -->
-                    <div class="item" th:text="${#dates.format(board.createDate, 'yyyy.MM.dd')}"></div>
+                    <!-- 작성 날짜(수정 했을 경우 수정 날짜로 업데이트 -->
+                    <div class="item" th:if="${board.modifyDate} != null" th:text="${#dates.format(board.modifyDate, 'yyyy.MM.dd')}"></div>
+                    <div class="item" th:unless="${board.modifyDate} != null" th:text="${#dates.format(board.createDate, 'yyyy.MM.dd')}"></div>
                     <!-- 조회수 -->
                     <div class="item" th:text="${board.qhit}">조회수</div>                  
                 </div>

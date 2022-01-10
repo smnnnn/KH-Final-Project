@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
     <head>
 
     <meta charset="UTF-8">
@@ -132,23 +132,21 @@
             <div id="qaTitle">치료후기 작성</div>
             
             <div class="board_wrap">
-            <form th:action="@{/review/insert}" method="post" enctype="multipart/form-data">
-             <input type="hidden" name="resNo" value="2"> <!-- 예약 기능 완성되면 예약 번호로 변경 -->
-             <input type="hidden" name="userNo" value="1"> <!-- 회원가입 기능 완성되면 회원 번호로 변경 -->
+            <form action="/review/insert" method="post" enctype="multipart/form-data">
                 <div class="qTitle">
-                    <select id="category" name="tno"> <!-- 선택해야 넘기게 하기 -->
-                        <option>카테고리</option>     
-                        <option value="1">내과</option>
-                        <option value="2">외과</option>
-                        <option value="3">안과</option>
-                        <option value="4">정형외과</option>
+                    <select id="category">
+                        <option>카테고리</option>
+                        <option value="예약문의">정형외과</option>
+                        <option value="일반문의">내과</option>
+                        <option value="기타문의">외과</option>
+                        <option value="기타문의">안과</option>
                     </select>
        
-                    <input type="text" id="titleArea" name="rvtitle" maxlength="100" placeholder="제목을 입력해주세요">
+                    <input type="text" id="titleArea" maxlength="100" placeholder="제목을 입력해주세요">
                 </div>
 
 
-                    <textarea id="summernote" name="rvcontent"></textarea>
+                    <textarea id="summernote"></textarea>
                     <script>
                       $('#summernote').summernote({
                         // placeholder: 'Hello stand alone ui',
