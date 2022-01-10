@@ -64,7 +64,6 @@ public class ReviewController {
 	public String addReview(@RequestParam MultipartFile thumbnail, 
 							HttpServletRequest request) throws IllegalStateException, IOException {
 		
-//		String singleFileDescription = request.getParameter("singleFileDescription");
 		String rvtitle = request.getParameter("rvtitle");
 		String rvcontent = request.getParameter("rvcontent");
 		int tno = Integer.parseInt(request.getParameter("tno"));
@@ -81,41 +80,40 @@ public class ReviewController {
 		log.info("before insert review {}", review);
 		
 		if(thumbnail != null){
+			log.info("thumbnail {}", thumbnail);
 			
+			String root = request.getSession().getServletContext().getRealPath("/");
+			String uploadPath = root + "uploadFiles\\review";
+			
+			log.info("root {}", root);
+			
+			/* 해당 경로 없을 경우 make directory */
+			File mkdir = new File(uploadPath);
+			if(!mkdir.exists()) mkdir.mkdirs();
+			
+			 if(!thumbnail.isEmpty()){
+				/* 파일명 확인 */
+				String originFileName = thumbnail.getOriginalFilename();
+				log.info("originFileName {}", originFileName);
+				String ext = originFileName.substring(originFileName.lastIndexOf("."));
+				
+				/* 파일명 변경 처리 */
+				String savedName = UUID.randomUUID().toString().replace("-", "") + ext;
+				log.info("savedName : " + savedName);
+				
+				/* 파일을 저장함*/
+				thumbnail.transferTo(new File(uploadPath + "\\" + savedName));
+				
+				ReviewUpload reviewUpload = new ReviewUpload();
+				reviewUpload.setChangedName(savedName);
+				reviewUpload.setOriginName(originFileName);
+				reviewUpload.setFilePath("/uploadFiles/review/");
+				
+				review.setThumbnail(reviewUpload);	
+			 }
 			
 		}
-		log.info("thumbnail {}", thumbnail);
-		
-		String root = request.getSession().getServletContext().getRealPath("/");
-		String uploadPath = root + "uploadFiles\\review";
-		
-		log.info("root {}", root);
-		
-//		String filePath = root + "\\uploadFiles";
-		
-		/* 해당 경로 없을 경우 make directory */
-		File mkdir = new File(uploadPath);
-		if(!mkdir.exists()) mkdir.mkdirs();
-		
-		/* 파일명 확인 */
-		String originFileName = thumbnail.getOriginalFilename();
-		log.info("originFileName {}", originFileName);
-		String ext = originFileName.substring(originFileName.lastIndexOf("."));
-		
-		/* 파일명 변경 처리 */
-		String savedName = UUID.randomUUID().toString().replace("-", "") + ext;
-		log.info("savedName : " + savedName);
-		
-		/* 파일을 저장함*/
-		thumbnail.transferTo(new File(uploadPath + "\\" + savedName));
-		
-		ReviewUpload reviewUpload = new ReviewUpload();
-		reviewUpload.setChangedName(savedName);
-		reviewUpload.setOriginName(originFileName);
-		reviewUpload.setFilePath("/uploadFiles/review/");
-		
-//		List<ReviewUpload> photoList = new ArrayList<>(); //사진이 한장이면 이럴 필요가 없지
-		review.setThumbnail(reviewUpload);
+
 		
 		int result = reviewService.insertReview(review);
 		
@@ -123,6 +121,7 @@ public class ReviewController {
 			log.info("리뷰 등록 성공");
 		} else{
 			log.info("리뷰 등록 실패");
+			
 		}		
 		
 		

@@ -1,5 +1,6 @@
 package com.kh.project.review.model.service;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,22 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		/* 리뷰 테이블 삽입*/
 		int reviewResult = reviewMapper.insertReview(review);
-		
+		int uploadResult = 0;
 		/* 리뷰 업로드 테이블 삽입 */
 		ReviewUpload thumbnail = review.getThumbnail();
-		int uploadResult = reviewMapper.insertRvupload(thumbnail);
+		
+		if (thumbnail != null) {
+			
+			uploadResult = reviewMapper.insertRvupload(thumbnail);
+			
+			// 실패 시 저장 된 사진 삭제
+			if(uploadResult == 0) {
+				File failedFile = new File(thumbnail.getFilePath() + thumbnail.getChangedName());
+				failedFile.delete();
+			}
+		} else {
+			uploadResult = 1;
+		}
 		
 		int result = 0;
 		if(reviewResult > 0 && uploadResult > 0) {
