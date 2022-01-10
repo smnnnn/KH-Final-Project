@@ -95,8 +95,8 @@
                    <div class="contentBox" th:each="review : ${reviewList}">
                        <div class="item">
                        
-                       <div class="crop" th:if="${review.photoList.get(0).changedName != null}"><img class="uploadImg" th:src="${review.photoList.get(0).filePath}+${review.photoList.get(0).changedName}"></div>
-                       <div class="thumnail" th:unless="${review.photoList.get(0).changedName != null}"></div>
+                       <div class="crop" th:if="${review.thumbnail.changedName != null}"><img class="uploadImg" th:src="${review.thumbnail.filePath}+${review.thumbnail.changedName}"></div>
+                       <div class="thumnail" th:unless="${review.thumbnail.changedName != null}"></div>
                        </div>
                        <div class="item reviewTitle">
                            <a href="#">

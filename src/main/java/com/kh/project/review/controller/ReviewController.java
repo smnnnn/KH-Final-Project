@@ -68,17 +68,22 @@ public class ReviewController {
 		String rvtitle = request.getParameter("rvtitle");
 		String rvcontent = request.getParameter("rvcontent");
 		int tno = Integer.parseInt(request.getParameter("tno"));
-		int resNo = Integer.parseInt(request.getParameter("resNo"));
+		int resNo = Integer.parseInt(request.getParameter("resNo")); //예약 기능 완성되면 진짜 예약번호로 바꾸기
 		int userNo = Integer.parseInt(request.getParameter("userNo")); //로그인 기능 완성되면 진짜 회원번호로 바꾸기
 		
 		Review review = new Review();
-		review.setRvcontent(rvcontent);
+		review.setRvtitle(rvtitle);
 		review.setRvcontent(rvcontent);
 		review.setTno(tno);
 		review.setResNo(resNo);
 		review.setUserNo(userNo);
 		
 		log.info("before insert review {}", review);
+		
+		if(thumbnail != null){
+			
+			
+		}
 		log.info("thumbnail {}", thumbnail);
 		
 		String root = request.getSession().getServletContext().getRealPath("/");
@@ -88,6 +93,7 @@ public class ReviewController {
 		
 //		String filePath = root + "\\uploadFiles";
 		
+		/* 해당 경로 없을 경우 make directory */
 		File mkdir = new File(uploadPath);
 		if(!mkdir.exists()) mkdir.mkdirs();
 		
@@ -100,6 +106,7 @@ public class ReviewController {
 		String savedName = UUID.randomUUID().toString().replace("-", "") + ext;
 		log.info("savedName : " + savedName);
 		
+		/* 파일을 저장함*/
 		thumbnail.transferTo(new File(uploadPath + "\\" + savedName));
 		
 		ReviewUpload reviewUpload = new ReviewUpload();
@@ -107,10 +114,16 @@ public class ReviewController {
 		reviewUpload.setOriginName(originFileName);
 		reviewUpload.setFilePath("/uploadFiles/review/");
 		
-		List<ReviewUpload> photoList = new ArrayList<>(); //사진이 한장이면 이럴 필요가 없지
+//		List<ReviewUpload> photoList = new ArrayList<>(); //사진이 한장이면 이럴 필요가 없지
+		review.setThumbnail(reviewUpload);
 		
+		int result = reviewService.insertReview(review);
 		
-		
+		if(result > 0) {
+			log.info("리뷰 등록 성공");
+		} else{
+			log.info("리뷰 등록 실패");
+		}		
 		
 		
 		return "redirect:/review/list";

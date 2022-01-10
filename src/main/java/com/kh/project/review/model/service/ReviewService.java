@@ -8,4 +8,6 @@ public interface ReviewService {
 
 	List<Review> selectReviewList();
 
+	int insertReview(Review review);
+
 }
