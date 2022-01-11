@@ -22,11 +22,116 @@
 		<result property="accSecssionYn" column="ACC_SECSSION_YN"/>
 		
 		<collection property="memberRoleList" resultMap="memberRoleResultMap"/> <!-- 한사람의 정보가 들어가되 리스트 값만 매핑 -->
-		<!-- 매핑시켜야 함 테이블 3개 조인해야 함 -->
-		
+		<!-- 매핑시켜야 함 테이블 3개 조인해야 함 -->	
 	</resultMap>
+	
+	
+	 <resultMap type="com.kh.project.member.model.vo.MemberRole" id="memberRoleResultMap">
+		<id property="memberNo" column="REF_USER_NO"/>
+		<id property="authorityCode" column="REF_AUTHORITY_CODE"/>  
+		<association property="authority" resultMap="authorityResultMap"/>		
+	</resultMap>
+	
+	<resultMap type="com.kh.project.member.model.vo.Authority" id="authorityResultMap">
+		<id property="code" column="REF_AUTHORITY_CODE2"/>
+		<result property="name" column="AUTHORITY_NAME"/>
+		<result property="desc" column="AUTHORITY_DESC"/>
+	</resultMap> 	
 
+	
+	<select id="findMemberById" resultMap="loginMemberResultMap"> <!-- loginMemberResultMap 셀렉 -->
+			SELECT
+		       A.USER_NO
+		     , A.USER_ID
+		     , A.USER_PWD
+		     , A.TEMP_PWD_YN
+		     , A.PWD_CHANGED_DATETIME
+		     , A.USER_NAME
+		     , A.PHONE
+		     , A.EMAIL
+		     , A.ADDRESS
+		     , A.ENROLL_DATETIME
+		     , A.MODIFY_DATETIME
+		     , A.LOGIN_FAILED_COUNT
+		     , A.ACC_LOCK_TIME
+		     , A.ACC_LOCK_YN
+		     , A.ACC_SECESSION_DATETIME
+		     , A.ACC_SECESSION_YN
+		     , B.USER_NO REF_USER_NO
+		     , B.AUTHORITY_CODE REF_AUTHORITY_CODE
+		     , C.AUTHORITY_CODE REF_AUTHORITY_CODE2
+		     , C.AUTHORITY_NAME
+		     , C.AUTHORITY_DESC
+		FROM MEMBER A
+		LEFT JOIN MEMBER_ROLE B ON (A.USER_NO = B.USER_NO)
+		LEFT JOIN AUTHORITY C ON (B.AUTHORITY_CODE = C.AUTHORITY_CODE)
+		WHERE A.USER_ID =  #{ userId }	
+	</select>
+	
+	
+	<insert id="insertMember" parameterType="com.kh.project.member.model.vo.Member">
+		INSERT 
+			INTO MEMBER
+			(
+			   USER_NO
+		     , USER_ID
+		     , USER_PWD
+		     , TEMP_PWD_YN
+		     , PWD_CHANGED_DATETIME
+		     , USER_NAME
+		     , PHONE
+		     , EMAIL
+		     , ADDRESS
+		     , ENROLL_DATETIME
+		     , MODIFY_DATETIME
+		     , LOGIN_FAILED_COUNT
+		     , ACC_LOCK_TIME
+		     , ACC_LOCK_YN
+		     , ACC_SECESSION_DATETIME
+		     , ACC_SECESSION_YN
+			) 
+			VALUES
+			(
+			 SEQ_USER_NO.NEXTVAL
+			 , #{ id } 
+			 , #{ pwd }
+			 , DEFAULT
+			 , DEFAULT
+			 , #{ name }
+			 , #{ phone }
+			 , #{ email }
+			 , #{ address }
+			 , DEFAULT
+			 , DEFAULT
+			 , DEFAULT
+			 , DEFAULT
+			 , DEFAULT
+			 , DEFAULT
+			 , DEFAULT
+			)	
+	</insert>
+	
+	<insert id="insertMemberRole" parameterType="com.kh.project.member.model.vo.MemberRole">
+		INSERT
+			INTO MEMBER_ROLE
+			(
+			  USER_NO
+			  , AUTHORITY_CODE
+			)
+			VALUES
+			(
+			  SEQ_USER_NO.CURRVAL
+			  , #{ authorityCode }
+			)
+			
+	</insert>
 
+	<select id="idCheck" parameterType="string" resultType="_int">
+		select 
+    count(*)
+    FROM MEMBER
+    WHERE USER_ID = #{userId}
+	</select>
 
 
 

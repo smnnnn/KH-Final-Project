@@ -83,6 +83,7 @@ public class MemberServiceImpl implements MemberService{
 		/* BCryptPasswordEncoder 사용한 rawPassword -> encodePassword */
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		member.setPwd(passwordEncoder.encode(member.getPwd()));  //encode 메소드에 인코딩하고 싶은 라우패스워드 넣음  ... 인코딩한걸 멤버객체에 다시 넣음. 인코딩 된 해당값 인서트 할 수 있게
+	
 		
 		/* TBL_MEMBER TABLE INSERT */  
 		memberMapper.insertMember(member); // 멤버 테이블에 대한 인서트 수행에 대한 것
@@ -94,6 +95,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		
 		
+	}
+
+
+
+	@Override
+	public int idCheck(String userId) {
+		return memberMapper.idCheck(userId);
 	}
 
 }

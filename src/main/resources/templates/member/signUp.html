@@ -16,7 +16,9 @@
     
     <!-- css -->
     <link type="text/css" rel="stylesheet" href="/css/member/signUp.css"> 
-    
+
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>다나은 동물병원</title>
 </head>
     <body>   
@@ -31,19 +33,20 @@
                 <label class="etc">회원 가입을 위해 모든 항목을 기입해주십시오.</label><br><br>
                  <form id="joinForm" th:action="@{/member/signUp}" method="post" onsubmit="return validate();">
                 <label for="userId" class="label">아이디 </label> 
-                <input class ="input all" type="text" name="userId" id="userId" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요" required>
+                <input class ="input all" type="text" name="id" id="userId" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요" required>
                 <input type="button" class="button1" id="idCheck" value="중복확인">  
                 <br>
                 <label for="userPwd" class="label">비밀번호 </label> 
-                <input class ="input all" type="password" name="userPwd" id="userPwd" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요" required>
+                <input class ="input all" type="password" name="pwd" id="userPwd" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요" required>
+                <label id="pwdCheck_div">&nbsp;</label>
                 <br>
                 <label for="userPwd2" class="label">비밀번호 재확인 </label> 
-                <input class ="input all" type="password" name="userPwd2" id="userPwd2" maxlength="15" placeholder="비밀번호를 입력하세요" required>
+                <input class ="input all" type="password" name="pwd2" id="userPwd2" maxlength="15" placeholder="비밀번호를 입력하세요" required>
                 <label id="pwdCheck_div2">&nbsp;</label>
 
                 <br>
                 <label for="userName" class="label">이름 </label> 
-                <input class ="input all" type="text" name="userName" id="userName" placeholder="한글로 2~10자리 이름입력" required>
+                <input class ="input all" type="text" name="name" id="userName" placeholder="한글로 2~10자리 이름입력" required>
                 <label id="userNameCheck_div">&nbsp;</label>
                 <br>
                 <label for="phone" class="label">휴대폰 번호 </label> 
@@ -76,7 +79,7 @@
                 <label id="petAgeCheck_div">&nbsp;</label>
                 <br>
                 <label for="petBreed" class="label">견종 </label> 
-                <select class ="input all" name="petBreed" required>
+                <select class ="input all" name="breed" required>
                     <option value="골든 리트리버">골든 리트리버</option>
                     <option value="말티즈">말티즈</option>
                     <option value="비글">비글</option>
@@ -91,7 +94,7 @@
                 </select>  
                 <br>
                 <label for="neuteredStatus" class="label">중성화 유무 </label> 
-                <select class ="select all" name="neuteredStatus" required>
+                <select class ="select all" name="status" required>
                     <option value="예">예</option> 
                     <option value="아니요">아니요</option> 
                     <option value="모름">모름</option> 
@@ -107,7 +110,7 @@
 
                 
                 
-				<button type="button" class="button2">가입하기</button>
+				<button type="submit" class="button2">가입하기</button>
                 </form>
 
             </div>
@@ -117,10 +120,12 @@
 
         <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 	
+
 	<!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
 	<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
     <script>
-		
+   
+   
 		
 		let userId = document.getElementById("userId");
         let userPwd = document.getElementById("userPwd");
@@ -154,18 +159,26 @@
 		
 		
 		$("#idCheck").on('click', function () {
-			var userId = $("[name=userId]");
+			var userId = $("[name=id]");
 			let regExp = /(?=.*[a-z])(?=.*[0-9]).{8,10}/;
 			// 아이디 중복 시 false, 아이디 사용 가능 시 true 값을 가지는 변수
 			var isUsable = false;
-			
-			if(!regExp.test(this.value)){
+			console.log(userId);
+			if(!regExp.test(userId.val())){
 				alert("아이디는 영문 소문자와 숫자를 포함하여 최소 8자리 이상이어야 합니다.");
 				userId.focus();
 			}else{
+				//
+				 var token = $("meta[name='_csrf']").attr("content");
+				  var header = $("meta[name='_csrf_header']").attr("content");
+				    
 				$.ajax({
-					url : "${contextPath}/idCheck",
+					url : "/member/idCheck",
 					type : "post",
+					//
+					beforeSend : function(xhr){
+						xhr.setRequestHeader(header, token);
+					},
 					data : {userId : userId.val() },
 					success : function (result) {
 						console.log(result);
@@ -307,7 +320,7 @@
         }
 
         phone.onblur = function(){
-            let regExp = /^0[0-9]{1,}$/;
+            let regExp = /^01[0-9]{1,}$/;
             if(regExp.test(this.value)) {
                 phoneresult.classList.remove('invalid');
                 phoneresult.innerHTML = '&nbsp;';
@@ -360,7 +373,7 @@
         
         
         petAge.onblur = function(){
-            let regExp = /^0[0-9]{1,}$/;
+            let regExp = /^[0-9]{1,}$/;
             if(regExp.test(this.value)) {
             	petAgeresult.classList.remove('invalid');
             	petAgeresult.innerHTML = '&nbsp;';

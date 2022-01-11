@@ -15,50 +15,34 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.kh.project.member.model.service.MemberService;
 
 
-
-/* 스프링 시큐리티 설정 활성화 + bean 등록 가능 */
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	private MemberService memberService;
 	
-	@Autowired  // 객체값은 의존성을 주입받는 생성자?
+	@Autowired  
 	public SpringSecurityConfiguration(MemberService memberService) {
 		this.memberService = memberService;
 	}
 	
 	
-	/* 암호화에 사용될 객체 BCryptPasswordEncoder
-	 * - encode() : BCrypt 해싱 함수를 사용해서 비밀번호를 인코딩 해주는 메소드
-	 * 				salt를 지원하여 똑같은 비밀번호를 인코딩 하더라도 매번 다른 인코딩된 문자열 반환
-	 * - matchers (rawPassword, encodePassword) : 사용자에 의해 제출된 비밀번호와 저장소에 저장되어
-	 *   있는 비밀번호의 일치여부를 확인해주는 메소드
-	 * */
 	@Bean
-	public PasswordEncoder passwordEncoder() {  //PasswordEncoder 비밀번호 인코더 객체
-		return new BCryptPasswordEncoder();     //BCryptPasswordEncoder 구체적 비밀번호 인코더 객체?
+	public PasswordEncoder passwordEncoder() { 
+		return new BCryptPasswordEncoder();     
 	}
 
 
-	/* 정적 리소스는 권한이 없이도 접근 가능하게끔 무시할 경로 작성 */  // resources/static/css,js,images
 	@Override
 	public void configure(WebSecurity web) {
-		web.ignoring().antMatchers("/css/**", "/js/**", "/images/**"); //(이패턴과 일치하는 건 무시, 체킹하지 않도록)
+		web.ignoring().antMatchers("/css/**", "/js/**", "/images/**"); 
 	}
 	
 	
 	/* HTTP 요청에 대한 설정 */
-	@Override //configure에다가  HttpSecurity대상으로 설정 ?
-	protected void configure(HttpSecurity http) throws Exception { // 따로따로 말고 설정 하나에 하는게 편리한점 ???
+	@Override 
+	protected void configure(HttpSecurity http) throws Exception { 
 		http
-			/* csrf는 기본적으로 활성화 되어 있으므로 비활성화 처리 */
-			/* CSRF 공격이란 
-			 * 사이트 간 요청 위조, 웹 애플리케이션 취약점 중 하나로
-			 * 사용자의 의지와 무관하게 공격자가 의도한 행위(등록/수정/삭제)를 특정 웹 사이트에 요청하도록 만드는 공격
-			 * CSRF 공격 방어를 위해 referer 검증 => 요청 도메인이 일치하는지 검증함
-			 * Spring Security CSRF Token 사용 => 임의의 토큰 발급 후 자원에 대한 "변경" 요청일 경우 token 값 확인 (Get방식은 따로 토큰 안 담겨도 상관 없는데,  포스트방식이라든가 변경요청 시 토큰 값을 발급해 준 것을 확인해주는 처리를 하고 로직을 수행함)
-			 *  
-			 *  */
+			
 			/* .csrf().disable() */
 			/* 요청에 대한 권한 체크 */
 			.authorizeRequests()
