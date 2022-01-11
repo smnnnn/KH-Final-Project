@@ -1,41 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- 폰트  -->
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+     <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet"> 
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <!-- 공통 js -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    
     <!-- css -->
     <link type="text/css" rel="stylesheet" href="/css/member/pwdFind.css">
 
 <title>다나은 동물병원</title>
 </head>
     <body>
+    <div th:replace="fragments/header.html"></div>
         <div class="photo">
-            <img class="logo" src="resources/image/회원서비스3.png">
+            <img class="logo" src="/images/member/memberService.png">
         </div>
         <div class="wrapper">
-            <img src="resources/image/설명.png"> 
+            <img src="/images/member/memberInfo.png"> 
             <div class="infoForm item">
                <label class="label">비밀번호 찾기</label><br><br>
-               <label class="etc">회원가입 시 작성한 아이디와 메일 주소를 입력해주세요.</label><br><br><br><br><br><br>
+               <label class="etc">회원가입 시 작성한 아이디와 메일 주소를 입력해주세요.</label><br><br><br><br><br>
+
+				<!-- <form id="pwdFindForm" th:action="@{/member/pwdFind}" method="post" onsubmit="return validate();"> -->
 
                <label class="label2">아이디 </label>
                <input class ="name" type="text" name="userid" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요"><br>
     
                <label class="label2">이메일 </label>
-               <input class ="email" type="email" name="email" placeholder="메일 주소를 입력하세요"> @ <select></select>
+               <input class ="email" type="email" name="email" id="email" placeholder="@포함하여 전부 입력" required>
                
                <br><br><br><br><br>         
                
-               <input type="button" class="button btn1" value="이전으로"> 
-               <input type="button" class="button btn2" value="비밀번호 찾기"><br><br>
+               <input type="button" class="button btn1" th:onclick="|location.href='@{/member/login}'|" value="이전으로"> 
+               <input type="submit" class="button btn2" value="확인"><br><br>
                
 
                <label class="label2">아이디를 찾으시나요 ? </label>
-               <a class="a a1" href="#">아이디 찾기 > </a>
+               <a class="a a1" th:href="@{/member/idFind}">아이디 찾기 > </a>
                <br><br><br>
                
 
@@ -47,5 +57,8 @@
 
         </div>
 
+
+<!-- 푸터 -->
+    <div th:replace="fragments/footer.html"></div>
 </body>
 </html>

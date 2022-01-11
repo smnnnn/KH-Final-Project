@@ -1,5 +1,12 @@
 package com.kh.project.member.model.service;
 
-public interface MemberService {
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import com.kh.project.member.model.vo.Member;
+
+
+public interface MemberService extends UserDetailsService{
+
+	void signUp(Member member);
 
 }
