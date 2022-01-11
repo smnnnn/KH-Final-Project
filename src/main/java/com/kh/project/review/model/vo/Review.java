@@ -20,6 +20,9 @@ public class Review {
 	private int resNo;						// 예약번호
 	private int userNo;						// 회원번호
 	private String userId;					// 회원아이디
+	private Date reservationDate;			// 예약일
+	private String vname;					// 의사이름
+	private String userName;				// 회원이름
 	
 //	private List<ReviewUpload> photoList;	// 사진첨부파일
 	private ReviewUpload thumbnail;			// 썸네일

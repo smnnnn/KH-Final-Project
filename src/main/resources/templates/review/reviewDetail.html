@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
 
     <meta charset="UTF-8">
@@ -82,12 +82,13 @@
         }
 
         .ctBox {
-            min-height: 248px;
+            min-height: 330px;
             width: 834px;
             padding: 32px;
             border:1px solid #85B1D6;
             border-radius: 10px;
             font-size: 0.9rem;
+            margin-top:15px;
             /* padding-top: 35px;
             padding-bottom: 35px; */
         }
@@ -98,7 +99,7 @@
         }
 
         .name{
-            padding-top: 19px;
+            padding-top: 31px;
         }
 
         .date{
@@ -149,6 +150,26 @@
             margin-left: 74.6%;
    
         }
+        
+        #thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnailArea {
+            width: 700px;
+            height: 640px;
+            margin-left: 68px;
+            margin-top: 60px;
+            margin-bottom: 65px;
+       
+            overflow: hidden;
+        }
+        
+        .contentArea {
+        	margin-bottom:20px;
+        }
     </style>
 </head>
 <body>
@@ -162,32 +183,26 @@
         <div class="board content">
             <div id="qaTitle">치료후기</div>
             <div class="board_wrap">
-                <div class="line2 bold"><span class="qTitle">[정형외과] AAI 수술과 슬개골 탈구 수술 후기</span></div>
-                <div class="name bold"><span>김소민</span><span class="doctor">담당 의사선생님: <span>이효은</span></span></div>
+                <div class="line2 bold"><span class="qTitle">[<span>[[${review.tname}]]</span>] [[${review.rvtitle}]]</span></div>
+                <div class="name bold"><span>[[${review.userName}]]</span><span class="doctor">담당 의사선생님: <span>[[${review.vname}]]</span></span></div>
                 <div class="date bold">
-                    2021.12.08
-                    <span><img class="smallicon" src="/images/sm/hit2.png" alt="조회수">2</span> 
-                    <!-- <span><img class="smallicon" src="../resources/images/sm/reply2.png" alt="답변수">1</span>  -->
-                    <span class="resInfo">치료일자: <span>2022. 01.01</span></span>
+                    <span th:if="${review.modifyDate} != null" th:text="${#dates.format(review.modifyDate, 'yyyy.MM.dd')}"></span>   
+                	<span th:unless="${review.modifyDate} != null" th:text="${#dates.format(review.createDate, 'yyyy.MM.dd')}"></span>
+                    <span><img class="smallicon" src="/images/sm/hit2.png" alt="조회수">[[${review.rvhit}]]</span> 
+                    <span class="resInfo">치료일자: <span>[[${#dates.format(review.reservationDate, 'yyyy.  MM.dd')}]]</span></span>
                 </div>
                 <div class="ctBox">
-                    
-                    생후 5개월경부터 점차 다리를 쓰지 못하고 잘 일어서있지 못하던 치치. 다른 병원에서는 슬개골탈구가 심한 4기라는 진단을 받았고 슬개골탈구 수술을 위해 정형외과 신경외과 전문동물병원을 찾아 내원하였습니다.<br><br>
+                <th:block th:if="${review.thumbnail.changedName != null and review.thumbnail.status.toString().equals('N')}">
+                <div class="thumbnailArea">
+                	<!-- status가 y일때도 계속 나오는 문제 -->
+                    <img id="thumbnail" th:if="${review.thumbnail.status.toString().equals('N')}" th:src="${review.thumbnail.filePath}+${review.thumbnail.changedName}">
+                    <div th:unless="${review.thumbnail.status.toString().equals('N')}"></div>
+                </div>
+                </th:block>
+                <th:block th:unless="${review.thumbnail.changedName != null and review.thumbnail.toString().equals('N')}">
+                </th:block>
+                    <div class="contentArea" th:utext="${review.rvcontent}"></div>
 
-                    엑스레이 검사와 CT 검사를 받았는데 1-2번 경추뼈의 불안정한 상태로 인한 환축추아탈구가 있어 수술이 필요하다고 했습니다<br><br>
-
-                    이처럼 뚜렷하게 슬개골탈구와 같은 문제가 있다하라도 현재 보이는 보행장애가 정형외과적 문제인지 신경계의 문제인지를 정확하게 감별하는 것이 매우 중요하다고 합니다.<br>
-                    여러 분야 전문가 원장님들이 상주하고 계신 다나은 동물 병원에서 정확한 진단을 해주셔서 치치는 수술 끝에 점차 정상 보행을 되찾게 되었습니다.<br><br>
-
-                    양쪽 슬개골탈구도 매우 심한 상태로 슬개골탈구 교정술을 실시하여 뒷다리의 배열도 교정하였습니다.<br><br>
-
-                    <img src="/images/sm/testimage.png"><br>
-
-                    <br>
-                    <!-- <iframe width="auto" height="auto" src="https://www.youtube.com/embed/JWqmuaZGANM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
-                    <br><br>
-                    이제 치치는 완전히 회복해서 뛰어다닐 정도랍니다~~*^^*<br>
-                    다나은 동물병원 감사합니다~~!<br>
                 </div>
                 <!-- <div class="replyBox">
                     <span class="bold"><img class="replyIcon" src="../resources/images/sm/rep.png">답변</span>
@@ -195,7 +210,7 @@
                     <span class="bold">2021.12.09</span>
                 </div> -->
                 <div class="btnArea">
-                    <button class="btn" id="gotoList">목록으로</button>
+                    <button class="btn" id="gotoList" onclick="location.href='/review/list'">목록으로</button>
                     <button class="btn" id="modify">수정하기</button>
                     <button class="btn" id="delete">삭제하기</button>
                 </div>

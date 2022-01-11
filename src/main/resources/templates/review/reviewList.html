@@ -95,8 +95,8 @@
                    <div class="contentBox" th:each="review : ${reviewList}">
                        <div class="item">
                        
-                       <div class="crop" th:if="${review.thumbnail.changedName != null}"><img class="uploadImg" th:src="${review.thumbnail.filePath}+${review.thumbnail.changedName}"></div>
-                       <div class="thumnail" th:unless="${review.thumbnail.changedName != null}"></div>
+                       <div class="crop" th:if="${review.thumbnail.changedName != null and review.thumbnail.status.toString().equals('N')}"><img class="uploadImg" th:src="${review.thumbnail.filePath}+${review.thumbnail.changedName}"></div>
+                       <div class="thumnail" th:unless="${review.thumbnail.changedName != null and review.thumbnail.status.toString().equals('N')}"></div>
                        </div>
                        <div class="item reviewTitle">
                            <a href="#">
@@ -117,7 +117,7 @@
                                 우리집 래브라도 리트리버 맥스가 신나게 뛰어놀다가 그만 다리를 다쳤는데 엑스레이를 찍어보니 십자인대 파열이라지 뭐에요 수술을 해야한다고...
                             </a>
                        </div>
-                       <div class="item goDetail"><a class="bgblue" th:href="@{/review/detail}">자세히보기<img id="arrow" src="/images/sm/arrow.png"></a></div>
+                       <div class="item goDetail"><a class="bgblue" th:href="@{/review(rvno=${review.rvno})}">자세히보기<img id="arrow" src="/images/sm/arrow.png"></a></div>
                    </div>
                    <div class="contentBox">
                        <div class="item"><div class="crop"><img class="uploadImg" src="/images/sm/choco.jpg"></div></div><!--이미지 있으면 thumnail div 지우고 삽입-->

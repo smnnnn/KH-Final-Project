@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,7 +41,6 @@ public class ReviewController {
 	public String selectReviewList(Model model) { 
 	
 		List<Review> reviewList = reviewService.selectReviewList();
-		// model.addAttribute 하면 되자너
 		
 		log.info("리뷰 목록 {} ",reviewList);
 		
@@ -48,11 +49,61 @@ public class ReviewController {
 		return "review/reviewList";
 	}
 	
-	@RequestMapping("detail")
-	public String selectReview() {
+/*	@RequestMapping("detail")
+	public String selectReview() { 
+		
+		return "review/reviewDetail";
+	}*/
+	
+	@GetMapping("")
+	public String selectReview(@RequestParam("rvno") int rvno, Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		/* cookie 활용한 조회수 무한 증가 방지 처리 */
+		Cookie[] cookies = request.getCookies();
+		
+		String rvhit = "";
+		
+		if(cookies != null && cookies.length > 0) {
+			for(Cookie c : cookies) {
+				/* 읽은 게시물 rvno를 저장해두는 쿠키의 이름 rvhit이 있는지 확인*/
+				if(c.getName().equals("rvhit")) {
+					rvhit = c.getValue();
+				}
+			}
+		}
+		
+		// 처음 읽는 게시글일 경우
+		// Ex. "|1||22||100|" 와 같은 rvhit cookie의 value 값에서 indexOf로 해당 문자열 찾기
+		if(rvhit.indexOf("|" + rvno + "|") == -1) {
+			// 기본 rvhit 값에 지금 요청한 rvno 값 추가하여 새로운 쿠키 생성
+			Cookie newRvhit = new Cookie("rvhit", rvhit + "|" + rvno + "|");
+			// 초 단위로 유효 기간 설정 가능
+			// newRvhit.setMaxAge(1 * 24 * 60 * 60);
+			
+			// 설정하지 않을 시 session cookie
+			// 클라이언트가 저장하고 있을 수 있도록 응답에 담는다
+			response.addCookie(newRvhit);
+			
+			// DB의 해당 게시글 조회수 증가
+			int result = reviewService.increaseCount(rvno);
+			
+			if(result > 0) {
+				log.info("조회수 증가 성공");
+			} else{
+				log.info("조회수 증가 실패");
+			}		
+		}
+		
+		Review review = reviewService.selectReview(rvno);
+		
+		log.info("리뷰 조회 : {}", review);
+		
+		model.addAttribute("review",review);
 		
 		return "review/reviewDetail";
 	}
+	
+	
 	
 	@GetMapping("insert")
 	public String insertReview() {
@@ -64,7 +115,6 @@ public class ReviewController {
 	public String addReview(@RequestParam MultipartFile thumbnail, 
 							HttpServletRequest request) throws IllegalStateException, IOException {
 		
-//		String singleFileDescription = request.getParameter("singleFileDescription");
 		String rvtitle = request.getParameter("rvtitle");
 		String rvcontent = request.getParameter("rvcontent");
 		int tno = Integer.parseInt(request.getParameter("tno"));
@@ -81,41 +131,40 @@ public class ReviewController {
 		log.info("before insert review {}", review);
 		
 		if(thumbnail != null){
+			log.info("thumbnail {}", thumbnail);
 			
+			String root = request.getSession().getServletContext().getRealPath("/");
+			String uploadPath = root + "uploadFiles\\review";
+			
+			log.info("root {}", root);
+			
+			/* 해당 경로 없을 경우 make directory */
+			File mkdir = new File(uploadPath);
+			if(!mkdir.exists()) mkdir.mkdirs();
+			
+			 if(!thumbnail.isEmpty()){
+				/* 파일명 확인 */
+				String originFileName = thumbnail.getOriginalFilename();
+				log.info("originFileName {}", originFileName);
+				String ext = originFileName.substring(originFileName.lastIndexOf("."));
+				
+				/* 파일명 변경 처리 */
+				String savedName = UUID.randomUUID().toString().replace("-", "") + ext;
+				log.info("savedName : " + savedName);
+				
+				/* 파일을 저장함*/
+				thumbnail.transferTo(new File(uploadPath + "\\" + savedName));
+				
+				ReviewUpload reviewUpload = new ReviewUpload();
+				reviewUpload.setChangedName(savedName);
+				reviewUpload.setOriginName(originFileName);
+				reviewUpload.setFilePath("/uploadFiles/review/");
+				
+				review.setThumbnail(reviewUpload);	
+			 }
 			
 		}
-		log.info("thumbnail {}", thumbnail);
-		
-		String root = request.getSession().getServletContext().getRealPath("/");
-		String uploadPath = root + "uploadFiles\\review";
-		
-		log.info("root {}", root);
-		
-//		String filePath = root + "\\uploadFiles";
-		
-		/* 해당 경로 없을 경우 make directory */
-		File mkdir = new File(uploadPath);
-		if(!mkdir.exists()) mkdir.mkdirs();
-		
-		/* 파일명 확인 */
-		String originFileName = thumbnail.getOriginalFilename();
-		log.info("originFileName {}", originFileName);
-		String ext = originFileName.substring(originFileName.lastIndexOf("."));
-		
-		/* 파일명 변경 처리 */
-		String savedName = UUID.randomUUID().toString().replace("-", "") + ext;
-		log.info("savedName : " + savedName);
-		
-		/* 파일을 저장함*/
-		thumbnail.transferTo(new File(uploadPath + "\\" + savedName));
-		
-		ReviewUpload reviewUpload = new ReviewUpload();
-		reviewUpload.setChangedName(savedName);
-		reviewUpload.setOriginName(originFileName);
-		reviewUpload.setFilePath("/uploadFiles/review/");
-		
-//		List<ReviewUpload> photoList = new ArrayList<>(); //사진이 한장이면 이럴 필요가 없지
-		review.setThumbnail(reviewUpload);
+
 		
 		int result = reviewService.insertReview(review);
 		
@@ -123,6 +172,7 @@ public class ReviewController {
 			log.info("리뷰 등록 성공");
 		} else{
 			log.info("리뷰 등록 실패");
+			
 		}		
 		
 		

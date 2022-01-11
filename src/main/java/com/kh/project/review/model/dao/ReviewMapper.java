@@ -16,4 +16,10 @@ public interface ReviewMapper {
 
 	int insertRvupload(ReviewUpload thumbnail);
 
+	int increaseCount(int rvno);
+
+	Review selectReview(int rvno);
+
+	ReviewUpload selectThumbnail(int rvno);
+
 }

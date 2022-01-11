@@ -10,4 +10,8 @@ public interface ReviewService {
 
 	int insertReview(Review review);
 
+	int increaseCount(int rvno);
+
+	Review selectReview(int rvno);
+
 }
