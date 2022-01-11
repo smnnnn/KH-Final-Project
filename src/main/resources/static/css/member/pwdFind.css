@@ -126,12 +126,12 @@
 	    cursor: pointer;
         }
 
-        input, select{
+        input{
             height: 30px;
             border: 1px solid gainsboro;
             border-radius: 5px;
             padding-left: 5px;
             padding-right: 5px;
             display:inline-block;
-            width: 180px;
+            width: 280px;
         }

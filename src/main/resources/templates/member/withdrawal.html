@@ -1,49 +1,280 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- 폰트  -->
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
-    <!-- css -->
-    <link type="text/css" rel="stylesheet" href="/css/member/withdrawal.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet"> 
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <!-- 공통 js -->
+    <script type="text/javascript" src="/js/common.js"></script>
+
 
 <title>다나은 동물병원</title>
+    <style>
+        .wrapper{
+            width: 1200px;
+            height: 1080px;
+            margin: auto;
+            display: flex; 
+            align-items: flex-start;      
+            justify-content: flex-start;
+        }
+
+        .infoForm{
+            border: 1px solid gainsboro;
+            width: 1204px;   
+            margin-left: 10px;    
+            height: 930px;
+        }
+
+        .logo{
+            width: 100%;
+            margin-left: 0px;
+            margin-top: 0px;
+        }
+        .item{
+            align-self: flex-start;
+            display: inline-block;
+        }
+
+
+        .label{
+            min-width: 160px;
+            display:inline-block;
+            margin-top: 25px;
+            margin-left: 130px;
+            font-weight: bold;
+            font-size: xx-large;
+        }
+        .dd{
+            background-color: rgb(232, 232, 232);
+            border-bottom: 1px solid  gainsboro;
+        }
+
+        .label2{
+            min-width: 160px;
+            display:block;
+            margin-top: 25px;
+            margin-left: 130px;
+            font-weight: bold;
+            font-size: large;
+        }
+
+
+        .etc{
+            color: rgb(167, 164, 164);
+            font-weight: bolder;
+            margin-left: 130px;
+        }
+
+        .all{
+            display:inline-block;
+            height: 60px;
+            border: 2px solid rgb(185, 183, 183);
+            border-bottom: 0px solid rgb(185, 183, 183);
+            background-color: rgb(241, 241, 241);
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 400px;
+            padding-left: 50px;
+            margin-left: 170px;
+        }
+
+
+        .button{
+            display: inline;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10px;
+            width: 250px;
+            text-align: center;
+            height: 50px;
+            background-color: rgb(43, 53, 88);
+            color: white;
+            font-size: large;
+            font-weight: bolder;
+        }
+
+        .btn{
+            margin-right: 60px;
+            background-color: rgb(22, 61, 162);
+            color: white;
+        }
+
+        .btn1{
+            margin-right: 60px;
+            background-color: rgb(43, 53, 88);
+            color: white;
+            margin-left: 30px;
+
+        }
+        .btn11{
+            margin-left: 140px;
+        }
+        .btn2{
+            background-color: rgb(148, 148, 150);
+            color: white;
+            margin-left: 500px;
+        }
+
+
+        .login{
+            display:inline-block;
+            background-image:url(resources/image/user.png);
+            background-position: 10px 10px;
+		    background-repeat: no-repeat;
+		    background-size: 30px 30px;
+        }
+
+        .pwd{
+            display:inline-block;
+            background-image:url(resources/image/unlock.png);
+            background-position: 10px 10px;
+		    background-repeat: no-repeat;
+		    background-size: 30px 30px;
+            border-bottom: 2px solid rgb(185, 183, 183);
+
+        }
+
+        a{
+            color: rgb(90, 90, 90);
+            font-weight: bolder;
+            margin-left: 10px;
+        }
+
+        input:focus,
+        select:focus {
+	    outline: none;
+        }
+        .button:hover {
+	    cursor: pointer;
+        }
+
+        input, select{
+            height: 30px;
+            border: 1px solid gainsboro;
+            border-radius: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            display:inline-block;
+            width: 180px;
+        }
+        textarea{
+            margin-top: 30px;
+            margin-left: 135px;
+            resize: none;
+            padding: 10px 10px 10px 10px;
+
+        }
+
+        textarea:focus{
+            outline: none;
+        }
+
+        .labeldiv{
+            border-bottom:  1px solid rgb(218, 216, 216);;
+        }
+
+        .check{
+            margin-left: 500px;
+            margin-top: 20px;
+            width: 50px;
+            height: 30px;
+        }
+
+
+        .test_obj input[type="radio"] {
+        display: none;
+    }
+ 
+    .test_obj input[type="radio"] + span {
+        display: inline-block;
+        padding: 15px 10px;
+        border: 1px solid #dfdfdf;
+        background-color: #ffffff;
+        text-align: center;
+        cursor: pointer;
+        width: 200px;
+        margin-top: 50px;
+        margin-right: 50px;
+        margin-left: auto;
+    }
+ 
+    .test_obj input[type="radio"]:checked + span {
+        background-color: #113a6b;
+        color: #ffffff;
+    }
+
+    .reason{
+        margin-left: 200px;
+    }
+        
+    .checklabel{
+    	font-weight: bold;
+    }
+
+
+    </style>
 </head>
-    <body>
+<body>
+<div th:replace="fragments/header.html"></div>
+
         <div class="photo">
-            <img class="logo" src="resources/image/회원서비스3.png">
+            <img class="logo" src="/images/member/memberService.png">
         </div>
         <div class="wrapper">
             <div class="infoForm item">
                 <div class="dd"><label class="label">회원탈퇴 사유</label><br><br></div>
-               <label class="etc">회원 탈퇴 사유를 한 가지 선택해주십시오</label><br><br><br><br><br>
+               <label class="etc">회원 탈퇴 사유를 한 가지 선택해주십시오</label><br><br><br>
+               
+               <!-- <form id="withdrawalForm" th:action="@{/member/withdrawal}" method="post" onsubmit="return validate();"> -->
 
-               <input type="button" class="button btn btn11" value="아이디 변경"> 
-               <input type="button" class="button btn" value="개인정보 노출 우려">
-               <input type="button" class="button btn" value="시스템 에러 및 서비스 속도"><br> 
-               <input type="button" class="button btn btn11" value="회원혜택 부족">
-               <input type="button" class="button btn" value="고객응대 부족"> 
-               <input type="button" class="button btn" value="진료 서비스 불만"><br>
+               <label class="test_obj reason">
+               <input type="radio" name="reason" value="아이디 변경"><span>아이디 변경</span>
+            </label>
+               <label class="test_obj">
+               <input type="radio" name="reason" value="개인정보 노출 우려"><span>개인정보 노출 우려</span>
+            </label>
+               <label class="test_obj">
+               <input type="radio" name="reason" value="시스템 에러 및 서비스 속도"><span>시스템 에러 및 서비스 속도</span><br>
+            </label>
+
+            <label class="test_obj reason">
+               <input type="radio" name="reason"  value="회원혜택 부족"><span>회원혜택 부족</span>
+            </label>  
+               <label class="test_obj">
+               <input type="radio" name="reason"  value="고객응대 부족"><span>고객응대 부족</span>
+            </label>  
+               <label class="test_obj">
+               <input type="radio" name="reason" value="진료 서비스 불만"><span>진료 서비스 불만</span><br>
+            </label><br><br>
+
+
+          
 
 
 
 
                <label class="label2">개선사항</label>
-               <textarea rows="10" cols="125" placeholder="기타 의견을 작성하여 주십시오"></textarea><br><br><br><br>
+               <textarea rows="10" cols="125" placeholder="기타 의견을 작성하여 주십시오" maxlength="250"></textarea><br><br><br>
                <div class="labeldiv"><label class="etc">회원 탈퇴 시 더이상 다나은 동물병원의 온라인 혜택을 받으실 수 없습니다.</label><br><br></div>
 
                <input type="checkbox" class="check" id="check"><label for="check" class="checklabel">위 내용을 모두 숙지하였으며, 회원 탈퇴 진행을 동의하십니까 ? </label>
 
                
-               <br><br><br>      
+               <br><br><br><br>     
                
                <input type="button" class="button btn2" value="취소">
                <input type="button" class="button btn1" value="확인"> <br><br>
                
 
+				<!-- </form> -->
                <br><br><br>
                
 
@@ -55,5 +286,20 @@
 
         </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 푸터 -->
+    <div th:replace="fragments/footer.html"></div>
 </body>
 </html>
