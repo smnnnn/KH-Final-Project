@@ -50,5 +50,39 @@
 		  	  , '1'
 		  	  , #{ vno }
 		  )
+	<selectKey resultType="_int" keyProperty="reservation_no" order="AFTER">
+		 SELECT SEQ_RESERVATION_NO.CURRVAL
+		 FROM DUAL
+	</selectKey>
 	</insert>
+	
+	<insert id="registDog" parameterType="com.kh.project.reservation.model.vo.DogInformationInput">
+		INSERT
+		  INTO DOG_INFORMATION_INPUT
+		  (
+		  	   RESERVATION_NO
+		  	 , IN_DOG_NAME
+		  	 , IN_BREED
+		  	 , IN_DOG_GENDER
+		  	 , IN_DOG_AGE
+		  )
+		  VALUES
+		  (
+		  	   SEQ_RESERVATION_NO.CURRVAL
+		   	 , #{ in_dog_name }
+		   	 , #{ in_breed }
+		   	 , #{ in_dog_gender }
+		   	 , #{ in_dog_age }
+		  )
+	</insert>
+	
+	<update id="modifyReser" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">
+	<!-- <selectKey resultType="_int" keyProperty="reservation_no" order="BEFORE">
+		 SELECT SEQ_RESERVATION_NO.CURRVAL
+		 FROM DUAL
+	</selectKey>
+ -->	UPDATE RESERVATION_INFORMATION
+		   SET SYMPTOM = # { symptom }
+		 WHERE RESERVATION_NO = #{ reservation_no }
+	</update>
 </mapper>

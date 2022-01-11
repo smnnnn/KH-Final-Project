@@ -13,7 +13,7 @@
             border: 3px solid gainsboro;
             width: 800px;   
             margin-left: 10px;    
-            height: 608px;
+            height: 650px;
         }
 
         .logo{
@@ -75,7 +75,7 @@
 
         .login{
             display:inline-block;
-            background-image:url(resources/image/user.png);
+            background-image:url(/images/member/user.png);
             background-position: 10px 10px;
 		    background-repeat: no-repeat;
 		    background-size: 30px 30px;
@@ -83,7 +83,7 @@
 
         .pwd{
             display:inline-block;
-            background-image:url(resources/image/unlock.png);
+            background-image:url(/images/member/unlock.png);
             background-position: 10px 10px;
 		    background-repeat: no-repeat;
 		    background-size: 30px 30px;
@@ -97,10 +97,10 @@
             font-weight: bolder;
         }
         .a1{
-            margin-left: 152px;
+            margin-left: 190px;
         }
         .a{
-            margin-right: 50px;
+            margin-right: 90px;
         }
         input:focus,
         select:focus {

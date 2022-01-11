@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.project.member.model.dao.MemberMapper">
+
+	<resultMap type="com.kh.project.member.model.vo.Member" id="loginMemberResultMap">  <!-- loginMemberResultMap 셀렉한 게 채워줌 -->
+	<!-- 멤버타입객체  -->
+		<id property="no" column="USER_NO"/>
+		<result property="id" column="USER_ID"/>
+		<result property="pwd" column="USER_PWD"/>
+		<result property="tempPwdYn" column="TEMP_PWD_YN"/>
+		<result property="pwdChangedDatetime" column="PWD_CHANGED_DATETIME"/>		
+		<result property="name" column="USER_NAME"/>		
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="address" column="ADDRESS"/>		
+		<result property="registDatetime" column="ENROLL_DATETIME"/>
+		<result property="modifyDatetime" column="MODIFY_DATETIME"/>		
+		<result property="loginFailedCount" column="LOGIN_FAILED_COUNT"/>
+		<result property="accLockTime" column="ACC_LOCK_TIME"/>		
+		<result property="accLockYn" column="ACC_LOCK_YN"/>
+		<result property="accsecssionDatetime" column="ACC_SECESSION_DATETIME"/>
+		<result property="accSecssionYn" column="ACC_SECSSION_YN"/>
+		
+		<collection property="memberRoleList" resultMap="memberRoleResultMap"/> <!-- 한사람의 정보가 들어가되 리스트 값만 매핑 -->
+		<!-- 매핑시켜야 함 테이블 3개 조인해야 함 -->
+		
+	</resultMap>
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

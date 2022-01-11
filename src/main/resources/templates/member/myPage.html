@@ -1,12 +1,277 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet"> 
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인, 관리자)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <!-- 공통 js -->
+    <script type="text/javascript" src="/js/common.js"></script>
 
 
-<title>Insert title here</title>
+<title>다나은 동물병원</title>
+<style>
+        .wrapper{
+            width: 1200px;
+            height: 1080px;
+            margin: auto;
+            display: flex; 
+            align-items: flex-start;      
+            justify-content: flex-start;
+        }
+        .logo{
+            width: 100%;
+            margin-left: 0px;
+            margin-top: 0px;
+        }
+        .item{
+            align-self: flex-start;
+            display: inline-block;
+        }
+        .info{
+            margin: auto;
+        }
+        .infoForm{
+            border: 1px solid gainsboro;
+            width: 904px;   
+            margin-left: 10px;    
+        }
+
+        .label{
+            min-width: 160px;
+            display:inline-block;
+            margin-top: 25px;
+            margin-left: 30px;
+            font-weight: bold;
+        }
+
+        .all{
+            height: 23px;
+            border: 1px solid gainsboro;
+            border-radius: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+
+        }
+
+        .input{
+            display:inline-block;
+            width: 180px;
+        }
+
+        .select{
+            display:inline-block;
+            width: 150px;
+        }
+
+        .input2{
+            display:inline-block;
+            width: 450px;
+        }
+
+        .button1{
+            margin-left: 20px;
+            width: 100px;
+            height: 33px;
+        }
+
+        .button2{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            width: 180px;
+            text-align: center;
+            height: 40px;
+        }
+
+        input:focus,
+        select:focus {
+	    outline: none;
+        }
+        .button1:hover {
+	    cursor: pointer;
+        }
+        .button2:hover {
+	    cursor: pointer;
+        }
+
+
+        .My{
+            display: block;
+            margin-top: 303px;
+            margin-right: 0px;
+            margin-left: -300px;
+            height: 50px;
+            width: 300px;
+            background-color: white;
+            color: rgb(167, 164, 164);
+            font-weight: bold;
+            border: 1px solid gainsboro;
+        }
+
+        .btn{
+            margin-top: 303px;
+            color: rgb(21, 60, 162);
+        }
+        .btn1{
+            margin-top: -18px;
+        }
+        .label1{
+            min-width: 160px;
+            display:inline-block;
+            margin-top: 25px;
+            font-weight: bold;
+            font-size: x-large;
+            margin-left: 25px;
+            margin-bottom: 10px;
+        }
+        .etc{
+            color: rgb(167, 164, 164);
+            font-weight: bolder;
+            margin-left: 25px;
+        }
+        .Withdraw{
+            margin-left: 150px;
+            width: 160px;
+            height: 35px;
+            background-color: rgb(21, 60, 162);
+            color: white;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+        button:hover{
+            cursor: pointer;
+            color: royalblue;
+        }
+        </style>
 </head>
 <body>
+<div th:replace="fragments/header.html"></div>
 
+
+        <div class="photo">
+            <img class="logo" src="/images/member/memberService.png">
+        </div>
+        <div class="wrapper">
+            <img class="my" src="/images/member/myPage.png">
+            <div>
+            <button class="My btn"> 정보 수정&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button><br>
+            <button class="My btn1"> 예약 확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button>
+            </div>
+            <div class="infoForm item">
+                
+                <label class="label1">개인정보</label><br>
+               <label class="etc">정보를 수정할 경우에는 <u>비밀번호를 꼭 다시 한 번 확인</u>하여 주십시오</label>
+				
+
+
+               <button class="Withdraw" th:onclick="|location.href='@{/member/Withdrawal}'|">탈퇴하기</button><br><br><br>
+
+				<!-- <form id="myPageForm" th:action="@{/member/myPage}" method="post" onsubmit="return validate();"> -->
+
+                <label for="userid" class="label">아이디 </label> 
+                <input class ="input all" type="text" name="userid" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요" readonly>
+                <input type="button" class="button1" value="중복확인">  
+                <br>
+                <label for="userpwd" class="label">비밀번호 </label> 
+                <input class ="input all" type="password" name="userpwd" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요">
+                <br>
+                <label for="userpwd" class="label">비밀번호 재확인 </label> 
+                <input class ="input all" type="password" name="userpwd2" maxlength="15" placeholder="비밀번호를 입력하세요">
+                <br>
+                <label for="username" class="label">이름 </label> 
+                <input class ="input all" type="text" name="username" placeholder="이름입력">
+                <br>
+                <label for="phone" class="label">휴대폰 번호 </label> 
+                <input class ="input all" type="tel" name="phone" placeholder="-없이 입력">
+                <br>
+                <label for="phone" class="label">이메일 </label> 
+                <input class ="input all" type="email" name="email" id="email" placeholder="@포함하여 전부 입력" required>
+               
+                <br>
+                <label class="label">주소 </label> 
+                <input type="text" name="address"
+                class ="select all" placeholder="우편번호" readonly>
+                <button type="button" class="button1" id="postcodify_search_button">검색</button>
+                <br>
+                <label class="label"> </label> 
+                <input type="text" name="address"
+                class ="input2 all" placeholder="도로명주소" readonly>
+                <br>
+                <label class="label"> </label> 
+                <input type="text" name="address"
+                class ="input2 all" placeholder="상세주소">
+                <br>
+                <label for="petname" class="label">반려견 이름 </label>
+                <input class ="input all" type="text" name="petname" placeholder="반려견이름">  <button>추가1</button> <button>추가2</button>
+                <br>
+                <label for="petage" class="label">반려견 나이 </label> 
+                <input class ="input all" type="text" name="petage" placeholder="반려견나이">
+                <br>
+                <label for="petbreed" class="label">견종 </label> 
+                <select class ="input all" ></select>  
+                <br>
+                <label for="petbreed" class="label">중성화 유무 </label> 
+                <select class ="select all"></select>  
+                <br>
+                <label for="petbreed" class="label">반려견 성별 </label> 
+                <select class ="select all"></select>  
+                <br><br>
+
+                <label for="petname" class="label">반려견 이름 </label> 
+                <input class ="input all" type="text" name="petname" placeholder="반려견이름"> <button>삭제</button>
+                <br>
+                <label for="petage" class="label">반려견 나이 </label> 
+                <input class ="input all" type="text" name="petage" placeholder="반려견나이">
+                <br>
+                <label for="petbreed" class="label">견종 </label> 
+                <select class ="input all" ></select>  
+                <br>
+                <label for="petbreed" class="label">중성화 유무 </label> 
+                <select class ="select all"></select>  
+                <br>
+                <label for="petbreed" class="label">반려견 성별 </label> 
+                <select class ="select all"></select>  
+                <br><br>
+
+                <label for="petname" class="label">반려견 이름 </label> 
+                <input class ="input all" type="text" name="petname" placeholder="반려견이름"> <button>삭제</button>
+                <br>
+                <label for="petage" class="label">반려견 나이 </label> 
+                <input class ="input all" type="text" name="petage" placeholder="반려견나이">
+                <br>
+                <label for="petbreed" class="label">견종 </label> 
+                <select class ="input all" ></select>  
+                <br>
+                <label for="petbreed" class="label">중성화 유무 </label> 
+                <select class ="select all"></select>  
+                <br>
+                <label for="petbreed" class="label">반려견 성별 </label> 
+                <select class ="select all"></select>  
+                <br><br>
+
+                
+                
+
+                <input type="button" class="button2" value="수정하기">   
+                <!-- </form> -->
+
+            </div>
+
+        </div>
+
+
+
+
+<!-- 푸터 -->
+    <div th:replace="fragments/footer.html"></div>
 </body>
 </html>
