@@ -8,11 +8,13 @@ import com.kh.project.member.model.vo.MemberRole;
 @Mapper
 public interface MemberMapper {
 
-	Member findMemberById(String username);
+	Member findMemberById(String userId);
 
 	void insertMember(Member member);
 
 	void insertMemberRole(MemberRole memberRole);
+
+	int idCheck(String userId);
 	
 	
 	

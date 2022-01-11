@@ -1,13 +1,16 @@
 package com.kh.project.member.model.vo;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
 
 //	private int no;						// 회원번호
@@ -44,34 +47,18 @@ public class Member {
 	private Date accSecssionDatetime;	//계정탈퇴일시
 	private String accSecssionYn;		//계정탈퇴여부
 	
+	
+	private String petName;
+	private int petAge;
+	private String breed;
+	private String status;
+	private String petGender;
+	
+	
 	/* 한 멤버는 여러 권한을 가질 수 있음 - TBL_MEMBER_ROLE과 조인한 결과 값 */
 	private List<MemberRole> memberRoleList;		//보유권한목록
 
-	public Member() {}
-	
-	public Member(int no, String id, String pwd, String tempPwdYn, Date pwdChangedDatetime, String name, int phone,
-			String email, String address, Date registDatetime, Date modifyDatetime, int loginFailedCount,
-			Date accLockTime, String accLockYn, Date accSecssionDatetime, String accSecssionYn,
-			List<MemberRole> memberRoleList) {
-		super();
-		this.no = no;
-		this.id = id;
-		this.pwd = pwd;
-		this.tempPwdYn = tempPwdYn;
-		this.pwdChangedDatetime = pwdChangedDatetime;
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.address = address;
-		this.registDatetime = registDatetime;
-		this.modifyDatetime = modifyDatetime;
-		this.loginFailedCount = loginFailedCount;
-		this.accLockTime = accLockTime;
-		this.accLockYn = accLockYn;
-		this.accSecssionDatetime = accSecssionDatetime;
-		this.accSecssionYn = accSecssionYn;
-		this.memberRoleList = memberRoleList;
-	}
+
 
 	
 	
