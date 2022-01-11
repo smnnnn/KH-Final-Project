@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.project.admin.memberManage.model.dao.MemberManageMapper">
+<!-- admin -->
+	
+	<resultMap id="memberResultMap" type="com.kh.project.admin.memberManage.model.vo.MemberInfo">
+		<id property="no" column="USER_NO"/>
+		<result property="id" column="USER_ID"/>
+		<result property="name" column="USER_NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="enrollDatetime" column="ENROLL_DATETIME"/>
+		<result property="accSecssionYn" column="ACC_SECESSION_YN"/>
+		<result property="accSecssionDatetime" column="ACC_SECESSION_DATETIME"/>
+		<result property="accSecessionReason" column="ACC_SECESSION_REASON"/>
+		<result property="otherOpinions" column="OTHER_OPINIONS"/>
+		<collection property="memberRoleList" resultMap="memberRoleResultMap"/>
+	</resultMap>
+	
+	<resultMap id="memberRoleResultMap" type="com.kh.project.member.model.vo.MemberRole">
+		<id property="memberNo" column="REF_USER_NO"/>
+		<id property="authorityCode" column="AUTHORITY_CODE"/>
+		<association property="authority" javaType="com.kh.project.member.model.vo.Authority">
+			<id property="code" column="REF_AUTHORITY_CODE"/>
+			<result property="name" column="AUTHORITY_NAME"/>
+			<result property="desc" column="AUTHORITY_DESC"/>
+		</association>
+	</resultMap>
+	
+	<resultMap id="dogResultMap" type="com.kh.project.admin.reservationManage.model.vo.Dog">
+		<id property="no" column="DOG_NO"/>
+		<result property="name" column="DOG_NAME"/>
+		<result property="breed" column="BREED"/>
+		<result property="gender" column="DOG_GENDER"/>
+		<result property="age" column="DOG_AGE"/>
+		<result property="neuteredStatus" column="NEUTERED_STATUS"/>
+	</resultMap>
+	
+	<resultMap id="reservationResultMap" type="com.kh.project.admin.reservationManage.model.vo.ReservationManage">
+		<id property="reservationNo" column="RESERVATION_NO"/>
+		<result property="tNo" column="TNO"/>
+		<result property="vName" column="VNAME"/>
+		<result property="reservationDate" column="RESERVATION_DATE"/>
+		<result property="reservationTime" column="RESERVATION_TIME"/>
+		<result property="symptom" column="SYMPTOM"/>
+		<result property="reservationStatus" column="RESERVATION_STATUS"/>
+		<association property="dog" javaType="com.kh.project.admin.reservationManage.model.vo.Dog">
+			<id property="no" column="RES_DOG_NO"/>
+			<result property="name" column="RES_DOG_NAME"/>
+			<result property="breed" column="RES_BREED"/>
+			<result property="gender" column="RES_DOG_GENDER"/>
+			<result property="age" column="RES_DOG_AGE"/>
+			<result property="neuteredStatus" column="RES_NEUTERED_STATUS"/>		
+		</association>
+	</resultMap>
+	
+	
+	<select id="selectMemberList" resultMap="memberResultMap">
+		SELECT
+		        A.USER_NO
+		      , A.USER_ID
+		      , A.USER_NAME
+		      , A.PHONE
+		      , A.EMAIL
+		      , A.ADDRESS
+		      , A.ENROLL_DATETIME
+		      , A.ACC_SECESSION_YN
+		      , A.ACC_SECESSION_DATETIME
+		      , W.ACC_SECESSION_REASON
+		      , W.OTHER_OPINIONS
+		      , B.AUTHORITY_CODE 
+		      , C.AUTHORITY_CODE REF_AUTHORITY_CODE
+		      , C.AUTHORITY_NAME
+		      , C.AUTHORITY_DESC
+		   FROM MEMBER A
+		   LEFT JOIN MEMBER_ROLE B ON(A.USER_NO = B.USER_NO)
+		   LEFT JOIN AUTHORITY C ON(B.AUTHORITY_CODE = C.AUTHORITY_CODE)
+		   LEFT JOIN WITHDRAWAL_REASON W ON(A.USER_NO = W.USER_NO)
+		  ORDER BY USER_NO DESC
+	</select>
+	
+	<select id="selectDogInfo" resultMap="dogResultMap">
+		SELECT
+		       DOG_NO
+		     , DOG_NAME
+		     , DOG_AGE
+		     , BREED
+		     , NEUTERED_STATUS
+		     , DOG_GENDER
+		  FROM DOG_INFORMATION
+		 WHERE USER_NO = #{no}
+	</select>
+	
+	
+	
+</mapper>
