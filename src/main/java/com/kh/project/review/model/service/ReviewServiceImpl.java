@@ -78,6 +78,20 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewMapper.selectReview(rvno);
 	}
 
+	@Override
+	public ReviewUpload deleteThumbnail(int rvno) {
+		
+		ReviewUpload reviewUpload = reviewMapper.selectThumbnail(rvno);
+		
+		return null;
+	}
+
+	@Override
+	public int deleteReview(int rvno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 	
 	

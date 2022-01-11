@@ -180,6 +180,27 @@ public class ReviewController {
 	}
 		
 	
+	@RequestMapping("delete")
+	public String deleteReview(int rvno) {
+		
+		/* 리뷰, 리뷰업로드 테이블의 rvno 일치하는 행 status Y -> N으로 변경 
+		 * 서버에 저장된 이미지 파일의 정보 알아와서 삭제 처리 */
+		ReviewUpload rvUpload = reviewService.deleteThumbnail(rvno);
+		
+		int result = reviewService.deleteReview(rvno);
+		
+		if(result > 0) {
+			log.info("삭제 성공");
+		} else{
+			log.info("삭제 실패");
+		}	
+		
+		return "redirect:/review/list";
+	}
+	
+	
+	
+	
 	
 	
 	// 테스트(나중에 지울것)

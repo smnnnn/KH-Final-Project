@@ -124,6 +124,7 @@
 		     , USER_NAME
 		     , FILE_PATH
 		     , CHANGED_NAME
+		     , FILE_NO 
 		     , RV.STATUS RVSTATUS
 		  FROM REVIEW R
 		  LEFT JOIN RV_UPLOAD RV USING(RV_NO)
@@ -146,6 +147,7 @@
 		  FROM RV_UPLOAD
 		 WHERE STATUS='N'
 		   AND RV_NO = #{ rvno }
+		   <!-- 지우기 -->
 	</select>
 
 </mapper>
