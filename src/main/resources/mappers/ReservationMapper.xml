@@ -26,7 +26,7 @@
 	</select>
 
 
-	<insert id="inputReser" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">
+	<insert id="registReservation" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">
 		INSERT
 		  INTO RESERVATION_INFORMATION
 		  (
@@ -45,9 +45,9 @@
 		  	  , #{ reservation_date }
 		  	  , #{ reservation_time }
 		  	  , DEFAULT
-		  	  , 'ㅇㅇ'
+		  	  , #{ symptom }
 		  	  , #{ tno }
-		  	  , '1'
+		  	  , '2'
 		  	  , #{ vno }
 		  )
 	<selectKey resultType="_int" keyProperty="reservation_no" order="AFTER">
@@ -55,6 +55,7 @@
 		 FROM DUAL
 	</selectKey>
 	</insert>
+	
 	
 	<insert id="registDog" parameterType="com.kh.project.reservation.model.vo.DogInformationInput">
 		INSERT
@@ -76,13 +77,4 @@
 		  )
 	</insert>
 	
-	<update id="modifyReser" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">
-	<!-- <selectKey resultType="_int" keyProperty="reservation_no" order="BEFORE">
-		 SELECT SEQ_RESERVATION_NO.CURRVAL
-		 FROM DUAL
-	</selectKey>
- -->	UPDATE RESERVATION_INFORMATION
-		   SET SYMPTOM = # { symptom }
-		 WHERE RESERVATION_NO = #{ reservation_no }
-	</update>
 </mapper>

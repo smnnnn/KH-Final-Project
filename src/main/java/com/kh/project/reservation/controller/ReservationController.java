@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,43 +62,26 @@ public class ReservationController {
 	}
 	
 	@PostMapping("reservation_form")
-	public String Reservation_form(ReservationInfo reservationInfo, Model model){
-		
-		/*ReservationInfo reservationInfo, , @RequestParam("reservation_date") @DateTimeFormat(pattern="yyyy-MM-dd") Date formatDate*/
-		
-		/*
-		 * SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd"); 
-		 * String da = formatDate.format(reservationInfo.getReservation_date());  => 이러면 yyyy-MM-dd 형태로 들어감
-		 * Date to = formatDate.parse(da); => 이러면 다시 제자리로..
-		 */
-		
-		 /* 왜 날짜 형태가 포멧 안되고 Sun Jan 16 00:00:00 KST 2022 형태로 들어갈까 */
-		
-			/*
-			 * String reser = String.valueOf(reservationInfo); log.info(reser);
-			 */
-		
-		reservationService.inputReser(reservationInfo);
-		
-		/*
-		 * int no = reservationInfo.getReservation_no(); String nno = ""+no;
-		 * log.info(nno);
+	public String Reservation_form(@ModelAttribute("reserInfo") ReservationInfo reservationInfo){
+			
+		/* 입력받은 정보 reserInfo에 넣어두고 화면만 전환
+		 * String reser = String.valueOf(reservationInfo); 
+		 * log.info(reser);
 		 */
 	
-		model.addAttribute("reservationInfo", reservationInfo);
-		
 		return "reservation/reservation_form";
 	}
 	
 	@PostMapping("reservation_form/input")
-	public String Reservation_form_input(DogInformationInput dogInfo, ReservationInfo reservationInfo, RedirectAttributes rttr) { 
-		/*@RequestParam("symptom") String symptom, @RequestParam("reservation_no") int reservation_no,*/
+	public String Reservation_form_input(ReservationInfo reservationInfo, DogInformationInput dogInfo, RedirectAttributes rttr) { 
+		
+		/* 위 컨트롤러에서 받았던 예약 정보까지 합쳐서 한번에 insert 
+		 * dog info input 테이블도 입력받은 정보로 insert 
+		 */
+		
+		reservationService.registReservation(reservationInfo);
 		
 		reservationService.registDog(dogInfo);
-		reservationService.modifyReser(reservationInfo);
-		/*
-		 * String reser = String.valueOf(reservationInfo); log.info(reser);
-		 */
 		
 		rttr.addFlashAttribute("successMessage", "진료 예약이 완료되었습니다.");
 		return "redirect:/main";
