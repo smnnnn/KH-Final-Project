@@ -56,6 +56,28 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 
+	@Override
+	public int increaseCount(int rvno) {
+		
+		return reviewMapper.increaseCount(rvno);
+	}
+
+	@Override
+	public Review selectReview(int rvno) {
+
+	/*	Review review = reviewMapper.selectReview(rvno);
+		
+		ReviewUpload reviewUpload;
+		
+		reviewUpload = reviewMapper.selectThumbnail(rvno);
+
+		review.setThumbnail(reviewUpload);*/
+		
+		// thumbnail 없다고 null뜨는데
+		
+		return reviewMapper.selectReview(rvno);
+	}
+
 
 	
 	
