@@ -26,20 +26,15 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationMapper.findVname(tno);
 	}
 
+
 	@Override
-	public int inputReser(ReservationInfo reservationInfo) {
-		return reservationMapper.inputReser(reservationInfo);
-		
+	public int registReservation(ReservationInfo reservationInfo) {
+		return reservationMapper.registReservation(reservationInfo);
 	}
 
 	@Override
 	public int registDog(DogInformationInput dogInfo) {
 		return reservationMapper.registDog(dogInfo);
-	}
-
-	@Override
-	public int modifyReser(ReservationInfo reservationInfo) {
-		return reservationMapper.modifyReser(reservationInfo);
 	}
 
 }
