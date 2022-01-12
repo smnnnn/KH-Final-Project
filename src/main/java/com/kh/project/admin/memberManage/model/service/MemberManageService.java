@@ -8,4 +8,6 @@ public interface MemberManageService {
 
 	List<MemberInfo> selectMemberList();
 
+	MemberInfo selectMemberByNo(int no);
+
 }

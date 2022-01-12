@@ -42,15 +42,17 @@
                         <colgroup>
                             <col width="10%">
                             <col width="15%">
-                            <col width="15%">
-                            <col width="20%">
-                            <col width="15%">
                             <col width="10%">
                             <col width="15%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="10%">
+                            <col width="10%">
                         </colgroup>
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>회원 아이디</th>
                                 <th>보호자 이름</th>
                                 <th>전화번호</th>
                                 <th>반려견 이름</th>
@@ -62,13 +64,14 @@
                         <tbody>
                             <tr th:each="mem, i : ${memberInfoList}" class="colored">
                                 <td th:text="${i.index+1}"></td>  <!-- 검색기능구현 후 변경하기 -->
+                                <td th:text="${mem.id}"></td>
                                 <td th:text="${mem.name}"></td>
                                 <td th:text="${mem.phone}"></td>
                                 <td th:text="${mem.dog.name}"></td> 
                                 <td th:text="${#dates.format(mem.enrollDatetime, 'yyyy-MM-dd')}"></td>
                                 <td th:if="${mem.accSecssionYn == 'N'}">회원</td>
                                 <td th:unless="${mem.accSecssionYn == 'N'}" class="unresolved">회원탈퇴</td> 
-                                <td><a href="#">상세보기</a></td>
+                                <td><a th:href="@{/admin/member/detail(no=${mem.no})}">상세보기</a></td>
                             </tr>
                         </tbody>
                     </table>

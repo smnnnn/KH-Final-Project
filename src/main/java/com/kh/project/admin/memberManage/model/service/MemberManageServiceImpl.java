@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 import com.kh.project.admin.memberManage.model.dao.MemberManageMapper;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
 import com.kh.project.admin.reservationManage.model.vo.Dog;
+import com.kh.project.admin.reservationManage.model.vo.ReservationManage;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class MemberManageServiceImpl implements MemberManageService{
 
@@ -34,6 +38,29 @@ public class MemberManageServiceImpl implements MemberManageService{
 		}
 		
 		return returnMemberInfo;
+	}
+
+	@Override
+	public MemberInfo selectMemberByNo(int no) {
+		/* 회원 기보정보 조회 */
+		MemberInfo member = memberManageMapper.selectMemberByNo(no);
+		/* 반려견 정보 조회 */
+		Dog dog = memberManageMapper.selectDogInfo(no);
+		member.setDog(dog);
+		/* 회원 예약정보 조회 */
+		List<ReservationManage> reservationList = memberManageMapper.selectReservationList(no);
+		for(ReservationManage r : reservationList) {
+			if(r.getDogNo() == 0) {
+				Dog inputDog = memberManageMapper.selectDogInputInfo(r.getReservationNo());		
+				r.setDog(inputDog);
+			} else {
+				r.setDog(memberManageMapper.selectDogInfo(no));	
+			}
+		}
+		
+		member.setReservation(reservationList);
+		
+		return member;
 	}
 
 }

@@ -82,6 +82,9 @@
 				 WHERE RESERVATION_STATUS LIKE '%'||#{searchKeyword}||'%'		 
 				 </if>	
 				 <choose>
+				 <when test="sort == 5">
+				 ORDER BY TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99')) T)
+				 </when>
 				 <when test="sort == 6">
 				 ORDER BY R.TNO, TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99') DESC) T)
 				 </when>
@@ -184,7 +187,7 @@
 		 </if>	
 		 <if test="sort == 5">
 		 WHERE TO_CHAR(RESERVATION_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
-		 ORDER BY TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99')
+		 ORDER BY TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99') 
 		 </if>	
 		 <if test="sort == 6">
 		 WHERE TO_CHAR(RESERVATION_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
