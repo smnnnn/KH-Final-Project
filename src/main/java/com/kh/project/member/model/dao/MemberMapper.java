@@ -20,6 +20,10 @@ public interface MemberMapper {
 	int idCheck(String userId);
 
 	String idFind(String name, String email);
+
+	void withdrawal(String reason, String opinions);
+
+	void updateaccSecssionYn(Member member);
 	
 	
 	

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -180,51 +180,51 @@
                <form id="myPageForm" th:action="@{/member/myPage}" method="post" onsubmit="return validate();"> 
 
                 <label for="userid" class="label">아이디 </label> 
-                <input class ="input all" type="text" name="id" size="20" minlength="8" maxlength="10"  readonly>
+                <input class ="input all" type="text" name="id" size="20" minlength="8" maxlength="10" value="${user.id}"  readonly>
                 <br>
                 <label for="userpwd" class="label">비밀번호 </label> 
-                <input class ="input all" type="password" name="pwd" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요">
+                <input class ="input all" type="password" name="pwd" minlength="8" maxlength="15"  value="${user.pwd}" placeholder="비밀번호를 입력하세요">
                 <label id="pwdCheck_div">&nbsp;</label>
                 <br>
                 <label for="userpwd" class="label">비밀번호 재확인 </label> 
-                <input class ="input all" type="password" name="pwd2" maxlength="15" placeholder="비밀번호를 입력하세요">
+                <input class ="input all" type="password" name="pwd2" maxlength="15" value="${user.pwd}" placeholder="비밀번호를 입력하세요">
                 <label id="pwdCheck_div2">&nbsp;</label>
                 <br>
                 <label for="username" class="label">이름 </label> 
-                <input class ="input all" type="text" name="name" readonly>
+                <input class ="input all" type="text" name="name" value="${user.name}" readonly>
                 <br>
                 <label for="phone" class="label">휴대폰 번호 </label> 
-                <input class ="input all" type="tel" name="phone" placeholder="-없이 입력">
+                <input class ="input all" type="tel" name="phone" value="${user.phone}" placeholder="-없이 입력">
                 <label id="phoneCheck_div">&nbsp;</label>
                 <br>
                 <label for="phone" class="label">이메일 </label> 
-                <input class ="input all" type="email" name="email" id="email" placeholder="@포함하여 전부 입력" required>
+                <input class ="input all" type="email" name="email" id="email" value="${user.email}" placeholder="@포함하여 전부 입력" required>
                 <label id="emailCheck_div">&nbsp;</label>
                
                 <br>
                 <label class="label">주소 </label> 
                 <input type="text" name="address"
                 class ="postcodify_postcode5 select all" placeholder="우편번호" readonly>
-                <button type="button" class="button1" id="postcodify_search_button">검색</button>
+                <button type="button" class="button1" value="${user.address}" id="postcodify_search_button">검색</button>
                 <br>
                 <label class="label"> </label> 
                 <input type="text" name="address"
-                class ="postcodify_address input2 all" placeholder="도로명주소" readonly>
+                class ="postcodify_address input2 all" value="${user.address}" placeholder="도로명주소" readonly>
                 <br>
                 <label class="label"> </label> 
                 <input type="text" name="address"
-                class ="postcodify_details input2 all" placeholder="상세주소">
+                class ="postcodify_details input2 all" value="${user.address}" placeholder="상세주소">
                 <br>
                 <label for="petname" class="label">반려견 이름 </label>
-                <input class ="input all" type="text" name="petName" placeholder="반려견이름"> 
+                <input class ="input all" type="text" name="petName" value="${user.petName}" placeholder="반려견이름"> 
                 <label id="petNameCheck_div">&nbsp;</label> 
                 <br>
                 <label for="petage" class="label">반려견 나이 </label> 
-                <input class ="input all" type="text" name="petAge" placeholder="반려견나이">
+                <input class ="input all" type="text" name="petAge" value="${user.petAge}" placeholder="반려견나이">
                 <label id="petAgeCheck_div">&nbsp;</label>
                 <br>
                 <label for="petBreed" class="label">견종 </label> 
-                <select class ="input all" name="breed" required>
+                <select class ="input all" name="breed" required value="${user.breed}" >
                     <option value="골든 리트리버">골든 리트리버</option>
                     <option value="말티즈">말티즈</option>
                     <option value="비글">비글</option>
@@ -238,14 +238,14 @@
                     <option value="기타">기타</option>
                 </select>  
                 <br>
-                <label for="neuteredStatus" class="label">중성화 유무 </label> 
+                <label for="neuteredStatus" class="label" value="${user.breed}">중성화 유무 </label> 
                 <select class ="select all" name="status" required>
                     <option value="예">예</option> 
                     <option value="아니요">아니요</option> 
                     <option value="모름">모름</option> 
                 </select>  
                 <br>
-                 <label for="petGender" class="label" name="petGender" >반려견 성별 </label> 
+                 <label for="petGender" class="label" name="petGender" value="${user.breed}">반려견 성별 </label> 
                 <select class ="select all" name="petGender" required>
                     <option value="암">암</option> 
                     <option value="수">수</option> 

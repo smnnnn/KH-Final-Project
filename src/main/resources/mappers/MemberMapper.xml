@@ -66,6 +66,7 @@
 		LEFT JOIN MEMBER_ROLE B ON (A.USER_NO = B.USER_NO)
 		LEFT JOIN AUTHORITY C ON (B.AUTHORITY_CODE = C.AUTHORITY_CODE)
 		WHERE A.USER_ID =  #{ userId }	
+		 and = A.ACC_SECESSION_YN = 'N' <!--  -->
 	</select>
 	
 	
@@ -165,11 +166,32 @@
 	FROM MEMBER
 	WHERE USER_NAME = #{userName}
 	  AND EMAIL = #{email}	
+	  and = A.ACC_SECESSION_YN = 'N' <!--  -->
 	</select>
 
 
 
-
+	<insert id="withdrawal" parameterType="com.kh.project.member.model.vo.WithdrawalReason">
+	INSERT
+			INTO WITHDRAWAL_REASON
+			(
+			  USER_NO
+			  , ACC_SECESSION_REASON
+			  , OTHER_OPINIONS
+			)
+			VALUES
+			(
+			  SEQ_USER_NO.CURRVAL
+			  , #{ reason }
+			  , #{ opinions }
+			)			
+	</insert>
+	
+	<update id="updateaccSecssionYn" parameterType="com.kh.project.member.model.vo.Member">
+		UPDATE MEMBER
+		SET ACC_SECESSION_YN = 'Y'
+		WHERE USER_NO = SEQ_USER_NO.CURRVAL
+	</update>
 
 
 
