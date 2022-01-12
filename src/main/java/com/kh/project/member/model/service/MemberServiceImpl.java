@@ -91,7 +91,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		/* TBL_MEMBER_ROLE_INSERT */    //유저가 가진 어솔리티도 인서트 되어야 함
 		MemberRole memberRole = new MemberRole(); // 인서트  MemberRole 형식
-		memberRole.setAuthorityCode(1);
+		memberRole.setAuthorityCode(1);  //?
 		memberMapper.insertMemberRole(memberRole);
 		
 		DogInformation dogInformation = new DogInformation();
@@ -113,5 +113,19 @@ public class MemberServiceImpl implements MemberService{
 	public String idFind(String name, String email) {
 		return memberMapper.idFind(name, email);
 	}
+
+
+
+	@Override
+	public void withdrawal(String reason, String opinions) {
+		
+		memberMapper.withdrawal(reason, opinions);
+		Member member = new Member();
+		memberMapper.updateaccSecssionYn(member);
+		
+	}
+
+
+	
 
 }

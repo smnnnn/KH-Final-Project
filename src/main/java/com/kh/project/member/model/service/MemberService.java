@@ -13,4 +13,6 @@ public interface MemberService extends UserDetailsService{
 
 	String idFind(String name, String email);
 
+	void withdrawal(String reason, String opinions);
+
 }

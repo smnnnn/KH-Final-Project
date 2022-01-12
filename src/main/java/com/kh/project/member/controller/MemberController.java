@@ -58,7 +58,7 @@ public class MemberController {
 	
 	
 	@ResponseBody
-	@PostMapping("/member/idFind")
+	@PostMapping("/idFind")
 	public String idFind(String name, String email ) {
 		
 		String result = memberService.idFind(name, email);
@@ -68,6 +68,18 @@ public class MemberController {
 		return result;
 
 	}
+	
+	
+
+	@PostMapping("/withdrawal")
+	public String withdrawal(String reason, String opinions ) {
+		
+		memberService.withdrawal(reason, opinions);
+	
+		return "redirect:/";
+
+	}
+	
 	
 	
 	@PostMapping("signUp")

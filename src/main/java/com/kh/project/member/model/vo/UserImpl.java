@@ -30,6 +30,12 @@ public class UserImpl extends User {
 	private String accSecssionYn;		//계정탈퇴여부
 	
 	
+	private String petName;
+	private int petAge;
+	private String breed;
+	private String status;
+	private String petGender;
+	
 	
 	public UserImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
@@ -57,13 +63,43 @@ public class UserImpl extends User {
 			this.accLockYn = member.getAccLockYn();
 			this.accSecssionDatetime = member.getAccSecssionDatetime();
 			this.accSecssionYn = member.getAccSecssionYn();
+			this.petName = member.getPetName();
+			this.petAge = member.getPetAge();
+			this.breed = member.getBreed();
+			this.status = member.getStatus();
+			this.petGender = member.getPetGender();
 			
 		}
 
+//		public UserImpl(String username, String password, Collection<? extends GrantedAuthority> authorities, int no,
+//				String id, String pwd, String tempPwdYn, Date pwdChangedDatetime, String name, String phone, String email,
+//				String address, Date registDatetime, Date modifyDatetime, int loginFailedCount, Date accLockTime,
+//				String accLockYn, Date accSecssionDatetime, String accSecssionYn, List<MemberRole> memberRoleList) {
+//			super(username, password, authorities);
+//			this.no = no;
+//			this.id = id;
+//			this.pwd = pwd;
+//			this.tempPwdYn = tempPwdYn;
+//			this.pwdChangedDatetime = pwdChangedDatetime;
+//			this.name = name;
+//			this.phone = phone;
+//			this.email = email;
+//			this.address = address;
+//			this.registDatetime = registDatetime;
+//			this.modifyDatetime = modifyDatetime;
+//			this.loginFailedCount = loginFailedCount;
+//			this.accLockTime = accLockTime;
+//			this.accLockYn = accLockYn;
+//			this.accSecssionDatetime = accSecssionDatetime;
+//			this.accSecssionYn = accSecssionYn;
+//			this.memberRoleList = memberRoleList;
+//		}
+
 		public UserImpl(String username, String password, Collection<? extends GrantedAuthority> authorities, int no,
-				String id, String pwd, String tempPwdYn, Date pwdChangedDatetime, String name, String phone, String email,
-				String address, Date registDatetime, Date modifyDatetime, int loginFailedCount, Date accLockTime,
-				String accLockYn, Date accSecssionDatetime, String accSecssionYn, List<MemberRole> memberRoleList) {
+				String id, String pwd, String tempPwdYn, Date pwdChangedDatetime, String name, String phone,
+				String email, String address, Date registDatetime, Date modifyDatetime, int loginFailedCount,
+				Date accLockTime, String accLockYn, Date accSecssionDatetime, String accSecssionYn, String petName,
+				int petAge, String breed, String status, String petGender, List<MemberRole> memberRoleList) {
 			super(username, password, authorities);
 			this.no = no;
 			this.id = id;
@@ -81,8 +117,15 @@ public class UserImpl extends User {
 			this.accLockYn = accLockYn;
 			this.accSecssionDatetime = accSecssionDatetime;
 			this.accSecssionYn = accSecssionYn;
+			this.petName = petName;
+			this.petAge = petAge;
+			this.breed = breed;
+			this.status = status;
+			this.petGender = petGender;
 			this.memberRoleList = memberRoleList;
 		}
+		
+		
 		
 		
 	
