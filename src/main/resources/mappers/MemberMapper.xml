@@ -122,15 +122,49 @@
 			(
 			  SEQ_USER_NO.CURRVAL
 			  , #{ authorityCode }
-			)
-			
+			)		
 	</insert>
+	
+	<insert id="insertDogInformaion" parameterType="com.kh.project.member.model.vo.DogInformation">
+		INSERT
+			INTO DOG_INFORMATION
+			(
+			  DOG_NO
+			  , DOG_NAME
+			  , DOG_AGE
+			  , BREED
+			  , NEUTERED_STATUS
+			  , DOG_GENDER
+			  , USER_NO
+			)
+			VALUES
+			(
+			  SEQ_DOG_NO.NEXTVAL
+			  , #{ petName }
+			  , #{ petAge }
+			  , #{ breed }
+			  , #{ status }
+			  , #{ petGender }
+			  , SEQ_USER_NO.CURRVAL
+			)		
+	</insert>
+
+
 
 	<select id="idCheck" parameterType="string" resultType="_int">
 		select 
     count(*)
     FROM MEMBER
     WHERE USER_ID = #{userId}
+	</select>
+	
+	
+	<select id="idFind" parameterType="String" resultType="_string">
+	SELECT
+		USER_ID
+	FROM MEMBER
+	WHERE USER_NAME = #{userName}
+	  AND EMAIL = #{email}	
 	</select>
 
 

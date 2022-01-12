@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.project.member.model.dao.MemberMapper;
 import com.kh.project.member.model.vo.Authority;
+import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.MemberRole;
 import com.kh.project.member.model.vo.UserImpl;
@@ -93,6 +94,8 @@ public class MemberServiceImpl implements MemberService{
 		memberRole.setAuthorityCode(1);
 		memberMapper.insertMemberRole(memberRole);
 		
+		DogInformation dogInformation = new DogInformation();
+		memberMapper.insertDogInformaion(dogInformation);
 		
 		
 	}
@@ -102,6 +105,13 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int idCheck(String userId) {
 		return memberMapper.idCheck(userId);
+	}
+
+
+
+	@Override
+	public String idFind(String name, String email) {
+		return memberMapper.idFind(name, email);
 	}
 
 }

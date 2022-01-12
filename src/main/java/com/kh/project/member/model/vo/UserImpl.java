@@ -18,7 +18,7 @@ public class UserImpl extends User {
 	private String tempPwdYn;			//임시비밀번호여부
 	private Date pwdChangedDatetime;	//회원비밀번호변경일자
 	private String name;				//회원이름
-	private int phone;
+	private String phone;
 	private String email;
 	private String address;
 	private Date registDatetime;		//회원가입일시
@@ -61,7 +61,7 @@ public class UserImpl extends User {
 		}
 
 		public UserImpl(String username, String password, Collection<? extends GrantedAuthority> authorities, int no,
-				String id, String pwd, String tempPwdYn, Date pwdChangedDatetime, String name, int phone, String email,
+				String id, String pwd, String tempPwdYn, Date pwdChangedDatetime, String name, String phone, String email,
 				String address, Date registDatetime, Date modifyDatetime, int loginFailedCount, Date accLockTime,
 				String accLockYn, Date accSecssionDatetime, String accSecssionYn, List<MemberRole> memberRoleList) {
 			super(username, password, authorities);

@@ -233,7 +233,7 @@
                 <div class="dd"><label class="label">회원탈퇴 사유</label><br><br></div>
                <label class="etc">회원 탈퇴 사유를 한 가지 선택해주십시오</label><br><br><br>
                
-               <!-- <form id="withdrawalForm" th:action="@{/member/withdrawal}" method="post" onsubmit="return validate();"> -->
+               <form id="withdrawalForm" th:action="@{/member/withdrawal}" method="post" onsubmit="return validate();"> 
 
                <label class="test_obj reason">
                <input type="radio" name="reason" value="아이디 변경"><span>아이디 변경</span>
@@ -262,7 +262,7 @@
 
 
                <label class="label2">개선사항</label>
-               <textarea rows="10" cols="125" placeholder="기타 의견을 작성하여 주십시오" maxlength="250"></textarea><br><br><br>
+               <textarea rows="10" cols="125" name="opinions" placeholder="기타 의견을 작성하여 주십시오" maxlength="250"></textarea><br><br><br>
                <div class="labeldiv"><label class="etc">회원 탈퇴 시 더이상 다나은 동물병원의 온라인 혜택을 받으실 수 없습니다.</label><br><br></div>
 
                <input type="checkbox" class="check" id="check"><label for="check" class="checklabel">위 내용을 모두 숙지하였으며, 회원 탈퇴 진행을 동의하십니까 ? </label>
@@ -271,10 +271,10 @@
                <br><br><br><br>     
                
                <input type="button" class="button btn2" value="취소">
-               <input type="button" class="button btn1" value="확인"> <br><br>
+               <input type="submit" id="withdrawalCheck" class="button btn1" value="확인" > <br><br>
                
 
-				<!-- </form> -->
+				</form> 
                <br><br><br>
                
 
@@ -288,7 +288,21 @@
 
 
 
+<script>
 
+function validate(){
+
+	if($("input:checkbox[name=]").is(":checked") == true){
+		return true;
+	}else{
+		alert("회원탈퇴 동의에 체크하여 주십시오");
+		return false;
+	}
+	
+}
+
+
+</script>
 
 
 

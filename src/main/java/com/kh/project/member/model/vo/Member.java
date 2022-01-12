@@ -36,7 +36,7 @@ public class Member {
 	private String tempPwdYn;			//임시비밀번호여부
 	private Date pwdChangedDatetime;	//회원비밀번호변경일자
 	private String name;				//회원이름
-	private int phone;
+	private String phone;
 	private String email;
 	private String address;
 	private Date registDatetime;		//회원가입일시
