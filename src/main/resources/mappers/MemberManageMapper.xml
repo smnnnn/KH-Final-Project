@@ -45,13 +45,13 @@
 		<result property="reservationTime" column="RESERVATION_TIME"/>
 		<result property="symptom" column="SYMPTOM"/>
 		<result property="reservationStatus" column="RESERVATION_STATUS"/>
+		<result property="dogNo" column="RES_DOG_NO"/>
 		<association property="dog" javaType="com.kh.project.admin.reservationManage.model.vo.Dog">
-			<id property="no" column="RES_DOG_NO"/>
+			<id property="no" column="RES_DOG_NO2"/>
 			<result property="name" column="RES_DOG_NAME"/>
 			<result property="breed" column="RES_BREED"/>
 			<result property="gender" column="RES_DOG_GENDER"/>
-			<result property="age" column="RES_DOG_AGE"/>
-			<result property="neuteredStatus" column="RES_NEUTERED_STATUS"/>		
+			<result property="age" column="RES_DOG_AGE"/>		
 		</association>
 	</resultMap>
 	
@@ -91,6 +91,55 @@
 		  FROM DOG_INFORMATION
 		 WHERE USER_NO = #{no}
 	</select>
+	
+	<select id="selectMemberByNo" resultMap="memberResultMap">
+		SELECT
+		        USER_NO
+		      , USER_ID
+		      , USER_NAME
+		      , PHONE
+		      , EMAIL
+		      , ADDRESS
+		      , ENROLL_DATETIME
+		      , ACC_SECESSION_YN
+		      , ACC_SECESSION_DATETIME
+		      , ACC_SECESSION_REASON
+		      , OTHER_OPINIONS	
+		   FROM MEMBER
+		   LEFT JOIN WITHDRAWAL_REASON USING(USER_NO)	 
+		  WHERE USER_NO = #{no}     
+	</select>
+	
+	<select id="selectReservationList" resultMap="reservationResultMap">
+		SELECT
+		       RESERVATION_NO
+		     , R.TNO
+		     , RESERVATION_DATE
+		     , RESERVATION_TIME
+		     , SYMPTOM
+		     , RESERVATION_STATUS
+		     , VNAME
+		     , DOG_NO RES_DOG_NO
+		  FROM RESERVATION_INFORMATION R
+		  JOIN VETERINARIAN USING(VNO)
+		 WHERE R.USER_NO = #{no}
+		 ORDER BY 3 DESC, TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99') DESC	     
+	</select>
+	
+	<select id="selectDogInputInfo" resultMap="dogResultMap">
+		SELECT 
+		       IN_DOG_NAME DOG_NAME
+		     , IN_BREED BREED
+		     , IN_DOG_GENDER DOG_GENDER
+		     , IN_DOG_AGE DOG_AGE
+		  FROM DOG_INFORMATION_INPUT 
+		 WHERE RESERVATION_NO = #{ rno }
+	</select>
+
+
+	
+	
+	
 	
 	
 	
