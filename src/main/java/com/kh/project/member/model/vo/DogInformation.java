@@ -15,7 +15,7 @@ public class DogInformation {
 	private String breed;
 	private String status;
 	private String petGender;
-	private int memberNo;
+	private int userNo;
 	
 //필드명 html name 일치 시켜야 자동 넣어줌 안 그면 일치값없음
 	

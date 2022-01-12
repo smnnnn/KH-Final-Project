@@ -14,6 +14,8 @@
     <!-- 공통 js -->
     <script type="text/javascript" src="/js/common.js"></script>
 
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 
 <title>다나은 동물병원</title>
 <style>
@@ -174,100 +176,331 @@
 
 
                <button class="Withdraw" th:onclick="|location.href='@{/member/Withdrawal}'|">탈퇴하기</button><br><br><br>
-
-				<!-- <form id="myPageForm" th:action="@{/member/myPage}" method="post" onsubmit="return validate();"> -->
+               
+               <form id="myPageForm" th:action="@{/member/myPage}" method="post" onsubmit="return validate();"> 
 
                 <label for="userid" class="label">아이디 </label> 
-                <input class ="input all" type="text" name="userid" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요" readonly>
-                <input type="button" class="button1" value="중복확인">  
+                <input class ="input all" type="text" name="id" size="20" minlength="8" maxlength="10"  readonly>
                 <br>
                 <label for="userpwd" class="label">비밀번호 </label> 
-                <input class ="input all" type="password" name="userpwd" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요">
+                <input class ="input all" type="password" name="pwd" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요">
+                <label id="pwdCheck_div">&nbsp;</label>
                 <br>
                 <label for="userpwd" class="label">비밀번호 재확인 </label> 
-                <input class ="input all" type="password" name="userpwd2" maxlength="15" placeholder="비밀번호를 입력하세요">
+                <input class ="input all" type="password" name="pwd2" maxlength="15" placeholder="비밀번호를 입력하세요">
+                <label id="pwdCheck_div2">&nbsp;</label>
                 <br>
                 <label for="username" class="label">이름 </label> 
-                <input class ="input all" type="text" name="username" placeholder="이름입력">
+                <input class ="input all" type="text" name="name" readonly>
                 <br>
                 <label for="phone" class="label">휴대폰 번호 </label> 
                 <input class ="input all" type="tel" name="phone" placeholder="-없이 입력">
+                <label id="phoneCheck_div">&nbsp;</label>
                 <br>
                 <label for="phone" class="label">이메일 </label> 
                 <input class ="input all" type="email" name="email" id="email" placeholder="@포함하여 전부 입력" required>
+                <label id="emailCheck_div">&nbsp;</label>
                
                 <br>
                 <label class="label">주소 </label> 
                 <input type="text" name="address"
-                class ="select all" placeholder="우편번호" readonly>
+                class ="postcodify_postcode5 select all" placeholder="우편번호" readonly>
                 <button type="button" class="button1" id="postcodify_search_button">검색</button>
                 <br>
                 <label class="label"> </label> 
                 <input type="text" name="address"
-                class ="input2 all" placeholder="도로명주소" readonly>
+                class ="postcodify_address input2 all" placeholder="도로명주소" readonly>
                 <br>
                 <label class="label"> </label> 
                 <input type="text" name="address"
-                class ="input2 all" placeholder="상세주소">
+                class ="postcodify_details input2 all" placeholder="상세주소">
                 <br>
                 <label for="petname" class="label">반려견 이름 </label>
-                <input class ="input all" type="text" name="petname" placeholder="반려견이름">  <button>추가1</button> <button>추가2</button>
+                <input class ="input all" type="text" name="petName" placeholder="반려견이름"> 
+                <label id="petNameCheck_div">&nbsp;</label> 
                 <br>
                 <label for="petage" class="label">반려견 나이 </label> 
-                <input class ="input all" type="text" name="petage" placeholder="반려견나이">
+                <input class ="input all" type="text" name="petAge" placeholder="반려견나이">
+                <label id="petAgeCheck_div">&nbsp;</label>
                 <br>
-                <label for="petbreed" class="label">견종 </label> 
-                <select class ="input all" ></select>  
+                <label for="petBreed" class="label">견종 </label> 
+                <select class ="input all" name="breed" required>
+                    <option value="골든 리트리버">골든 리트리버</option>
+                    <option value="말티즈">말티즈</option>
+                    <option value="비글">비글</option>
+                    <option value="시바 이누">시바 이누</option>
+                    <option value="시베리안 허스키">시베리안 허스키</option>
+                    <option value="시츄">시츄</option>
+                    <option value="요크셔테리어">요크셔테리어</option>
+                    <option value="진돗개">진돗개</option>
+                    <option value="푸들">푸들</option>
+                    <option value="포메라니언">포메라니언</option>
+                    <option value="기타">기타</option>
+                </select>  
                 <br>
-                <label for="petbreed" class="label">중성화 유무 </label> 
-                <select class ="select all"></select>  
+                <label for="neuteredStatus" class="label">중성화 유무 </label> 
+                <select class ="select all" name="status" required>
+                    <option value="예">예</option> 
+                    <option value="아니요">아니요</option> 
+                    <option value="모름">모름</option> 
+                </select>  
                 <br>
-                <label for="petbreed" class="label">반려견 성별 </label> 
-                <select class ="select all"></select>  
+                 <label for="petGender" class="label" name="petGender" >반려견 성별 </label> 
+                <select class ="select all" name="petGender" required>
+                    <option value="암">암</option> 
+                    <option value="수">수</option> 
+                    <option value="모름">모름</option>
+                </select>   
                 <br><br>
 
-                <label for="petname" class="label">반려견 이름 </label> 
-                <input class ="input all" type="text" name="petname" placeholder="반려견이름"> <button>삭제</button>
-                <br>
-                <label for="petage" class="label">반려견 나이 </label> 
-                <input class ="input all" type="text" name="petage" placeholder="반려견나이">
-                <br>
-                <label for="petbreed" class="label">견종 </label> 
-                <select class ="input all" ></select>  
-                <br>
-                <label for="petbreed" class="label">중성화 유무 </label> 
-                <select class ="select all"></select>  
-                <br>
-                <label for="petbreed" class="label">반려견 성별 </label> 
-                <select class ="select all"></select>  
-                <br><br>
 
-                <label for="petname" class="label">반려견 이름 </label> 
-                <input class ="input all" type="text" name="petname" placeholder="반려견이름"> <button>삭제</button>
-                <br>
-                <label for="petage" class="label">반려견 나이 </label> 
-                <input class ="input all" type="text" name="petage" placeholder="반려견나이">
-                <br>
-                <label for="petbreed" class="label">견종 </label> 
-                <select class ="input all" ></select>  
-                <br>
-                <label for="petbreed" class="label">중성화 유무 </label> 
-                <select class ="select all"></select>  
-                <br>
-                <label for="petbreed" class="label">반려견 성별 </label> 
-                <select class ="select all"></select>  
-                <br><br>
-
-                
-                
-
-                <input type="button" class="button2" value="수정하기">   
-                <!-- </form> -->
+                <input type="submit" class="button2" value="수정하기">   
+                </form> 
 
             </div>
 
         </div>
 
+
+
+
+
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	
+
+	<!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
+	<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
+	
+	<script>
+   
+   
+		
+	
+        let userPwd = document.getElementById("userPwd");
+        let userPwd2 = document.getElementById("userPwd2");
+        let phone = document.getElementById("phone");
+        let email = document.getElementById("email");
+        let petName = document.getElementById("petName");
+        let petAge = document.getElementById("petAge");
+        
+        
+        let userPwdresult = document.getElementById("pwdCheck_div");
+        let userPwd2result = document.getElementById("pwdCheck_div2");
+        let phoneresult = document.getElementById("phoneCheck_div");
+        let emailresult = document.getElementById("emailCheck_div");
+        let petNameresult = document.getElementById("petNameCheck_div");
+        let petAgeresult = document.getElementById("petAgeCheck_div");
+        
+        
+        let pwdCheck = false;
+        let pwd2Check = false;
+        let phoneCheck = false;
+        let emailCheck = false;
+        let petNameCheck = false;
+        let petAgeCheck = false;
+        
+		
+
+		
+		
+		userPwd.onblur = function(){
+            let regExp = /(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}/;
+            if(regExp.test(this.value)) {
+                userPwdresult.classList.remove('invalid');
+                userPwdresult.innerHTML = '&nbsp;';
+                pwdCheck = true;
+            }
+            else {
+                userPwdresult.classList.add('invalid');
+                userPwdresult.innerHTML = '영문 대소문자 숫자 특수문자 포함 8~15 자리로 입력';
+                pwdCheck = false;
+            }
+            if(this.value == "") {
+                userPwdresult.innerHTML = '&nbsp;';
+                pwdCheck = false;
+            }
+        };
+        userPwd.onfocus = function(){
+            if(this.classList.contains('invalid')){
+                this.classList.remove('invalid');
+                userPwdresult.innerHTML = '&nbsp;';
+                pwdCheck = false;
+            }
+        }
+
+        userPwd2.onblur = function(){
+            if(this.value == userPwd.value) {
+                userPwd2result.classList.remove('invalid');
+                userPwd2result.innerHTML = '&nbsp;';
+                pwd2Check = true;
+            }
+            else {
+                userPwd2result.classList.add('invalid');
+                userPwd2result.innerHTML = '비밀번호가 일치하지 않습니다.';
+                pwd2Check = false;
+            }
+            if(this.value == "") {
+                userPwd2result.innerHTML = '&nbsp;';
+                pwd2Check = false;
+            }
+        };
+        userPwd2.onfocus = function(){
+            if(this.classList.contains('invalid')){
+                this.classList.remove('invalid');
+                userPwd2result.innerHTML = '&nbsp;';
+                pwd2Check = false;
+            }
+        }
+   
+        
+        email.onblur = function(){
+            let regExp = /^([a-zA-z0-9])+@([a-zA-Z])+\.[a-zA-Z]{2,3}/;
+            if(regExp.test(this.value)) {
+                emailresult.classList.remove('invalid');
+                emailresult.innerHTML = '&nbsp;';
+                emailCheck = true;
+            }
+            else {
+                emailresult.classList.add('invalid');
+                emailresult.innerHTML = '이메일 형식을 확인하세요.';
+                emailCheck = false;
+            }
+            if(this.value == "") {
+                emailresult.innerHTML = '&nbsp;';
+                emailCheck = false;
+            }
+        };
+        email.onfocus = function(){
+            if(this.classList.contains('invalid')){
+                this.classList.remove('invalid');
+                emailresult.innerHTML = '&nbsp;';
+                emailCheck = false;
+            }
+        }
+
+        phone.onblur = function(){
+            let regExp = /^01[0-9]{1,}$/;
+            if(regExp.test(this.value)) {
+                phoneresult.classList.remove('invalid');
+                phoneresult.innerHTML = '&nbsp;';
+                phoneCheck = true;
+            }
+            else {
+                phoneresult.classList.add('invalid');
+                phoneresult.innerHTML = '전화번호 형식을 확인하세요.';
+                phoneCheck = false;
+            }
+            if(this.value == "") {
+                phoneresult.innerHTML = '&nbsp;';
+                phoneCheck = false;
+            }
+        };
+
+        phone.onfocus = function(){
+            if(this.classList.contains('invalid')){
+                this.classList.remove('invalid');
+                phoneresult.innerHTML = '&nbsp;';
+                phoneCheck = false;
+            }
+        }
+		
+        
+        petName.onblur = function(){
+            let regExp = /^[가-힣]{1,}$/;
+            if(regExp.test(this.value)) {
+            	 petNameresult.classList.remove('invalid');
+            	 petNameresult.innerHTML = '&nbsp;';
+            	 petNameCheck = true;
+            }
+            else {
+            	 petNameresult.classList.add('invalid');
+            	 petNameresult.innerHTML = '한글로 1~10 자리로 입력하세요.';
+            	 petNameCheck = false;
+            }
+            if(this.value == "") {
+            	 petNameresult.innerHTML = '&nbsp;';
+            	 petNameCheck = false;
+            }
+        };
+        petName.onfocus = function(){
+            if(this.classList.contains('invalid')){
+                this.classList.remove('invalid');
+                petNameresult.innerHTML = '&nbsp;';
+                petNameCheck = false;
+            }
+        }
+        
+        
+        petAge.onblur = function(){
+            let regExp = /^[0-9]{1,}$/;
+            if(regExp.test(this.value)) {
+            	petAgeresult.classList.remove('invalid');
+            	petAgeresult.innerHTML = '&nbsp;';
+            	petAgeCheck = true;
+            }
+            else {
+            	petAgeresult.classList.add('invalid');
+            	petAgeresult.innerHTML = '숫자로만 입력하세요';
+            	petAgeCheck = false;
+            }
+            if(this.value == "") {
+            	petAgeresult.innerHTML = '&nbsp;';
+            	petAgeCheck = false;
+            }
+        };
+
+        petAge.onfocus = function(){
+            if(this.classList.contains('invalid')){
+                this.classList.remove('invalid');
+                petAgeresult.innerHTML = '&nbsp;';
+                petAgeCheck = false;
+            }
+        }	
+        
+        
+        
+        function validate(){
+			
+			if(pwdCheck == false){
+				console.log("정보수정 불가");
+				userPwd.focus();
+				return;
+			}
+			if(pwd2Check == false){
+				console.log("정보수정 불가");
+				userPwd2.focus();
+				return;
+			}
+			
+			if(phoneCheck == false){
+				console.log("정보수정 불가");
+				phone.focus();
+				return;
+			}
+			if(emailCheck == false){
+				console.log("정보수정 불가");
+				email.focus();
+				return;
+			}
+			if(petNameCheck == false){
+				console.log("정보수정 불가");
+				console.log(petNameCheck);
+				petName.focus();
+				return;
+			}
+			if(petAgeCheck == false){
+				console.log("정보수정 불가");
+				console.log(petAgeCheck);
+				petAge.focus();
+				return;
+			}
+			else{
+				console.log("정보수정 가능");
+				document.forms.joinForm.submit();
+			}
+		}
+        
+	</script>
 
 
 

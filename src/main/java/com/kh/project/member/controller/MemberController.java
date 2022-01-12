@@ -56,6 +56,20 @@ public class MemberController {
 	}
 	
 	
+	
+	@ResponseBody
+	@PostMapping("/member/idFind")
+	public String idFind(String name, String email ) {
+		
+		String result = memberService.idFind(name, email);
+	
+		
+		//
+		return result;
+
+	}
+	
+	
 	@PostMapping("signUp")
 	public String signUp(Member member) {    //요청하면서 넘어온 데이터를 넘겨야 함 name="id" 멤버 필드랑 이름 똑같이 함, 멤버 객체로 받아올 수 있음
 		

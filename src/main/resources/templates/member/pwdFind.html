@@ -17,6 +17,9 @@
     <!-- css -->
     <link type="text/css" rel="stylesheet" href="/css/member/pwdFind.css">
 
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+
 <title>다나은 동물병원</title>
 </head>
     <body>
@@ -33,7 +36,7 @@
 				<!-- <form id="pwdFindForm" th:action="@{/member/pwdFind}" method="post" onsubmit="return validate();"> -->
 
                <label class="label2">아이디 </label>
-               <input class ="name" type="text" name="userid" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요"><br>
+               <input class ="name" type="text" name="id" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요"><br>
     
                <label class="label2">이메일 </label>
                <input class ="email" type="email" name="email" id="email" placeholder="@포함하여 전부 입력" required>
