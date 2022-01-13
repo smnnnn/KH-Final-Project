@@ -148,7 +148,7 @@
                 </div>
 
 
-                    <textarea id="summernote" name="rvcontent"></textarea>
+                    <textarea id="summernote" name="rvcontent" onchange="onlyText();"></textarea>
                     <script>
                       $('#summernote').summernote({
                         // placeholder: 'Hello stand alone ui',
@@ -199,6 +199,15 @@
                       	});
                     }
  */                     
+ 
+ 					function onlyText(){
+	 
+	 					let intro = document.getElementById("intro");
+	 					var plainText = $($("#summernote").summernote("code")).text();
+
+	 					intro.value = plainText;
+ 					}
+ 
                     </script>
 				<br>
 				
@@ -208,7 +217,7 @@
                     <button class="btn btnSpace" type="button" id="gotoList" onclick="location.href='/review/list'">목록으로</button>
                     <button class="btn" id="write" type="submit">작성하기</button>                  
                 </div>
-                
+                <input id="intro" name="intro" type="hidden">
               </form>
             </div>
         </div>

@@ -114,7 +114,7 @@ public class ReviewController {
 	@PostMapping("insert") 
 	public String addReview(@RequestParam MultipartFile thumbnail, 
 							HttpServletRequest request) throws IllegalStateException, IOException {
-		
+		String intro = request.getParameter("intro");
 		String rvtitle = request.getParameter("rvtitle");
 		String rvcontent = request.getParameter("rvcontent");
 		int tno = Integer.parseInt(request.getParameter("tno"));
@@ -128,6 +128,8 @@ public class ReviewController {
 		review.setResNo(resNo);
 		review.setUserNo(userNo);
 		
+		log.info("intro {}", intro);
+		log.info("rvtitle {}", rvtitle);
 		log.info("before insert review {}", review);
 		
 		if(thumbnail != null){
@@ -228,17 +230,13 @@ public class ReviewController {
 		review.setRvtitle(rvtitle);
 		review.setRvcontent(rvcontent);
 		
-		/*ReviewUpload rvUpload = new ReviewUpload();
-		rvUpload.setChangedName(changedName);
+		/* 밑에서 계속 쓰이는 것들 */
+		ReviewUpload reviewUpload = new ReviewUpload();				
+		String root = request.getSession().getServletContext().getRealPath("/");
+		String uploadPath = root + "uploadFiles\\review";
 		
-		review.setThumbnail(rvUpload);*/
-		
-		
-				
-		/* 파일 정보 */
+		/* 첨부 파일 있을시 파일 정보 */
 		if(thumbnail != null) {
-			String root = request.getSession().getServletContext().getRealPath("/");
-			String uploadPath = root + "uploadFiles\\review";
 			
 			if(!thumbnail.isEmpty()){
 				/* 파일명 확인 */
@@ -254,8 +252,7 @@ public class ReviewController {
 				thumbnail.transferTo(new File(uploadPath + "\\" + savedName));		
 				
 				/* 테이블 값 수정 */
-				ReviewUpload reviewUpload = new ReviewUpload();
-		
+
 				reviewUpload.setChangedName(savedName);
 				reviewUpload.setOriginName(originFileName);
 				reviewUpload.setFilePath("/uploadFiles/review/");
@@ -276,10 +273,19 @@ public class ReviewController {
 		if(result > 0) {
 			log.info("수정 성공");
 			/* 수정 성공시 덮어쓰기 된 사진 삭제 */
+			if(reviewUpload.getDeletedName() != null) {
+				File deletedFile = new File(uploadPath + reviewUpload.getDeletedName());
+				deletedFile.delete();
+			}
 			
 		} else {
 			log.info("수정 실패");
 			/* 수정 실패 시 수정을 위해 첨부된 사진 삭제 */
+			if(reviewUpload != null) {
+				File failedFile = new File(uploadPath + reviewUpload.getChangedName());
+				failedFile.delete();
+			}
+			
 		}
 		
 		return "redirect:/review?rvno=" + rvno;
