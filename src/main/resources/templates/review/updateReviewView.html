@@ -212,7 +212,7 @@
 				<div class="img_area">
 					<img class="thumbnail" width="220px" th:src="${review.thumbnail.filePath}+${review.thumbnail.changedName}">
 				</div>
-					썸네일 수정 : <input type="file" name="thumbnail" accept="image/gif,image/jpeg,image/png"/>
+					썸네일 수정 : <input type="file" id="thumbnail" name="thumbnail" accept="image/gif,image/jpeg,image/png"/>
                 <div class="btnArea"> 
                     <button class="btn btnSpace" type="button" id="gotoList" th:onclick="|location.href='@{/review(rvno=${review.rvno})}'|">이전으로</button>
                     <button class="btn" id="write" type="submit">수정하기</button>              
@@ -229,19 +229,21 @@
 
 <script>
 	/* input type file 요소 */
-	const fileElement = document.querySelector("input[type=file]");
+	const fileElement = document.querySelector("#thumbnail");
+	console.log(fileElement);
 	/* div image_area 요소 */
 	const imageArea = document.querySelector(".img_area");
+	console.log(imageArea);
 	/* input type file 요소에 change 이벤트 발생 시 (파일 첨부 발생) */
 	fileElement.addEventListener('change', preview);
-	function preview() {
-	
+	function preview(event) {
+			console.log(event.target);
 			console.log("왜안돼")
 			
 			let reader = new FileReader();			
-			reader.readAsDataURL(file);
+			reader.readAsDataURL(fileElement.files[0]);
 			reader.onload = function(){
-			imageArea.innerHTML = "<img src='" + reader.result + "'>'";
+			imageArea.innerHTML = "<img width='220px;' src='" + reader.result + "'>'";
 	
 		}
 	}
