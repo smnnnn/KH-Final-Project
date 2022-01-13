@@ -114,7 +114,7 @@ public class ReviewController {
 	@PostMapping("insert") 
 	public String addReview(@RequestParam MultipartFile thumbnail, 
 							HttpServletRequest request) throws IllegalStateException, IOException {
-		String intro = request.getParameter("intro");
+
 		String rvtitle = request.getParameter("rvtitle");
 		String rvcontent = request.getParameter("rvcontent");
 		int tno = Integer.parseInt(request.getParameter("tno"));
@@ -127,9 +127,7 @@ public class ReviewController {
 		review.setTno(tno);
 		review.setResNo(resNo);
 		review.setUserNo(userNo);
-		
-		log.info("intro {}", intro);
-		log.info("rvtitle {}", rvtitle);
+
 		log.info("before insert review {}", review);
 		
 		if(thumbnail != null){
