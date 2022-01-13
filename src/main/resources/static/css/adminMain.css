@@ -345,6 +345,7 @@ PAGING
 }
 .text-area > input{
     padding: 0 5px;
+    border: 1px solid #eeeeee;
 }
 
 .btns{
@@ -474,6 +475,16 @@ tr.colored > td:last-child > a.deleteele:hover{
 .text-area > select{
     width: 180px;
 }
+.textsty{
+    margin: 10px 0;
+    width: 310px;
+    height: 60px;
+    resize: none;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #eeeeee;
+}
+
 
 /* 문의관리 페이지 */
 .conditionarea{
@@ -652,6 +663,7 @@ tr.colored > td:last-child > a.deleteele:hover{
     height: 150px;
     resize: none;
     background-color: #fff;
+    padding: 5px;
 }
 .textsyl{
     margin-bottom: 10px;
