@@ -41,7 +41,7 @@
 
 			<form id="idFindForm" th:action="@{/member/idFind}" method="post">
 				<label class="label2">이름 </label> <input class="name" type="text"
-					name="name" size="20" maxlength="10" placeholder="이름을 입력하세요"><br>
+					name="name" id="name" size="20" maxlength="10" placeholder="이름을 입력하세요"><br>
 
 				<label class="label2">이메일 </label> <input class="email" type="email"
 					name="email" id="email" placeholder="@포함하여 전부 입력" required>
@@ -52,7 +52,7 @@
 				<br>
 				<br> <input type="button" class="button btn1"
 					th:onclick="|location.href='@{/member/login}'|" value="이전으로">
-				<input type="button" class="button btn2" value="확인"><br>
+				<input type="button" id="idFindForm" class="button btn2" value="확인"><br>
 				<br> <label class="label2">비밀번호를 찾으시나요 ? </label> <a
 					class="a a1" th:href="@{/member/pwdFind}">비밀번호 찾기 > </a> <br>
 				<br>
@@ -76,10 +76,14 @@
 	<script>
 		$("#idFindForm input[type=button]").on('click', function(){
 			
-			var userName = $("[name=name]");
+			
+			let userNameresult = document.getElementById("name");
+			let emailresult = document.getElementById("email");
+			
+			var name = $("[name=name]");
 			var email = $("[name=email]");
 			
-			if(userName.val() != null && email.val() != null){
+			if(name.val() != null && email.val() != null){
 				
 				 var token = $("meta[name='_csrf']").attr("content");
 				  var header = $("meta[name='_csrf_header']").attr("content");
@@ -91,20 +95,20 @@
 					beforeSend : function(xhr){
 						xhr.setRequestHeader(header, token);
 					},
-					data : {userName : userName.val() ,
+					data : {name : name.val() ,
 							email : email.val()
 					},
 					success : function (result) {
 						console.log(result);
 						if(result == "null"){
 							alert("해당하는 아이디가 없습니다. 다시 확인하여 주십시오");
-							userName.focus();
+							userNameresult.focus();
 						}else{							
 								// 다시 아이디 입력 공간을 바꿀 수 있도록 처리
-								alert(result);
+								alert("아이디는 " + result + " 입니다");
 								
-								userName.innerHTML ="";   //attr 제이쿼리 메소드
-								email.innerHTML =""; 										
+								userNameresult.innerHTML ="";   //attr 제이쿼리 메소드
+								emailresult.innerHTML =""; 										
 						}
 					},
 					error : function (e) {
@@ -113,9 +117,8 @@
 					});			
 				}else{
 					alert("값을 입력하여 주십시오.");
-					userName.focus();
+					userNameresult.focus();
 				}	
-}
 		
 	}); 
 	    </script>

@@ -94,8 +94,10 @@ public class MemberServiceImpl implements MemberService{
 		memberRole.setAuthorityCode(1);  //?
 		memberMapper.insertMemberRole(memberRole);
 		
-		DogInformation dogInformation = new DogInformation();
-		memberMapper.insertDogInformaion(dogInformation);
+		/*
+		 * DogInformation dogInformation = new DogInformation();
+		 * memberMapper.insertDogInformaion(dogInformation);
+		 */
 		
 		
 	}
