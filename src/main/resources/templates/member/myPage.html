@@ -172,10 +172,9 @@
                 
                 <label class="label1">개인정보</label><br>
                <label class="etc">정보를 수정할 경우에는 <u>비밀번호를 꼭 다시 한 번 확인</u>하여 주십시오</label>
-				
+	
 
-
-               <button class="Withdraw" th:onclick="|location.href='@{/member/Withdrawal}'|">탈퇴하기</button><br><br><br>
+               <button class="Withdraw" type="button" th:onclick="|location.href='@{/member/Withdrawal}'|">탈퇴하기</button><br><br><br>
                
                <form id="myPageForm" th:action="@{/member/myPage}" method="post" onsubmit="return validate();"> 
 

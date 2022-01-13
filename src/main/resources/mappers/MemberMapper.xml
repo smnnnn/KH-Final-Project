@@ -23,6 +23,7 @@
 		
 		<collection property="memberRoleList" resultMap="memberRoleResultMap"/> <!-- 한사람의 정보가 들어가되 리스트 값만 매핑 -->
 		<!-- 매핑시켜야 함 테이블 3개 조인해야 함 -->	
+		<!-- <collection property="dogInformation" resultMap="dogInformationResultMap"/>  --><!-- 내가 추가 한 거 -->
 	</resultMap>
 	
 	
@@ -37,6 +38,19 @@
 		<result property="name" column="AUTHORITY_NAME"/>
 		<result property="desc" column="AUTHORITY_DESC"/>
 	</resultMap> 	
+	
+	<!-- <resultMap type="com.kh.project.member.model.vo.DogInformation" id="dogInformationResultMap">
+		<id property="no" column="DOG_NO"/>
+		<result property="petName" column="DOG_NAME"/>
+		<result property="petAge" column="AUTHORITY_DESC"/>
+		<result property="breed" column="AUTHORITY_DESC"/>
+		<result property="status" column="AUTHORITY_DESC"/>
+		<result property="petGender" column="AUTHORITY_DESC"/>
+		<result property="userNo" column="REF_USER_NO2"/>
+	</resultMap>  -->
+	
+	
+	
 
 	
 	<select id="findMemberById" resultMap="loginMemberResultMap"> <!-- loginMemberResultMap 셀렉 -->
@@ -66,7 +80,45 @@
 		LEFT JOIN MEMBER_ROLE B ON (A.USER_NO = B.USER_NO)
 		LEFT JOIN AUTHORITY C ON (B.AUTHORITY_CODE = C.AUTHORITY_CODE)
 		WHERE A.USER_ID =  #{ userId }	
-		 and = A.ACC_SECESSION_YN = 'N' <!--  -->
+		 and  A.ACC_SECESSION_YN = 'N'  
+		 
+		 	<!-- SELECT
+		       A.USER_NO
+		     , A.USER_ID
+		     , A.USER_PWD
+		     , A.TEMP_PWD_YN
+		     , A.PWD_CHANGED_DATETIME
+		     , A.USER_NAME
+		     , A.PHONE
+		     , A.EMAIL
+		     , A.ADDRESS
+		     , A.ENROLL_DATETIME
+		     , A.MODIFY_DATETIME
+		     , A.LOGIN_FAILED_COUNT
+		     , A.ACC_LOCK_TIME
+		     , A.ACC_LOCK_YN
+		     , A.ACC_SECESSION_DATETIME
+		     , A.ACC_SECESSION_YN
+		     , B.USER_NO REF_USER_NO
+		     , B.AUTHORITY_CODE REF_AUTHORITY_CODE
+		     , C.AUTHORITY_CODE REF_AUTHORITY_CODE2
+		     , C.AUTHORITY_NAME
+		     , C.AUTHORITY_DESC
+		     , D.DOG_NO
+		     , D.DOG_NAME
+		     , D.DOG_AGE
+		     , D.BREED
+		     , D.NEUTERED_STATUS
+		     , D.DOG_GENDER
+		     , D.USER_NO REF_USER_NO2
+		     
+		FROM MEMBER A
+		LEFT JOIN MEMBER_ROLE B ON (A.USER_NO = B.USER_NO)
+		LEFT JOIN AUTHORITY C ON (B.AUTHORITY_CODE = C.AUTHORITY_CODE)
+		LEFT JOIN DOG_INFORMATION D ON(A.USER_NO = D.USER_NO)  
+		WHERE A.USER_ID =  #{ userId }	
+		 and  A.ACC_SECESSION_YN = 'N' --> <!--  -->
+		 
 	</select>
 	
 	
@@ -164,9 +216,9 @@
 	SELECT
 		USER_ID
 	FROM MEMBER
-	WHERE USER_NAME = #{userName}
+	WHERE USER_NAME = #{name}
 	  AND EMAIL = #{email}	
-	  and = A.ACC_SECESSION_YN = 'N' <!--  -->
+	  and ACC_SECESSION_YN = 'N' <!--  -->
 	</select>
 
 
