@@ -256,13 +256,17 @@
 		for (let i = 0; i < targets.length; i++) {
 			  const item = targets.item(i);
 			  let src = item.innerHTML;
-			  let extractedText = src.replace(extractTextPattern, '').substr(0,105);
-	
-			  item.innerHTML = '<p>'+ extractedText + '</p>';
+			  let extractedText = src.replace(extractTextPattern, '');
+			  let contentText;
+			  if(extractedText.length >= 106) {	  
+				  contentText = extractedText.substr(0, 106) +"...";
+			  } else {
+				  contentText = extractedText;
+			  }
+			  item.innerHTML = '<p>'+ contentText + '</p>';
 			}
 	  
-		let src = targets.innerHTML;
-		console.log( "src:" + src );
+
 		
 		
 		/*let target = document.getElementById('contentHtml');
