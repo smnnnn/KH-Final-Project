@@ -1,11 +1,14 @@
 package com.kh.project.admin.memberManage.model.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.project.admin.common.model.vo.Search;
 import com.kh.project.admin.memberManage.model.dao.MemberManageMapper;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
 import com.kh.project.admin.reservationManage.model.vo.Dog;
@@ -25,19 +28,20 @@ public class MemberManageServiceImpl implements MemberManageService{
 	}
 	
 	@Override
-	public List<MemberInfo> selectMemberList() {
+	public int getListCount(int sort, Search search) {
+		search.setSort(sort);
+		return memberManageMapper.getListCount(search);
+	}
+	
+	@Override
+	public List<MemberInfo> selectMemberList(int startRow, int endRow, int sort, Search search) {
 		
-		List<MemberInfo> memberInfo = memberManageMapper.selectMemberList();
-		List<MemberInfo> returnMemberInfo = new ArrayList<>();
-		for(MemberInfo member : memberInfo) {
-			if(member.getMemberRoleList().size() == 1) {
-				Dog dog = memberManageMapper.selectDogInfo(member.getNo());
-				member.setDog(dog);
-				returnMemberInfo.add(member);
-			}
-		}
+		search.setStartRow(startRow);
+		search.setEndRow(endRow);
+		search.setSort(sort);
 		
-		return returnMemberInfo;
+		List<MemberInfo> memberInfo = memberManageMapper.selectMemberList(search);		
+		return memberInfo;
 	}
 
 	@Override
@@ -75,5 +79,18 @@ public class MemberManageServiceImpl implements MemberManageService{
 		}
 		return reservation;
 	}
+
+	@Override
+	@Transactional
+	public int deleteMemberInfo(int memberNo, String reason) {
+		int memberResult = memberManageMapper.deleteMemberInfo(memberNo);
+		Map<String, Object> map = new HashMap<>();
+		map.put("mNo", memberNo);
+		map.put("reason", reason);
+		int reasonResult = memberManageMapper.updateReason(map);
+		
+		return memberResult > 0 && reasonResult > 0 ? 1 : 0;
+	}
+
 
 }

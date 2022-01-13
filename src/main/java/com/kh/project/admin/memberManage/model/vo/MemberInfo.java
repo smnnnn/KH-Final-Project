@@ -17,6 +17,7 @@ public class MemberInfo {
 	private String phone;
 	private String email;
 	private String address;
+	private String dogName;             //반려견이름
 	private Date enrollDatetime;		//회원가입일시
 	private Date accSecssionDatetime;	//계정탈퇴일시
 	private String accSecssionYn;		//계정탈퇴여부

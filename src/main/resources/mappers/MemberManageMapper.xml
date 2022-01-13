@@ -10,6 +10,7 @@
 		<result property="phone" column="PHONE"/>
 		<result property="email" column="EMAIL"/>
 		<result property="address" column="ADDRESS"/>
+		<result property="dogName" column="MEM_DOG_NAME"/>
 		<result property="enrollDatetime" column="ENROLL_DATETIME"/>
 		<result property="accSecssionYn" column="ACC_SECESSION_YN"/>
 		<result property="accSecssionDatetime" column="ACC_SECESSION_DATETIME"/>
@@ -40,6 +41,7 @@
 	<resultMap id="reservationResultMap" type="com.kh.project.admin.reservationManage.model.vo.ReservationManage">
 		<id property="reservationNo" column="RESERVATION_NO"/>
 		<result property="tNo" column="TNO"/>
+		<result property="tName" column="TNAME"/>
 		<result property="vName" column="VNAME"/>
 		<result property="reservationDate" column="RESERVATION_DATE"/>
 		<result property="reservationTime" column="RESERVATION_TIME"/>
@@ -57,27 +59,46 @@
 	
 	
 	<select id="selectMemberList" resultMap="memberResultMap">
-		SELECT
-		        A.USER_NO
-		      , A.USER_ID
-		      , A.USER_NAME
-		      , A.PHONE
-		      , A.EMAIL
-		      , A.ADDRESS
-		      , A.ENROLL_DATETIME
-		      , A.ACC_SECESSION_YN
-		      , A.ACC_SECESSION_DATETIME
-		      , W.ACC_SECESSION_REASON
-		      , W.OTHER_OPINIONS
-		      , B.AUTHORITY_CODE 
-		      , C.AUTHORITY_CODE REF_AUTHORITY_CODE
-		      , C.AUTHORITY_NAME
-		      , C.AUTHORITY_DESC
-		   FROM MEMBER A
-		   LEFT JOIN MEMBER_ROLE B ON(A.USER_NO = B.USER_NO)
-		   LEFT JOIN AUTHORITY C ON(B.AUTHORITY_CODE = C.AUTHORITY_CODE)
-		   LEFT JOIN WITHDRAWAL_REASON W ON(A.USER_NO = W.USER_NO)
-		  ORDER BY USER_NO DESC
+		SELECT *
+		FROM(SELECT ROWNUM RNUM
+				  , T.*
+			   FROM(SELECT
+				        A.USER_NO
+				      , A.USER_ID
+				      , A.USER_NAME
+				      , A.PHONE
+				      , A.EMAIL
+				      , A.ADDRESS
+				      , A.ENROLL_DATETIME
+				      , A.ACC_SECESSION_YN
+				      , A.ACC_SECESSION_DATETIME
+				      , W.ACC_SECESSION_REASON
+				      , W.OTHER_OPINIONS
+				      , AUTHORITY_CODE 
+				      , D.DOG_NO
+				      , D.DOG_NAME MEM_DOG_NAME
+				   FROM MEMBER A
+				   LEFT JOIN MEMBER_ROLE B ON(A.USER_NO = B.USER_NO)
+				   LEFT JOIN WITHDRAWAL_REASON W ON(A.USER_NO = W.USER_NO)
+				   LEFT JOIN DOG_INFORMATION D ON(A.USER_NO = D.USER_NO)
+				  WHERE ADMIN_YN = 'N'
+				  <if test="sort == 1">				
+				    AND ACC_SECESSION_YN = 'N'		 
+				  </if>
+				  <if test="sort == 2">
+				    AND ACC_SECESSION_YN = 'Y'		 
+				  </if>
+				  <if test="searchCategory == 1">
+				    AND USER_ID LIKE '%'||#{searchKeyword}||'%'
+				  </if>
+				  <if test="searchCategory == 2">
+				    AND USER_NAME LIKE '%'||#{searchKeyword}||'%'
+				  </if>
+				  <if test="searchCategory == 3">
+				    AND DOG_NAME LIKE '%'||#{searchKeyword}||'%'	
+				  </if>	
+				  ORDER BY USER_NO DESC)T)
+		  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="selectDogInfo" resultMap="dogResultMap">
@@ -144,16 +165,63 @@
 		     , RESERVATION_STATUS
 		     , SYMPTOM
 		     , R.TNO
+		     , TNAME
 		     , VNAME
-		     , DOG_NO RES_DOG_NO
+		     , DOG_NO
 		  FROM RESERVATION_INFORMATION R
-		  JOIN VETERINARIAN USING(VNO)
+		  JOIN VETERINARIAN V ON(R.VNO = V.VNO)
+		  JOIN TREATMENT_TYPE T ON(R.TNO = T.TNO)
 		 WHERE RESERVATION_NO = #{no}
 	</select>
 	
+	<select id="getListCount" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM MEMBER
+		 <if test="sort == 1">
+		 WHERE ADMIN_YN = 'N'
+		   AND ACC_SECESSION_YN = 'N'		 
+		 </if>
+		 <if test="sort == 2">
+		 WHERE ADMIN_YN = 'N'
+		   AND ACC_SECESSION_YN = 'Y'		 
+		 </if>
+		 <if test="searchCategory == 1">
+		 WHERE ADMIN_YN = 'N'
+		   AND USER_ID LIKE '%'||#{searchKeyword}||'%'
+		 </if>
+		 <if test="searchCategory == 2">
+		 WHERE ADMIN_YN = 'N'
+		   AND USER_NAME LIKE '%'||#{searchKeyword}||'%'
+		 </if>
+		 <if test="searchCategory == 3">
+		  JOIN DOG_INFORMATION USING(USER_NO)
+		 WHERE ADMIN_YN = 'N'
+		   AND DOG_NAME LIKE '%'||#{searchKeyword}||'%'
+		 </if>		 
+	</select>
 	
+	<update id="deleteMemberInfo" parameterType="_int">
+		UPDATE MEMBER
+		   SET ACC_SECESSION_YN = 'Y'
+		     , ACC_SECESSION_DATETIME = SYSDATE 
+		 WHERE USER_NO = #{memberNo}
+	</update>
 	
-	
-	
+	<insert id="updateReason" parameterType="Map">
+		INSERT
+		  INTO WITHDRAWAL_REASON
+		(
+			USER_NO
+		  , ACC_SECESSION_REASON
+		  , OTHER_OPINIONS
+		)   
+		VALUES
+		(
+			#{mNo}
+		  , #{reason}
+		  , '관리자 권한으로 탈퇴시킴'
+		)
+	</insert>
 	
 </mapper>

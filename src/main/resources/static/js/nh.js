@@ -52,10 +52,13 @@ $(function(){
     });
 });
 
-
-// 장비소개페이지 - 장비목록 표시 
+// 회원목록에서 정렬 라디오버튼 선택시
 $(function(){
-	$("")
+    $('input[type=radio][name=memCategory]').change(function(){
+		let sort = this.value;
+    	location.href="/admin/member/list?page=1&sort=" + sort;
+    });
 });
+
 
 
