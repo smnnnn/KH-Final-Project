@@ -194,7 +194,6 @@
                 <div class="ctBox">
                 <th:block th:if="${review.thumbnail.changedName != null and review.thumbnail.status.toString().equals('N')}">
                 <div class="thumbnailArea">
-                	<!-- status가 y일때도 계속 나오는 문제 -->
                     <img id="thumbnail" th:if="${review.thumbnail.status.toString().equals('N')}" th:src="${review.thumbnail.filePath}+${review.thumbnail.changedName}">
                     <div th:unless="${review.thumbnail.status.toString().equals('N')}"></div>
                 </div>
@@ -211,8 +210,9 @@
                 </div> -->
                 <div class="btnArea">
                     <button class="btn" id="gotoList" onclick="location.href='/review/list'">목록으로</button>
-                    <button class="btn" id="modify">수정하기</button>
-                    <button class="btn" id="delete">삭제하기</button>
+                    <!-- 작성자만 보이게 -->
+                    <button class="btn" id="modify" onclick="updateReviewView();">수정하기</button>
+                    <button class="btn" id="delete" onclick="deleteReview();">삭제하기</button>
                 </div>
             </div>
         </div>
@@ -221,6 +221,26 @@
     
     <!-- 푸터 -->
 	<div th:replace="fragments/footer.html"></div>
+
+	<form name="reviewForm">
+		<input type="hidden" name="rvno" th:value="${review.rvno}">
+	</form>
+	
+	<script>
+		function updateReviewView(){
+			document.forms.reviewForm.action ="/review/updateView";
+			document.forms.reviewForm.submit();
+		}
+		
+		function deleteReview(){
+			if(confirm("이 게시글을 삭제하시겠습니까?")) {
+				document.forms.reviewForm.action = "/review/delete";
+				document.forms.reviewForm.submit();
+			}
+		}
+	
+	</script>
+	
 
 
 </body>

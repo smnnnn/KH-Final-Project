@@ -124,6 +124,7 @@
 		     , USER_NAME
 		     , FILE_PATH
 		     , CHANGED_NAME
+		     , FILE_NO 
 		     , RV.STATUS RVSTATUS
 		  FROM REVIEW R
 		  LEFT JOIN RV_UPLOAD RV USING(RV_NO)
@@ -146,6 +147,59 @@
 		  FROM RV_UPLOAD
 		 WHERE STATUS='N'
 		   AND RV_NO = #{ rvno }
+		   <!-- 지우기 -->
 	</select>
+	
+	<delete id="deleteReview" parameterType="_int">
+	    UPDATE REVIEW
+	       SET STATUS = 'Y'
+	     WHERE RV_NO = #{ rvno } 	 
+	</delete>
+	
+	<delete id="deleteThumbnail" parameterType="_int">
+		UPDATE RV_UPLOAD
+		   SET STATUS = 'Y'
+		 WHERE RV_NO = #{ rvno }
+	</delete>
+	
+	<update id="updateReview" parameterType="com.kh.project.review.model.vo.Review">
+		UPDATE REVIEW
+		   SET TNO = #{ tno }
+			 , RV_TITLE = #{ rvtitle }
+			 , RV_CONTENT = #{ rvcontent }
+			 , MODIFY_DATE = SYSDATE
+		 WHERE RV_NO = #{ rvno }
+	</update>
+	
+	<update id="updateThumbnail" parameterType="com.kh.project.review.model.vo.ReviewUpload">
+		UPDATE RV_UPLOAD
+		   SET ORIGIN_NAME = #{ originName }
+		     , CHANGED_NAME = #{ changedName }
+		 WHERE CHANGED_NAME = #{ deletedName }
+	</update>
+	
+	<insert id="insertAddedThumbnail" parameterType="map">
+		INSERT
+			INTO RV_UPLOAD
+			(
+				FILE_NO
+			  , RV_NO
+			  , FILE_PATH
+			  , ORIGIN_NAME
+			  , CHANGED_NAME
+			  , STATUS
+			)
+			VALUES
+			(
+				SEQ_FILE_NO.NEXTVAL
+			  , #{ rvno }
+			  , #{ th.filePath }
+			  , #{ th.originName }
+			  , #{ th.changedName }
+			  , DEFAULT
+			)
+	</insert>
+
+
 
 </mapper>

@@ -12,4 +12,5 @@ public class ReviewUpload {
 	private String changedName;			// 서버 저장 시의 변경 파일명
 	private String status;				// 삭제 여부
 	
+	private String deletedName;			// 삭제 시 파일명
 }
