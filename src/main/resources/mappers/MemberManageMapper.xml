@@ -136,7 +136,20 @@
 		 WHERE RESERVATION_NO = #{ rno }
 	</select>
 
-
+	<select id="getReservationInfo" resultMap="reservationResultMap">
+		SELECT 
+		       RESERVATION_NO
+		     , RESERVATION_DATE
+		     , RESERVATION_TIME
+		     , RESERVATION_STATUS
+		     , SYMPTOM
+		     , R.TNO
+		     , VNAME
+		     , DOG_NO RES_DOG_NO
+		  FROM RESERVATION_INFORMATION R
+		  JOIN VETERINARIAN USING(VNO)
+		 WHERE RESERVATION_NO = #{no}
+	</select>
 	
 	
 	

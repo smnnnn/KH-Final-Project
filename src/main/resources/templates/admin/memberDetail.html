@@ -136,7 +136,7 @@
                                 </th:block>
                                 <!-- 예약내역 있는 경우 -->
                             	<th:block th:if="${not #lists.isEmpty(member.reservation)}">
-                                <tr class="colored2" th:each="res : ${member.reservation}" th:onclick="|javascript:viewLayer('${res.reservationNo}'), viewLayer2('${res.reservationNo}')|">
+                                <tr class="colored2" th:each="res : ${member.reservation}" th:onclick="|javascript:viewLayer('${res.reservationNo}, ${member.no}'), viewLayer2('${res.reservationNo}')|">
                                     <td th:text="${#dates.format(res.reservationDate, 'yyyy.MM.dd')}"></td>
                                     <td th:text="${res.reservationTime}"></td>
                                     <th:block th:switch="${res.tNo}">
@@ -208,8 +208,20 @@
     
     
     <script>
-	    function viewLayer(){
+	    function viewLayer(rno, userNo){
 	        $('#pop').css('display', 'block');
+	        
+	        $.ajax({
+	        	url : "/admin/member/detail/" + rno + "/" + userNo,
+	        	type : "get",
+	        	dataType : "json",
+	        	success : function(data){
+	        		console.log(data);
+	        	},
+	        	error : function(e){
+	        		console.log(e);
+	        	}
+	        });
 	
 	    }
 	    

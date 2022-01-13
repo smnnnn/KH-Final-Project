@@ -23,5 +23,7 @@ public interface MemberManageMapper {
 
 	Dog selectDogInputInfo(int rno);
 
+	ReservationManage getReservationInfo(int rno);
+
 
 }
