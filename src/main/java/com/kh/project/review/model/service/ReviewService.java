@@ -19,4 +19,6 @@ public interface ReviewService {
 
 	int deleteReview(int rvno);
 
+	int updateReview(Review review);
+
 }
