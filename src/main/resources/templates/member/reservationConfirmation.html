@@ -16,6 +16,7 @@
     <link type="text/css" rel="stylesheet" href="/css/he.css">
     <!-- 공통 js -->
     <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 
 
 <title>다나은 동물병원</title>
@@ -161,62 +162,80 @@
             <button class="My btn1" th:href="@{/member/reservationConfirmation}"> 예약 확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button>
             </div>
 			
-            <th:block sec:authorize="isAuthenticated()">
-			<!-- <h3><span sec:authentication="principal.username"></span>님 환영합니다.</h3> -->
-		    </th:block>
             <div class="infoForm item">
              	<div class="con_title">
                    예약 확인
                 </div>
                 <div id="title_line"></div><br>
-                <!--<label class="label1">예약확인</label><br>
-                 <label class="etc"><u></u></label>
-                <br>
-                <label class="u"><u>진료 예약일</u></label>&nbsp;&nbsp;&nbsp;
-                <label class="u"><u>진료 시간</u></label>
-                <label  class="u"><u>진료 담당의</u></label>
-                <label  class="u"><u>진료 과목</u></label> -->
-                <table class="time_table" id="timeTable">
-                    <colgroup>
-                        <col style="width: 25%;">
-                        <col style="width: 25%;">
-                        <col style="width: 25%;">
-                        <col style="width: 25%;">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>진료 예약일</th>
-                            <th>진료 예약 시간</th>
-                            <th>진료 담당의</th>
-                            <th>진료 과목</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="info : ${ReserInfo}">
-                        	<td><input type="radio" name="reservation_date" th:text="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')}"></td>
-                            <td th:text="${info.reservation_time}" id="reservation_time"></td>
-                            <td th:text="${info.vname}" id="vname"></td>
-                            <td th:text="${info.tname}" id="tname"></td>     
-                        </tr>
-                    </tbody>
-                </table>
-                
-  
-
-               <button class="reserInfoBtn">예약취소</button><br><br><br>
-
-
-                 
-
+             
+                <!-- <form th:action="" method=""> -->
+                	<table class="time_table" id="timeTable">
+                    	<colgroup>
+                        	<col style="width: 20%;">
+                        	<col style="width: 20%;">
+                        	<col style="width: 20%;">
+                        	<col style="width: 20%;">
+                        	<col style="width: 20%;">
+                    	</colgroup>
+                    	<thead>
+                        	<tr>
+                            	<th>진료 예약일</th>
+                            	<th>진료 예약 시간</th>
+                            	<th>진료 담당의</th>
+                            	<th>진료 과목</th>
+                            	<th>예약 상태</th>
+                        	</tr>
+                    	</thead>
+                    	<tbody>
+                        	<tr th:each="info : ${ReserInfo}">
+                        		<td style="display:none;"><input type="hidden" th:value="${info.reservation_no}" id="reservation_no" name="reservation_no"></td>
+                        		<td th:text="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')}" id="reservation_date"></td>
+                            	<td th:text="${info.reservation_time}" id="reservation_time"></td>
+                            	<td th:text="${info.vname}" id="vname"></td>
+                            	<td th:text="${info.tname}" id="tname"></td>
+                            	<td th:if="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
+                            			    or ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} == ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
+                            			   	 and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button type="button" class="reserInfoBtn" id="cancel">예약 취소</button></td>
+                            	<td th:unless="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
+                            			    or ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} == ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
+                            			     and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button type="submit" class="reserInfoBtn" id="complete">진료 완료</button></td>     
+                        	</tr>
+                    	</tbody>
+                	</table>
+               	 <input type="hidden" name="reservation_date" value="">
+               	 <input type="hidden" name="reservation_time" value="">
+               	 <input type="hidden" name="vname" value="">
+               	 <input type="hidden" name="tname" value="">
+               <!--  </form> -->
             </div>
-
         </div>
 
 
 
+<script>
+
+let no = document.getElementById("reservation_no").value;
+//console.log(no);
+var date = $('#timeTable').find("td:eq(1)").text();
+//console.log(date);
+var time = $('#timeTable').find("td:eq(2)").text();
+//console.log(time);
+var vname = $('#timeTable').find("td:eq(3)").text();
+//console.log(vname);
+var tname = $('#timeTable').find("td:eq(4)").text();
+//console.log(tname);
+
+// submit 시 name으로 값 넘겨주기 위해 input=hidden에 value로 td 값 넣어줌
+$('input[name=reservation_date]').attr('value', date);
+$('input[name=reservation_time]').attr('value', time);
+$('input[name=vname]').attr('value', vname);
+$('input[name=tname]').attr('value', tname);
 
 
 
+/* 예약 취소 button 클릭 시 비동기처리 */
+
+</script>
 
 
 

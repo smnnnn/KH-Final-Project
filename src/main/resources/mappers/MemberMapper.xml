@@ -264,7 +264,8 @@
 	<!-- 예약 조회 -->
 	<select id="reservationList" resultMap="reservatinoInfoResultMap">
 	SELECT
-		   a.RESERVATION_DATE
+		   a.RESERVATION_NO
+		 , a.RESERVATION_DATE
 		 , a.RESERVATION_TIME
 		 , b.VNAME
 		 , c.TNAME
