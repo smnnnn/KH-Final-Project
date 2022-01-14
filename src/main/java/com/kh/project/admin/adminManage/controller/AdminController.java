@@ -104,4 +104,19 @@ public class AdminController {
 		
 		return "redirect:/admin/account/list";
 	}
+	
+	@GetMapping("mypage")
+	public String mypageView(@RequestParam int adminNo) {
+		log.info("no : {}", adminNo);
+		
+		return "admin/mypage";
+	}
+	
+	@PostMapping("mypageModify")
+	public String mypageModify(MemberInfo admin, RedirectAttributes rttr) {
+		
+		return "redirect:/admin";
+	}
+	
+	
 }
