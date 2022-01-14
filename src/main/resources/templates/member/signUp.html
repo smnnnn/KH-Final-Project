@@ -198,18 +198,7 @@
 								/* 사용 불가능한 아이디라는 flag */
 								isUsable = false;
 							}
-						}
-						
-						/* 아이디 중복 체크 후 중복이 아니며 사용하겠다고 선택한 경우
-						버튼의 disabled 속성 제거 */
-						if(isUsable){
-							$("#joinBtn").removeAttr("disabled");
-						}else{
-							$("#joinBtn").attr("disabled", true);
-						}
-						
-						
-						
+						}						
 					},
 					error : function (e) {
 						console.log(e);

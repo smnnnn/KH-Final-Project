@@ -19,15 +19,19 @@ import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.MemberRole;
 import com.kh.project.member.model.vo.UserImpl;
+import com.kh.project.member.model.vo.WithdrawalReason;
+import com.kh.project.reservation.model.vo.ReservationInfo;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service("MemberService")
 public class MemberServiceImpl implements MemberService{
 	
 	
-	// 멤버 매퍼를 호출할 서비스쪽에 필드선언과
 		private MemberMapper memberMapper;
 		
-		@Autowired // 의존성 주입
+		@Autowired 
 		public MemberServiceImpl(MemberMapper memberMapper) {
 			this.memberMapper = memberMapper;
 		}
@@ -37,7 +41,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		/* 우리가 만든 타입으로 유저 조회 */
-		Member member = memberMapper.findMemberById(username);  //멤버타입으로 셀렉
+		Member member = memberMapper.findMemberById(username);  
 		// DB에 없는 username 들어오면 member null됨
 		
 		/* null 값을 없게 하기 위해 조회된 값이 없을 시 빈 객체 */
@@ -55,11 +59,11 @@ public class MemberServiceImpl implements MemberService{
 				if( authority != null ) {
 					authorities.add(new SimpleGrantedAuthority(authority.getName()));  //authority.getName() => ROLE_ADMIN  어드민은 반복문 2번 돌음
 				}
-			} //컨트롤러에서 로그인 요청한다 ㄴㄴ DB에서 id찾아서 ~~스프링시큐리티 모듈 설정에 넣었다고 생각?
+			} 
 			
 		}
 
-	
+	log.info(authorities.toString());
 		
 		// return member; 이렇게 안 됨
 		/* 스프링 시큐리티 모듈에서 사용되는 타입인 User객체로 id, pwd, 접근 권한을 담아 객체 만들어 리턴*/  //또는 User 상속 받아서 커스터마이징도 하나의 방법
@@ -79,7 +83,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Transactional
 	@Override
-	public void signUp(Member member) {
+	public void signUp(Member member, DogInformation dogInformation) {
 		
 		/* BCryptPasswordEncoder 사용한 rawPassword -> encodePassword */
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -91,13 +95,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		/* TBL_MEMBER_ROLE_INSERT */    //유저가 가진 어솔리티도 인서트 되어야 함
 		MemberRole memberRole = new MemberRole(); // 인서트  MemberRole 형식
-		memberRole.setAuthorityCode(1);  //?
+		memberRole.setAuthorityCode(1);  // 일반 회원에 대해서 .. 규정 상황에 따라 달라짐 (일반/총관리/서브관리 발생되는 기능 ?)
+		// 
 		memberMapper.insertMemberRole(memberRole);
 		
-		/*
-		 * DogInformation dogInformation = new DogInformation();
-		 * memberMapper.insertDogInformaion(dogInformation);
-		 */
+		// 빈객체 안에 도그 객체 없음 그냥 클라이언트가 입력한 거 입력 인풋태그랑 핸들러 입력한 값 가져오기 
+		memberMapper.insertDogInformaion(dogInformation);
+		 
 		
 		
 	}
@@ -118,14 +122,25 @@ public class MemberServiceImpl implements MemberService{
 
 
 
+	@Transactional
 	@Override
-	public void withdrawal(String reason, String opinions) {
-		
-		memberMapper.withdrawal(reason, opinions);
-		Member member = new Member();
-		memberMapper.updateaccSecssionYn(member);
+	public void withdrawal(Member member, WithdrawalReason withdrawal) {
+			
+			memberMapper.withdrawal(withdrawal);
+			memberMapper.updateaccSecssionYn(member);	
 		
 	}
+
+
+
+	@Override
+	public List<ReservationInfo> reservationList(String id) {
+		return memberMapper.reservationList(id);
+	}
+
+
+
+	
 
 
 	

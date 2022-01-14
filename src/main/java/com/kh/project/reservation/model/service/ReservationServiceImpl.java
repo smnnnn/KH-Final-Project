@@ -25,11 +25,10 @@ public class ReservationServiceImpl implements ReservationService{
 	public List<VeterinarianAndTreatmentType> findVname(int tno) {
 		return reservationMapper.findVname(tno);
 	}
-
-
+	
 	@Override
-	public int registReservation(ReservationInfo reservationInfo) {
-		return reservationMapper.registReservation(reservationInfo);
+	public int registReservation(ReservationInfo reservationInfo, String id) {
+		return reservationMapper.registReservation(reservationInfo, id);
 	}
 
 	@Override

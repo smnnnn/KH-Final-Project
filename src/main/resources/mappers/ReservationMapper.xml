@@ -27,6 +27,11 @@
 
 
 	<insert id="registReservation" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">
+		<selectKey resultType="_int" keyProperty="user_no" order="BEFORE">
+			SELECT USER_NO
+			  FROM MEMBER
+			 WHERE USER_ID = #{id}
+		</selectKey>
 		INSERT
 		  INTO RESERVATION_INFORMATION
 		  (
@@ -42,18 +47,18 @@
 		  VALUES
 		  (
 		  	    SEQ_RESERVATION_NO.NEXTVAL
-		  	  , #{ reservation_date }
-		  	  , #{ reservation_time }
+		  	  , #{ reservationInfo.reservation_date }
+		  	  , #{ reservationInfo.reservation_time }
 		  	  , DEFAULT
-		  	  , #{ symptom }
-		  	  , #{ tno }
-		  	  , '2'
-		  	  , #{ vno }
+		  	  , #{ reservationInfo.symptom }
+		  	  , #{ reservationInfo.tno }
+		  	  , #{ user_no }
+		  	  , #{ reservationInfo.vno }
 		  )
-	<selectKey resultType="_int" keyProperty="reservation_no" order="AFTER">
+		<!-- <selectKey resultType="_int" keyProperty="reservation_no" order="AFTER">
 		 SELECT SEQ_RESERVATION_NO.CURRVAL
 		 FROM DUAL
-	</selectKey>
+		</selectKey> -->
 	</insert>
 	
 	

@@ -1,5 +1,6 @@
 package com.kh.project.reservation.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,13 +74,16 @@ public class ReservationController {
 	}
 	
 	@PostMapping("reservation_form/input")
-	public String Reservation_form_input(ReservationInfo reservationInfo, DogInformationInput dogInfo, RedirectAttributes rttr) { 
+	public String Reservation_form_input(ReservationInfo reservationInfo, DogInformationInput dogInfo, Principal principal, RedirectAttributes rttr) { 
 		
 		/* 위 컨트롤러에서 받았던 예약 정보까지 합쳐서 한번에 insert 
 		 * dog info input 테이블도 입력받은 정보로 insert 
 		 */
+		String reser = String.valueOf(reservationInfo);
+		log.info(reser);
 		
-		reservationService.registReservation(reservationInfo);
+		String id = principal.getName();
+		reservationService.registReservation(reservationInfo, id);
 		
 		reservationService.registDog(dogInfo);
 		
