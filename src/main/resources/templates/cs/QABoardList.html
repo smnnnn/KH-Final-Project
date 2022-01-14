@@ -61,7 +61,9 @@
                         <!-- 글제목 -->
                         <span th:text="${board.qtitle}"></span>
                         <!-- 댓글 달렸을 경우와 아닐 경우 구분 아이콘-->
-                        <span><img id="answer" src="/images/sm/answer2.png"></span> 
+                        
+                        <span th:if="${board.answer.acount} == 1"><img id="answer" src="/images/sm/answer2.png"></span> 
+                        <span th:unless="${board.answer.acount} == 1"></span>
                         </a>
                     </div>
                     <!-- 사용자 이름 -->
