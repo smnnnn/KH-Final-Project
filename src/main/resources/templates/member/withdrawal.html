@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- 폰트  -->
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet"> 
-    <!-- 공통 css -->
-    <link type="text/css" rel="stylesheet" href="/css/common.css">
-    <!-- 나현 css (메인, 관리자)-->
-    <link type="text/css" rel="stylesheet" href="/css/nh.css">
-    <!-- 공통 js -->
-    <script type="text/javascript" src="/js/common.js"></script>
-
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+<!-- 폰트  -->
+<link
+	href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap"
+	rel="stylesheet">
+<!-- 공통 css -->
+<link type="text/css" rel="stylesheet" href="/css/common.css">
+<!-- 나현 css (메인, 관리자)-->
+<link type="text/css" rel="stylesheet" href="/css/nh.css">
+<!-- 공통 js -->
+<script type="text/javascript" src="/js/common.js"></script>
 <title>다나은 동물병원</title>
-    <style>
-        .wrapper{
+<style>
+.wrapper{
             width: 1200px;
             height: 1080px;
             margin: auto;
@@ -218,81 +221,79 @@
     .checklabel{
     	font-weight: bold;
     }
-
-
-    </style>
+	.no{
+		display: none;
+	}
+</style>
 </head>
 <body>
-<div th:replace="fragments/header.html"></div>
+	<div th:replace="fragments/header.html"></div>
 
-        <div class="photo">
-            <img class="logo" src="/images/member/memberService.png">
-        </div>
-        <div class="wrapper">
-            <div class="infoForm item">
-                <div class="dd"><label class="label">회원탈퇴 사유</label><br><br></div>
-               <label class="etc">회원 탈퇴 사유를 한 가지 선택해주십시오</label><br><br><br>
-               
-               <form id="withdrawalForm" th:action="@{/member/withdrawal}" method="post" onsubmit="return validate();"> 
+	<div class="photo">
+		<img class="logo" src="/images/member/memberService.png">
+	</div>
+	<div class="wrapper">
+		<div class="infoForm item">
+			<div class="dd">
+				<label class="label">회원탈퇴 사유</label><br>
+				<br>
+			</div>
+			<label class="etc">회원 탈퇴 사유를 한 가지 선택해주십시오</label><br>
+			<br>
+			<br>
 
-               <label class="test_obj reason">
-               <input type="radio" name="reason" value="아이디 변경"><span>아이디 변경</span>
-            </label>
-               <label class="test_obj">
-               <input type="radio" name="reason" value="개인정보 노출 우려"><span>개인정보 노출 우려</span>
-            </label>
-               <label class="test_obj">
-               <input type="radio" name="reason" value="시스템 에러 및 서비스 속도"><span>시스템 에러 및 서비스 속도</span><br>
-            </label>
+			<form id="withdrawalForm" th:action="@{/member/withdrawal}"
+				method="post" onsubmit="return validate();">
 
-            <label class="test_obj reason">
-               <input type="radio" name="reason"  value="회원혜택 부족"><span>회원혜택 부족</span>
-            </label>  
-               <label class="test_obj">
-               <input type="radio" name="reason"  value="고객응대 부족"><span>고객응대 부족</span>
-            </label>  
-               <label class="test_obj">
-               <input type="radio" name="reason" value="진료 서비스 불만"><span>진료 서비스 불만</span><br>
-            </label><br><br>
+				<label class="test_obj reason"> <input type="radio"
+					name="reason" value="아이디 변경"><span>아이디 변경</span>
+				</label> <label class="test_obj"> <input type="radio" name="reason"
+					value="개인정보 노출 우려"><span>개인정보 노출 우려</span>
+				</label> <label class="test_obj"> <input type="radio" name="reason"
+					value="시스템 에러 및 서비스 속도"><span>시스템 에러 및 서비스 속도</span><br>
+				</label> <label class="test_obj reason"> <input type="radio"
+					name="reason" value="회원혜택 부족"><span>회원혜택 부족</span>
+				</label> <label class="test_obj"> <input type="radio" name="reason"
+					value="고객응대 부족"><span>고객응대 부족</span>
+				</label> <label class="test_obj"> <input type="radio" name="reason"
+					value="진료 서비스 불만"><span>진료 서비스 불만</span><br>
+				</label><br>
+				<br> <label class="label2">개선사항</label>
+				<textarea rows="10" cols="125" name="opinions"
+					placeholder="기타 의견을 작성하여 주십시오" maxlength="250"></textarea>
+				<br>
+				<br>
+				<br>
+				<div class="labeldiv">
+					<label class="etc">회원 탈퇴 시 더이상 다나은 동물병원의 온라인 혜택을 받으실 수
+						없습니다.</label><br>
+					<br>
+				</div>
 
-
-          
-
-
-
-
-               <label class="label2">개선사항</label>
-               <textarea rows="10" cols="125" name="opinions" placeholder="기타 의견을 작성하여 주십시오" maxlength="250"></textarea><br><br><br>
-               <div class="labeldiv"><label class="etc">회원 탈퇴 시 더이상 다나은 동물병원의 온라인 혜택을 받으실 수 없습니다.</label><br><br></div>
-
-               <input type="checkbox" class="check" id="check"><label for="check" class="checklabel">위 내용을 모두 숙지하였으며, 회원 탈퇴 진행을 동의하십니까 ? </label>
-
-               
-               <br><br><br><br>     
-               
-               <input type="button" class="button btn2" value="취소">
-               <input type="submit" id="withdrawalCheck" class="button btn1" value="확인" > <br><br>
-               
-
-				</form> 
-               <br><br><br>
-               
-
-
-                
-
-
-            </div>
-
-        </div>
-
-
-
-<script>
+				<input type="checkbox" class="check" id="check"><label
+					for="check" class="checklabel">위 내용을 모두 숙지하였으며, 회원 탈퇴 진행을
+					동의하십니까 ? </label> <br>
+				<br>
+				<br>
+				<br> <input type="button" class="button btn2"
+					th:onclick="|location.href='@{/member/myPage}'|" value="취소">
+				<input type="submit" id="withdrawalCheck" class="button btn1"
+					value="확인"> <br>
+				<br> <input class="no" name="no"
+					th:value="${#authentication.principal.no}"></input> <input
+					class="no" name="memberNo"
+					th:value="${#authentication.principal.no}"></input>
+			</form>
+			<br>
+			<br>
+			<br>
+		</div>
+	</div>
+	<script>
 
 function validate(){
 
-	if($("input:checkbox[name=]").is(":checked") == true){
+	if($("#check").is(":checked") == true){
 		return true;
 	}else{
 		alert("회원탈퇴 동의에 체크하여 주십시오");
@@ -300,20 +301,9 @@ function validate(){
 	}
 	
 }
-
-
 </script>
 
-
-
-
-
-
-
-
-
-
-<!-- 푸터 -->
-    <div th:replace="fragments/footer.html"></div>
+	<!-- 푸터 -->
+	<div th:replace="fragments/footer.html"></div>
 </body>
 </html>

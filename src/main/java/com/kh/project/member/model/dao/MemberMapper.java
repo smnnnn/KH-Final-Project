@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.MemberRole;
+import com.kh.project.member.model.vo.WithdrawalReason;
 
 @Mapper
 public interface MemberMapper {
@@ -21,7 +22,7 @@ public interface MemberMapper {
 
 	String idFind(String name, String email);
 
-	void withdrawal(String reason, String opinions);
+	void withdrawal(WithdrawalReason withdrawal);
 
 	void updateaccSecssionYn(Member member);
 	

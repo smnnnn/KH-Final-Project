@@ -1,3 +1,5 @@
+
+
 <body>
     <!-- 헤더 -->
     <header id="header">
@@ -5,17 +7,21 @@
             <!-- 로그인 -->
             <div class="homemenu">
                 <!-- 로그인 안한 경우 -->
+                <th:block sec:authorize="isAnonymous()">
                 <ul class="nologin">
                     <a th:href="@{/main}">HOME</a>
-                    <a href="#">로그인</a>
-                    <a href="#">회원가입</a>
+                    <a th:href="@{/member/login}">로그인</a>
+                    <a th:href="@{/member/signUp}">회원가입</a>
                 </ul>
+                </th:block>
                 <!-- 로그인 한 경우 -->
-                <ul class="userlogin" style="display: none;">
+                <th:block sec:authorize="isAuthenticated()">
+                <ul class="userlogin">
                     <a th:href="@{/main}">HOME</a>
-                    <a href="#">로그아웃</a>
-                    <a href="#">마이페이지</a>
+                    <a th:href="@{/member/logout}">로그아웃</a>
+                    <a th:href="@{/member/myPage}">마이페이지</a>
                 </ul>
+                </th:block>
             </div>
             <div class="main-menu">
                 <!-- 로고 -->

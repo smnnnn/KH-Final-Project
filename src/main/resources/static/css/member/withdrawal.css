@@ -1,6 +1,4 @@
-@charset "UTF-8";
-
-.wrapper{
+ .wrapper{
             width: 1200px;
             height: 1080px;
             margin: auto;
@@ -13,7 +11,7 @@
             border: 1px solid gainsboro;
             width: 1204px;   
             margin-left: 10px;    
-            height: 850px;
+            height: 930px;
         }
 
         .logo{
@@ -170,3 +168,37 @@
             width: 50px;
             height: 30px;
         }
+
+
+        .test_obj input[type="radio"] {
+        display: none;
+    }
+ 
+    .test_obj input[type="radio"] + span {
+        display: inline-block;
+        padding: 15px 10px;
+        border: 1px solid #dfdfdf;
+        background-color: #ffffff;
+        text-align: center;
+        cursor: pointer;
+        width: 200px;
+        margin-top: 50px;
+        margin-right: 50px;
+        margin-left: auto;
+    }
+ 
+    .test_obj input[type="radio"]:checked + span {
+        background-color: #113a6b;
+        color: #ffffff;
+    }
+
+    .reason{
+        margin-left: 200px;
+    }
+        
+    .checklabel{
+    	font-weight: bold;
+    }
+	.no{
+		display: none;
+	}
