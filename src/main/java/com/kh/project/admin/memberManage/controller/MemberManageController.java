@@ -36,13 +36,13 @@ public class MemberManageController {
 	public String memberManageList(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "0") int sort
 			, Search search) {
 		
-		/* 예약 목록 전체 갯수 조회 */
+		/* 회원 목록 전체 갯수 조회 */
 		int totalListCount = memberManageService.getListCount(sort, search);
 		
 		/* Pagination 객체 => 5 : 하단에 보여질 페이질 목록 수, 10 : 한 페이지에 보여질 목록 최대 */
 		Pagination pagination = new Pagination(page, totalListCount, 5, 10);
 		
-		/* 예약 목록 조회 => 페이징 처리 */
+		/* 회원 목록 조회 => 페이징 처리 */
 		int startRow = (pagination.getPage() - 1) * pagination.getListLimit() + 1;
 		int endRow = startRow + pagination.getListLimit() - 1;
 		

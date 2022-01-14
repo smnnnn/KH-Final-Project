@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.project.admin.adminManage.model.dao.AdminMapper">
+
+	<resultMap id="memberResultMap" type="com.kh.project.admin.memberManage.model.vo.MemberInfo">
+		<id property="no" column="USER_NO"/>
+		<result property="id" column="USER_ID"/>
+		<result property="name" column="USER_NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="dogName" column="MEM_DOG_NAME"/>
+		<result property="enrollDatetime" column="ENROLL_DATETIME"/>
+		<result property="accSecssionYn" column="ACC_SECESSION_YN"/>
+		<result property="accSecssionDatetime" column="ACC_SECESSION_DATETIME"/>
+		<result property="accSecessionReason" column="ACC_SECESSION_REASON"/>
+		<result property="otherOpinions" column="OTHER_OPINIONS"/>
+		<collection property="memberRoleList" resultMap="memberRoleResultMap"/>
+	</resultMap>
+	
+	<resultMap id="memberRoleResultMap" type="com.kh.project.member.model.vo.MemberRole">
+		<id property="memberNo" column="REF_USER_NO"/>
+		<id property="authorityCode" column="AUTHORITY_CODE"/>
+		<association property="authority" javaType="com.kh.project.member.model.vo.Authority">
+			<id property="code" column="REF_AUTHORITY_CODE"/>
+			<result property="name" column="AUTHORITY_NAME"/>
+			<result property="desc" column="AUTHORITY_DESC"/>
+		</association>
+	</resultMap>
+
+	<select id="selectAdminList" resultMap="memberResultMap">
+		SELECT *    
+		FROM(SELECT ROWNUM RNUM
+			       , T.*
+			  FROM(SELECT
+				       USER_NO
+				     , USER_ID
+				     , USER_NAME
+				     , PHONE
+				     , EMAIL
+				     , ENROLL_DATETIME
+				  FROM MEMBER
+				 WHERE ADMIN_YN = 'Y'
+				   AND ACC_SECESSION_YN = 'N'
+				 ORDER BY USER_NO DESC)T)
+		 WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+	<select id="selectAdminRole" resultMap="memberRoleResultMap">
+		SELECT
+		       USER_NO
+		     , AUTHORITY_CODE
+		     , AUTHORITY_NAME
+		     , AUTHORITY_DESC
+		  FROM MEMBER
+		  LEFT JOIN MEMBER_ROLE USING(USER_NO)
+		  LEFT JOIN AUTHORITY USING(AUTHORITY_CODE)
+		 WHERE USER_NO = #{no}
+		 ORDER BY USER_NO DESC, AUTHORITY_CODE		
+	</select>
+	
+	<select id="getListCount" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM MEMBER
+		 WHERE ADMIN_YN = 'Y'
+		   AND ACC_SECESSION_YN = 'N'
+	</select>
+	
+	<select id="selectAdminByNo" resultMap="memberResultMap">
+		SELECT
+		       USER_NO
+		     , USER_ID
+		     , USER_NAME
+		     , PHONE
+		     , EMAIL
+		     , ENROLL_DATETIME
+		     , AUTHORITY_CODE
+		     , AUTHORITY_NAME
+		     , AUTHORITY_DESC
+		  FROM MEMBER
+		  LEFT JOIN MEMBER_ROLE USING(USER_NO)
+		  LEFT JOIN AUTHORITY USING(AUTHORITY_CODE)
+		 WHERE ADMIN_YN = 'Y'
+		   AND ACC_SECESSION_YN = 'N'
+		   AND USER_NO = #{no}
+		 ORDER BY AUTHORITY_CODE	
+	</select>
+	
+	<delete id="deleteAdminAuthorityOne" parameterType="_int">
+		DELETE FROM MEMBER_ROLE
+		 WHERE USER_NO = #{no}
+		   AND AUTHORITY_CODE = #{authority}
+	</delete>
+	
+	<insert id="insertAdminAuthority" parameterType="_int">
+		INSERT INTO MEMBER_ROLE
+		VALUES
+		(
+			#{no}
+		  , #{authority}
+		)
+	</insert>
+
+	<update id="deleteAdmin" parameterType="_int">
+		UPDATE MEMBER
+		   SET ACC_SECESSION_YN = 'Y'
+		     , ACC_SECESSION_DATETIME = SYSDATE
+		 WHERE USER_NO = #{adminNo}
+	</update>
+	
+	<delete id="deleteAdminAuthority" parameterType="_int">
+		DELETE FROM MEMBER_ROLE
+		 WHERE USER_NO = #{adminNo}	
+	</delete>
+
+	<insert id="registAdmin" parameterType="com.kh.project.admin.memberManage.model.vo.MemberInfo">
+		INSERT
+		  INTO MEMBER
+		(
+			USER_NO
+		  , USER_ID
+		  , USER_PWD
+		  , TEMP_PWD_YN
+		  , PWD_CHANGED_DATETIME
+		  , USER_NAME
+		  , PHONE
+		  , EMAIL
+		  , ADDRESS
+		  , ENROLL_DATETIME
+		  , MODIFY_DATETIME
+		  , LOGIN_FAILED_COUNT
+		  , ACC_LOCK_TIME
+		  , ACC_LOCK_YN
+		  , ACC_SECESSION_DATETIME
+		  , ACC_SECESSION_YN
+		  , ADMIN_YN
+		)
+		VALUES
+		(
+			SEQ_USER_NO.NEXTVAL
+		  , #{id}
+		  , #{pwd}
+		  , DEFAULT
+		  , DEFAULT
+		  , #{name}
+		  , #{phone}
+		  , #{email}
+		  , #{address}
+		  , DEFAULT
+		  , DEFAULT
+		  , DEFAULT
+		  , NULL
+		  , DEFAULT
+		  , NULL
+		  , DEFAULT
+		  , 'Y'
+		)
+	</insert>
+
+	<insert id="registBaseRole" parameterType="com.kh.project.member.model.vo.MemberRole">
+		INSERT
+		  INTO MEMBER_ROLE
+		(
+			USER_NO
+		  , AUTHORITY_CODE
+		)
+		VALUES
+		(
+			SEQ_USER_NO.CURRVAL
+		  , #{authorityCode}
+		)
+	</insert>
+
+	<insert id="registAdminRole" parameterType="com.kh.project.member.model.vo.MemberRole">
+		INSERT
+		  INTO MEMBER_ROLE
+		(
+			USER_NO
+		  , AUTHORITY_CODE
+		)
+		VALUES
+		(
+			SEQ_USER_NO.CURRVAL
+		  , #{authorityCode}
+		)	
+	</insert>
+
+
+
+
+</mapper>
