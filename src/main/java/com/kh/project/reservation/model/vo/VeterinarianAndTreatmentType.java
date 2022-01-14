@@ -4,8 +4,10 @@ public class VeterinarianAndTreatmentType {
 
 	private int vno;			// 의료진 번호
 	private String vname;		// 의료진 이름
-	private TreatmentType tno;			// 진료 과목 번호
+	private TreatmentType tno;	// 진료 과목 번호
 	private String status;		// 의료진 등록 상태
+	private ReservationInfo reservationInfo;
+	private String holiday;		// 의료진 휴무일
 
 	public VeterinarianAndTreatmentType() {}
 
