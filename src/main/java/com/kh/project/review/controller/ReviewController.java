@@ -272,15 +272,17 @@ public class ReviewController {
 			log.info("수정 성공");
 			/* 수정 성공시 덮어쓰기 된 사진 삭제 */
 			if(reviewUpload.getDeletedName() != null) {
-				File deletedFile = new File(uploadPath + reviewUpload.getDeletedName());
+				File deletedFile = new File(uploadPath + "\\" + reviewUpload.getDeletedName());
 				deletedFile.delete();
+
 			}
 			
 		} else {
 			log.info("수정 실패");
 			/* 수정 실패 시 수정을 위해 첨부된 사진 삭제 */
 			if(reviewUpload != null) {
-				File failedFile = new File(uploadPath + reviewUpload.getChangedName());
+				File failedFile = new File(uploadPath + "\\" + reviewUpload.getChangedName());
+					
 				failedFile.delete();
 			}
 			

@@ -17,6 +17,6 @@ public class Answer {
 	private Date modifyDate;
 	private String status;
 	private int qno; //
-	
+	private int acount;
 	
 }

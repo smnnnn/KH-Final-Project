@@ -66,8 +66,8 @@ public class QABoardController {
 		Map<String, Object> map 
 		= qaBoardService.selectQAList(page, search);
 		
-		/*log.info("페이지 : ", map.get("pi"));
-		log.info("boardList : ",map.get("boardList"));*/
+		log.info("페이지 : {} ", map.get("pi"));
+		log.info("boardList : {} ",map.get("boardList"));
 		
 		mv.addAllObjects(map);
 		mv.setViewName("cs/QABoardList"); 
