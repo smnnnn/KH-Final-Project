@@ -48,11 +48,13 @@
             <div class="topinfo">
                 <p>다나은 동물병원</p>
                 <div class="admin-nameinfo">
+                	<th:block sec:authorize="isAuthenticated()">
                     <img src="/images/admin/member_manage.png">
-                    <span>총관리자</span><span>님</span>
+                    <span sec:authentication="principal.name"></span><span>님</span>
                     <ul class="sub-menulist2">
-                        <li><a href="#">마이페이지</a></li>
-                        <li><a href="#">로그아웃</a></li>
+                        <li><a th:href="@{/admin/account/mypage{adminNo}(adminNo=${#authentication.principal.no})}">마이페이지</a></li>
+                        <li><a th:href="@{/member/logout}">로그아웃</a></li>
                     </ul>
+                    </th:block>
                 </div>
             </div>
