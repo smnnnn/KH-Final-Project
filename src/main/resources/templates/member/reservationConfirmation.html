@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extra-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +12,8 @@
     <link type="text/css" rel="stylesheet" href="/css/common.css">
     <!-- 나현 css (메인, 관리자)-->
     <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <!-- 효은 css -->
+    <link type="text/css" rel="stylesheet" href="/css/he.css">
     <!-- 공통 js -->
     <script type="text/javascript" src="/js/common.js"></script>
 
@@ -38,9 +41,8 @@
             margin: auto;
         }
         .infoForm{
-            border: 1px solid gainsboro;
-            width: 904px;   
-            margin-left: 10px;    
+           margin-left: 3%;
+    	   margin-top: 5%; 
         }
 
         .label{
@@ -132,7 +134,7 @@
             font-size: x-large;
             margin-left: 25px;
             margin-bottom: 10px;
-        }
+        } 
         .etc{
             color: rgb(167, 164, 164);
             font-weight: bolder;
@@ -142,18 +144,7 @@
             margin-left: 50px;
             width: 160px;
             height: 35px;
-        }
-
-        .u{
-            margin-left: 65px;
-            margin-top: 300px;
-        }
-        button:hover{
-            cursor: pointer;
-            color: royalblue;
-        }
-
-
+        }     
 
     </style>
 </head>
@@ -167,20 +158,52 @@
             <img class="my" src="/images/member/myPage.png">
             <div>
             <button class="My btn"> 정보 수정&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button><br>
-            <button class="My btn1"> 예약 확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button>
+            <button class="My btn1" th:href="@{/member/reservationConfirmation}"> 예약 확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button>
             </div>
+			
+            <th:block sec:authorize="isAuthenticated()">
+			<!-- <h3><span sec:authentication="principal.username"></span>님 환영합니다.</h3> -->
+		    </th:block>
             <div class="infoForm item">
-                <label class="label1">예약확인</label><br>
-                <label class="etc"><u></u></label>
+             	<div class="con_title">
+                   예약 확인
+                </div>
+                <div id="title_line"></div><br>
+                <!--<label class="label1">예약확인</label><br>
+                 <label class="etc"><u></u></label>
                 <br>
                 <label class="u"><u>진료 예약일</u></label>&nbsp;&nbsp;&nbsp;
                 <label class="u"><u>진료 시간</u></label>
                 <label  class="u"><u>진료 담당의</u></label>
-                <label  class="u"><u>진료 과목</u></label>
+                <label  class="u"><u>진료 과목</u></label> -->
+                <table class="time_table" id="timeTable">
+                    <colgroup>
+                        <col style="width: 25%;">
+                        <col style="width: 25%;">
+                        <col style="width: 25%;">
+                        <col style="width: 25%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>진료 예약일</th>
+                            <th>진료 예약 시간</th>
+                            <th>진료 담당의</th>
+                            <th>진료 과목</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="info : ${ReserInfo}">
+                        	<td><input type="radio" name="reservation_date" th:text="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${info.reservation_time}" id="reservation_time"></td>
+                            <td th:text="${info.vname}" id="vname"></td>
+                            <td th:text="${info.tname}" id="tname"></td>     
+                        </tr>
+                    </tbody>
+                </table>
                 
   
 
-               <button class="Withdraw">예약취소</button><br><br><br>
+               <button class="reserInfoBtn">예약취소</button><br><br><br>
 
 
                  

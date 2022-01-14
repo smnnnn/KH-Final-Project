@@ -1,5 +1,8 @@
 package com.kh.project.member.controller;
 
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -8,12 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.project.member.model.service.MemberService;
 import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.UserImpl;
 import com.kh.project.member.model.vo.WithdrawalReason;
+import com.kh.project.reservation.model.vo.ReservationInfo;
 
 
 
@@ -105,6 +110,19 @@ public class MemberController {
 	}
 
 	
+	/* 진료 예약 */
+	@GetMapping("/reservationConfirmation")
+	public ModelAndView reservationConfirmationForm(Principal principal, ModelAndView mv) {
+		
+		String id = principal.getName();
+		
+		List<ReservationInfo> ReserInfo = memberService.reservationList(id);
+		
+		mv.addObject("ReserInfo", ReserInfo);
+		mv.setViewName("member/reservationConfirmation");
+		
+		return mv;
+	}
 	
 
 }

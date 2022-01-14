@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.kh.project.member.model.dao.MemberMapper">
 
 	<resultMap type="com.kh.project.member.model.vo.Member" id="loginMemberResultMap">  <!-- loginMemberResultMap 셀렉한 게 채워줌 -->
@@ -20,8 +21,6 @@
 		<result property="accLockYn" column="ACC_LOCK_YN"/>
 		<result property="accsecssionDatetime" column="ACC_SECESSION_DATETIME"/>
 		<result property="accSecssionYn" column="ACC_SECSSION_YN"/>
-		<result property="adminYn" column="ADMIN_YN"/>
-		
 		
 		<collection property="memberRoleList" resultMap="memberRoleResultMap"/> <!-- 한사람의 정보가 들어가되 리스트 값만 매핑 -->
 		<!-- 매핑시켜야 함 테이블 3개 조인해야 함 -->	
@@ -40,7 +39,33 @@
 		<result property="name" column="AUTHORITY_NAME"/>
 		<result property="desc" column="AUTHORITY_DESC"/>
 	</resultMap> 	
-
+	
+	<!-- <resultMap type="com.kh.project.member.model.vo.DogInformation" id="dogInformationResultMap">
+		<id property="no" column="DOG_NO"/>
+		<result property="petName" column="DOG_NAME"/>
+		<result property="petAge" column="AUTHORITY_DESC"/>
+		<result property="breed" column="AUTHORITY_DESC"/>
+		<result property="status" column="AUTHORITY_DESC"/>
+		<result property="petGender" column="AUTHORITY_DESC"/>
+		<result property="userNo" column="REF_USER_NO2"/>
+	</resultMap>  -->
+	
+	<resultMap type="com.kh.project.member.model.vo.ReservationSelect" id="reservatinoInfoResultMap">
+		<id property="reservation_no" column="RESERVATION_NO"/>
+		<result property="reservation_date" column="RESERVATION_DATE"/>
+		<result property="reservation_time" column="RESERVATION_TIME"/>
+		<result property="reservation_status" column="RESERVATION_STATUS"/>
+		<result property="vname" column="VNAME"/>
+		<result property="tname" column="TNAME"/>
+		
+			<association property="user_id" javaType="com.kh.project.member.model.vo.Member">
+				<id property="no" column="USER_NO"/>
+				<result  property="id" column="USER_ID"/>
+			</association>				
+	
+	</resultMap>	
+	
+	
 
 	
 	<select id="findMemberById" resultMap="loginMemberResultMap"> <!-- loginMemberResultMap 셀렉 -->
@@ -61,7 +86,6 @@
 		     , A.ACC_LOCK_YN
 		     , A.ACC_SECESSION_DATETIME
 		     , A.ACC_SECESSION_YN
-		     , A.ADMIN_YN
 		     , B.USER_NO REF_USER_NO
 		     , B.AUTHORITY_CODE REF_AUTHORITY_CODE
 		     , C.AUTHORITY_CODE REF_AUTHORITY_CODE2
@@ -133,7 +157,6 @@
 		     , ACC_LOCK_YN
 		     , ACC_SECESSION_DATETIME
 		     , ACC_SECESSION_YN
-		     , ADMIN_YN
 			) 
 			VALUES
 			(
@@ -146,7 +169,6 @@
 			 , #{ phone }
 			 , #{ email }
 			 , #{ address }
-			 , DEFAULT
 			 , DEFAULT
 			 , DEFAULT
 			 , DEFAULT
@@ -226,7 +248,7 @@
 			)
 			VALUES
 			(
-			  #{memberNo}
+			  SEQ_USER_NO.CURRVAL
 			  , #{ reason }
 			  , #{ opinions }
 			)			
@@ -235,12 +257,23 @@
 	<update id="updateaccSecssionYn" parameterType="com.kh.project.member.model.vo.Member">
 		UPDATE MEMBER
 		SET ACC_SECESSION_YN = 'Y'
-		WHERE USER_NO = #{no}
+		WHERE USER_NO = SEQ_USER_NO.CURRVAL
 	</update>
 
 
-
-
-
-
+	<!-- 예약 조회 -->
+	<select id="reservationList" resultMap="reservatinoInfoResultMap">
+	SELECT
+		   a.RESERVATION_DATE
+		 , a.RESERVATION_TIME
+		 , b.VNAME
+		 , c.TNAME
+	  FROM RESERVATION_INFORMATION a
+      INNER JOIN VETERINARIAN b ON(a.VNO = b.VNO)
+      INNER JOIN TREATMENT_TYPE c ON(a.TNO = c.TNO)
+      INNER JOIN MEMBER d ON(a.USER_NO = d.USER_NO)
+      WHERE d.user_id = #{id}
+	</select>
+	
+	
 </mapper>
