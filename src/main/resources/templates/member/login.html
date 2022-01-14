@@ -28,13 +28,14 @@
             <img src="/images/member/memberInfo.png"> 
             <div class="infoForm item">
             
-         <!--    <form id="loginForm" th:action="@{/member/login}" method="post" onsubmit="return validate();"> -->
+    
                <label class="label">로그인</label><br><br>
                <label class="etc">다나은 동물병원의 회원이 되시면 다양한 정보를 이용하실 수 있습니다</label><br><br><br><br><br><br>
 
-               <input class ="login all" type="text" name="userid" size="20" maxlength="10" placeholder="아이디를 입력하세요"><br>
+			<form th:action="@{/member/login}" method="post"> 
+               <input class ="login all" type="text" name="username" size="20" maxlength="10" placeholder="아이디를 입력하세요"><br>
     
-               <input class ="pwd all" type="password" name="userpwd" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요"><br><br><br>             
+               <input class ="pwd all" type="password" name="password" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요"><br><br><br>             
 
                <a class="a a1" th:href="@{/member/idFind}">아이디 찾기</a>
                <a class="a" th:href="@{/member/pwdFind}">비밀번호 찾기</a>
@@ -43,9 +44,9 @@
                
 
 
-                <input type="button" class="button" value="로그인"><br><br>
+                <input type="submit" class="button" value="로그인"><br><br>
 
-             <!--    </form> -->
+             </form>
 
 
             </div>

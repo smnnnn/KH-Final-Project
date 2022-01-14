@@ -9,4 +9,10 @@ public interface MemberService extends UserDetailsService{
 
 	void signUp(Member member);
 
+	int idCheck(String userId);
+
+	String idFind(String name, String email);
+
+	void withdrawal(String reason, String opinions);
+
 }

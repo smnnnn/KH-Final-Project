@@ -14,10 +14,8 @@ public interface ReservationMapper {
 
 	List<VeterinarianAndTreatmentType> findVname(int tno);
 
-	int inputReser(ReservationInfo reservationInfo);
-
+	int registReservation(ReservationInfo reservationInfo);
+	
 	int registDog(DogInformationInput dogInfo);
-
-	int modifyReser(ReservationInfo reservationInfo);
 
 }

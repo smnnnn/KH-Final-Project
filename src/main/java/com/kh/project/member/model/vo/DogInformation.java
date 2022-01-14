@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 public class DogInformation {
 	
 	private int no;
-	private String name;
-	private int age;
+	private String petName;
+	private int petAge;
 	private String breed;
 	private String status;
-	private String gender;
-	private int memberNo;
+	private String petGender;
+	private int userNo;
 	
-
+//필드명 html name 일치 시켜야 자동 넣어줌 안 그면 일치값없음
 	
 	
 	

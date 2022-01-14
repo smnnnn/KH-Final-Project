@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.project.member.model.service.MemberService;
 import com.kh.project.member.model.vo.Member;
@@ -43,6 +44,42 @@ public class MemberController {
 	
 	@GetMapping("/withdrawal")
 	public void withdrawalForm() {}
+	
+	
+	@ResponseBody
+	@PostMapping("/idCheck")
+	public String idCheck(String userId ) {
+		
+		int result = memberService.idCheck(userId);
+		
+		return result > 0 ? "fail" : "success";
+	}
+	
+	
+	
+	@ResponseBody
+	@PostMapping("/idFind")
+	public String idFind(String name, String email ) {
+		
+		String result = memberService.idFind(name, email);
+	
+		
+		//
+		return result;
+
+	}
+	
+	
+
+	@PostMapping("/withdrawal")
+	public String withdrawal(String reason, String opinions ) {
+		
+		memberService.withdrawal(reason, opinions);
+	
+		return "redirect:/";
+
+	}
+	
 	
 	
 	@PostMapping("signUp")

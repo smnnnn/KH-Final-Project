@@ -114,9 +114,15 @@
                     <span th:if="${pagination.page > 1}" class="prev"><a th:href="@{/admin/reservation/list(page=${pagination.page-1}, sort=${sort}, searchCategory=${cate}, searchKeyword=${val})}"><span class="blind"></span></a></span>
                     <span th:unless="${pagination.page > 1}" class="prev"><a href="#"><span class="blind"></span></a></span>
                     <!-- 페이지 넘버 -->
-                     <th:block th:each="i : ${#numbers.sequence(pagination.startPage,pagination.endPage)}">
-                   		<a th:if="${pagination.maxPage} != 0" th:text="${i}" th:classappend="${pagination.page == i} ? current" th:href="@{/admin/reservation/list(page=${i}, sort=${sort}, searchCategory=${cate}, searchKeyword=${val})}"></a>                    
-                    </th:block> 
+                    <!-- 목록이 0인 경우 -->
+                    <th:block th:if="${pagination.totalListCount == 0}">
+                   		<a th:text="1" class="current"></a>  
+                    </th:block>
+                    <th:block th:unless="${pagination.totalListCount == 0}">
+	                    <th:block th:each="i : ${#numbers.sequence(pagination.startPage,pagination.endPage)}">
+	                   		<a th:text="${i}" th:classappend="${pagination.page == i} ? current" th:href="@{/admin/reservation/list(page=${i}, sort=${sort}, searchCategory=${cate}, searchKeyword=${val})}"></a>                    
+	                    </th:block> 
+                    </th:block>
                     <!-- 다음 페이지로 이동 -->
                     <span th:if="${pagination.page < pagination.maxPage}" class="next"><a th:href="@{/admin/reservation/list(page=${pagination.page+1}, sort=${sort}, searchCategory=${cate}, searchKeyword=${val})}"><span class="blind"></span></a></span>
                     <span th:unless="${pagination.page < pagination.maxPage}" class="next"><a href="#"><span class="blind"></span></a></span> 

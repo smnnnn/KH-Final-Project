@@ -46,7 +46,11 @@
                 </ul>
             </div>
             <form th:action="@{/reservation/reservation_form/input}" method="Post" enctype="multipart/form-data" id="reservation_info">
-            <input th:value="${reservationInfo.reservation_no}" type="hidden" name="reservation_no">
+            <!-- 이전 페이지에서 사용자가 입력했던 예약 정보를 hidden으로 불러와서 값 같이 넘기기 -->
+            <input th:value="${#dates.format(reserInfo.reservation_date, 'yyyy-MM-dd')}" name="reservation_date" type="hidden">
+            <input th:value="${reserInfo.reservation_time}" name="reservation_time" type="hidden">
+            <input th:value="${reserInfo.tno}" name="tno" type="hidden">
+            <input th:value="${reserInfo.vno}" name="vno" type="hidden">
                <div class="reser_content">
                     <div class="con_title">
                         예약 정보 입력

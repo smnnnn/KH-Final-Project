@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.project.member.model.dao.MemberMapper;
 import com.kh.project.member.model.vo.Authority;
+import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.MemberRole;
 import com.kh.project.member.model.vo.UserImpl;
@@ -83,17 +84,50 @@ public class MemberServiceImpl implements MemberService{
 		/* BCryptPasswordEncoder 사용한 rawPassword -> encodePassword */
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		member.setPwd(passwordEncoder.encode(member.getPwd()));  //encode 메소드에 인코딩하고 싶은 라우패스워드 넣음  ... 인코딩한걸 멤버객체에 다시 넣음. 인코딩 된 해당값 인서트 할 수 있게
+	
 		
 		/* TBL_MEMBER TABLE INSERT */  
 		memberMapper.insertMember(member); // 멤버 테이블에 대한 인서트 수행에 대한 것
 		
 		/* TBL_MEMBER_ROLE_INSERT */    //유저가 가진 어솔리티도 인서트 되어야 함
 		MemberRole memberRole = new MemberRole(); // 인서트  MemberRole 형식
-		memberRole.setAuthorityCode(1);
+		memberRole.setAuthorityCode(1);  //?
 		memberMapper.insertMemberRole(memberRole);
 		
+		/*
+		 * DogInformation dogInformation = new DogInformation();
+		 * memberMapper.insertDogInformaion(dogInformation);
+		 */
 		
 		
 	}
+
+
+
+	@Override
+	public int idCheck(String userId) {
+		return memberMapper.idCheck(userId);
+	}
+
+
+
+	@Override
+	public String idFind(String name, String email) {
+		return memberMapper.idFind(name, email);
+	}
+
+
+
+	@Override
+	public void withdrawal(String reason, String opinions) {
+		
+		memberMapper.withdrawal(reason, opinions);
+		Member member = new Member();
+		memberMapper.updateaccSecssionYn(member);
+		
+	}
+
+
+	
 
 }
