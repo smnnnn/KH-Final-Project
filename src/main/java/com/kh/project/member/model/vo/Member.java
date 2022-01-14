@@ -46,17 +46,16 @@ public class Member {
 	private String accLockYn;			//계정잠금여부
 	private Date accSecssionDatetime;	//계정탈퇴일시
 	private String accSecssionYn;		//계정탈퇴여부
+	private String adminYn;		//관리자여부
 	
-	
-	private String petName;
-	private int petAge;
-	private String breed;
-	private String status;
-	private String petGender;
+	//ADMIN_YN
+    // 별도로 다룰 거라서 도그 관련 필드 뺌
 	
 	
 	/* 한 멤버는 여러 권한을 가질 수 있음 - TBL_MEMBER_ROLE과 조인한 결과 값 */
 	private List<MemberRole> memberRoleList;		//보유권한목록
+	
+	
 	
 //	private List<DogInformation> dogInformation;
 
