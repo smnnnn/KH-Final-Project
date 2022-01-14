@@ -14,7 +14,10 @@
     <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
     <!-- 자바스크립트 -->
     <script type="text/javascript" src="/js/common.js"></script> 
-
+    <script type="text/javascript" src="/js/nh.js"></script> 
+	<!-- csrf 오류 방지 -->
+	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>다나은 관리자|계정관리</title>
 </head>
 <body>
@@ -22,36 +25,45 @@
             <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
                 <h3 class="pagetitle">관리자 계정 추가</h3>
-                <form action="" method="" class="formstyle">
+                <form th:action="@{/admin/account/regist}" method="post" class="formstyle" onsubmit="return validate();">
                     <div class="content-wrap">
                         <div class="text-area">
                             <h4>아이디</h4>
-                            <input type="text" class="" name="userId" id="userId" >
+                            <input type="text" name="id" id="userId" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요" required>
                             <button type="button" id="checkId" class="btn-a">중복 확인</button>
                         </div>
                         <div class="text-area">
                             <h4>비밀번호</h4>
-                            <input type="password" class="" name="userPwd" id="userPwd" >
+                            <input type="password" name="pwd" id="userPwd" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요" required>
+	                        <p class="" id="pwdresult"></p>
                         </div>
                         <div class="text-area">
                             <h4>비밀번호 확인</h4>
-                            <input type="password" class="" id="userPwdCheck" >
-                            <p class="" id="pwdresult"></p>
+                            <input type="password" name="pwd2" id="userPwd2" maxlength="15" placeholder="비밀번호를 입력하세요" required>
+                            <p class="" id="pwdresult2"></p>
                             <!-- 일치하지 않으면 class속성에 error-text 추가하기 & innerHTML '비밀번호가 일치하지 않습니다.'-->
                         </div>
                         <div class="text-area">
                             <h4>이름</h4>
-                            <input type="text" name="userName" id="userName">
+                            <input type="text" name="name" id="userName" placeholder="한글로 2~10자리 이름입력" required>
+                            <p class="" id="nameresult"></p>
                         </div>
                         <div class="text-area">
                             <h4>전화번호</h4>
-                            <input type="text" name="phone" id="phone" >
+                            <input type="text" name="phone" id="phone" placeholder="-없이 입력" required>
+                            <p class="" id="phoneresult"></p>
                         </div>
+                        <div class="text-area">
+                            <h4>이메일</h4>
+                            <input type="text" name="email" id="email" placeholder="@포함하여 전부 입력" required>
+                            <p class="" id="eamilresult"></p>
+                        </div>
+
 
                         <!-- 유효성 검사 후 버튼 활성화 : btn-b , 비활성화 : btn-disabled -->
                         <div class="btnarea">
-                            <button class="btn-b">추가</button>
-                            <button class="btn-c btns" type="button" onclick="">취소</button>
+                            <button class="btn-disabled" id="joinBtn" disabled>추가</button>
+                            <button class="btn-c btns" type="button" onclick="location.href='/admin/account/list'">취소</button>
                         </div>
                     </div>
                 </form>
