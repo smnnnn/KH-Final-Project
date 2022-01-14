@@ -35,7 +35,7 @@
                         <img src="/images/admin/display_manage.png" class="menuiconimg">
                         <p class="ai">화면 관리</p>
                     </a></li>
-                    <li th:classappend="${currnet == '6'} ? activemenu"><a href="#">
+                    <li th:classappend="${currnet == '6'} ? activemenu"><a th:href="@{/admin/account/list}">
                         <img src="/images/admin/config_manage.png" class="menuiconimg">
                         <p class="ai">계정 관리</p>
                     </a></li>
