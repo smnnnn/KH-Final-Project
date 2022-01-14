@@ -273,6 +273,7 @@
       INNER JOIN TREATMENT_TYPE c ON(a.TNO = c.TNO)
       INNER JOIN MEMBER d ON(a.USER_NO = d.USER_NO)
       WHERE d.user_id = #{id}
+        AND a.RESERVATION_STATUS = '예약완료'
 	</select>
 	
 	
