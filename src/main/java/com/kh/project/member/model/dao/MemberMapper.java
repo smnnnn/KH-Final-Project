@@ -30,6 +30,8 @@ public interface MemberMapper {
 	void updateaccSecssionYn(Member member);
 
 	List<ReservationInfo> reservationList(String id);
+
+	int reservationCancel(int reservation_no);
 	
 	
 	
