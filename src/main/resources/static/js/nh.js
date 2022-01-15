@@ -133,12 +133,11 @@ $(function(){
 	
 	userPwd.on('blur', function(){
 	   let regExp = RegExp(/(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,15}$/);
-	   console.log(userPwd.val());
 	   
 	    if(regExp.test(userPwd.val())) {
 	        pwdresult.removeClass('error-text');
 	        pwdresult.html('');
-/*	        userPwd2.focus();*/
+	        userPwd2.focus();
 	        pwdcheck = true;
 	    }
 	    else {
@@ -148,7 +147,7 @@ $(function(){
 	        pwdcheck = false;
 	    }
 	    if(userPwd.val() == "") {
-/*	        pwdresult.html('');*/
+	        pwdresult.html('');
 	        pwdcheck = false;
 	    }
 	});
@@ -251,38 +250,31 @@ $(function(){
 	
 	function validate(){
 			if(isUsable == false){
-				console.log("회원가입 불가");
 				userId.focus();
 				return false;
 			}
 			if(pwdCheck == false){
-				console.log("회원가입 불가");
 				userPwd.focus();
 				return false;
 			}
 			if(pwdcheck2 == false){
-				console.log("회원가입 불가");
 				userPwd2.focus();
 				return false;
 			}
 			if(nameCheck == false){
-				console.log("회원가입 불가");
 				userName.focus();
 				return false;
 			}
 			if(phoneCheck == false){
-				console.log("회원가입 불가");
 				phone.focus();
 				return false;
 			}
 			if(emailCheck == false){
-				console.log("회원가입 불가");
 				email.focus();
 				return false;
 			}
 	}
 });
-
 
 
 
