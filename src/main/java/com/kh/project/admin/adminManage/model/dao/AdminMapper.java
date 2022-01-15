@@ -33,4 +33,8 @@ public interface AdminMapper {
 
 	int registAdminRole(MemberRole memberRole2);
 
+	int modifyAdminInfo(MemberInfo changeInfo);
+
+	int getMemberCount(Map<String, Object> map);
+
 }

@@ -52,7 +52,8 @@ public class MemberController {
 	
 	@GetMapping("/pwdFind")
 	public void pwdFindForm() {}
-	
+
+
 	@GetMapping("/withdrawal")
 	public void withdrawalForm() {}
 	
