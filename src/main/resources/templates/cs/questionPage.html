@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판 상세</title>
+    <title>문의글 작성</title>
      <!-- css -->
 	 <link type="text/css" rel="stylesheet" href="/css/sm/questionPage.css">
      <!-- 공통 css -->
@@ -24,18 +25,12 @@
 
     <!-- 내용 부분 -->
     <div>
-       <form th:action="@{/qaBoard/insert}" method="post">
+       <form th:action="@{/qaBoard/insert}" method="post" onsubmit="return formCheck(this)">
+      <!--  <input type="hidden" name="userNo" th:value="21"> -->
         <!-- 내용 표시 부분 -->
         <div class="board content">
             <div id="qaTitle">문의하기</div>
             <div class="board_wrap">
-                <!-- <div class="line2 bold"><span class="qTitle">[예약문의] 문의합니다</span></div>
-                <div class="name bold">김소민</div>
-                <div class="date bold">
-                    2021.12.08
-                    <span><img class="smallicon" src="../resources/images/sm/hit2.png" alt="조회수">2</span> 
-                    <span><img class="smallicon" src="../resources/images/sm/reply2.png" alt="답변수">1</span> 
-                </div> -->
                 <div class="qTitle">
       
                     <select id="category" name="categoryNo">
@@ -76,7 +71,18 @@
     <!-- 푸터 -->
 	<div th:replace="fragments/footer.html"></div>
 
+<script>
+	function formCheck(frm) {
+		
+		if(frm.qtitle.value == ""){
+			alert("제목을 입력해주세요");
+			frm.qtitle.focus();
+			return false;
+		}
 
+}
+
+</script>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,11 +52,12 @@
                 <div class="bd_container" th:each="board : ${boardList}">
                     <div class="item item1" th:text="${board.qno}"></div>
                     <div class="item">
-                    	<!-- 클릭시 해당 글번호 상세 페이지로 이동 -->
-                    	<a th:href="@{/qaBoard(qno=${board.qno})}">
+                    	<!-- 클릭시 해당 글번호 상세 페이지로 이동 -->     
+
+                    	<a onclick="checkUser();">
                     	<!-- 비밀글이면 lock,아니면 unlock 아이콘-->
-                        <span th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png"></span>
-                       	<span th:if="${board.secretStatus} == 'N'"><img id="key" src="/images/sm/unlock2.png"></span>
+                        <span id="ss" th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png" name="lock"></span>
+                       	<span id="ss" th:if="${board.secretStatus} == 'N'"><img id="key" src="/images/sm/unlock2.png" name="unlock"></span>
                         <!-- 카테고리명 -->
                         [<span th:text="${board.categoryName}"></span>] 
                         <!-- 글제목 -->
@@ -65,6 +67,10 @@
                         <span th:if="${board.answer.acount} == 1"><img id="answer" src="/images/sm/answer2.png"></span> 
                         <span th:unless="${board.answer.acount} == 1"></span>
                         </a>
+
+                        
+
+                        
                     </div>
                     <!-- 사용자 이름 -->
                     <div class="item bold" th:text="${board.userName}"></div>
@@ -191,6 +197,32 @@
 
     <!-- 푸터 -->
 	<div th:replace="fragments/footer.html"></div>
+
+	<script>
+		function notYours(){
+			alert("당신 글이 아닙니다");
+		}
+		
+		function checkUser(){
+			let ss = document.querySelectorAll("#ss");
+			/*걔의 자손 name이 lock일 때, unlock일 때*/
+			console.log(ss);
+			
+		for(let i = 0; i < ss.length; i++) {
+			
+			const item = ss.item(i);
+			let img = item.getElementsByTagName("img")[0];
+			if(img[name=lock]) {
+				
+			} else if(img[name=unlock]) {
+				
+			}
+			
+		}
+
+		
+		}
+	</script>
 
 
 </body>
