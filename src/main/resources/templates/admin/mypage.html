@@ -22,7 +22,7 @@
             <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
                 <h3 class="pagetitle">관리자 계정 관리</h3>
-                <form action="" method="" class="formstyle">
+                <form th:action="@{/admin/account/mypageModify}" method="post" class="formstyle" onsubmit="return validate();">
                     <div class="content-wrap">
                         <div class="text-area">
                             <h4>아이디</h4>

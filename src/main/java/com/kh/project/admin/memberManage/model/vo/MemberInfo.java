@@ -13,6 +13,7 @@ import lombok.Data;
 public class MemberInfo {
 	private int no;						// 회원번호
 	private String id;					// 회원아이디
+	private String pwd;                 //회원비밀번호
 	private String name;				//회원이름
 	private String phone;
 	private String email;
