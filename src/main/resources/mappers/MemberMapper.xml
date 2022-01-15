@@ -275,7 +275,13 @@
       INNER JOIN MEMBER d ON(a.USER_NO = d.USER_NO)
       WHERE d.user_id = #{id}
         AND a.RESERVATION_STATUS = '예약완료'
+      ORDER BY a.RESERVATION_NO
 	</select>
 	
+	<update id="reservationCancel" parameterType="com.kh.project.member.model.vo.ReservationSelect">
+		UPDATE RESERVATION_INFORMATION
+		   SET RESERVATION_STATUS = '예약취소'
+		 WHERE RESERVATION_NO = #{ reservation_no }
+	</update>
 	
 </mapper>

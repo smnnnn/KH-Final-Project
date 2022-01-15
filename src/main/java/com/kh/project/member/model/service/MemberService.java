@@ -12,6 +12,7 @@ import com.kh.project.reservation.model.vo.ReservationInfo;
 
 public interface MemberService extends UserDetailsService{
 
+
 	void signUp(Member member, DogInformation dogInformation);
 
 	int idCheck(String userId);
@@ -22,4 +23,5 @@ public interface MemberService extends UserDetailsService{
 
 	List<ReservationInfo> reservationList(String id);
 
+	int reservationCancel(int reservation_no);
 }
