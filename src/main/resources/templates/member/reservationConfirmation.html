@@ -168,7 +168,7 @@
                 </div>
                 <div id="title_line"></div><br>
              
-                <!-- <form th:action="" method=""> -->
+                 <!--  <form th:action="@{/review/insert}" method="get"> -->
                 	<table class="time_table" id="timeTable">
                     	<colgroup>
                         	<col style="width: 20%;">
@@ -197,8 +197,8 @@
                             			    or ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} == ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
                             			   	 and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button type="button" class="reserInfoBtn" id="cancel">예약 취소</button></td>
                             	<td th:unless="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
-                            			    or ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} == ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
-                            			     and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button type="submit" class="reserInfoBtn" id="complete">진료 완료</button></td>     
+                            			    or ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} == ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')} 
+                            			     and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button type="submit" class="reserInfoBtn" id="complete" th:onclick="|location.href='@{/review/insert(resNo=${info.reservation_no},tname=${info.tname})}'|">진료 완료</button></td>     
                         	</tr>
                     	</tbody>
                 	</table>
@@ -206,7 +206,7 @@
                	 <input type="hidden" name="reservation_time" value="">
                	 <input type="hidden" name="vname" value="">
                	 <input type="hidden" name="tname" value="">
-               <!--  </form> -->
+              <!--   </form> -->
             </div>
         </div>
 

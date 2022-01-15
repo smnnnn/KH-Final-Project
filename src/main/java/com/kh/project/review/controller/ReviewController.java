@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.project.member.model.vo.UserImpl;
 import com.kh.project.review.model.service.ReviewService;
 import com.kh.project.review.model.vo.Review;
 import com.kh.project.review.model.vo.ReviewUpload;
@@ -106,27 +108,32 @@ public class ReviewController {
 	
 	
 	@GetMapping("insert")
-	public String insertReview() {
+	public String insertReview(@RequestParam("resNo") int resNo, @RequestParam("tname") String tname, Model model) {
 		
+		model.addAttribute("tname",tname);
+		model.addAttribute("resNo", resNo);
 		return "review/addReviewPage";
 	}
 	
 	@PostMapping("insert") 
 	public String addReview(@RequestParam MultipartFile thumbnail, 
-							HttpServletRequest request) throws IllegalStateException, IOException {
+							HttpServletRequest request, @AuthenticationPrincipal UserImpl user) throws IllegalStateException, IOException {
 
 		String rvtitle = request.getParameter("rvtitle");
 		String rvcontent = request.getParameter("rvcontent");
 		int tno = Integer.parseInt(request.getParameter("tno"));
 		int resNo = Integer.parseInt(request.getParameter("resNo")); //예약 기능 완성되면 진짜 예약번호로 바꾸기
-		int userNo = Integer.parseInt(request.getParameter("userNo")); //로그인 기능 완성되면 진짜 회원번호로 바꾸기
 		
 		Review review = new Review();
+		if(user != null) {
+			review.setUserNo(user.getNo());
+		}
+		
 		review.setRvtitle(rvtitle);
 		review.setRvcontent(rvcontent);
 		review.setTno(tno);
 		review.setResNo(resNo);
-		review.setUserNo(userNo);
+
 
 		log.info("before insert review {}", review);
 		
