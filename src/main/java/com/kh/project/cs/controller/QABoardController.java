@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +25,7 @@ import com.kh.project.cs.model.service.QABoardService;
 import com.kh.project.cs.model.vo.Answer;
 import com.kh.project.cs.model.vo.QABoard;
 import com.kh.project.cs.model.vo.Search;
+import com.kh.project.member.model.vo.UserImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -134,11 +136,15 @@ public class QABoardController {
 	}
 	
 	@PostMapping("insert")
-	public String insertQA(QABoard qaBoard) {
+	public String insertQA(QABoard qaBoard, @AuthenticationPrincipal UserImpl user) {
 		
 		/* 로그인 기능 완성 전 테스트 */
-		int userNo = 1;
-		qaBoard.setUserNo(userNo);
+		/*int userNo = 1;
+		qaBoard.setUserNo(userNo);*/
+		
+		if(user != null) {
+			qaBoard.setUserNo(user.getNo());
+		}
 		
 		int result = qaBoardService.insertQA(qaBoard);
 		
