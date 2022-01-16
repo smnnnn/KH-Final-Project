@@ -207,7 +207,6 @@
 	fileElement.addEventListener('change', preview);
 	function preview(event) {
 			console.log(event.target);
-			console.log("왜안돼")
 			
 			let reader = new FileReader();			
 			reader.readAsDataURL(fileElement.files[0]);
