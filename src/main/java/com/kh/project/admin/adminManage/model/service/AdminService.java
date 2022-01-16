@@ -1,9 +1,11 @@
 package com.kh.project.admin.adminManage.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.project.admin.adminManage.model.vo.DashBoard;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
+import com.kh.project.admin.visit.model.vo.VisitCount;
 
 public interface AdminService {
 
@@ -22,5 +24,8 @@ public interface AdminService {
 	int modifyAdminInfo(MemberInfo changeInfo);
 
 	DashBoard dashBoard();
+
+	List<VisitCount> getVisitCount();
+
 
 }

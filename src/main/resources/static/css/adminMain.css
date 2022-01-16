@@ -270,10 +270,11 @@ PAGING
 
 /*-------- 관리자페이지 데시보드 ---------*/
 .manageinfo-wrap{
-    margin: 0 100px;
     display: flex;
     padding: 20px;
     font-size: 13px;
+    width: 900px;
+    margin: 0 auto;
 }
 .manageinfo{
     margin: 10px 0;
@@ -311,9 +312,16 @@ PAGING
 }
 .visitinfo{
     border: 1px solid #C4C4C4; 
-    margin: 50px 200px;
-    width: 600px;
-    height: 300px;
+    margin: 50px auto;
+    width: 900px;
+    height: 400px;
+}
+#canvas{
+	border: 1px solid #C4C4C4; 
+	margin: 50px auto;
+	padding: 10px;
+	width: 600px;
+	height: 400px;
 }
 
 /*------- 관리자 계정 관리페이지 ----------*/
