@@ -54,7 +54,9 @@
                     <div class="item">
                     	<!-- 클릭시 해당 글번호 상세 페이지로 이동 -->     
 
-                    	<a onclick="checkUser();">
+                    	<!--<a th:href="@{/qaBoard(qno=${board.qno})}">-->
+                    	<a th:onclick="checkUser('[[${board.qno}]]')">
+                    	<input type="hidden" id="qnumber" th:value="${board.qno}">
                     	<!-- 비밀글이면 lock,아니면 unlock 아이콘-->
                         <span id="ss" th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png" name="lock"></span>
                        	<span id="ss" th:if="${board.secretStatus} == 'N'"><img id="key" src="/images/sm/unlock2.png" name="unlock"></span>
@@ -199,24 +201,33 @@
 	<div th:replace="fragments/footer.html"></div>
 
 	<script>
-		function notYours(){
-			alert("당신 글이 아닙니다");
+		function notYours(no){
+			/*let qnumber = document.querySelector("#qnumber").value;*/
+			console.log(no)
+			location.href = "/qaBoard?qno=" + no;
 		}
 		
-		function checkUser(){
+		function checkUser(no){
 			let ss = document.querySelectorAll("#ss");
 			/*걔의 자손 name이 lock일 때, unlock일 때*/
 			console.log(ss);
 			
-		for(let i = 0; i < ss.length; i++) {
+
 			
-			const item = ss.item(i);
-			let img = item.getElementsByTagName("img")[0];
-			if(img[name=lock]) {
+			for(let i = 0; i < ss.length; i++) {
 				
-			} else if(img[name=unlock]) {
-				
-			}
+				const item = ss.item(i);
+				let img = item.querySelector("#key");
+
+				console.log(img);
+
+				if([name=unlock]) {
+					console.log("안잠김");
+					/*location.href = "/qaBoard?qno=" + no;*/
+				} else if([name=lock]) {
+					console.log("잠김");
+	
+				}
 			
 		}
 

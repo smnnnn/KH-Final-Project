@@ -136,7 +136,7 @@
             <form th:action="@{/review/insert}" name="boardForm" method="post" enctype="multipart/form-data" onsubmit="return formCheck(this)">
                 <input type="hidden" name="resNo" th:value="${resNo}"> 
                 <div class="qTitle">
-                    <select id="category" name="tno"> <!-- 예약정보에서 넘어온 값으로 fix하기 -->
+                    <select id="category" name="tno" disabled> <!-- 예약정보에서 넘어온 값으로 fix하기 -->
                           
                         <option value="1" th:selected="${tname}=='내과'">내과</option>
                         <option value="2" th:selected="${tname}=='외과'">외과</option>
@@ -234,6 +234,8 @@
 <script>
 	function formCheck(frm) {
 	
+		document.getElementById("category").removeAttribute("disabled");
+		
 		if(frm.rvtitle.value == ""){
 			alert("제목을 입력해주세요");
 			frm.rvtitle.focus();

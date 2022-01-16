@@ -142,12 +142,11 @@
 			 </th:block>
 			 
                 <div class="qTitle">
-                    <select id="category" name="tno"> <!-- 선택해야 넘기게 하기 -->
-                        <option>카테고리</option>     
-                        <option value="1" th:selected="${review.tname} =='내과'">내과</option>
-                        <option value="2" th:selected="${review.tname} =='외과'">외과</option>
-                        <option value="3" th:selected="${review.tname} =='안과'">안과</option>
-                        <option value="4" th:selected="${review.tname} =='정형외과'">정형외과</option>
+                    <select id="category" name="tno"> <!-- 선택된 값만 스크립트로 disabled 풀기 -->   
+                        <option value="1" th:selected="${review.tname} =='내과'" disabled>내과</option>
+                        <option value="2" th:selected="${review.tname} =='외과'" disabled>외과</option>
+                        <option value="3" th:selected="${review.tname} =='안과'" disabled>안과</option>
+                        <option value="4" th:selected="${review.tname} =='정형외과'" disabled>정형외과</option>
                     </select>
        
                     <input type="text" id="titleArea" name="rvtitle" maxlength="100" placeholder="제목을 입력해주세요" th:value="${review.rvtitle}">
@@ -172,40 +171,10 @@
                         ]
                       });
                       
- /*                     
-                  	$(function(){
-                		$('#summernote').summernote({       			
-                			
-                			callbacks: {
-                				onImageUpload: function(files, editor, welEditable) {
-                		            for (var i = files.length - 1; i >= 0; i--) {
-                		            	sendFile(files[i], this);
-                		            }
-                		        }
-                			}
-                			
-                		});
-
-                	})
-                	
-                	function sendFile(file, el) {
-                		var form_data = new FormData();
-                      	form_data.append('file', file);
-                      	$.ajax({
-                        	data: form_data,
-                        	type: "POST",
-                        	url: '/review/uploadImg',
-                        	cache: false,
-                        	contentType: false,
-                        	enctype: 'multipart/form-data',
-                        	processData: false,
-                        	success: function(img_name) {
-                          		$(el).summernote('editor.insertImage', img_name);
-                          		console.log(img_name);
-                        	}
-                      	});
-                    }
- */                     
+                  
+                      
+					$('#category > option:selected').prop('disabled',false)
+		
                     </script>
 				<br>
 				
@@ -238,7 +207,6 @@
 	fileElement.addEventListener('change', preview);
 	function preview(event) {
 			console.log(event.target);
-			console.log("왜안돼")
 			
 			let reader = new FileReader();			
 			reader.readAsDataURL(fileElement.files[0]);

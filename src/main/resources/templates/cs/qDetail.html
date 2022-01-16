@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
 
 	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
@@ -20,7 +21,11 @@
      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
      <!--메인 스크립트 -->
      <script type="text/javascript" src="/js/common.js"></script>
- 
+ <style>
+ 	.buttons {
+ 		margin:30px;
+ 	}
+ </style>
 </head>
 <body>
     <!-- 헤더 -->
@@ -72,10 +77,12 @@
                     <th:block th:unless="${board.answer.modifyDate} != null"> 
                     [[${#dates.format(board.answer.createDate, 'yyyy.MM.dd. HH:mm')}]]
                     </th:block>
- 					<!-- admin한테만 버튼 보이게 나중에 처리 -->             
+ 					<!-- admin한테만 버튼 보이게 -->
+ 					<th:block sec:authorize="hasRole('ADMIN')">            
                     <span class="btns">
                     <button class="miniBtn" onclick="updateReplyView();">수정</button><button class="miniBtn" onclick="deleteReply();">삭제</button>
                     </span>
+                    </th:block>                
                     <!-- 여기까지 admin -->
                     </span>
                     
@@ -96,12 +103,13 @@
                  
                 <!-- 관리자 -->
  				<!-- 답변 안달았을 경우 -->
+ 				<th:block sec:authorize="hasRole('ADMIN')">
  				<th:block th:unless="${board.answer} != null">
  				<div class="addreplyBox" id="addreplyBox">
                     <textarea id="replyArea" name="aContent"></textarea>
                     <button class="bigBtn" onclick="addReply();">답변등록</button>
-                </div>
-               
+                </div>              
+ 				</th:block>
  				</th:block>
  		
 
@@ -109,12 +117,18 @@
 				<div id="ifadd"></div>
 
 	
-
-                <button class="btn" id="gotoList" onclick="location.href='/qaBoard/list'">목록으로</button>
-
-                <button class="btn" id="modify" onclick="updateBoardView();">수정하기</button>
-                <button class="btn" id="delete" onclick="deleteBoard();">삭제하기</button>
- 
+				<div class="buttons">
+	                <button class="btn" id="gotoList" onclick="location.href='/qaBoard/list'">목록으로</button>
+	                <th:block sec:authorize="isAuthenticated()">
+	                <th:block th:if="${board.userId} == ${#authentication.principal.id}"> 
+	                <button class="btn" id="modify" onclick="updateBoardView();">수정하기</button>
+	                <button class="btn" id="delete" onclick="deleteBoard();">삭제하기</button>
+	                </th:block>
+	                <th:block sec:authorize="hasRole('ADMIN')">
+	                <button class="btn" id="delete" onclick="deleteBoard();">삭제하기</button>
+	                </th:block>
+	                </th:block>
+ 				</div>
 
  
             </div>
