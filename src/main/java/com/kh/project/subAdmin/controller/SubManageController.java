@@ -30,10 +30,12 @@ public class SubManageController {
 		
 	}
 	
-	@GetMapping("sub_holiday")
-	public String holidayManage() {
-		return "admin/sub_holiday";
-	}
+	/*
+	 * @GetMapping("sub_holiday") 
+	 * public String holidayManage() { 
+	 * 	return "admin/sub_holiday"; 
+	 * }
+	 */
 	
 	
 	@GetMapping("sub_veterinarianModify")
@@ -46,11 +48,12 @@ public class SubManageController {
 		return "admin/sub_veterinarianRegist";
 	}
 	
-	@PostMapping("/sub_holiday/{tno}")
-	@ResponseBody
-	public List<Holiday> findHolidayList(@PathVariable int tno){
-		return null;
-	}
+	/*
+	 * @PostMapping("/sub_holiday/{tno}")
+	 * @ResponseBody public List<Holiday> findHolidayList(@PathVariable int tno){
+	 * 	return null; 
+	 * }
+	 */
 	
 	
 	/* 의료진 등록 */
@@ -79,9 +82,10 @@ public class SubManageController {
 	
 	/* 의료진 정보 수정 */
 	@PostMapping("sub_veterinarianModify")
-	public String veterinarianModify(Veterinarian VeterinarianModify, RedirectAttributes rttr) {
+	public String veterinarianModify(Veterinarian VeterinarianModify, RedirectAttributes rttr, Holiday holiday) {
 		
 		veterinarianService.modifyVeterinarian(VeterinarianModify);
+		veterinarianService.modifyHoliday(holiday);
 		
 		rttr.addFlashAttribute("successMessage", "의료진 정보 수정이 완료되었습니다.");
 		

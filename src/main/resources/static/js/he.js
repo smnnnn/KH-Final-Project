@@ -51,7 +51,13 @@ function doctor_insert(){
 }
 
 function doctor_modify(){
+	
+	let holiday = document.getElementById('holi');
 	let phone = document.getElementById('phone_input');
+	
+	 if(!check(/^[가-힣]{3}$/, holiday, "휴무일은 O요일의 형태만 허용됩니다.")){
+        return false;
+    }
 	
 	if(!check(/^[0-9]{10,11}$/, phone, "전화번호는 숫자로 10~11자 이내만 허용됩니다.")){
         return false;

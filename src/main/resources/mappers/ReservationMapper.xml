@@ -4,12 +4,17 @@
 	<resultMap id="VeterinarianResultMap" type="com.kh.project.reservation.model.vo.VeterinarianAndTreatmentType">
 		<id property="vno" column="VNO"/>
 		<result property="vname" column="VNAME"/>
+		<result property="tno" column="TNO"/>
+		<result property="tname" column="TNAME"/>
 		<result property="status" column="STATUS"/>
+		<result property="day" column="DAY"/>
 		
-		<association property="tno" javaType="com.kh.project.reservation.model.vo.TreatmentType">
-			<id property="tno" column="TNO"/>
-			<result property="tname" column="TNAME"/>
-		</association>
+		<!-- <association property="reservationInfo" javaType="com.kh.project.reservation.model.vo.ReservationInfo">
+			<id property="reservation_no" column="RESERVATION_NO"/>
+			<result property="reservation_date" column="RESERVATION_DATE"/>
+			<result property="reservation_time" column="RESERVATION_TIME"/>
+			<result property="reservation_status" column="RESERVATION_STATUS"/>
+		</association> -->
 		
 	</resultMap>
 
@@ -20,9 +25,12 @@
 			 , A.VNAME
 			 , B.TNO
 			 , B.TNAME
+			 , C.DAY			 		 
 		  FROM VETERINARIAN A
 		  JOIN TREATMENT_TYPE B ON (A.TNO = B.TNO)
+		  JOIN HOLIDAY C ON (A.VNO = C.VNO)
 		 WHERE A.TNO = #{tno}
+		   
 	</select>
 
 

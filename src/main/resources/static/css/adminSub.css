@@ -230,7 +230,7 @@
     resize: none;
 }
 
-#phone_input {
+#phone_input, #holi {
     width : 300px;
     height: 20px;
 }
