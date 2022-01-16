@@ -1,6 +1,7 @@
 package com.kh.project.admin.adminManage.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +24,7 @@ import com.kh.project.admin.adminManage.model.vo.DashBoard;
 import com.kh.project.admin.common.model.vo.Pagination;
 import com.kh.project.admin.common.model.vo.Search;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
+import com.kh.project.admin.visit.model.vo.VisitCount;
 import com.kh.project.member.model.vo.UserImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +57,7 @@ public class AdminController {
 		int endRow = startRow + pagination.getListLimit() - 1;
 		
 		List<MemberInfo> adminList = adminService.selectAdminList(startRow, endRow);
-//		log.info("list: {}", adminList);
+
 		Search search = new Search();
 		search.setStartRow(startRow);
 		search.setEndRow(endRow);
@@ -152,4 +154,10 @@ public class AdminController {
 		return dashBoard;
 	}
 	
+	@GetMapping("visitCount")
+	@ResponseBody
+	public List<VisitCount> getVisitCount(){
+		List<VisitCount> visitList = adminService.getVisitCount();
+		return visitList;
+	}
 }

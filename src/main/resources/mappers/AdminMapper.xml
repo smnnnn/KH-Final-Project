@@ -29,7 +29,7 @@
 	</resultMap>
 
 	<select id="selectAdminList" resultMap="memberResultMap">
-		SELECT *    
+		SELECT *
 		FROM(SELECT ROWNUM RNUM
 			       , T.*
 			  FROM(SELECT
@@ -56,7 +56,7 @@
 		  LEFT JOIN MEMBER_ROLE USING(USER_NO)
 		  LEFT JOIN AUTHORITY USING(AUTHORITY_CODE)
 		 WHERE USER_NO = #{no}
-		 ORDER BY USER_NO DESC, AUTHORITY_CODE		
+		 ORDER BY USER_NO DESC, AUTHORITY_CODE
 	</select>
 	
 	<select id="getListCount" resultType="_int">
@@ -84,7 +84,7 @@
 		 WHERE ADMIN_YN = 'Y'
 		   AND ACC_SECESSION_YN = 'N'
 		   AND USER_NO = #{no}
-		 ORDER BY AUTHORITY_CODE	
+		 ORDER BY AUTHORITY_CODE
 	</select>
 	
 	<delete id="deleteAdminAuthorityOne" parameterType="_int">
@@ -111,7 +111,7 @@
 	
 	<delete id="deleteAdminAuthority" parameterType="_int">
 		DELETE FROM MEMBER_ROLE
-		 WHERE USER_NO = #{adminNo}	
+		 WHERE USER_NO = #{adminNo}
 	</delete>
 
 	<insert id="registAdmin" parameterType="com.kh.project.admin.memberManage.model.vo.MemberInfo">
@@ -183,32 +183,119 @@
 		(
 			SEQ_USER_NO.CURRVAL
 		  , #{authorityCode}
-		)	
+		)
 	</insert>
 
 	<update id="modifyAdminInfo" parameterType="com.kh.project.admin.memberManage.model.vo.MemberInfo">
 		UPDATE MEMBER
 		<set>
 		<if test="pwd != null">
-		   USER_PWD = #{pwd},			
+		   USER_PWD = #{pwd},
 		</if>
 		<if test="name != null">
-		   USER_NAME = #{name},			
+		   USER_NAME = #{name},
 		</if>
 		<if test="phone != null">
-		   PHONE = #{phone},			
+		   PHONE = #{phone},
 		</if>
 		<if test="email != null">
-		   EMAIL = #{email},			
-		</if>	
-		   MODIFY_DATETIME = SYSDATE			
-		</set>	
+		   EMAIL = #{email},
+		</if>
+		   MODIFY_DATETIME = SYSDATE
+		</set>
 		 WHERE USER_ID = #{id}
 	</update>
 
-	<select id="getMemberCount" resultType="_int">
- 
+	<select id="getMemberCount" parameterType="_int" resultType="_int">
+		 SELECT
+		       COUNT(*)
+		  FROM MEMBER
+		 WHERE ADMIN_YN = 'N'
+		 <if test="num == 1">
+		   AND ACC_SECESSION_YN = 'N'
+		   AND TO_CHAR(ENROLL_DATETIME, 'YYYYMMDD') = TO_CHAR(SYSDATE-1, 'YYYYMMDD')
+		 </if>
+		 <if test="num == 2">
+		   AND ACC_SECESSION_YN = 'Y'
+		 </if>
+		 <if test="num == 3">
+		   AND ACC_SECESSION_YN = 'N'
+		 </if>
+	</select>
+
+	<select id="getReservationCount" parameterType="_int" resultType="_int">
+		SELECT 
+		       COUNT(*)
+		  FROM RESERVATION_INFORMATION
+		 WHERE TO_CHAR(RESERVATION_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		 <if test="resNum == 1">
+		   AND TNO = 1
+		 </if>
+		 <if test="resNum == 2">
+		   AND TNO = 2
+		 </if>
+		 <if test="resNum == 3">
+		   AND TNO = 3
+		 </if>
+		 <if test="resNum == 4">
+		   AND TNO = 4
+		 </if>
+	</select>
 	
+	<select id="getCSCount" parameterType="_int" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM QUESTION Q
+		  LEFT JOIN (SELECT
+		                   *
+		              FROM ANSWER
+		             WHERE STATUS = 'N') USING(Q_NO)
+		 WHERE Q.STATUS = 'N'
+		 <if test="qaNum == 1">
+		   AND TO_CHAR(CREATE_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		 </if>
+		 <if test="qaNum == 2">
+		   AND A_NO IS NULL
+		 </if>
+	</select>
+	
+	<insert id="insertVisitor" parameterType="com.kh.project.admin.visit.model.vo.Visit">
+		INSERT
+		  INTO VISIT
+		(
+			VISIT_NO
+		  , VISIT_IP
+		  , VISIT_TIME
+		  , VISIT_AGENT
+		)
+		VALUES
+		(
+			SEQ_VISIT_NO.NEXTVAL
+		  , #{visitIp}
+		  , SYSDATE
+		  , #{visitAgent}
+		)
+	</insert>
+	
+	<select id="getVisitCount" parameterType="_int" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM VISIT
+		<if test="num == 1">
+		 WHERE TO_CHAR(VISIT_TIME, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')		
+		</if>
+		<if test="num == 2">
+		 WHERE TO_CHAR(VISIT_TIME, 'YYYYMMDD') = TO_CHAR(SYSDATE-1, 'YYYYMMDD')		
+		</if>
+		<if test="num == 3">
+		 WHERE TO_CHAR(VISIT_TIME, 'YYYYMMDD') = TO_CHAR(SYSDATE-2, 'YYYYMMDD')		
+		</if>
+		<if test="num == 4">
+		 WHERE TO_CHAR(VISIT_TIME, 'YYYYMMDD') = TO_CHAR(SYSDATE-3, 'YYYYMMDD')		
+		</if>	
+		<if test="num == 5">
+		 WHERE TO_CHAR(VISIT_TIME, 'YYYYMMDD') = TO_CHAR(SYSDATE-4, 'YYYYMMDD')		
+		</if>	
 	</select>
 
 </mapper>
