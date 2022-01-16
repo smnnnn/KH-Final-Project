@@ -140,6 +140,13 @@ public class MemberServiceImpl implements MemberService{
 
 
 
+	@Override
+	public int reservationCancel(int reservation_no) {
+		return memberMapper.reservationCancel(reservation_no);
+	}
+
+
+
 	
 
 

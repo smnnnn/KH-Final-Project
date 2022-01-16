@@ -186,7 +186,29 @@
 		)	
 	</insert>
 
+	<update id="modifyAdminInfo" parameterType="com.kh.project.admin.memberManage.model.vo.MemberInfo">
+		UPDATE MEMBER
+		<set>
+		<if test="pwd != null">
+		   USER_PWD = #{pwd},			
+		</if>
+		<if test="name != null">
+		   USER_NAME = #{name},			
+		</if>
+		<if test="phone != null">
+		   PHONE = #{phone},			
+		</if>
+		<if test="email != null">
+		   EMAIL = #{email},			
+		</if>	
+		   MODIFY_DATETIME = SYSDATE			
+		</set>	
+		 WHERE USER_ID = #{id}
+	</update>
 
-
+	<select id="getMemberCount" resultType="_int">
+ 
+	
+	</select>
 
 </mapper>

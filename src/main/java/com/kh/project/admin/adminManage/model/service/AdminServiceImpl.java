@@ -10,9 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.project.admin.adminManage.model.dao.AdminMapper;
+import com.kh.project.admin.adminManage.model.vo.DashBoard;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
 import com.kh.project.member.model.vo.MemberRole;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class AdminServiceImpl implements AdminService{
 	
@@ -80,7 +84,7 @@ public class AdminServiceImpl implements AdminService{
 		admin.setPwd(passwordEncoder.encode(admin.getPwd()));  
 		
 		// 병원주소를 기본주소로 생성
-		admin.setAddress("서울특별시 강남구 테헤란로 10길 9 그랑프리빌딩 4F, 5F, 7F");		
+		admin.setAddress("06234,서울특별시 강남구 테헤란로 10길 9,4층");		
 		int result = adminMapper.registAdmin(admin);
 		
 		MemberRole memberRole = new MemberRole(); 
@@ -92,6 +96,32 @@ public class AdminServiceImpl implements AdminService{
 		int role = adminMapper.registAdminRole(memberRole2);
 				
 		return result > 0 && baseRole > 0 && role > 0 ? 1 : 0;
+	}
+
+	@Override
+	public int modifyAdminInfo(MemberInfo changeInfo) {
+		/* BCryptPasswordEncoder 사용한 rawPassword -> encodePassword */
+		if(changeInfo.getPwd() != null) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			changeInfo.setPwd(passwordEncoder.encode(changeInfo.getPwd()));  			
+		}
+		
+		return adminMapper.modifyAdminInfo(changeInfo);
+	}
+
+	@Override
+	public DashBoard dashBoard() {
+		Map<String, Object> map = new HashMap();
+		/* 회원 수 조회 */
+		map.put("new", 1);
+		int newMemberCnt = adminMapper.getMemberCount(map);
+		map.put("out", 1);
+		int seceMemberCnt = adminMapper.getMemberCount(map);
+		map.put("total", map);
+		int totalMemberCnt = adminMapper.getMemberCount(map);
+		log.info("newMemberCnt : {}, seceMemberCnt : {}, totalMemberCnt : {}", newMemberCnt, seceMemberCnt, totalMemberCnt);
+		
+		return null;
 	}
 
 

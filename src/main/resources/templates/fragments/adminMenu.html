@@ -52,7 +52,7 @@
                     <img src="/images/admin/member_manage.png">
                     <span sec:authentication="principal.name"></span><span>님</span>
                     <ul class="sub-menulist2">
-                        <li><a th:href="@{/admin/account/mypage{adminNo}(adminNo=${#authentication.principal.no})}">마이페이지</a></li>
+                        <li><a th:href="@{/admin/mypage}">마이페이지</a></li>
                         <li><a th:href="@{/member/logout}">로그아웃</a></li>
                     </ul>
                     </th:block>

@@ -2,6 +2,7 @@ package com.kh.project.admin.adminManage.model.service;
 
 import java.util.List;
 
+import com.kh.project.admin.adminManage.model.vo.DashBoard;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
 
 public interface AdminService {
@@ -17,5 +18,9 @@ public interface AdminService {
 	int deleteAdmin(int adminNo);
 
 	int registAdmin(MemberInfo admin);
+
+	int modifyAdminInfo(MemberInfo changeInfo);
+
+	DashBoard dashBoard();
 
 }

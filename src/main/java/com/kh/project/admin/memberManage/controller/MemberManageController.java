@@ -71,8 +71,9 @@ public class MemberManageController {
 	@GetMapping(value = {"detail/{rno}/{userNo}"})
 	@ResponseBody
 	public ReservationManage getReservationInfo(@PathVariable int rno, @PathVariable int userNo) {
-		
-		return memberManageService.getReservationInfo(rno, userNo);
+		ReservationManage reservationManage = memberManageService.getReservationInfo(rno, userNo);
+		if(reservationManage == null) reservationManage = new ReservationManage();
+		return reservationManage;
 	}
 	
 	@GetMapping(value = {"delete/{memberNo}/{outReason}"})

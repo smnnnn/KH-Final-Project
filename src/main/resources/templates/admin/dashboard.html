@@ -59,5 +59,29 @@
             </div>
         </div>
     </div>
+    
+    <script>
+	    const message = '[[${adminMessage}]]';
+		if(message){
+			alert(message);
+		}
+		
+		$(function(){
+			$.ajax({
+				url : "/admin/dashboard",
+				type : "get",
+				dataType : "json",
+				success : function(data){
+					console.log(data);
+				},
+				error : function(e){
+					console.log(e);
+				}
+				
+				
+			});
+		});
+		
+    </script>
 </body>
 </html>

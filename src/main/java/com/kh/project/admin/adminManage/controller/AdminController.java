@@ -3,6 +3,11 @@ package com.kh.project.admin.adminManage.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,25 +19,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.project.admin.adminManage.model.service.AdminService;
+import com.kh.project.admin.adminManage.model.vo.DashBoard;
 import com.kh.project.admin.common.model.vo.Pagination;
 import com.kh.project.admin.common.model.vo.Search;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
+import com.kh.project.member.model.vo.UserImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/admin/account")
+@RequestMapping("/admin")
 public class AdminController {
 	
 	private AdminService adminService;
+	private AuthenticationManager authenticationManager;
 	
 	@Autowired
-	public AdminController(AdminService adminService) {
+	public AdminController(AdminService adminService, AuthenticationManager authenticationManager) {
 		this.adminService = adminService;
+		this.authenticationManager = authenticationManager;
 	}
 	
-	@GetMapping("list")
+	@GetMapping("/account/list")
 	public String accountList(Model model, @RequestParam(defaultValue = "1") int page) {
 		
 		/* 관리자 전체 갯수 조회 */
@@ -57,13 +66,15 @@ public class AdminController {
 		return "admin/adminList";
 	}
 	
-	@GetMapping("modify/{adminNo}")
+	@GetMapping("/account/modify/{adminNo}")
 	@ResponseBody
-	public MemberInfo adminModifyView(@PathVariable int adminNo) {	
-		return adminService.selectAdminByNo(adminNo);
+	public MemberInfo adminModifyView(@PathVariable int adminNo) {
+		MemberInfo memberInfo = adminService.selectAdminByNo(adminNo);
+		if(memberInfo == null) memberInfo = new MemberInfo();
+		return memberInfo;
 	}
 	
-	@PostMapping("modify")
+	@PostMapping("/account/modify")
 	public String modifyAdmin(@RequestParam int no, @RequestParam int authority, RedirectAttributes rttr) {
 		
 		int result = adminService.modifyAdminAuthority(no, authority);
@@ -75,7 +86,7 @@ public class AdminController {
 		return "redirect:/admin/account/list";
 	}
 	
-	@GetMapping("delete/{adminNo}")
+	@GetMapping("/account/delete/{adminNo}")
 	public String deleteAdmin(@PathVariable int adminNo, RedirectAttributes rttr) {
 		
 		int result = adminService.deleteAdmin(adminNo);
@@ -87,12 +98,12 @@ public class AdminController {
 		return "redirect:/admin/account/list";
 	}
 	
-	@GetMapping("regist")
+	@GetMapping("/account/regist")
 	public String registAdminView() {
 		return "admin/adminRegist";
 	}
 	
-	@PostMapping("regist")
+	@PostMapping("/account/regist")
 	public String registAdmin(MemberInfo admin, RedirectAttributes rttr) {
 
 		int result = adminService.registAdmin(admin);
@@ -105,18 +116,40 @@ public class AdminController {
 		return "redirect:/admin/account/list";
 	}
 	
-	@GetMapping("mypage")
-	public String mypageView(@RequestParam int adminNo) {
-		log.info("no : {}", adminNo);
-		
-		return "admin/mypage";
-	}
+	@GetMapping("/mypage")
+	public void myPageForm(Model model, @AuthenticationPrincipal UserImpl user){	
+	}  // 로그인 객체 바로 가져오기 	
 	
-	@PostMapping("mypageModify")
-	public String mypageModify(MemberInfo admin, RedirectAttributes rttr) {
+	@PostMapping("/account/mypageModify")
+	public String mypageModify(@AuthenticationPrincipal UserImpl user, MemberInfo admin, RedirectAttributes rttr) {
+		MemberInfo changeInfo = new MemberInfo();
+		changeInfo.setId(user.getId());
+		if(!admin.getPwd().equals("")) changeInfo.setPwd(admin.getPwd());
+		if(!admin.getName().equals("")) changeInfo.setName(admin.getName());
+		if(!admin.getPhone().equals("")) changeInfo.setPhone(admin.getPhone());
+		if(!admin.getEmail().equals("")) changeInfo.setEmail(admin.getEmail());
 		
+		int result = adminService.modifyAdminInfo(changeInfo);
+		if(result > 0) {			
+			/* 변경된 세션 등록 - 로그아웃처리됨.. */ 
+			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())); 
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			
+			rttr.addFlashAttribute("adminMessage", "정보 수정에 성공하였습니다.");	
+			
+		} else {
+			rttr.addFlashAttribute("adminMessage", "정보 수정에 실패하였습니다.");			
+		}
+
 		return "redirect:/admin";
 	}
 	
+	@GetMapping("dashboard")
+	@ResponseBody
+	public DashBoard dashboardView() {
+		DashBoard dashBoard = adminService.dashBoard();
+		if(dashBoard == null) dashBoard = new DashBoard();
+		return dashBoard;
+	}
 	
 }

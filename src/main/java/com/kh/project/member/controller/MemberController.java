@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,7 +53,8 @@ public class MemberController {
 	
 	@GetMapping("/pwdFind")
 	public void pwdFindForm() {}
-	
+
+
 	@GetMapping("/withdrawal")
 	public void withdrawalForm() {}
 	
@@ -121,5 +123,14 @@ public class MemberController {
 		return mv;
 	}
 	
+	
+	/* 예약 취소 */
+	@GetMapping("/reservationConfirmation/no/{reservation_no}")
+	@ResponseBody
+	public int ReservationCancel(@PathVariable int reservation_no){
+	
+		return memberService.reservationCancel(reservation_no);
+		
+	}
 
 }

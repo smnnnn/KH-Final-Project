@@ -329,7 +329,8 @@ PAGING
     border:1px solid #dcdcdc;
 }
 .formstyle{
-    margin: 50px 300px;
+	width: 700px;
+    margin: 50px auto;
 }
 .content-wrap{
     display: block;
