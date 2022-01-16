@@ -90,8 +90,8 @@
                         <tr th:each="info : ${VList}">
                         	<td th:text="${info.vno}" style="display:none;" id="vno"></td>
                             <td th:text="${info.vname}" id="vname"></td>
-                            <td th:text="${info.tno.tno}" style="display:none;" id="tno"></td>
-                            <td th:text="${info.tno.tname}" id="tname"></td>
+                            <td th:text="${info.tno}" style="display:none;" id="tno"></td>
+                            <td th:text="${info.tname}" id="tname"></td>
                             <td id="reservation_date"></td>
                             <td>
                                 <select id="reseration_time" name="reservation_time">
@@ -104,7 +104,7 @@
                                     <option value="17:00">17:00~18:00</option>
                                 </select>
                             </td>
-                            
+                            <td th:text="${info.day}" style="display:none;" id="day"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -148,67 +148,60 @@
       /* 이벤트명 : function(){} : 각 날짜에 대한 이벤트를 통해 처리할 내용.. */
       select: function(arg) { 
         
+    	/* 오늘 날짜보다 이전 날짜 선택 할 수 없게 처리하기 위해 오늘 날짜 구해오기 */
         var date = new Date();
         var year = date.getFullYear();
         var month = ("0" + (1 + date.getMonth())).slice(-2);
         var day = ("0" + date.getDate()).slice(-2);
         let today = year + "-" + month + "-" + day;
         
-        /* 무슨 요일인지 확인 용 */
+        /* 휴무일 선택할 수 없게 select해온 의료진의 휴무일 가져오기 */
+        var holi = $('#timeTable').find("td:eq(6)").text();
+        
+        /* 휴무일은 한글값으로 db에 저장되어있어서 바꾸는 과정 필요 */
+        if(holi === '월요일'){
+        	holi = 'Mon';
+        } else if(holi === '화요일'){
+        	holi = 'Tue';
+        } else if(holi === '수요일'){
+        	holi = 'Wed'
+        } else if(holi === '목요일'){
+        	holi = 'The';
+        } else if(holi == '금요일'){
+        	holi = 'Fri';
+        }
+        
+        /* 선택한 날짜의 요일 확인 용 데이터 */
         let dayy = String(arg.start);
         let week = dayy.split(" ");
         
-        if(arg.startStr < today) {  /* 지난 날짜 선택한 경우 */
-          alert('선택할 수 없는 날짜입니다.');
-        }  else if(vname === '김소민' && week[0] === 'Mon'){   // 휴무일 선택한 경우
+        
+        
+        if(arg.startStr < today) { 
+          	alert('선택할 수 없는 날짜입니다.');
+          	
+        } else if( week[0] === holi ){
         	alert('해당 의료진의 휴무일입니다.');
-   
-        } else if(vname === '박진희' && week[0] === 'Tue'){   // 휴무일 선택한 경우
-        	alert('해당 의료진의 휴무일입니다.');
-   
-        } else if(vname === '안나현' && week[0] === 'Wed'){   // 휴무일 선택한 경우   	
-        	alert('해당 의료진의 휴무일입니다.');
-   
-        } else if(vname === '이효은' && week[0] === 'Thu'){   // 휴무일 선택한 경우
-        	alert('해당 의료진의 휴무일입니다.');
-   
+        	
         } else {  /* 예약 가능한 일자 선택한 경우 일자 예약 success */
-          //console.log(arg.startStr); /* 날짜 보내기 */
           
           /* 선택한 날짜 진료일에 표시되게 */
           var Cdate = arg.startStr;
           document.getElementById("timeTable").getElementsByTagName("td")[4].innerHTML = Cdate; 
           
-          
-          //console.log(week[0]); /* 요일 보내기 */
-         
         }
-
-          /* calendar.unselect() */
-        }
-
+       }
     });
 
     calendar.render();
   });
   
     var vno = $('#timeTable').find("td:eq(0)").text();
-  
   	var vname = $('#timeTable').find("td:eq(1)").text();
-  	
   	var tno = $('#timeTable').find("td:eq(2)").text();
-	
 	var tname = $('#timeTable').find("td:eq(3)").text();
 
 
-
-	//console.log(time);
-	
-	
-	/* $("select[id=reseration_time]").change(function(){
-		  console.log($(this).val()); //value값 가져오기
-		  
-		}); */
 	  
 </script> 
  
