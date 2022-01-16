@@ -122,7 +122,7 @@ public class ReviewController {
 		String rvtitle = request.getParameter("rvtitle");
 		String rvcontent = request.getParameter("rvcontent");
 		int tno = Integer.parseInt(request.getParameter("tno"));
-		int resNo = Integer.parseInt(request.getParameter("resNo")); //예약 기능 완성되면 진짜 예약번호로 바꾸기
+		int resNo = Integer.parseInt(request.getParameter("resNo"));
 		
 		Review review = new Review();
 		if(user != null) {
