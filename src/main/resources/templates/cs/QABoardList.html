@@ -52,10 +52,11 @@
                 <div class="bd_container" th:each="board : ${boardList}">
                     <div class="item item1" th:text="${board.qno}"></div>
                     <div class="item">
-                    	<!-- 클릭시 해당 글번호 상세 페이지로 이동 -->     
-
+                    	   
+						<!-- Anonymous -->
+						<th:block sec:authorize="isAnonymous()">
                     	<!--<a th:href="@{/qaBoard(qno=${board.qno})}">-->
-                    	<a th:onclick="checkUser('[[${board.qno}]]')">
+                    	<a id="whereToGo" th:onclick="checkUser('[[${board.qno}]]', '[[${board.secretStatus}]]')">
                     	<input type="hidden" id="qnumber" th:value="${board.qno}">
                     	<!-- 비밀글이면 lock,아니면 unlock 아이콘-->
                         <span id="ss" th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png" name="lock"></span>
@@ -65,11 +66,48 @@
                         <!-- 글제목 -->
                         <span th:text="${board.qtitle}"></span>
                         <!-- 댓글 달렸을 경우와 아닐 경우 구분 아이콘-->
-                        
                         <span th:if="${board.answer.acount} == 1"><img id="answer" src="/images/sm/answer2.png"></span> 
                         <span th:unless="${board.answer.acount} == 1"></span>
                         </a>
-
+                        </th:block>
+                        
+                        
+                        <!-- 회원 -->
+                        <th:block sec:authorize="isAuthenticated()">
+                       <!--  <th:block th:if="${board.userId} == ${#authentication.principal.id}">  -->
+                        <a th:href="@{/qaBoard(qno=${board.qno})}">
+                       <!--  </th:block> -->
+                    	<input type="hidden" id="qnumber" th:value="${board.qno}">
+                    	<!-- 비밀글이면 lock,아니면 unlock 아이콘-->
+                        <span id="ss" th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png" name="lock"></span>
+                       	<span id="ss" th:if="${board.secretStatus} == 'N'"><img id="key" src="/images/sm/unlock2.png" name="unlock"></span>
+                        <!-- 카테고리명 -->
+                        [<span th:text="${board.categoryName}"></span>] 
+                        <!-- 글제목 -->
+                        <span th:text="${board.qtitle}"></span>
+                        <!-- 댓글 달렸을 경우와 아닐 경우 구분 아이콘-->
+                        <span th:if="${board.answer.acount} == 1"><img id="answer" src="/images/sm/answer2.png"></span> 
+                        <span th:unless="${board.answer.acount} == 1"></span>
+                        </a>
+						</th:block>
+                        
+                        
+                        <!-- admin일 경우 모든 글 들어갈수 있음 -->
+                        <th:block sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/qaBoard(qno=${board.qno})}">
+                    	<input type="hidden" id="qnumber" th:value="${board.qno}">
+                    	<!-- 비밀글이면 lock,아니면 unlock 아이콘-->
+                        <span id="ss" th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png" name="lock"></span>
+                       	<span id="ss" th:if="${board.secretStatus} == 'N'"><img id="key" src="/images/sm/unlock2.png" name="unlock"></span>
+                        <!-- 카테고리명 -->
+                        [<span th:text="${board.categoryName}"></span>] 
+                        <!-- 글제목 -->
+                        <span th:text="${board.qtitle}"></span>
+                        <!-- 댓글 달렸을 경우와 아닐 경우 구분 아이콘-->
+                        <span th:if="${board.answer.acount} == 1"><img id="answer" src="/images/sm/answer2.png"></span> 
+                        <span th:unless="${board.answer.acount} == 1"></span>
+                        </a>
+						</th:block>
                         
 
                         
@@ -201,36 +239,77 @@
 	<div th:replace="fragments/footer.html"></div>
 
 	<script>
+	
+		const msg = '[[${msg}]]';
+		if(msg){
+			alert(msg);
+		}
 		function notYours(no){
 			/*let qnumber = document.querySelector("#qnumber").value;*/
 			console.log(no)
 			location.href = "/qaBoard?qno=" + no;
 		}
 		
-		function checkUser(no){
+		function checkUser(no, lock){
+			console.log(lock);
+			if(lock == '"Y"'){
+				alert('비밀글입니다.');
+			} else {
+				location.href = "/qaBoard?qno=" + no;
+			}
+			
+			
+			/*console.log(no);
+			//location.href = "/qaBoard?qno=" + no;
+			//document.getElementById( 'whereToGo' ).setAttribute( 'href', "/qaBoard?qno=" + no );
+			
+			
+			let go = document.querySelectorAll('#whereToGo');
+			for(let i=0; i<go.length; i++){
+				go[i].setAttribute( 'href', "/qaBoard?qno=" + no );
+			}
+			
+			let ss = document.querySelectorAll('#ss');
+			let j = 0;
+			for(let i=0; i<ss.length; i++){
+				if(ss[i].firstChild.name == 'unlock'){
+					console.log("안잠김");
+					go[i].setAttribute( 'href', "/qaBoard?qno=" + no );
+					j=1;
+					
+				}else if(ss[i].firstChild.name == 'lock'){
+					console.log("잠김");
+					j=0;
+					
+				} 
+			}
+			
+			if(j == 0){
+				alert("비밀글입니다");
+			}*/
+			
+			 /*
 			let ss = document.querySelectorAll("#ss");
-			/*걔의 자손 name이 lock일 때, unlock일 때*/
-			console.log(ss);
-			
+			//걔의 자손 name이 lock일 때, unlock일 때
+			//console.log(ss);
 
-			
 			for(let i = 0; i < ss.length; i++) {
 				
 				const item = ss.item(i);
 				let img = item.querySelector("#key");
-
 				console.log(img);
 
-				if([name=unlock]) {
+				if(img.name == 'unlock') {
 					console.log("안잠김");
-					/*location.href = "/qaBoard?qno=" + no;*/
-				} else if([name=lock]) {
+					location.href = "/qaBoard?qno=" + no;
+
+					
+				} else if(img.name == 'lock'){
 					console.log("잠김");
-	
-				}
+			}
 			
 		}
-
+*/
 		
 		}
 	</script>
