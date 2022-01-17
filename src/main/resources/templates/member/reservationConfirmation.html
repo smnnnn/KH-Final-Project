@@ -168,7 +168,7 @@
                 </div>
                 <div id="title_line"></div><br>
              
-                 <form id="reserSelect">
+                 <!--  <form id="reserSelect">-->
                 	<table class="time_table" id="timeTable">
                     	<colgroup>
                         	<col style="width: 20%;">
@@ -198,16 +198,18 @@
                             			   	 and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><input th:onclick="getNo([[${info.reservation_no}]]);" type="button" class="reserInfoBtn" id="cancel" value="예약 취소"></td>
                             	<td th:unless="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
                             			    or ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} == ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')} 
-                            			     and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button type="submit" class="reserInfoBtn" id="complete" th:onclick="|location.href='@{/review/insert(resNo=${info.reservation_no},tname=${info.tname})}'|">진료 완료</button></td>     
+                            			     and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button class="reserInfoBtn" id="complete" th:onclick="|location.href='@{/review/insert(resNo=${info.reservation_no},tname=${info.tname})}'|">리뷰 쓰기</button></td>     
                         	</tr>
                     	</tbody>
                 	</table>
-                    	<input type="hidden" id="reservation_no" value="">
-               	 <!-- <input type="hidden" name="reservation_date" value="">
+                <form id="reserSelect">
+                 <input type="hidden" id="reservation_no" value="">
+               	 <input type="hidden" name="reservation_date" value="">
                	 <input type="hidden" name="reservation_time" value="">
                	 <input type="hidden" name="vname" value="">
-               	 <input type="hidden" name="tname" value=""> -->
-              </form>
+               	 <input type="hidden" name="tname" value="">
+               	</form>
+              <!--  </form>-->
             </div>
         </div>
 
@@ -248,7 +250,7 @@ $('input[name=tname]').attr('value', tname);
 	}
  
  $(function(){
-	$("#reserSelect input[type=button]").on('click', function() {
+	$("#cancel").on('click', function() {
 			
 	 let reservation_no = $('#reserSelect input[id=reservation_no]').val();
 
@@ -272,6 +274,8 @@ $('input[name=tname]').attr('value', tname);
 			}); 
 	});
  });
+ 
+ 
 
 </script>
 
