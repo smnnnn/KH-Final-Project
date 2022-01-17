@@ -183,11 +183,11 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                  <input class ="input all" type="text" name="id" size="20" minlength="8" maxlength="10" th:value="${#authentication.principal.id}"  readonly>
                  <br>
                 <label for="userpwd" class="label">비밀번호 </label> 
-                <input class ="input all" type="password" name="pwd" minlength="8" maxlength="15"  th:value="${#authentication.principal.pwd}" placeholder="비밀번호를 입력하세요">
+                <input class ="input all" type="password" name="pwd" minlength="8" maxlength="15"  placeholder="비밀번호를 입력하세요">
                 <label id="pwdCheck_div">&nbsp;</label>
                 <br>
                 <label for="userpwd" class="label">비밀번호 재확인 </label> 
-                <input class ="input all" type="password" name="pwd2" maxlength="15" th:value="${#authentication.principal.pwd}" placeholder="비밀번호를 입력하세요">
+                <input class ="input all" type="password" name="pwd2" maxlength="15" placeholder="비밀번호를 입력하세요">
                 <label id="pwdCheck_div2">&nbsp;</label>
                 <br>
                 <label for="username" class="label">이름 </label> 
@@ -200,7 +200,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 <label for="phone" class="label">이메일 </label> 
                 <input class ="input all" type="email" name="email" id="email" th:value="${#authentication.principal.email}" placeholder="@포함하여 전부 입력" required>
                 <label id="emailCheck_div">&nbsp;</label>
-               
+               <!-- 타임리프 스플릿 검색  -->
                 <br>
                 <label class="label">주소 </label> 
                 <input type="text" name="address"
@@ -216,15 +216,15 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 class ="postcodify_details input2 all" th:value="${#authentication.principal.address}" placeholder="상세주소">
                 <br>
                 <label for="petname" class="label">반려견 이름 </label>
-                <input class ="input all" type="text" name="petName"  placeholder="반려견이름"> <!-- th:value="${#authentication.principal.petName}" -->
+                <input class ="input all" type="text" name="petName" th:value="${#authentication.principal.dogInformation.petName}" placeholder="반려견이름"> <!-- th:value="${#authentication.principal.petName}" -->
                 <label id="petNameCheck_div">&nbsp;</label> 
                 <br>
                 <label for="petage" class="label">반려견 나이 </label> 
-                <input class ="input all" type="text" name="petAge" placeholder="반려견나이"> <!-- th:value="${#authentication.principal.petAge}"  -->
+                <input class ="input all" type="text" name="petAge" th:value="${#authentication.principal.dogInformation.petAge}" placeholder="반려견나이"> <!-- th:value="${#authentication.principal.petAge}"  -->
                 <label id="petAgeCheck_div">&nbsp;</label>
                 <br>
                 <label for="petBreed" class="label">견종 </label> 
-                <select class ="input all" name="breed" required  > <!-- th:value="${#authentication.principal.breed}" -->
+                <select class ="input all" name="breed" required th:value="${#authentication.principal.dogInformation.breed}" > <!-- th:value="${#authentication.principal.breed}" -->
                     <option value="골든 리트리버">골든 리트리버</option>
                     <option value="말티즈">말티즈</option>
                     <option value="비글">비글</option>
@@ -239,17 +239,16 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 </select>  
                 <br>
                 <label for="neuteredStatus" class="label" >중성화 유무 </label> <!-- th:value="${#authentication.principal.status}" -->
-                <select class ="select all" name="status" required>
+                <select class ="select all" name="status" required th:value="${#authentication.principal.dogInformation.status}">
                     <option value="예">예</option> 
                     <option value="아니요">아니요</option> 
                     <option value="모름">모름</option> 
                 </select>  
                 <br>
                  <label for="petGender" class="label" name="petGender" >반려견 성별 </label> <!-- th:value="${#authentication.principal.petGender}" -->
-                <select class ="select all" name="petGender" required>
-                    <option value="암">암</option> 
-                    <option value="수">수</option> 
-                    <option value="모름">모름</option>
+                <select class ="select all" name="petGender" required th:value="${#authentication.principal.dogInformation.petGender}"><!-- 타임리프로 널여부 -->
+                    <option value="암컷">암컷</option> 
+                    <option value="수컷">수컷</option> 
                 </select>   
                 <br><br>
 
@@ -282,6 +281,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
         let email = document.getElementById("email");
         let petName = document.getElementById("petName");
         let petAge = document.getElementById("petAge");
+        let address = document.getElementById("address");
         
         
         let userPwdresult = document.getElementById("pwdCheck_div");
@@ -457,6 +457,14 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
             }
         }	
         
+        address.onblur = function(){
+            if(address == null) {
+            	address = false;
+            }
+            else {
+            	address = true;
+            }
+        };
         
         
         function validate(){
@@ -493,6 +501,10 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				console.log(petAgeCheck);
 				petAge.focus();
 				return;
+			}
+			if(address == false){
+				address.focus();
+				return;	
 			}
 			else{
 				console.log("정보수정 가능");

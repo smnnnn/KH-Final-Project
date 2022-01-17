@@ -59,8 +59,8 @@
                 <br>
                 <label class="label">주소 </label> 
                 <input type="text" name="address"
-                class ="postcodify_postcode5 select all" placeholder="우편번호" readonly>
-                <button type="button" class="button1" id="postcodify_search_button">검색</button>
+                class ="postcodify_postcode5 select all" placeholder="우편번호" id="address" readonly required>
+                <button type="button" class="button1" id="postcodify_search_button">검색</button> <label id="addressCheck_div">&nbsp;</label>
                 <br>
                 <label class="label"> </label> 
                 <input type="text" name="address"
@@ -102,9 +102,8 @@
                 <br>
                 <label for="petGender" class="label" name="petGender" >반려견 성별 </label> 
                 <select class ="select all" name="petGender" required>
-                    <option value="암">암</option> 
-                    <option value="수">수</option> 
-                    <option value="모름">모름</option>
+                    <option value="암컷">암컷</option> 
+                    <option value="수컷">수컷</option> 
                 </select>  
                 <br>
 
@@ -135,6 +134,7 @@
         let email = document.getElementById("email");
         let petName = document.getElementById("petName");
         let petAge = document.getElementById("petAge");
+        let address = document.getElementById("address");
         
         
         let userPwdresult = document.getElementById("pwdCheck_div");
@@ -144,6 +144,7 @@
         let emailresult = document.getElementById("emailCheck_div");
         let petNameresult = document.getElementById("petNameCheck_div");
         let petAgeresult = document.getElementById("petAgeCheck_div");
+        let addressresult = document.getElementById("addressCheck_div");
         
         
         let pwdCheck = false;
@@ -153,6 +154,7 @@
         let emailCheck = false;
         let petNameCheck = false;
         let petAgeCheck = false;
+        let addressCheck = false; 
         
 		
 		
@@ -389,6 +391,47 @@
         
         
         
+        
+        address.onblur = function(){
+            let regExp =  /^[0-9]{1,}$/
+            if(regExp.test(this.value)) {
+                userPwdresult.classList.remove('invalid');
+                userPwdresult.innerHTML = '&nbsp;';
+                addressCheck = true;
+            }
+            else {
+            	addressresult.classList.add('invalid');
+            	addressresult.innerHTML = '주소를 입력하십시오';
+                addressCheck = false;
+            }
+            if(this.value == "") {
+            	addressresult.innerHTML = '&nbsp;';
+                addressCheck = false;
+            }
+        };
+        address.onfocus = function(){
+            if(this.classList.contains('invalid')){
+                this.classList.remove('invalid');
+                addressresult.innerHTML = '&nbsp;';
+                addressCheck = false;
+            }
+        }
+        
+        
+        
+        
+        
+         address.onblur = function(){
+        	let regExp = /^\d{1,}$/
+            if(regExp.test(input.value)) {
+            	addressCheck = true;
+            }
+            else {
+            	addressCheck = false;
+            }
+        };
+        
+        
         function validate(){
 			if(idCheck == false){
 				console.log("회원가입 불가");
@@ -432,6 +475,10 @@
 				petAge.focus();
 				return;
 			}
+			if(addressCheck == false){
+				address.focus();
+				return;	
+			} 
 			else{
 				console.log("회원가입 가능");
 				document.forms.joinForm.submit();

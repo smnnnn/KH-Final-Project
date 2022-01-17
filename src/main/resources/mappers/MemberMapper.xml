@@ -21,12 +21,24 @@
 		<result property="accLockYn" column="ACC_LOCK_YN"/>
 		<result property="accsecssionDatetime" column="ACC_SECESSION_DATETIME"/>
 		<result property="accSecssionYn" column="ACC_SECSSION_YN"/>
+		<result property="adminYn" column="ADMIN_YN"/>
+		
+		<association property="dogInformation" resultMap="dogInformationResultMap"/>
+
 		
 		<collection property="memberRoleList" resultMap="memberRoleResultMap"/> <!-- 한사람의 정보가 들어가되 리스트 값만 매핑 -->
 		<!-- 매핑시켜야 함 테이블 3개 조인해야 함 -->	
 		<!-- <collection property="dogInformation" resultMap="dogInformationResultMap"/>  --><!-- 내가 추가 한 거 -->
 	</resultMap>
 	
+	<resultMap type="com.kh.project.member.model.vo.DogInformation" id="dogInformationResultMap">
+		<id property="no" column="DOG_NO"/>
+		<result property="petName" column="DOG_NAME"/>
+		<result property="petAge" column="DOG_AGE"/>
+		<result property="breed" column="BREED"/>
+		<result property="status" column="NEUTERED_STATUS"/>
+		<result property="petGender" column="DOG_GENDER"/>	
+	</resultMap>
 	
 	 <resultMap type="com.kh.project.member.model.vo.MemberRole" id="memberRoleResultMap">
 		<id property="memberNo" column="REF_USER_NO"/>
@@ -40,15 +52,6 @@
 		<result property="desc" column="AUTHORITY_DESC"/>
 	</resultMap> 	
 	
-	<!-- <resultMap type="com.kh.project.member.model.vo.DogInformation" id="dogInformationResultMap">
-		<id property="no" column="DOG_NO"/>
-		<result property="petName" column="DOG_NAME"/>
-		<result property="petAge" column="AUTHORITY_DESC"/>
-		<result property="breed" column="AUTHORITY_DESC"/>
-		<result property="status" column="AUTHORITY_DESC"/>
-		<result property="petGender" column="AUTHORITY_DESC"/>
-		<result property="userNo" column="REF_USER_NO2"/>
-	</resultMap>  -->
 	
 	<resultMap type="com.kh.project.member.model.vo.ReservationSelect" id="reservatinoInfoResultMap">
 		<id property="reservation_no" column="RESERVATION_NO"/>
@@ -69,7 +72,7 @@
 
 	
 	<select id="findMemberById" resultMap="loginMemberResultMap"> <!-- loginMemberResultMap 셀렉 -->
-			SELECT
+			<!-- SELECT
 		       A.USER_NO
 		     , A.USER_ID
 		     , A.USER_PWD
@@ -91,13 +94,14 @@
 		     , C.AUTHORITY_CODE REF_AUTHORITY_CODE2
 		     , C.AUTHORITY_NAME
 		     , C.AUTHORITY_DESC
+		     ,
 		FROM MEMBER A
 		LEFT JOIN MEMBER_ROLE B ON (A.USER_NO = B.USER_NO)
 		LEFT JOIN AUTHORITY C ON (B.AUTHORITY_CODE = C.AUTHORITY_CODE)
 		WHERE A.USER_ID =  #{ userId }	
-		 and  A.ACC_SECESSION_YN = 'N'  
+		 and  A.ACC_SECESSION_YN = 'N'   -->
 		 
-		 	<!-- SELECT
+		 	SELECT
 		       A.USER_NO
 		     , A.USER_ID
 		     , A.USER_PWD
@@ -132,7 +136,7 @@
 		LEFT JOIN AUTHORITY C ON (B.AUTHORITY_CODE = C.AUTHORITY_CODE)
 		LEFT JOIN DOG_INFORMATION D ON(A.USER_NO = D.USER_NO)  
 		WHERE A.USER_ID =  #{ userId }	
-		 and  A.ACC_SECESSION_YN = 'N' --> <!--  -->
+		 and  A.ACC_SECESSION_YN = 'N' 
 		 
 	</select>
 	
@@ -157,6 +161,7 @@
 		     , ACC_LOCK_YN
 		     , ACC_SECESSION_DATETIME
 		     , ACC_SECESSION_YN
+         , ADMIN_YN
 			) 
 			VALUES
 			(
@@ -176,6 +181,7 @@
 			 , DEFAULT
 			 , DEFAULT
 			 , DEFAULT
+       , DEFAULT
 			)	
 	</insert>
 	
@@ -248,7 +254,7 @@
 			)
 			VALUES
 			(
-			  SEQ_USER_NO.CURRVAL
+			  #{memberNo}
 			  , #{ reason }
 			  , #{ opinions }
 			)			
@@ -257,7 +263,7 @@
 	<update id="updateaccSecssionYn" parameterType="com.kh.project.member.model.vo.Member">
 		UPDATE MEMBER
 		SET ACC_SECESSION_YN = 'Y'
-		WHERE USER_NO = SEQ_USER_NO.CURRVAL
+		WHERE USER_NO = #{no}
 	</update>
 
 

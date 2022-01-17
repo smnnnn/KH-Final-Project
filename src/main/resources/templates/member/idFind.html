@@ -50,7 +50,7 @@
 				<br>
 				<br>
 				<br>
-				<br> <input type="button" class="button btn1"
+				<br> <input type="button" class="button btn1" id="before"
 					th:onclick="|location.href='@{/member/login}'|" value="이전으로">
 				<input type="button" id="idFindForm" class="button btn2" value="확인"><br>
 				<br> <label class="label2">비밀번호를 찾으시나요 ? </label> <a
@@ -115,6 +115,8 @@
 						console.log(e);
 					}		
 					});			
+				}else if($("#before").click()){
+					
 				}else{
 					alert("값을 입력하여 주십시오.");
 					userNameresult.focus();
