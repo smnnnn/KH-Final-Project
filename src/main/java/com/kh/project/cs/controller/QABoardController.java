@@ -1,6 +1,5 @@
 package com.kh.project.cs.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.project.cs.model.service.QABoardService;
 import com.kh.project.cs.model.vo.Answer;
@@ -82,7 +82,19 @@ public class QABoardController {
 	/* 공개글: 모든 사람 접근 가능(비회원 포함) 비밀글: 인가 받아야만 접근 가능(+본인만) */
 	/*http://localhost:8007/qaBoard?QNo=100*/
 	@GetMapping("") 
-	public String selectQA(@RequestParam("qno") int QNo, Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String selectQA(@RequestParam("qno") int QNo, Model model, @AuthenticationPrincipal UserImpl user, 
+			RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) {
+		
+		QABoard board = qaBoardService.selectQA(QNo);
+		
+		log.info("board.getUser() : " + board.getUserId());
+		log.info("user.getNo() : " + user.getUsername());
+		
+		if(board.getSecretStatus().equals("Y") && !board.getUserId().equals(user.getUsername())) {
+			rttr.addFlashAttribute("msg", "비밀글입니다");
+		
+			return "redirect:/qaBoard/list";
+		}
 		//int qNo = Integer.parseInt(request.getParameter("QNo")); // ?
 		
 		/* cookie 활용한 조회수 무한 증가 방지 처리 */
@@ -121,7 +133,7 @@ public class QABoardController {
 			}		
 		}
 		
-		QABoard board = qaBoardService.selectQA(QNo);
+		board = qaBoardService.selectQA(QNo);
 		log.info("게시판 조회 : {}", board);
 		
 		model.addAttribute("board",board);
