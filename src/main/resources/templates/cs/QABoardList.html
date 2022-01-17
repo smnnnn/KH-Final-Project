@@ -74,7 +74,9 @@
                         
                         <!-- 회원 -->
                         <th:block sec:authorize="isAuthenticated()">
-                       <!--  <th:block th:if="${board.userId} == ${#authentication.principal.id}">  -->
+                        <!-- <th:block th:if="${board.userId} == ${#authentication.principal.id}"> -->
+                        <!--  <th:block th:if="${board.userId.equalsIgnoreCase('admin001')}"> -->
+                        <th:block th:if="!${#authentication.principal.id.equals('admin001')}"> 
                         <a th:href="@{/qaBoard(qno=${board.qno})}">
                        <!--  </th:block> -->
                     	<input type="hidden" id="qnumber" th:value="${board.qno}">
@@ -89,6 +91,7 @@
                         <span th:if="${board.answer.acount} == 1"><img id="answer" src="/images/sm/answer2.png"></span> 
                         <span th:unless="${board.answer.acount} == 1"></span>
                         </a>
+                        </th:block>
 						</th:block>
                         
                         

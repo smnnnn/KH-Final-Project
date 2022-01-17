@@ -87,13 +87,19 @@ public class QABoardController {
 		
 		QABoard board = qaBoardService.selectQA(QNo);
 		
-		log.info("board.getUser() : " + board.getUserId());
-		log.info("user.getNo() : " + user.getUsername());
 		
-		if(board.getSecretStatus().equals("Y") && !board.getUserId().equals(user.getUsername())) {
-			rttr.addFlashAttribute("msg", "비밀글입니다");
-		
-			return "redirect:/qaBoard/list";
+		if(user != null) {
+			if(!user.getUsername().equals("admin001")) {
+				
+				log.info("board.getUserId() : " + board.getUserId());
+				log.info("user.getUsername() : " + user.getUsername());
+				
+				if(board.getSecretStatus().equals("Y") && !board.getUserId().equals(user.getUsername())) {
+					rttr.addFlashAttribute("msg", "비밀글입니다");
+					
+					return "redirect:/qaBoard/list";
+				}
+			}
 		}
 		//int qNo = Integer.parseInt(request.getParameter("QNo")); // ?
 		
