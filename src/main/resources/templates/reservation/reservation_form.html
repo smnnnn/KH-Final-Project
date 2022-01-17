@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extra-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,12 +58,12 @@
                     </div>
                     <div id="title_line"></div><br>
                     <span>예약자</span>
-                    <div class="username">
-                        나견주, 01012345678
-                    </div><br>
+                    <div class="username" sec:authentication="principal.name"></div><br>
+                    <span>연락처</span>
+                    <div class="username" sec:authentication="principal.phone"></div><br>
                     <div class="reservation_form_content">
                         <span>동물명*</span>
-                        <label id="dog_info_chk"><input type="checkbox" value="dog">등록된 동물 정보 가져오기</label>
+                        <label id="dog_info_chk"><input type="checkbox" id="dogInfo" value="">등록된 동물 정보 가져오기</label>
                         <br>
                         <div class="text_input">
                             <input type="text" id="dog_name" name="in_dog_name" required>
@@ -130,6 +131,60 @@
 
         </div>
         <script>
+        	/* 체크 박스 체크 시 등록된 동물 정보 불러오기 */
+        	$(document).ready(function(){
+    			$("#dogInfo").change(function(){
+        			if($("#dogInfo").is(":checked")){
+          			  
+          				$.ajax({
+        					url : "/reservation/reservation_form/input",
+        					type : "get",
+        					dataType : "json",
+        					success : function(data){
+        						
+        						let dog_name="";
+        						let dog_age="";
+        						let dog_breed="";
+        					
+        						for(let index in data){
+        							dog_breed += data[index].breed
+        						}
+        						$(".reservation_form_content #dog_breed").val(dog_breed);
+        					
+        						for(let index in data){
+        							dog_age += data[index].dogAge
+        						}
+        						$(".reservation_form_content #dog_age").val(dog_age);
+        					
+        						for(let index in data){
+        						 	if(data[index].dogGender == "암컷"){
+        								$("#box_select > option[value='암컷']").prop("selected", "ture");
+        							} else if(data[index].dogGender == '수컷'){
+        								$("#box_select > option[value='수컷']").prop("selected", "ture");
+        							}  
+        						}
+        					
+        						for(let index in data){
+        							dog_name += data[index].dogName
+        						}
+        						$(".reservation_form_content #dog_name").val(dog_name);
+        					},
+        					error : function(e){
+        						console.log(e);
+        					}
+        				});
+          			          			
+        			}else{
+          			  console.log("체크박스 체크 해제!");
+        					$(".reservation_form_content #dog_breed").val('');
+        					$(".reservation_form_content #dog_age").val('');
+        					$("#box_select > option[value='암컷']").prop("selected", "ture");
+        					$(".reservation_form_content #dog_name").val('');
+        			}
+   			 	});
+			});
+        
+        	
             // textArea 글자수 체크
 	        $('#request').on('keyup', function() {
 	            $('.charCnt').text(+$(this).val().length+"/200");
