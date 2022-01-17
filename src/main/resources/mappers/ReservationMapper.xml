@@ -17,7 +17,27 @@
 		</association> -->
 		
 	</resultMap>
+	
+	<resultMap id="selectDogResultMap" type="com.kh.project.reservation.model.vo.DogInformation">
+		<id property="dogNo" column="DOG_NO"/>
+		<result property="dogName" column="DOG_NAME"/>
+		<result property="dogAge" column="DOG_AGE"/>
+		<result property="breed" column="BREED"/>
+		<result property="dogGender" column="DOG_GENDER"/>
+		<result property="userNo" column="USER_NO"/>
+		
+	</resultMap>
 
+	<select id="notice" resultMap="VeterinarianResultMap">
+		SELECT
+			   A.VNO
+			 , B.TNAME
+			 , C.DAY
+	 	  FROM VETERINARIAN A
+	 	  JOIN TREATMENT_TYPE B ON (A.TNO = B.TNO)
+          JOIN HOLIDAY C ON (A.VNO = C.VNO)
+         ORDER BY A.VNO
+	</select>
 
 	<select id="findVname" resultMap="VeterinarianResultMap">
 		SELECT
@@ -89,5 +109,16 @@
 		   	 , #{ in_dog_age }
 		  )
 	</insert>
+	
+	<select id="selectDogInfo" resultMap="selectDogResultMap">
+		SELECT
+			   A.DOG_NAME
+			 , A.DOG_AGE
+			 , A.BREED
+			 , A.DOG_GENDER
+		  FROM DOG_INFORMATION A
+		  JOIN MEMBER B ON (A.USER_NO = B.USER_NO)
+		 WHERE B.USER_ID = #{ id }
+	</select>
 	
 </mapper>

@@ -158,6 +158,10 @@
         /* 휴무일 선택할 수 없게 select해온 의료진의 휴무일 가져오기 */
         var holi = $('#timeTable').find("td:eq(6)").text();
         
+        /* 선택한 날짜의 요일 확인 용 데이터 */
+        let dayy = String(arg.start);
+        let week = dayy.split(" ");
+        
         /* 휴무일은 한글값으로 db에 저장되어있어서 바꾸는 과정 필요 */
         if(holi === '월요일'){
         	holi = 'Mon';
@@ -166,14 +170,10 @@
         } else if(holi === '수요일'){
         	holi = 'Wed'
         } else if(holi === '목요일'){
-        	holi = 'The';
+        	holi = 'Thu';
         } else if(holi == '금요일'){
         	holi = 'Fri';
         }
-        
-        /* 선택한 날짜의 요일 확인 용 데이터 */
-        let dayy = String(arg.start);
-        let week = dayy.split(" ");
         
         
         
