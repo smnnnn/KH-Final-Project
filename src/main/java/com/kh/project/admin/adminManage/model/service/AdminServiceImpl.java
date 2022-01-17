@@ -1,5 +1,10 @@
 package com.kh.project.admin.adminManage.model.service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.project.admin.adminManage.model.dao.AdminMapper;
 import com.kh.project.admin.adminManage.model.vo.DashBoard;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
+import com.kh.project.admin.visit.model.vo.VisitCount;
 import com.kh.project.member.model.vo.MemberRole;
 
 import lombok.extern.slf4j.Slf4j;
@@ -111,17 +117,88 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public DashBoard dashBoard() {
-		Map<String, Object> map = new HashMap();
 		/* 회원 수 조회 */
-		map.put("new", 1);
-		int newMemberCnt = adminMapper.getMemberCount(map);
-		map.put("out", 1);
-		int seceMemberCnt = adminMapper.getMemberCount(map);
-		map.put("total", map);
-		int totalMemberCnt = adminMapper.getMemberCount(map);
-		log.info("newMemberCnt : {}, seceMemberCnt : {}, totalMemberCnt : {}", newMemberCnt, seceMemberCnt, totalMemberCnt);
+		int num = 1;
+		int newMemberCnt = adminMapper.getMemberCount(num);
+		num = 2;
+		int seceMemberCnt = adminMapper.getMemberCount(num);
+		num = 3;
+		int totalMemberCnt = adminMapper.getMemberCount(num);
 		
-		return null;
+		/* 예약 수 조회 */
+		int resNum = 1;
+		int internalCnt = adminMapper.getReservationCount(resNum);
+		resNum = 2;
+		int surgeryCnt = adminMapper.getReservationCount(resNum);
+		resNum = 3;
+		int ophthalCnt = adminMapper.getReservationCount(resNum);
+		resNum = 4;
+		int orthoCnt = adminMapper.getReservationCount(resNum);
+		
+		/* 문의 수 조회 */
+		int qaNum = 1;
+		int newCSCnt = adminMapper.getCSCount(qaNum);
+		qaNum = 2;
+		int noAnswerCnt = adminMapper.getCSCount(qaNum);
+		
+		DashBoard dashboard = new DashBoard();
+		dashboard.setNewMemberCnt(newMemberCnt);
+		dashboard.setSecessionCnt(seceMemberCnt);
+		dashboard.setTotalMemberCnt(totalMemberCnt);
+		dashboard.setInternalCnt(internalCnt);
+		dashboard.setSurgeryCnt(surgeryCnt);
+		dashboard.setOphthalCnt(ophthalCnt);
+		dashboard.setOrthoCnt(orthoCnt);
+		dashboard.setNewCSCnt(newCSCnt);
+		dashboard.setNoAnswerCnt(noAnswerCnt);
+		
+		return dashboard;
+	}
+
+	@Override
+	public List<VisitCount> getVisitCount() {
+		/* 방문자 수 조회 */
+		// 오늘
+		int num = 1;
+		int todayCount = adminMapper.getVisitCount(num);  
+		// 어제
+		num = 2;
+		int yesterdayCount = adminMapper.getVisitCount(num); 
+		// 그제
+		num = 3;
+		int twoDaysAgoCount = adminMapper.getVisitCount(num); 
+		// 삼일 전
+		num = 4;
+		int threeDaysAgoCount = adminMapper.getVisitCount(num); 
+		// 사일 전
+		num = 5;
+		int fourDaysAgoCount = adminMapper.getVisitCount(num); 
+			
+		Calendar calendar = new GregorianCalendar();
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd");
+		
+		String today = sdf.format(calendar.getTime());  // 오늘
+		
+		calendar.add(Calendar.DATE, -1);
+		String yesterday = sdf.format(calendar.getTime());  // 어제
+		
+		calendar.add(Calendar.DATE, -1);
+		String twoDaysAgo = sdf.format(calendar.getTime());  // 그제
+		
+		calendar.add(Calendar.DATE, -1);
+		String threeDaysAgo = sdf.format(calendar.getTime());  // 삼일 전
+		
+		calendar.add(Calendar.DATE, -1);
+		String fourDaysAgo = sdf.format(calendar.getTime());  // 사일 전
+		
+		List<VisitCount> vcList = new ArrayList<>();
+		vcList.add(new VisitCount(today, todayCount));
+		vcList.add(new VisitCount(yesterday, yesterdayCount));
+		vcList.add(new VisitCount(twoDaysAgo, twoDaysAgoCount));
+		vcList.add(new VisitCount(threeDaysAgo, threeDaysAgoCount));
+		vcList.add(new VisitCount(fourDaysAgo, fourDaysAgoCount));
+		
+		return vcList;
 	}
 
 

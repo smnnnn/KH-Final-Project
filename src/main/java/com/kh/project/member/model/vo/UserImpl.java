@@ -31,7 +31,7 @@ public class UserImpl extends User {
 	private Date accSecssionDatetime;	//계정탈퇴일시
 	private String accSecssionYn;		//계정탈퇴여부
 	
-	
+	private DogInformation dogInformation;
 
 	
 	public UserImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -60,7 +60,7 @@ public class UserImpl extends User {
 			this.accLockYn = member.getAccLockYn();
 			this.accSecssionDatetime = member.getAccSecssionDatetime();
 			this.accSecssionYn = member.getAccSecssionYn();
-			
+			this.dogInformation = member.getDogInformation();
 		}
 
 //		public UserImpl(String username, String password, Collection<? extends GrantedAuthority> authorities, int no,

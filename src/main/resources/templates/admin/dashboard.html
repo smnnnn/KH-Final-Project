@@ -14,6 +14,8 @@
     <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
     <!-- 자바스크립트 -->
     <script type="text/javascript" src="/js/common.js"></script> 
+    <!-- chart.js cdn -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.js" integrity="sha512-uLlukEfSLB7gWRBvzpDnLGvzNUluF19IDEdUoyGAtaO0MVSBsQ+g3qhLRL3GTVoEzKpc24rVT6X1Pr5fmsShBg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <title>다나은 관리자페이지</title>
 </head>	
@@ -26,9 +28,9 @@
                         <h3>회원 현황</h3>
                         <div class="managedata">
                             <ul class="datalist">
-                                <li><span>신규 회원</span><span>3</span><span>명</span></li>
-                                <li><span>탈퇴 회원</span><span>3</span><span>명</span></li>
-                                <li><span>총 회원수</span><span>80</span><span>명</span></li>
+                                <li><span>신규 회원</span><span id="newmember"></span><span>명</span></li>
+                                <li><span>탈퇴 회원</span><span id="secessionmember"></span><span>명</span></li>
+                                <li><span>총 회원수</span><span id="totalmember"></span><span>명</span></li>
                             </ul>
                         </div>
                     </div>
@@ -36,10 +38,10 @@
                         <h3>예약 현황</h3>
                         <div class="managedata">
                             <ul class="datalist">
-                                <li><span>내과</span><span>10</span><span>건</span></li>
-                                <li><span>외과</span><span>5</span><span>건</span></li>
-                                <li><span>안과</span><span>5</span><span>건</span></li>
-                                <li><span>정형외과</span><span>5</span><span>건</span></li>
+                                <li><span>내과</span><span id="internal"></span><span>건</span></li>
+                                <li><span>외과</span><span id="surgery"></span><span>건</span></li>
+                                <li><span>안과</span><span id="ophthalmology"></span><span>건</span></li>
+                                <li><span>정형외과</span><span id="orthopedics"></span><span>건</span></li>
                             </ul>
                         </div>
                     </div>
@@ -47,15 +49,14 @@
                         <h3>문의 현황</h3>
                         <div class="managedata">
                             <ul class="datalist">
-                                <li><span>새 문의</span><span>10</span><span>건</span></li>
-                                <li><span>답변 대기</span><span>5</span><span>건</span></li>
+                                <li><span>새 문의</span><span id="newquestion"></span><span>건</span></li>
+                                <li><span>답변 대기</span><span id="noanswer">111</span><span>건</span></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="visitinfo">
-
-                </div>
+<!--                 <div class="visitinfo"></div> -->
+	            <canvas id="canvas"></canvas>
             </div>
         </div>
     </div>
@@ -65,7 +66,7 @@
 		if(message){
 			alert(message);
 		}
-		
+		// 현황 개수 조회
 		$(function(){
 			$.ajax({
 				url : "/admin/dashboard",
@@ -73,15 +74,89 @@
 				dataType : "json",
 				success : function(data){
 					console.log(data);
+					// 회원현황
+					$('#newmember').text(data.newMemberCnt);
+					$('#secessionmember').text(data.secessionCnt);
+					$('#totalmember').text(data.totalMemberCnt);
+					// 예약현황
+					$('#internal').text(data.internalCnt);
+					$('#surgery').text(data.surgeryCnt);
+					$('#ophthalmology').text(data.ophthalCnt);
+					$('#orthopedics').text(data.orthoCnt);
+					// 문의현황
+					$('#newquestion').text(data.newCSCnt);
+					$('#noanswer').text(data.noAnswerCnt);
 				},
 				error : function(e){
 					console.log(e);
-				}
-				
+				}				
 				
 			});
 		});
 		
+    </script>
+    
+    <script>
+    	/* 방문자수 그래프 */ 
+    	// 캔버스 가져오기
+	    const canvas = document.getElementById('canvas');
+    	// 캔버스 context 등록
+	    const ctx = canvas.getContext('2d');
+		// 차트 작성하기
+	    const barChart = new Chart(ctx, {
+	    	type: "line",
+	    	data: {
+	    		labels: ["1/12", "1/13", "1/14", "1/15", "1/16"],
+	    		datasets: [
+	    			{
+	    				label: "방문 통계 현황",
+	    				data: [10, 5, 20, 14, 3],
+	    				backgroundColor: [
+	    					"#85B1D6"
+	    				],
+	    				/* barThickness: 30, */
+	    				borderColor: "#85B1D6",
+	    			}
+	    		],
+	    	},
+	    	options: {
+	    		scales: {
+	    			yAxes: [
+	    				{
+		    				ticks: {
+		    					/* y축 0부터 시작 */
+		    					beginAtZero: true,
+		    					/* y축 간격 */
+								stepSize: 1,
+								/* y축 최소값 */
+								suggestedMin: 0
+		    				}
+	    				}
+	    			]   			
+	    		}
+	    	}
+	    });
+		
+		$.ajax({
+			url: "/admin/visitCount",
+			type: "get",
+			dataType: "json",
+			success: function(data){
+				console.log(data);
+				barChart.data.labels = [data[4].visitDate, data[3].visitDate, data[2].visitDate, data[1].visitDate, data[0].visitDate];
+				barChart.data.datasets[0].data = [data[4].visitCount, data[3].visitCount, data[2].visitCount, data[1].visitCount, data[0].visitCount];
+				barChart.update();	  
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+		
+	    // 동적 차트 작성하기
+/* 	    barChart.data.labels = [1, 2, 3, 4, 5];
+	    barChart.data.datasets[0].data = [1, 2, 3, 4, 5];
+	    barChart.update();	   */
+	    
     </script>
 </body>
 </html>
