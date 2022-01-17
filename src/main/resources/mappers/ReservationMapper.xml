@@ -4,23 +4,90 @@
 	<resultMap id="VeterinarianResultMap" type="com.kh.project.reservation.model.vo.VeterinarianAndTreatmentType">
 		<id property="vno" column="VNO"/>
 		<result property="vname" column="VNAME"/>
+		<result property="tno" column="TNO"/>
+		<result property="tname" column="TNAME"/>
 		<result property="status" column="STATUS"/>
+		<result property="day" column="DAY"/>
 		
-		<association property="tno" javaType="com.kh.project.reservation.model.vo.TreatmentType">
-			<id property="tno" column="TNO"/>
-			<result property="tname" column="TNAME"/>
-		</association>
+		<!-- <association property="reservationInfo" javaType="com.kh.project.reservation.model.vo.ReservationInfo">
+			<id property="reservation_no" column="RESERVATION_NO"/>
+			<result property="reservation_date" column="RESERVATION_DATE"/>
+			<result property="reservation_time" column="RESERVATION_TIME"/>
+			<result property="reservation_status" column="RESERVATION_STATUS"/>
+		</association> -->
 		
 	</resultMap>
 
 
 	<select id="findVname" resultMap="VeterinarianResultMap">
 		SELECT
-			   A.VNAME
+			   A.VNO
+			 , A.VNAME
+			 , B.TNO
 			 , B.TNAME
+			 , C.DAY			 		 
 		  FROM VETERINARIAN A
 		  JOIN TREATMENT_TYPE B ON (A.TNO = B.TNO)
+		  JOIN HOLIDAY C ON (A.VNO = C.VNO)
 		 WHERE A.TNO = #{tno}
+		   
 	</select>
 
+
+	<insert id="registReservation" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">
+		<selectKey resultType="_int" keyProperty="user_no" order="BEFORE">
+			SELECT USER_NO
+			  FROM MEMBER
+			 WHERE USER_ID = #{id}
+		</selectKey>
+		INSERT
+		  INTO RESERVATION_INFORMATION
+		  (
+		  	   RESERVATION_NO
+		  	 , RESERVATION_DATE
+		  	 , RESERVATION_TIME
+		  	 , RESERVATION_STATUS
+		  	 , SYMPTOM
+		  	 , TNO
+		  	 , USER_NO
+		  	 , VNO
+		  )
+		  VALUES
+		  (
+		  	    SEQ_RESERVATION_NO.NEXTVAL
+		  	  , #{ reservationInfo.reservation_date }
+		  	  , #{ reservationInfo.reservation_time }
+		  	  , DEFAULT
+		  	  , #{ reservationInfo.symptom }
+		  	  , #{ reservationInfo.tno }
+		  	  , #{ user_no }
+		  	  , #{ reservationInfo.vno }
+		  )
+		<!-- <selectKey resultType="_int" keyProperty="reservation_no" order="AFTER">
+		 SELECT SEQ_RESERVATION_NO.CURRVAL
+		 FROM DUAL
+		</selectKey> -->
+	</insert>
+	
+	
+	<insert id="registDog" parameterType="com.kh.project.reservation.model.vo.DogInformationInput">
+		INSERT
+		  INTO DOG_INFORMATION_INPUT
+		  (
+		  	   RESERVATION_NO
+		  	 , IN_DOG_NAME
+		  	 , IN_BREED
+		  	 , IN_DOG_GENDER
+		  	 , IN_DOG_AGE
+		  )
+		  VALUES
+		  (
+		  	   SEQ_RESERVATION_NO.CURRVAL
+		   	 , #{ in_dog_name }
+		   	 , #{ in_breed }
+		   	 , #{ in_dog_gender }
+		   	 , #{ in_dog_age }
+		  )
+	</insert>
+	
 </mapper>

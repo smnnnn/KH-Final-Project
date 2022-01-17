@@ -94,7 +94,7 @@
                     					for(let index in data){
                     						holiday += data[index].day.day
                     					}
-                    					$(".REcontent #holi").html(holiday);
+                    					$(".REcontent #holi").val(holiday);
                     					
                     					for(let index in data){
                     						phone += data[index].phone
@@ -130,7 +130,9 @@
                             <div class="career">경력 사항: <br>
                                 <textarea class="adminArea" id="vcareer" name="career" required></textarea>
                             </div><br>
-                            휴무일 : <span id="holi"></span><br><br>
+                            휴무일 : <span>
+                            	<input type="text"  class="text_input_admin" id="holi" name="day" required>
+                            </span><br><br>
                             연락처 : <span> 
                                 <input type="text"  class="text_input_admin" id="phone_input" name="phone" required>
                             </span>

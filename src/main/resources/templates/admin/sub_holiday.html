@@ -9,14 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
     <!-- 공통 css -->
     <link type="text/css" rel="stylesheet" href="/css/common.css">
-    <!-- 나현 css (메인, 관리자)-->
-    <link type="text/css" rel="stylesheet" href="/css/nh.css">
-    <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
     <!-- 효은 css -->
     <link type="text/css" rel="stylesheet" href="/css/he.css">
     <link type="text/css" rel="stylesheet" href="/css/adminSub.css">
     <!-- 공통 js -->
     <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <!-- 캘린더 js, css -->
+	<script type="text/javascript" src="/js/calendar.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/calendar.css"/>
+   
     
     <title>다나은 서브 관리자|휴일 설정</title>
 </head>
@@ -29,17 +31,16 @@
                 <div class="manage_wrap">
                     <h3>병원 휴일 설정</h3><br><br>
                     <div class="holiday_btn">
-                        <input type="button" id="type_btn" value="전체">
-                        <input type="button" id="type_btn" value="내과">
-                        <input type="button" id="type_btn" value="외과">
-                        <input type="button" id="type_btn" value="안과">
-                        <input type="button" id="type_btn" value="정형외과">
+                        <button type="button" class="type_btn" id="all" value="5">전체</button>
+                        <button type="button" class="type_btn" id="in" value="1">내과</button>
+                        <button type="button" class="type_btn" id="out" value="2">외과</button>
+                        <button type="button" class="type_btn" id="eyes" value="3">안과</button>
+                        <button type="button" class="type_btn" id="born" value="4">정형외과</button>
                     </div>
                     <br>
-                    <div id="div_calendar">
-                        <div class="holiday_calendar">
-    
-                        </div>
+                    <!-- <div id="div_calendar"> -->
+                    <div class="reser_date">
+                        <div class="calendar" id="calendar"></div>
                     </div>
                     <br><br>
                    <div id="div_btn">
@@ -48,7 +49,118 @@
                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+            
+  <!-- 버튼 클릭 시 tno에 맞는 캘린더 출력  -->   
+  <script>
+  $(function(){
+		$(".type_btn").on('click', function(){
+			let tno = $(this).val();
+			console.log(tno);
+			
+			$.ajax({
+				url : "/admin/sub_holiday" + tno,
+				type : "post",
+				dataType : "json",
+				success : function(data){
+					
+				
+					
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
+		});
+	});
+  </script>
+  <!-- 캘린더 -->          
+  <script>
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      /* //initialDate: '2020-09-12',
+      //locale : "ko",
+      //editable: true, */
+      selectable: true, 
+      /* //businessHours: true,
+      //dayMaxEvents: true, // allow "more" link when too many events
+      //hiddenDays:[1], */
+     
+      googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE",
+      eventSources : [
+         /* 공휴일 */
+          {
+                googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com"
+              , className : "koHolidays"
+              , color : "#FF6347"
+          }
+    ],
+    
+    	/* events: [
+        {
+          title: '휴무일',
+          start: '2022-01-16'
+        }], */
+  
+      /* 이벤트명 : function(){} : 각 날짜에 대한 이벤트를 통해 처리할 내용.. */
+      select: function(arg) { 
+        
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = ("0" + (1 + date.getMonth())).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+        let today = year + "-" + month + "-" + day;
+        
+        /* 무슨 요일인지 확인 용 */
+        let dayy = String(arg.start);
+        let week = dayy.split(" ");
+        
+        if(arg.startStr < today) {  /* 지난 날짜 선택한 경우 */
+          alert('선택할 수 없는 날짜입니다.');
+        }  else {
+ 			console.log(arg.startStr);
+			 // we're in Moday, create the event
+           calendar.addEvent({
+        	   
+        		   title: 'my recurring event',
+        		   duration: '24:00',
+        		   rrule: {
+        		     start: arg.start,
+        			 freq: 'weekly',
+        		     interval: 2,
+        		     byweekday: ['mo']
+        		   }
+        		 
+        	   
+           });
+			 
+			/*({
+                  title: '휴무일',
+                  start: arg.startStr,
+                  dow: [ 1 ], 
+                  ranges: [{ //repeating events are only displayed if they are within at least one of the following ranges.
+                      start: moment().startOf('week'), //next two weeks
+                      end: moment().endOf('week').add(7,'d'),
+                  },{
+                      start: moment('2022-01-01','YYYY-MM-DD'), //all of february
+                      end: moment('2022-03-01','YYYY-MM-DD').endOf('month'),
+              //    },/*...other ranges*/
+            // });*/
+        	
+        	
+        }
+          
+        }
+
+    });
+
+    calendar.render();
+  });
+  
+
+</script> 
+        
 </body>
 </html>

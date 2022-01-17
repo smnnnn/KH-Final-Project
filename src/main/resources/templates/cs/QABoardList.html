@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,23 +52,33 @@
                 <div class="bd_container" th:each="board : ${boardList}">
                     <div class="item item1" th:text="${board.qno}"></div>
                     <div class="item">
-                    	<!-- 클릭시 해당 글번호 상세 페이지로 이동 -->
-                    	<a th:href="@{/qaBoard(qno=${board.qno})}">
+                    	<!-- 클릭시 해당 글번호 상세 페이지로 이동 -->     
+
+                    	<!--<a th:href="@{/qaBoard(qno=${board.qno})}">-->
+                    	<a th:onclick="checkUser('[[${board.qno}]]')">
+                    	<input type="hidden" id="qnumber" th:value="${board.qno}">
                     	<!-- 비밀글이면 lock,아니면 unlock 아이콘-->
-                        <span th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png"></span>
-                       	<span th:if="${board.secretStatus} == 'N'"><img id="key" src="/images/sm/unlock2.png"></span>
+                        <span id="ss" th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png" name="lock"></span>
+                       	<span id="ss" th:if="${board.secretStatus} == 'N'"><img id="key" src="/images/sm/unlock2.png" name="unlock"></span>
                         <!-- 카테고리명 -->
                         [<span th:text="${board.categoryName}"></span>] 
                         <!-- 글제목 -->
                         <span th:text="${board.qtitle}"></span>
                         <!-- 댓글 달렸을 경우와 아닐 경우 구분 아이콘-->
-                        <span><img id="answer" src="/images/sm/answer2.png"></span> 
+                        
+                        <span th:if="${board.answer.acount} == 1"><img id="answer" src="/images/sm/answer2.png"></span> 
+                        <span th:unless="${board.answer.acount} == 1"></span>
                         </a>
+
+                        
+
+                        
                     </div>
                     <!-- 사용자 이름 -->
                     <div class="item bold" th:text="${board.userName}"></div>
-                    <!-- 작성 날짜(수정 했을 경우 수정 날짜로 업데이트 필요 -->
-                    <div class="item" th:text="${#dates.format(board.createDate, 'yyyy.MM.dd')}"></div>
+                    <!-- 작성 날짜(수정 했을 경우 수정 날짜로 업데이트 -->
+                    <div class="item" th:if="${board.modifyDate} != null" th:text="${#dates.format(board.modifyDate, 'yyyy.MM.dd')}"></div>
+                    <div class="item" th:unless="${board.modifyDate} != null" th:text="${#dates.format(board.createDate, 'yyyy.MM.dd')}"></div>
                     <!-- 조회수 -->
                     <div class="item" th:text="${board.qhit}">조회수</div>                  
                 </div>
@@ -188,6 +199,41 @@
 
     <!-- 푸터 -->
 	<div th:replace="fragments/footer.html"></div>
+
+	<script>
+		function notYours(no){
+			/*let qnumber = document.querySelector("#qnumber").value;*/
+			console.log(no)
+			location.href = "/qaBoard?qno=" + no;
+		}
+		
+		function checkUser(no){
+			let ss = document.querySelectorAll("#ss");
+			/*걔의 자손 name이 lock일 때, unlock일 때*/
+			console.log(ss);
+			
+
+			
+			for(let i = 0; i < ss.length; i++) {
+				
+				const item = ss.item(i);
+				let img = item.querySelector("#key");
+
+				console.log(img);
+
+				if([name=unlock]) {
+					console.log("안잠김");
+					/*location.href = "/qaBoard?qno=" + no;*/
+				} else if([name=lock]) {
+					console.log("잠김");
+	
+				}
+			
+		}
+
+		
+		}
+	</script>
 
 
 </body>

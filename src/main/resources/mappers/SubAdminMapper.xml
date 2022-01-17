@@ -78,4 +78,10 @@
 		     , PHONE = #{ phone }
 		 WHERE VNO = #{ vno }
 	</update>
+	
+	<update id="modifyHoliday" parameterType="com.kh.project.subAdmin.model.vo.Holiday">
+		UPDATE HOLIDAY
+		   SET DAY = #{ day }
+		 WHERE VNO = #{ vno }
+	</update>
 </mapper>

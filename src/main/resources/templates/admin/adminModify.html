@@ -21,27 +21,30 @@
  <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='6')"></div>
             <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
-                <h3 class="pagetitle">관리자 계정 관리</h3>
+                <h3 class="pagetitle">관리자 계정 수정</h3>
                 <form action="" method="" class="formstyle">
                     <div class="content-wrap">
                         <div class="text-area">
                             <h4>아이디</h4>
-                            <input type="text" class="disabled" name="userId" id="userId" value="admin" readonly>
+                            <input type="text" class="disabled" name="id" id="userId" th:value="${admin.id}" readonly>
                         </div>
                         <div class="text-area">
                             <h4>이름</h4>
-                            <input type="text" name="userName" id="userName" value="총관리자">
+                            <input type="text" name="name" id="userName" th:value="${admin.name}">
                         </div>
                         <div class="text-area">
                             <h4>전화번호</h4>
-                            <input type="text" name="phone" id="phone" value="010-1234-5678">
+                            <input type="text" name="phone" id="phone" th:value="${admin.phone}">
+                        </div>
+                         <div class="text-area">
+                            <h4>이메일</h4>
+                            <input type="text" name="phone" id="phone" th:value="${admin.email}">
                         </div>
                         <div class="text-area">
                             <h4>등급</h4>
-                            <select>
-                                <option name="" value="">총관리자</option>
-                                <option name="" value="">서브관리자</option>
-                                <option name="" value="">일반회원</option>
+                            <select name="memberRoleList[0].authorityCode" th:value="${#lists.size(admin.memberRoleList)}">
+                                <option value="3" th:selected="${#lists.size(admin.memberRoleList) == 3}">총관리자</option>
+                                <option value="2" th:selected="${#lists.size(admin.memberRoleList) == 2}">서브관리자</option>
                             </select>    
                         </div>
                         <!-- 유효성 검사 후 버튼 활성화 : btn-b , 비활성화 : btn-disabled -->

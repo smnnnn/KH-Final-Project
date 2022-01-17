@@ -45,10 +45,13 @@
                     <li>진료 예약</li>
                 </ul>
             </div>
-            <form>
-
-
-                <div class="reser_content">
+            <form th:action="@{/reservation/reservation_form/input}" method="Post" enctype="multipart/form-data" id="reservation_info">
+            <!-- 이전 페이지에서 사용자가 입력했던 예약 정보를 hidden으로 불러와서 값 같이 넘기기 -->
+            <input th:value="${#dates.format(reserInfo.reservation_date, 'yyyy-MM-dd')}" name="reservation_date" type="hidden">
+            <input th:value="${reserInfo.reservation_time}" name="reservation_time" type="hidden">
+            <input th:value="${reserInfo.tno}" name="tno" type="hidden">
+            <input th:value="${reserInfo.vno}" name="vno" type="hidden">
+               <div class="reser_content">
                     <div class="con_title">
                         예약 정보 입력
                     </div>
@@ -62,18 +65,18 @@
                         <label id="dog_info_chk"><input type="checkbox" value="dog">등록된 동물 정보 가져오기</label>
                         <br>
                         <div class="text_input">
-                            <input type="text" id="dog_name" name="dog_name" required>
+                            <input type="text" id="dog_name" name="in_dog_name" required>
                         </div>
                         <br>
                         <span>견종</span>
                         <br>
                         <div class="text_input">
-                            <input type="text" id="dog_breed" name="dog_breed">
+                            <input type="text" id="dog_breed" name="in_breed">
                         </div>
                         <br>
                         <span>성별*</span>
                         <br>
-                        <select id="box_select" name="dog_gender" required>
+                        <select id="box_select" name="in_dog_gender" required>
                             <option value="암컷">암컷</option>
                             <option value="수컷">수컷</option>
                         </select>
@@ -81,12 +84,12 @@
                         <span>나이</span>
                         <br>
                         <div class="text_input">
-                            <input type="number" id="dog_age" name="dog_age" placeholder="숫자로만 입력이 가능합니다.">
+                            <input type="number" id="dog_age" name="in_dog_age" placeholder="숫자로만 입력이 가능합니다.">
                         </div>
                         <br>
                         <span>증상 및 요청</span><br>
                         <div class="areaDiv">
-                            <textarea class="requestArea" id="request" placeholder="200자 이내만 입력이 가능합니다."></textarea>
+                            <textarea class="requestArea" id="request" name="symptom" placeholder="200자 이내만 입력이 가능합니다."></textarea>
                             <span class="charCnt"><em>0</em>/200</span>
                         </div>
                     </div>
@@ -170,6 +173,6 @@
     
     <!-- 푸터 -->
     <div th:replace="fragments/footer.html"></div>
-
+               
 </body>
 </html>

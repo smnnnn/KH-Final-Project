@@ -17,4 +17,6 @@ public interface SubAdminMapper {
 	List<Veterinarian> findVeterinarian(String vname);
 
 	int modifyVeterinarian(Veterinarian veterinarianModify);
+
+	int modifyHoliday(Holiday holiday);
 }

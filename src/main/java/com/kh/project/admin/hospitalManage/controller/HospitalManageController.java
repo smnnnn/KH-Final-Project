@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.project.admin.common.model.vo.Pagination;
+import com.kh.project.admin.common.model.vo.Search;
 import com.kh.project.admin.hospitalManage.model.service.HospitalManageService;
 import com.kh.project.hospital.model.vo.MDeviceFile;
 import com.kh.project.hospital.model.vo.MedicalDevice;
@@ -37,12 +39,27 @@ public class HospitalManageController {
 	}
 
 	@GetMapping("deviceList")
-	public String deviceManageList(Model model) {
+	public String deviceManageList(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "0") int sort
+			, Search search) {
 		
-		List<MedicalDevice> mdeviceList = hospitalManageService.selectMedicalDeviceList();
+		/* 장비 목록 전체 갯수 조회 */
+		int totalListCount = hospitalManageService.getListCount(sort, search);
+		
+		/* Pagination 객체 => 5 : 하단에 보여질 페이질 목록 수, 10 : 한 페이지에 보여질 목록 최대 */
+		Pagination pagination = new Pagination(page, totalListCount, 5, 10);
+		
+		/* 장비 목록 조회 => 페이징 처리 */
+		int startRow = (pagination.getPage() - 1) * pagination.getListLimit() + 1;
+		int endRow = startRow + pagination.getListLimit() - 1;
+		
+		List<MedicalDevice> mdeviceList = hospitalManageService.selectMedicalDeviceList(startRow, endRow, sort, search);
 		if(mdeviceList != null) {
 			model.addAttribute("mdeviceList", mdeviceList);
 		}
+		
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("sort", sort);
+		model.addAttribute("search", search);
 		
 		return "admin/deviceList";
 	}

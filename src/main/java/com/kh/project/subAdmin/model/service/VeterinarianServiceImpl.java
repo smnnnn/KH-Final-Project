@@ -49,5 +49,12 @@ public class VeterinarianServiceImpl implements VeterinarianService{
 		return subAdminMapper.modifyVeterinarian(veterinarianModify);
 	}
 
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.SERIALIZABLE, rollbackFor= {Exception.class})
+	public int modifyHoliday(Holiday holiday) {
+		return subAdminMapper.modifyHoliday(holiday);
+	}
+
 	
 }

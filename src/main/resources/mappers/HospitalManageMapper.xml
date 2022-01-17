@@ -20,19 +20,45 @@
 		<result property="deviceNo" column="DEVICE_NO"/>
 	</resultMap>
 
-	<select id="selectMedicalDeviceList" resultMap="deviceResultMap">
-		SELECT
-			   DEVICE_NO
-			 , DEVICE_NAME
-			 , DEVICE_MODEL
-			 , DEVICE_CONTENT
-			 , CREATE_DATE
-			 , MODIFY_DATE
-			 , STATUS
-			 , CATEGORY_CODE
-		  FROM MEDICAL_DEVICE
-		 WHERE STATUS = 'Y'		
-		 ORDER BY DEVICE_NO DESC
+	<select id="selectMedicalDeviceList" parameterType="com.kh.project.admin.common.model.vo.Search" resultMap="deviceResultMap">
+		SELECT *
+		  FROM(SELECT 
+			          ROWNUM RNUM
+			        , T.*
+			    FROM(SELECT
+						   DEVICE_NO
+						 , DEVICE_NAME
+						 , DEVICE_MODEL
+						 , DEVICE_CONTENT
+						 , CREATE_DATE
+						 , MODIFY_DATE
+						 , STATUS
+						 , CATEGORY_CODE
+			          FROM MEDICAL_DEVICE
+			         WHERE STATUS = 'Y'
+			         <if test="sort == 1">
+			           AND CATEGORY_CODE = 1
+			         </if>
+			         <if test="sort == 2">
+			           AND CATEGORY_CODE = 2
+			         </if>
+			         <if test="sort == 3">
+			           AND CATEGORY_CODE = 3
+			         </if>
+			         <if test="sort == 4">
+			           AND CATEGORY_CODE = 4
+			         </if>
+			         <if test="sort == 5">
+			           AND CATEGORY_CODE = 5
+			         </if>	
+					 <if test="searchCategory == 1">
+					   AND DEVICE_NAME LIKE '%'||#{searchKeyword}||'%'		 
+					 </if>		
+					 <if test="searchCategory == 2">
+					   AND DEVICE_MODEL LIKE '%'||#{searchKeyword}||'%'		 
+					 </if>						 	         		         			         			         			         
+			         ORDER BY DEVICE_NO DESC) T)
+		  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="selectMedicalDeviceByNo" parameterType="_int" resultMap="deviceResultMap">
@@ -136,6 +162,33 @@
 		  FROM DEVICE_FILE
 		 WHERE DEVICE_NO = #{ deviceNo }
 	</delete>
-	
+
+	<select id="getListCount" parameterType="_int" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM MEDICAL_DEVICE
+		 WHERE STATUS = 'Y'		   	
+		 <if test="sort == 1">
+		   AND CATEGORY_CODE = 1
+		 </if>
+		 <if test="sort == 2">
+		   AND CATEGORY_CODE = 2
+		 </if>
+		 <if test="sort == 3">
+		   AND CATEGORY_CODE = 3
+		 </if>		
+		 <if test="sort == 4">
+		   AND CATEGORY_CODE = 4
+		 </if>	
+		 <if test="sort == 5">
+		   AND CATEGORY_CODE = 5
+		 </if>	
+		 <if test="searchCategory == 1">
+		   AND DEVICE_NAME LIKE '%'||#{searchKeyword}||'%'		 
+		 </if>	
+		 <if test="searchCategory == 2">
+		   AND DEVICE_MODEL LIKE '%'||#{searchKeyword}||'%'		 
+		 </if>		 	 		 		 	 	 		 		 	
+	</select>	
 
 </mapper>

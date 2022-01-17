@@ -169,7 +169,7 @@ var FullCalendar = (function (exports) {
         });
         Object.defineProperty(EventSourceApi.prototype, "url", {
             get: function () {
-                return this.internalEventSource.meta.url;
+                /*return this.internalEventSource.meta.url;*/
             },
             enumerable: false,
             configurable: true
