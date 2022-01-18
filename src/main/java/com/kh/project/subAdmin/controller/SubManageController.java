@@ -30,13 +30,6 @@ public class SubManageController {
 		
 	}
 	
-	/*
-	 * @GetMapping("sub_holiday") 
-	 * public String holidayManage() { 
-	 * 	return "admin/sub_holiday"; 
-	 * }
-	 */
-	
 	
 	@GetMapping("sub_veterinarianModify")
 	public String veterinarianModifyPage() {
@@ -47,14 +40,6 @@ public class SubManageController {
 	public String veterinarianRegistPage() {
 		return "admin/sub_veterinarianRegist";
 	}
-	
-	/*
-	 * @PostMapping("/sub_holiday/{tno}")
-	 * @ResponseBody public List<Holiday> findHolidayList(@PathVariable int tno){
-	 * 	return null; 
-	 * }
-	 */
-	
 	
 	/* 의료진 등록 */
 	@PostMapping("sub_veterinarianRegist")
