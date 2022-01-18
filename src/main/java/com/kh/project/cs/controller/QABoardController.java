@@ -87,7 +87,7 @@ public class QABoardController {
 		
 		QABoard board = qaBoardService.selectQA(QNo);
 		
-		/* board의 userId와 로그인 user ID 비교해서 일치해야 비밀글 확인 가능(admin은 모든 글 확인 가능하므로 제외) */
+		/* board의 userId와 로그인 user ID 비교해서 일치해야 비밀글 확인 가능(총관리자 계정 제외) */
 		if(user != null) {
 			if(!user.getUsername().equals("admin001")) {
 				

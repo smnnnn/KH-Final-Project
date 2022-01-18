@@ -63,6 +63,15 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //				.antMatchers(HttpMethod.POST, "/menu/**").hasRole("ADMIN")
 //				/* "/admin/**"의 요청은 ROLE_ADMIN 권환을 가진 사람에게만 허용 */
 //				.antMatchers("/admin/**").hasRole("ADMIN")
+				/* 문의게시판 */
+				.antMatchers("/qaBoard").hasRole("MEMBER") 
+				.antMatchers("/qaBoard/insert").authenticated()  
+				.antMatchers("/qaBoard/updateView").authenticated() 
+				.antMatchers("/qaBoard/delete").authenticated()
+				/* 리뷰게시판 */
+				.antMatchers("/review/insert").authenticated()
+				.antMatchers("/review/delete").authenticated()
+				.antMatchers("/review/updateView").authenticated() 
 				/* 그 외의 요청은 모두 허가함 - 게스트 사용자도 접근 가능 */
 				.anyRequest().permitAll()  
 			.and()	   //요청에 따라 리턴값이 달라지니까 ? 위쪽 설정과 구분 지어서 작성

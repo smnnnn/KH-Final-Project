@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.project.cs.controller.QABoardController;
 import com.kh.project.cs.model.dao.QABoardMapper;
@@ -16,6 +17,7 @@ import com.kh.project.cs.model.vo.Search;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Transactional
 @Service("qaBoardService") /*qABoardService 이렇게 해야되나?*/
 public class QABoardServiceImpl implements QABoardService {
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.project.review.controller.ReviewController;
 import com.kh.project.review.model.dao.ReviewMapper;
@@ -13,6 +14,7 @@ import com.kh.project.review.model.vo.ReviewUpload;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Transactional
 @Slf4j
 @Service("reviewService")
 public class ReviewServiceImpl implements ReviewService {
