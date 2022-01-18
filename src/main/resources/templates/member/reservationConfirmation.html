@@ -158,8 +158,8 @@
         <div class="wrapper">
             <img class="my" src="/images/member/myPage.png">
             <div>
-            <button class="My btn"> 정보 수정&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button><br>
-            <button class="My btn1" th:href="@{/member/reservationConfirmation}"> 예약 확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button>
+            <button class="My btn" th:onclick="|location.href='@{/member/myPage}'|"> 정보 수정&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button><br>
+            <button class="My btn1" th:onclick="|location.href='@{/member/reservationConfirmation}'|"> 예약 확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button>
             </div>
 			
             <div class="infoForm item">
@@ -179,11 +179,11 @@
                     	</colgroup>
                     	<thead>
                         	<tr>
-                            	<th>진료 예약일</th>
-                            	<th>진료 예약 시간</th>
-                            	<th>진료 담당의</th>
+                            	<th>예약 일자</th>
+                            	<th>예약 시간</th>
+                            	<th>담당 의료진</th>
                             	<th>진료 과목</th>
-                            	<th>예약 상태</th>
+                            	<th>예약 사항</th>
                         	</tr>
                     	</thead>
                     	<tbody>
@@ -204,10 +204,10 @@
                 	</table>
                 <form id="reserSelect">
                  <input type="hidden" id="reservation_no" value="">
-               	 <input type="hidden" name="reservation_date" value="">
+               	 <!-- <input type="hidden" name="reservation_date" value="">
                	 <input type="hidden" name="reservation_time" value="">
                	 <input type="hidden" name="vname" value="">
-               	 <input type="hidden" name="tname" value="">
+               	 <input type="hidden" name="tname" value=""> -->
                	</form>
               <!--  </form>-->
             </div>
