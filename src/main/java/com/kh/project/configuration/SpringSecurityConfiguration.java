@@ -61,14 +61,17 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //				.antMatchers(HttpMethod.GET, "/menu/**").hasRole("MEMBER")
 //				/* "/menu/**"의 POST 요청은 ROLE_ADMIN 권한을 가진 사람에게만 허용 */
 //				.antMatchers(HttpMethod.POST, "/menu/**").hasRole("ADMIN")
-				/* 서브관리자 */
-				/* 관리자 데시보드 */
-				.antMatchers("/admin").hasRole("SUB_ADMIN")    
-				/* 관리자 마이페이지 */
+				/* ROLE_SUB_ADMIN 권한을 가진 서브관리자 */
+				.antMatchers("/admin").hasRole("SUB_ADMIN")   
+				.antMatchers("/admin/dashboard").hasRole("SUB_ADMIN")    
+				.antMatchers("/admin/visitCount").hasRole("SUB_ADMIN")  
 				.antMatchers("/admin/mypage").hasRole("SUB_ADMIN")
-				/* "/admin/**"의 요청은 ROLE_ADMIN 권환을 가진 사람에게만 허용 */
-				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/admin/**").authenticated() 
+				/* ROLE_ADMIN 권환을 가진 총관리자만 허용 */
+				.antMatchers("/admin/account/**").hasRole("ADMIN")
+				.antMatchers("/admin/cs/**").hasRole("ADMIN")
+				.antMatchers("/admin/hospital/**").hasRole("ADMIN")
+				.antMatchers("/admin/member/**").hasRole("ADMIN")
+				.antMatchers("/admin/reservation/**").hasRole("ADMIN")
 				/* 문의게시판 */
 				.antMatchers("/qaBoard").hasRole("MEMBER") 
 				.antMatchers("/qaBoard/insert").authenticated()  
