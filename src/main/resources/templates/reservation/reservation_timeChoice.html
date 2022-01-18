@@ -127,16 +127,11 @@
     var calendarEl = document.getElementById('calendar');
     
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      /* 
-      //editable: true, */
-      selectable: true, 
-      /* //businessHours: true,
-      //dayMaxEvents: true, // allow "more" link when too many events
-      */
-     
+      
+      selectable: true,    
       googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE",
       eventSources : [
-         /* 공휴일 */
+         /* 구글 캘린더 api에서 공휴일 가져오기 */
           {
                 googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com"
               , className : "koHolidays"
