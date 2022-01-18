@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -99,7 +99,7 @@
                                 <td th:text="${res.userName}"></td>
                                 <td th:text="${res.phone}"></td>
                                 <td th:text="${res.dog.name}"></td>
-                                <td th:text="${#dates.format(res.reservationDate, 'yyyy-MM-dd')} + '  ' + ${res.reservationTime}"></td>
+                                <td th:text="${#dates.format(res.reservationDate, 'yyyy-MM-dd')} + '  ' + ${res.reservationTime} + ':00'"></td>
                                 <td th:text="${res.reservationStatus}"></td>
                                 <td><a th:href="@{/admin/reservation/detail(no=${res.reservationNo})}">상세보기</a></td>
                             </tr>
