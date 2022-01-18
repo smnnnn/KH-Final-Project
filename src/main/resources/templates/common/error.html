@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- 폰트  -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+    <!-- 나현 css (메인)-->
+    <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <!-- 자바스크립트 -->
+    <script type="text/javascript" src="/js/common.js"></script> 
+
+    <title>접근오류</title>
+</head>		
+	 <div th:replace="fragments/header.html"></div>
+	    <!-- 내용 부분 -->
+	    <div id="main">
+	        <div class="warning">
+	            <img src="/images/common/warning.png">
+	            <p>해당 페이지에 대한 권한이 없습니다.</p>
+	        </div>      
+	        
+	    </div>
+
+	 <div th:replace="fragments/footer.html"></div>
+</html>

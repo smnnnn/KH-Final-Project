@@ -23,4 +23,11 @@ public class MainController {
 	public String adminMain() {
 		return "admin/dashboard";
 	}
+	
+	/* 권한 없을 때 이동하는 에러 페이지 */
+	@GetMapping("/common/denied")
+	public String deniedPage() {
+		return "common/error";
+	}
+	
 }
