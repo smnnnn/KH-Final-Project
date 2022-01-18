@@ -61,8 +61,14 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //				.antMatchers(HttpMethod.GET, "/menu/**").hasRole("MEMBER")
 //				/* "/menu/**"의 POST 요청은 ROLE_ADMIN 권한을 가진 사람에게만 허용 */
 //				.antMatchers(HttpMethod.POST, "/menu/**").hasRole("ADMIN")
-//				/* "/admin/**"의 요청은 ROLE_ADMIN 권환을 가진 사람에게만 허용 */
-//				.antMatchers("/admin/**").hasRole("ADMIN")
+				/* 서브관리자 */
+				/* 관리자 데시보드 */
+				.antMatchers("/admin").hasRole("SUB_ADMIN")    
+				/* 관리자 마이페이지 */
+				.antMatchers("/admin/mypage").hasRole("SUB_ADMIN")
+				/* "/admin/**"의 요청은 ROLE_ADMIN 권환을 가진 사람에게만 허용 */
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/admin/**").authenticated() 
 				/* 문의게시판 */
 				.antMatchers("/qaBoard").hasRole("MEMBER") 
 				.antMatchers("/qaBoard/insert").authenticated()  

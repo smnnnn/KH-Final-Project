@@ -86,7 +86,7 @@
 				 ORDER BY TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99')) T)
 				 </when>
 				 <when test="sort == 6">
-				 ORDER BY R.TNO, TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99') DESC) T)
+				 ORDER BY R.TNO, TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99')) T)
 				 </when>
 				 <otherwise>
 		         ORDER BY 2 DESC, TO_NUMBER(SUBSTR(RESERVATION_TIME, 1, 2), '99') DESC) T)				 
