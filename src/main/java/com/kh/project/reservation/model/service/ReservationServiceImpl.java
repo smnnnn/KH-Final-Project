@@ -33,6 +33,11 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 	
 	@Override
+	public List<ReservationInfo> selectTime(String vno, String reservation_date) {
+		return reservationMapper.selectTime(vno, reservation_date);
+	}
+	
+	@Override
 	public int registReservation(ReservationInfo reservationInfo, String id) {
 		return reservationMapper.registReservation(reservationInfo, id);
 	}

@@ -8,14 +8,6 @@
 		<result property="tname" column="TNAME"/>
 		<result property="status" column="STATUS"/>
 		<result property="day" column="DAY"/>
-		
-		<!-- <association property="reservationInfo" javaType="com.kh.project.reservation.model.vo.ReservationInfo">
-			<id property="reservation_no" column="RESERVATION_NO"/>
-			<result property="reservation_date" column="RESERVATION_DATE"/>
-			<result property="reservation_time" column="RESERVATION_TIME"/>
-			<result property="reservation_status" column="RESERVATION_STATUS"/>
-		</association> -->
-		
 	</resultMap>
 	
 	<resultMap id="selectDogResultMap" type="com.kh.project.reservation.model.vo.DogInformation">
@@ -25,7 +17,18 @@
 		<result property="breed" column="BREED"/>
 		<result property="dogGender" column="DOG_GENDER"/>
 		<result property="userNo" column="USER_NO"/>
-		
+	</resultMap>
+	
+	<resultMap id="timeResultMap" type="com.kh.project.reservation.model.vo.ReservationInfo">
+		<id property="reservation_no" column="RESERVATION_NO"/>
+		<result property="reservation_date" column="RESERVATION_DATE"/>
+		<result property="reservation_time" column="RESERVATION_TIME"/>
+		<result property="reservation_status" column="RESERVATION_STATUS"/>
+		<result property="symptom" column="SYMPTOM"/>
+		<result property="tno" column="TNO"/>
+		<result property="user_no" column="USER_NO"/>
+		<result property="vno" column="VNO"/>
+		<result property="dog_no" column="DOG_NO"/>
 	</resultMap>
 
 	<select id="notice" resultMap="VeterinarianResultMap">
@@ -51,6 +54,15 @@
 		  JOIN HOLIDAY C ON (A.VNO = C.VNO)
 		 WHERE A.TNO = #{tno}
 		   
+	</select>
+
+	<select id="selectTime" resultMap="timeResultMap">
+		SELECT
+           	   RESERVATION_TIME
+	  	  FROM RESERVATION_INFORMATION   
+         WHERE VNO = #{ vno }
+           AND RESERVATION_DATE = #{ reservation_date }
+           AND RESERVATION_STATUS = '예약완료'
 	</select>
 
 
