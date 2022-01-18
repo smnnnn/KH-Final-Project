@@ -58,7 +58,7 @@
                 주말 : 10:00 ~ 17:00<br>
                 점심시간: 매일 13:00~14:00<br>
                 공휴일 : 휴진<br>
-                진료 과목 별 휴진일 : <br><br>
+                진료 과목 별 휴진일 : <br><br></p>
                 <table id="table_rest">
                     <colgroup>
                         <col width="25%">
@@ -66,24 +66,15 @@
                         <col width="25%">
                         <col width="25%">
                     </colgroup>
-                    <thead>
                         <tr>
-                            <th>내과</th>
-                            <th>외과</th>
-                            <th>안과</th>
-                            <th>정형외과</th>
+                        <th th:each="Hlist : ${HolidayList}" th:text="${Hlist.tname}"></th>
                         </tr>
-                    </thead>
-                    <tbody>
                         <tr>
-                            <td>월</td>
-                            <td>화</td>
-                            <td>수</td>
-                            <td>목</td>
+                        <td th:each="Hlist : ${HolidayList}" th:text="${Hlist.day}"></td>
                         </tr>
-                    </tbody>
+                       
                 </table>
-                </p><br><br><br><br><br>
+                <br><br><br><br><br>
             </div>
             
             <div class="content_detail">

@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.reservation.model.service.ReservationService;
 import com.kh.project.reservation.model.vo.DogInformationInput;
 import com.kh.project.reservation.model.vo.ReservationInfo;
@@ -34,8 +36,14 @@ public class ReservationController {
 	}
 
 	@GetMapping("notice")
-	public String ReservaionNotice() {
-		return "reservation/notice";
+	public ModelAndView ReservaionNotice(ModelAndView mv) {
+		//공지 사항에 보이는 진료 과목 별 휴무일
+		List<VeterinarianAndTreatmentType> HolidayList = reservationService.notice();
+		
+		mv.addObject("HolidayList", HolidayList);
+		mv.setViewName("reservation/notice");
+		
+		return mv;
 	}
 	
 	@GetMapping("treatmentType")
@@ -64,7 +72,7 @@ public class ReservationController {
 	}
 	
 	@PostMapping("reservation_form")
-	public String Reservation_form(@ModelAttribute("reserInfo") ReservationInfo reservationInfo){
+	public String Reservation_form(@ModelAttribute("reserInfo") ReservationInfo reservationInfo, Principal principal){
 			
 		/* 입력받은 정보 reserInfo에 넣어두고 화면만 전환
 		 * String reser = String.valueOf(reservationInfo); 
@@ -91,6 +99,14 @@ public class ReservationController {
 		
 		rttr.addFlashAttribute("successMessage", "진료 예약이 완료되었습니다.");
 		return "redirect:/main";
+	}
+	
+	@GetMapping("reservation_form/input")
+	@ResponseBody
+	public List<DogInformation> selectDogInfo(Principal principal){
+		String id = principal.getName();
+		
+		return reservationService.selectDogInfo(id);
 	}
 	
 	
