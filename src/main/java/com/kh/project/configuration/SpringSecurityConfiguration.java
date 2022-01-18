@@ -66,6 +66,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin/dashboard").hasRole("SUB_ADMIN")    
 				.antMatchers("/admin/visitCount").hasRole("SUB_ADMIN")  
 				.antMatchers("/admin/mypage").hasRole("SUB_ADMIN")
+				.antMatchers("/admin/sub_veterinarianModify").hasRole("SUB_ADMIN")
+				.antMatchers("/admin/sub_veterinarianRegist").hasRole("SUB_ADMIN")
 				/* ROLE_ADMIN 권환을 가진 총관리자만 허용 */
 				.antMatchers("/admin/account/**").hasRole("ADMIN")
 				.antMatchers("/admin/cs/**").hasRole("ADMIN")
