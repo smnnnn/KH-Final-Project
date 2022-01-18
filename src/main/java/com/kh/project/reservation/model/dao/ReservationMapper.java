@@ -16,6 +16,8 @@ public interface ReservationMapper {
 	List<VeterinarianAndTreatmentType> notice();
 	
 	List<VeterinarianAndTreatmentType> findVname(int tno);
+	
+	List<ReservationInfo> selectTime(String vno, String reservation_date);
 
 	int registReservation(ReservationInfo reservationInfo, String id);
 	

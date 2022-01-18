@@ -95,13 +95,13 @@
                             <td id="reservation_date"></td>
                             <td>
                                 <select id="reseration_time" name="reservation_time">
-                                    <option value="10:00">10:00~11:00</option>
-                                    <option value="11:00">11:00~12:00</option>
-                                    <option value="12:00">12:00~13:00</option>
-                                    <option value="14:00">14:00~15:00</option>
-                                    <option value="15:00">15:00~16:00</option>
-                                    <option value="16:00">16:00~17:00</option>
-                                    <option value="17:00">17:00~18:00</option>
+                                    <option value="10">10:00~11:00</option>
+                                    <option value="11">11:00~12:00</option>
+                                    <option value="12">12:00~13:00</option>
+                                    <option value="14">14:00~15:00</option>
+                                    <option value="15">15:00~16:00</option>
+                                    <option value="16">16:00~17:00</option>
+                                    <option value="17">17:00~18:00</option>
                                 </select>
                             </td>
                             <td th:text="${info.day}" style="display:none;" id="day"></td>
@@ -127,13 +127,12 @@
     var calendarEl = document.getElementById('calendar');
     
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      /* //initialDate: '2020-09-12',
-      //locale : "ko",
+      /* 
       //editable: true, */
       selectable: true, 
       /* //businessHours: true,
       //dayMaxEvents: true, // allow "more" link when too many events
-      //hiddenDays:[1], */
+      */
      
       googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE",
       eventSources : [
@@ -145,7 +144,7 @@
           }
     ],
   
-      /* 이벤트명 : function(){} : 각 날짜에 대한 이벤트를 통해 처리할 내용.. */
+      /* 이벤트명 : function(){} : 각 날짜에 대한 이벤트를 통해 처리할 내용*/
       select: function(arg) { 
         
     	/* 오늘 날짜보다 이전 날짜 선택 할 수 없게 처리하기 위해 오늘 날짜 구해오기 */
@@ -187,8 +186,34 @@
           
           /* 선택한 날짜 진료일에 표시되게 */
           var Cdate = arg.startStr;
+         
+		  $("#reseration_time > option").prop('hidden', false); /*모든 값 보이게 되돌리기*/
+        
           document.getElementById("timeTable").getElementsByTagName("td")[4].innerHTML = Cdate; 
+			
+		   /*주말은 평일보다 진료시간이 평일보다 한 시간 적어서 주말을 선택한 경우 해당 option 숨기기*/
+			if(week[0] == 'Sat' || week[0] == 'Sun'){
+				$("#reseration_time option[value = '17']").prop('hidden', true);
+			}else{
+				$("#reseration_time option[value = '17']").prop('hidden', false);
+			}
+			
           
+          $.ajax({
+				url : "/reservation/timeChoice",
+				data : { vno : vno, reservation_date : Cdate },
+				success : function(data){
+					
+					for(let index in data){
+						const time = data[index].reservation_time; 
+						/* 예약이 들어간 시간은 option 숨기기 */
+						$("#reseration_time option[value = " + time + "]").prop('hidden', true);
+					}
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
         }
        }
     });

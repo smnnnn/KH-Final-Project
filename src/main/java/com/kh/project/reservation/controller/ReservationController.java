@@ -1,6 +1,7 @@
 package com.kh.project.reservation.controller;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,18 @@ public class ReservationController {
 		rttr.addFlashAttribute("tno", tno);
 		
 		return mv;
+	}
+	
+	@GetMapping(value="timeChoice", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public List<ReservationInfo> selectTime(@RequestParam String vno, @RequestParam String reservation_date){
+		//String date = reservation_date.toString();
+		/*
+		 * log.info(reservation_date); 
+		 * log.info(vno);
+		 */
+		
+		return reservationService.selectTime(vno, reservation_date);
 	}
 	
 	@PostMapping("reservation_form")

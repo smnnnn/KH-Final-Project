@@ -190,7 +190,7 @@
                         	<tr th:each="info : ${ReserInfo}">
                         		<!-- <td><input type="text" id="reservation_no" value=""></td> -->
                         		<td th:text="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')}" id="reservation_date"></td>
-                            	<td th:text="${info.reservation_time}" id="reservation_time"></td>
+                            	<td th:text="|${info.reservation_time}:00|" id="reservation_time"></td>
                             	<td th:text="${info.vname}" id="vname"></td>
                             	<td th:text="${info.tname}" id="tname"></td>
                             	<td th:if="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
