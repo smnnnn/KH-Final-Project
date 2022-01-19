@@ -69,6 +69,7 @@
 		  FROM VETERINARIAN A
 		  JOIN HOLIDAY B ON (A.VNO = B.VNO)
 		 WHERE A.VNAME = #{vname}
+		   AND A.STATUS = 'Y'
 	</select>
 	
 	<update id="modifyVeterinarian" parameterType="com.kh.project.subAdmin.model.vo.Veterinarian">

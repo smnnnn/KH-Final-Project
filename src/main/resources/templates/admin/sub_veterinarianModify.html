@@ -33,7 +33,6 @@
     <!-- 관리자페이지 메뉴바 -->
     <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='4')"></div>
 
-            <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
                 <div class="manage_wrap">
                     <h3>의료진 관리</h3><br><br>
@@ -49,11 +48,22 @@
                     		$("#searchV input[type=button]").on('click', function(){
                     			let vname = $("#searchV [name=vname]").val();
                     			
+                    			if(vname == ""){
+                    				alert('검색할 의료진의 이름을 입력해주세요.');
+                    				$("#searchV [name=vname]").focus();
+                    			}
+                    			
                     			$.ajax({
                     				url : "/admin/sub_veterinarianModify/vname/" + vname,
                     				type : "get",
                     				dataType : "json",
                     				success : function(data){
+                    					console.log(data);
+                    					if(data == ""){
+                    						alert('존재하지 않는 의료진입니다.');
+                    						$("#searchV [name=vname]").val('');
+                            				$("#searchV [name=vname]").focus();
+                    					}
                     					
                     					let name="";
                     					let treatment="";
