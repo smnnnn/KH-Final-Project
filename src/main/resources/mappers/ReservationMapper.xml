@@ -39,6 +39,7 @@
 	 	  FROM VETERINARIAN A
 	 	  JOIN TREATMENT_TYPE B ON (A.TNO = B.TNO)
           JOIN HOLIDAY C ON (A.VNO = C.VNO)
+         WHERE A.STATUS = 'Y'
          ORDER BY A.VNO
 	</select>
 
@@ -53,6 +54,7 @@
 		  JOIN TREATMENT_TYPE B ON (A.TNO = B.TNO)
 		  JOIN HOLIDAY C ON (A.VNO = C.VNO)
 		 WHERE A.TNO = #{tno}
+		   AND A.STATUS = 'Y'
 		   
 	</select>
 
