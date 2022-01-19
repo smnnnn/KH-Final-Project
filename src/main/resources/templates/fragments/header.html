@@ -20,8 +20,12 @@
                     <a th:href="@{/main}">HOME</a>
                     <a th:href="@{/member/logout}">로그아웃</a>
                     <a th:href="@{/member/myPage}">마이페이지</a>
+                 <th:block sec:authorize="hasRole('SUB_ADMIN')">
+                    <a th:href="@{/admin}">관리자페이지</a>
+                </th:block>
                 </ul>
                 </th:block>
+
             </div>
             <div class="main-menu">
                 <!-- 로고 -->

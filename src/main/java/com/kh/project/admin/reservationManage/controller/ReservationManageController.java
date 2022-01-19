@@ -47,9 +47,10 @@ public class ReservationManageController {
 		
 		List<ReservationManage> reservationList = reservationManageService.selectReservationList(startRow, endRow, sort, search);
 		
-		if(reservationList != null) {
-			model.addAttribute("reservationList", reservationList);			
-		}
+//		if(reservationList != null) {
+//		}
+		log.info("reservationList : {}" , reservationList);
+		model.addAttribute("reservationList", reservationList);			
 		
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("sort", sort);

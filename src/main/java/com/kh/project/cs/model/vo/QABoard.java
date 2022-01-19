@@ -7,12 +7,12 @@ import lombok.Data;
 @Data
 public class QABoard {
 
-	private int qno;//
-	private String qtitle;//
-	private int qhit;//
+	private int qno;
+	private String qtitle;
+	private int qhit;
 	private Date createDate;
 	private Date modifyDate;
-	private String qcontent;//
+	private String qcontent;
 	private String status;
 	private String secretStatus;
 	private String userName;
@@ -22,5 +22,5 @@ public class QABoard {
 	private int categoryNo;
 	private String userId;
 	
-	private int acount; //답변여부
+	private int acount; // 답변 여부
 }

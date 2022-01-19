@@ -214,4 +214,12 @@
 		 WHERE Q_NO = #{ qno }
 	</delete>
 	
+	<select id="selectAdminById" parameterType="String" resultType="_int">
+		SELECT
+			   COUNT(*)
+	      FROM MEMBER
+	      JOIN MEMBER_ROLE USING(USER_NO)
+	     WHERE USER_ID = #{string}
+	</select>
+	
 </mapper>
