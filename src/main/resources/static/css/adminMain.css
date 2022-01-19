@@ -124,6 +124,9 @@ html, body{
 	min-height: 900px;
     margin: 50px;   
 }
+.mainheight{
+	min-height: 1100px !important;
+}
 .activemenu{
     background-color:#85B1D6;
 }
