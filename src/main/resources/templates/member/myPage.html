@@ -14,147 +14,14 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <link type="text/css" rel="stylesheet" href="/css/nh.css">
     <!-- 공통 js -->
     <script type="text/javascript" src="/js/common.js"></script>
+    
+    <!-- css -->
+    <link type="text/css" rel="stylesheet" href="/css/member/myPage.css">
 
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 
 <title>다나은 동물병원</title>
-<style>
-        .wrapper{
-            width: 1200px;
-            height: 1080px;
-            margin: auto;
-            display: flex; 
-            align-items: flex-start;      
-            justify-content: flex-start;
-        }
-        .logo{
-            width: 100%;
-            margin-left: 0px;
-            margin-top: 0px;
-        }
-        .item{
-            align-self: flex-start;
-            display: inline-block;
-        }
-        .info{
-            margin: auto;
-        }
-        .infoForm{
-            border: 1px solid gainsboro;
-            width: 904px;   
-            margin-left: 10px;    
-        }
-
-        .label{
-            min-width: 160px;
-            display:inline-block;
-            margin-top: 25px;
-            margin-left: 30px;
-            font-weight: bold;
-        }
-
-        .all{
-            height: 23px;
-            border: 1px solid gainsboro;
-            border-radius: 5px;
-            padding-left: 5px;
-            padding-right: 5px;
-
-        }
-
-        .input{
-            display:inline-block;
-            width: 180px;
-        }
-
-        .select{
-            display:inline-block;
-            width: 150px;
-        }
-
-        .input2{
-            display:inline-block;
-            width: 450px;
-        }
-
-        .button1{
-            margin-left: 20px;
-            width: 100px;
-            height: 33px;
-        }
-
-        .button2{
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 30px;
-            margin-bottom: 10px;
-            width: 180px;
-            text-align: center;
-            height: 40px;
-        }
-
-        input:focus,
-        select:focus {
-	    outline: none;
-        }
-        .button1:hover {
-	    cursor: pointer;
-        }
-        .button2:hover {
-	    cursor: pointer;
-        }
-
-
-        .My{
-            display: block;
-            margin-top: 303px;
-            margin-right: 0px;
-            margin-left: -300px;
-            height: 50px;
-            width: 300px;
-            background-color: white;
-            color: rgb(167, 164, 164);
-            font-weight: bold;
-            border: 1px solid gainsboro;
-        }
-
-        .btn{
-            margin-top: 303px;
-            color: rgb(21, 60, 162);
-        }
-        .btn1{
-            margin-top: -18px;
-        }
-        .label1{
-            min-width: 160px;
-            display:inline-block;
-            margin-top: 25px;
-            font-weight: bold;
-            font-size: x-large;
-            margin-left: 25px;
-            margin-bottom: 10px;
-        }
-        .etc{
-            color: rgb(167, 164, 164);
-            font-weight: bolder;
-            margin-left: 25px;
-        }
-        .Withdraw{
-            margin-left: 150px;
-            width: 160px;
-            height: 35px;
-            background-color: rgb(21, 60, 162);
-            color: white;
-            border: 1px solid gray;
-            border-radius: 5px;
-        }
-        button:hover{
-            cursor: pointer;
-            color: royalblue;
-        }
-        </style>
 </head>
 <body>
 <div th:replace="fragments/header.html"></div>
@@ -183,18 +50,18 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                  <input class ="input all" type="text" name="id" size="20" minlength="8" maxlength="10" th:value="${#authentication.principal.id}"  readonly>
                  <br>
                 <label for="userpwd" class="label">비밀번호 </label> 
-                <input class ="input all" type="password" name="pwd" minlength="8" maxlength="15"  placeholder="비밀번호를 입력하세요">
+                <input class ="input all" type="password" name="pwd" minlength="8" maxlength="15"  placeholder="비밀번호를 입력하세요" required>
                 <label id="pwdCheck_div">&nbsp;</label>
                 <br>
                 <label for="userpwd" class="label">비밀번호 재확인 </label> 
-                <input class ="input all" type="password" name="pwd2" maxlength="15" placeholder="비밀번호를 입력하세요">
+                <input class ="input all" type="password" name="pwd2" maxlength="15" placeholder="비밀번호를 입력하세요" required>
                 <label id="pwdCheck_div2">&nbsp;</label>
                 <br>
                 <label for="username" class="label">이름 </label> 
                 <input class ="input all" type="text" name="name" th:value="${#authentication.principal.name}" readonly>
                 <br>
                 <label for="phone" class="label">휴대폰 번호 </label> 
-                <input class ="input all" type="tel" name="phone" th:value="${#authentication.principal.phone}" placeholder="-없이 입력">
+                <input class ="input all" type="tel" name="phone" th:value="${#authentication.principal.phone}" placeholder="-없이 입력" required>
                 <label id="phoneCheck_div">&nbsp;</label>
                 <br>
                 <label for="phone" class="label">이메일 </label> 
@@ -202,57 +69,59 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 <label id="emailCheck_div">&nbsp;</label>
                <!-- 타임리프 스플릿 검색  -->
                 <br>
-                <label class="label">주소 </label> 
+                <label class="label">주소 </label> <!-- ${ 중복 ㄴㄴ -->
                 <input type="text" name="address"
-                class ="postcodify_postcode5 select all" placeholder="우편번호" readonly>
-                <button type="button" class="button1" th:value="${#authentication.principal.address}" id="postcodify_search_button">검색</button>
+                class ="postcodify_postcode5 select all" th:value="${#strings.arraySplit(#authentication.principal?.address,',')[0]}" placeholder="우편번호" readonly required>
+                <button type="button" class="button1" id="postcodify_search_button">검색</button>
                 <br>
                 <label class="label"> </label> 
                 <input type="text" name="address"
-                class ="postcodify_address input2 all" th:value="${#authentication.principal.address}" placeholder="도로명주소" readonly>
+                class ="postcodify_address input2 all" th:value="${#strings.arraySplit(#authentication.principal?.address,',')[1]}" placeholder="도로명주소" readonly required>
                 <br>
                 <label class="label"> </label> 
                 <input type="text" name="address"
-                class ="postcodify_details input2 all" th:value="${#authentication.principal.address}" placeholder="상세주소">
+                class ="postcodify_details input2 all" th:value="${#strings.arraySplit(#authentication.principal.address,',')[2]}" placeholder="상세주소" required>
                 <br>
                 <label for="petname" class="label">반려견 이름 </label>
-                <input class ="input all" type="text" name="petName" th:value="${#authentication.principal.dogInformation.petName}" placeholder="반려견이름"> <!-- th:value="${#authentication.principal.petName}" -->
+                
+                <input class ="input all" type="text" name="petName" th:value="${#authentication.principal.dogInformation?.petName}" placeholder="반려견이름" > <!-- th:value="${#authentication.principal.petName}" -->
+    
                 <label id="petNameCheck_div">&nbsp;</label> 
                 <br>
                 <label for="petage" class="label">반려견 나이 </label> 
-                <input class ="input all" type="text" name="petAge" th:value="${#authentication.principal.dogInformation.petAge}" placeholder="반려견나이"> <!-- th:value="${#authentication.principal.petAge}"  -->
+                <input class ="input all" type="text" name="petAge" th:value="${#authentication.principal.dogInformation?.petAge}" placeholder="반려견나이" > <!-- th:value="${#authentication.principal.petAge}"  -->
                 <label id="petAgeCheck_div">&nbsp;</label>
                 <br>
                 <label for="petBreed" class="label">견종 </label> 
-                <select class ="input all" name="breed" required th:value="${#authentication.principal.dogInformation.breed}" > <!-- th:value="${#authentication.principal.breed}" -->
-                    <option value="골든 리트리버">골든 리트리버</option>
-                    <option value="말티즈">말티즈</option>
-                    <option value="비글">비글</option>
-                    <option value="시바 이누">시바 이누</option>
-                    <option value="시베리안 허스키">시베리안 허스키</option>
-                    <option value="시츄">시츄</option>
-                    <option value="요크셔테리어">요크셔테리어</option>
-                    <option value="진돗개">진돗개</option>
-                    <option value="푸들">푸들</option>
-                    <option value="포메라니언">포메라니언</option>
-                    <option value="기타">기타</option>
+                <select class ="input all" name="breed" required th:value="${#authentication.principal.dogInformation?.breed}" > <!-- th:value="${#authentication.principal.breed}" -->
+                    <option th:selected="${phone}=='010'">010</option>
+
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='골든 리트리버'" value="골든 리트리버">골든 리트리버</option>
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='말티즈'" value="말티즈">말티즈</option>
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='비글'" value="비글">비글</option>
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='시바 이누'" value="시바 이누">시바 이누</option>
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='시베리안 허스키'" value="시베리안 허스키">시베리안 허스키</option>
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='시츄'" value="시츄">시츄</option>
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='요크셔테리어'" value="요크셔테리어">요크셔테리어</option>
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='진돗개'" value="진돗개">진돗개</option>
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='푸들'" value="푸들">푸들</option>
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='포메라니언'" value="포메라니언">포메라니언</option>
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='기타'" value="기타">기타</option>
                 </select>  
                 <br>
                 <label for="neuteredStatus" class="label" >중성화 유무 </label> <!-- th:value="${#authentication.principal.status}" -->
-                <select class ="select all" name="status" required th:value="${#authentication.principal.dogInformation.status}">
-                    <option value="예">예</option> 
-                    <option value="아니요">아니요</option> 
-                    <option value="모름">모름</option> 
+                <select class ="select all" name="status" required th:value="${#authentication.principal.dogInformation?.status}"><!-- 타임리프 객체 매개변수 널처리 -->
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='예'" value="예">예</option> 
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='아니요'" value="아니요">아니요</option> 
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='모름'" value="모름">모름</option> 
                 </select>  
                 <br>
                  <label for="petGender" class="label" name="petGender" >반려견 성별 </label> <!-- th:value="${#authentication.principal.petGender}" -->
-                <select class ="select all" name="petGender" required th:value="${#authentication.principal.dogInformation.petGender}"><!-- 타임리프로 널여부 -->
-                    <option value="암컷">암컷</option> 
-                    <option value="수컷">수컷</option> 
+                <select class ="select all" name="petGender" required th:value="${#authentication.principal.dogInformation?.petGender}"><!-- 타임리프로 널여부 -->
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='암컷'" value="암컷">암컷</option> 
+                    <option th:selected="${#authentication.principal.dogInformation?.breed}=='수컷'" value="수컷">수컷</option> 
                 </select>   
                 <br><br>
-
-
                 <input type="submit" class="button2" value="수정하기">   
                 </form> 
 
@@ -272,11 +141,25 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	
 	<script>
    
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
    
 		
 	
-        let userPwd = document.getElementById("userPwd");
-        let userPwd2 = document.getElementById("userPwd2");
+        let userPwd = document.getElementById("pwd");
+        let userPwd2 = document.getElementById("pwd2");
         let phone = document.getElementById("phone");
         let email = document.getElementById("email");
         let petName = document.getElementById("petName");
@@ -502,13 +385,9 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				petAge.focus();
 				return;
 			}
-			if(address == false){
-				address.focus();
-				return;	
-			}
 			else{
 				console.log("정보수정 가능");
-				document.forms.joinForm.submit();
+				document.forms.myPageForm.submit();
 			}
 		}
         

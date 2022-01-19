@@ -64,11 +64,11 @@
                 <br>
                 <label class="label"> </label> 
                 <input type="text" name="address"
-                class ="postcodify_address input2 all" placeholder="도로명주소" readonly>
+                class ="postcodify_address input2 all" placeholder="도로명주소" readonly required>
                 <br>
                 <label class="label"> </label> 
                 <input type="text" name="address"
-                class ="postcodify_details input2 all" placeholder="상세주소">
+                class ="postcodify_details input2 all" placeholder="상세주소" required>
                 <br>
                 <label for="petName" class="label">반려견 이름 </label> 
                 <input class ="input all" type="text" name="petName" id="petName" placeholder="한글로 1자 ~ 10자리 입력" maxlength="10" required>
@@ -121,7 +121,7 @@
 	
 
 	<!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
-	<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
+	<!-- <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
     <script>
    
    
@@ -157,7 +157,7 @@
         let addressCheck = false; 
         
 		
-		
+		// 트림처리 후 못넘어가게 trim 공백 제거 함수  = ""빈문자열로 확인
 		
 		
 		$("#idCheck").on('click', function () {
@@ -486,7 +486,7 @@
 		}
         
 	</script>
-
+ -->
 
 
 

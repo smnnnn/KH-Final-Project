@@ -1,1 +1,142 @@
 @charset "UTF-8";
+
+.wrapper{
+            width: 1200px;
+            height: 1080px;
+            margin: auto;
+            display: flex; 
+            align-items: flex-start;      
+            justify-content: flex-start;
+        }
+        .logo{
+            width: 100%;
+            margin-left: 0px;
+            margin-top: 0px;
+        }
+        .item{
+            align-self: flex-start;
+            display: inline-block;
+        }
+        .info{
+            margin: auto;
+        }
+        .infoForm{
+            border: 1px solid gainsboro;
+            width: 904px;   
+            margin-left: 10px;    
+        }
+
+        .label{
+            min-width: 160px;
+            display:inline-block;
+            margin-top: 25px;
+            margin-left: 30px;
+            font-weight: bold;
+        }
+
+        .all{
+            height: 23px;
+            border: 1px solid gainsboro;
+            border-radius: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+
+        }
+
+        .input{
+            display:inline-block;
+            width: 180px;
+        }
+
+        .select{
+            display:inline-block;
+            width: 150px;
+        }
+
+        .input2{
+            display:inline-block;
+            width: 450px;
+        }
+
+        .button1{
+            margin-left: 20px;
+            width: 100px;
+            height: 33px;
+        }
+
+        .button2{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            width: 180px;
+            text-align: center;
+            height: 40px;
+        }
+
+        input:focus,
+        select:focus {
+	    outline: none;
+        }
+        .button1:hover {
+	    cursor: pointer;
+        }
+        .button2:hover {
+	    cursor: pointer;
+        }
+
+
+        .My{
+            display: block;
+            margin-top: 303px;
+            margin-right: 0px;
+            margin-left: -300px;
+            height: 50px;
+            width: 300px;
+            background-color: white;
+            color: rgb(167, 164, 164);
+            font-weight: bold;
+            border: 1px solid gainsboro;
+        }
+
+        .btn{
+            margin-top: 303px;
+            color: rgb(21, 60, 162);
+        }
+        .btn1{
+            margin-top: -18px;
+        }
+        .label1{
+            min-width: 160px;
+            display:inline-block;
+            margin-top: 25px;
+            font-weight: bold;
+            font-size: x-large;
+            margin-left: 25px;
+            margin-bottom: 10px;
+        }
+        .etc{
+            color: rgb(167, 164, 164);
+            font-weight: bold;
+            margin-left: 25px;
+        }
+        .Withdraw{
+            margin-left: 150px;
+            width: 160px;
+            height: 35px;
+            background-color: rgb(21, 60, 162);
+            color: white;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+        button:hover{
+            cursor: pointer;
+            color: royalblue;
+        }
+        u{
+        color:red;
+        }
+         .invalid{
+		    color: red;
+        }

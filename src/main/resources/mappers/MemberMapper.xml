@@ -71,36 +71,8 @@
 	
 
 	
-	<select id="findMemberById" resultMap="loginMemberResultMap"> <!-- loginMemberResultMap 셀렉 -->
-			<!-- SELECT
-		       A.USER_NO
-		     , A.USER_ID
-		     , A.USER_PWD
-		     , A.TEMP_PWD_YN
-		     , A.PWD_CHANGED_DATETIME
-		     , A.USER_NAME
-		     , A.PHONE
-		     , A.EMAIL
-		     , A.ADDRESS
-		     , A.ENROLL_DATETIME
-		     , A.MODIFY_DATETIME
-		     , A.LOGIN_FAILED_COUNT
-		     , A.ACC_LOCK_TIME
-		     , A.ACC_LOCK_YN
-		     , A.ACC_SECESSION_DATETIME
-		     , A.ACC_SECESSION_YN
-		     , B.USER_NO REF_USER_NO
-		     , B.AUTHORITY_CODE REF_AUTHORITY_CODE
-		     , C.AUTHORITY_CODE REF_AUTHORITY_CODE2
-		     , C.AUTHORITY_NAME
-		     , C.AUTHORITY_DESC
-		     ,
-		FROM MEMBER A
-		LEFT JOIN MEMBER_ROLE B ON (A.USER_NO = B.USER_NO)
-		LEFT JOIN AUTHORITY C ON (B.AUTHORITY_CODE = C.AUTHORITY_CODE)
-		WHERE A.USER_ID =  #{ userId }	
-		 and  A.ACC_SECESSION_YN = 'N'   -->
-		 
+	<select id="findMemberById" resultMap="loginMemberResultMap"> <!-- loginMemberResultMap 셀렉 -->		 
+
 		 	SELECT
 		       A.USER_NO
 		     , A.USER_ID
@@ -226,7 +198,7 @@
 
 
 	<select id="idCheck" parameterType="string" resultType="_int">
-		select 
+		SELECT 
     count(*)
     FROM MEMBER
     WHERE USER_ID = #{userId}
@@ -265,7 +237,85 @@
 		SET ACC_SECESSION_YN = 'Y'
 		WHERE USER_NO = #{no}
 	</update>
+	
+	
 
+	<update id="myPageUpdate" parameterType="com.kh.project.member.model.vo.Member">
+		UPDATE MEMBER
+		SET 
+			  USER_PWD = #{ pwd }
+		     , PWD_CHANGED_DATETIME = SYSDATE
+		     , PHONE = #{phone}
+		     , EMAIL = #{email}
+		     , ADDRESS = #{address}
+		     , MODIFY_DATETIME = SYSDATE	
+		WHERE USER_ID = #{id}
+	</update>
+	
+	
+	<update id="pwdUpdate" parameterType="com.kh.project.member.model.vo.Member">
+		UPDATE MEMBER
+		SET USER_PWD = #{ pwd }
+		WHERE USER_ID = #{id}
+	</update>
+	
+	<select id="pwdFind" parameterType="String" resultType="_int">
+	SELECT
+		count(*)
+	FROM MEMBER
+	WHERE USER_ID = #{id}
+	  AND EMAIL = #{email}	
+	  and ACC_SECESSION_YN = 'N' 
+	</select>
+	
+	<!-- 마이페이지에 반려견 정보 있는지 없는지 판단 -->
+	<select id="selectDogInformation" parameterType="_int" resultType="_int">
+	SELECT
+		count(*)
+	FROM DOG_INFORMATION
+	WHERE USER_NO = #{userNo}
+	</select>
+	
+	<!-- 마이페이지에 기존 반려견 정보 있을 때 업데이트 구문 -->
+	<update id="updateDogInformaion" parameterType="com.kh.project.member.model.vo.DogInformation"><!-- 들어가는 애완견이 1개라는 전제 하에 -->
+		UPDATE DOG_INFORMATION
+		SET 
+			  DOG_NAME = #{ petName }
+			  , DOG_AGE = #{ petAge }
+			  , BREED =  #{ breed }
+			  , NEUTERED_STATUS = #{ status }
+			  , DOG_GENDER = #{ petGender }
+		WHERE DOG_NO = (SELECT DOG_NO
+		                  FROM DOG_INFORMATION
+		                 WHERE USER_NO = #{userNo})   
+	</update>
+	
+	
+	
+	<!-- 마이페이지에 기존 반려견 정보 업을 때 인서트 구문 -->
+	<insert id="updateInsertDogInformaion" parameterType="com.kh.project.member.model.vo.DogInformation">
+		INSERT
+			INTO DOG_INFORMATION
+			(
+			  DOG_NO
+			  , DOG_NAME
+			  , DOG_AGE
+			  , BREED
+			  , NEUTERED_STATUS
+			  , DOG_GENDER
+			  , USER_NO
+			)
+			VALUES
+			(
+			  SEQ_DOG_NO.NEXTVAL
+			  , #{ petName }
+			  , #{ petAge }
+			  , #{ breed }
+			  , #{ status }
+			  , #{ petGender }
+			  , #{userNo}
+			)		
+	</insert>
 
 	<!-- 예약 조회 -->
 	<select id="reservationList" resultMap="reservatinoInfoResultMap">

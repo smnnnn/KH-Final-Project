@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+	
+<!-- 폰트  -->
+<link
+	href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap"
+	rel="stylesheet">
+<!-- 공통 css -->
+<link type="text/css" rel="stylesheet" href="/css/common.css">
+<!-- 나현 css (메인, 관리자)-->
+<link type="text/css" rel="stylesheet" href="/css/nh.css">
+<!-- 공통 js -->
+<script type="text/javascript" src="/js/common.js"></script>
+<!-- css -->
+<link type="text/css" rel="stylesheet" href="/css/member/pwdUpdate.css">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
+<title>다나은 동물병원</title>
+<script>// 타임리프에선 [[대괄호]] 두 겹 안에 넣어줘야 함
+	const successMessage = '[[${ successMessage }]]';
+	
+	if(successMessage){
+		alert(successMessage);
+	}
+</script>
+</head>
+<body>
+	<div th:replace="fragments/header.html"></div>
+	<div class="photo">
+		<img class="logo" src="/images/member/memberService.png">
+	</div>
+	<div class="wrapper">
+		<img src="/images/member/memberInfo.png">
+		<div class="infoForm item">
+		
+		
+		
+		
+			<label class="label">비밀번호 변경</label><br><br>
+               <label class="etc">영문 대소문자 숫자 특수문자 포함 8~15 자리로 입력하여 주십시오.</label><br>
+               <label class="uu"><u class="u">이전에 사용한 적 없는 비밀번호</u>가 안전합니다.</label><br><br><br><br><br>
+               <form id="pwdUpdateForm" th:action="@{/member/pwdUpdate}" method="post" onsubmit="return validate();">
+               <label class="label2">새로운 비밀번호 </label>
+               <input class ="pwd" type="password" name="pwd" id="userPwd" size="20" minlength="8" maxlength="10" placeholder="비밀번호 입력하십시오"><label id="pwdCheck_div">&nbsp;</label><br>
+    
+               <label class="label2">비밀번호 확인 </label>
+               <input class ="pwd2" type="password" name="pwd2" id="userPwd2" placeholder="비밀번호 입력하십시오" ><label id="pwdCheck_div2">&nbsp;</label> 
+               
+               <br><br><br><br><br>         
+               
+               <input type="button" class="button btn1" id="before"
+					th:onclick="|location.href='@{/main}'|" value="취소"> 
+               <input type="button" id="pwdUpdate" class="button btn2" value="확인"><br><br>
+				</form>
+			
+		</div>
+
+	</div>
+	<!-- 푸터 -->
+	<div th:replace="fragments/footer.html"></div>
+
+
+
+	<script>
+	
+	let userPwd = document.getElementById("userPwd");
+    let userPwd2 = document.getElementById("userPwd2");
+	
+    let userPwdresult = document.getElementById("pwdCheck_div");
+    let userPwd2result = document.getElementById("pwdCheck_div2");
+	
+    let pwdCheck = false;
+    let pwd2Check = false;
+    
+    
+    userPwd.onblur = function(){
+        let regExp = /(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}/;
+        if(regExp.test(this.value)) {
+            userPwdresult.classList.remove('invalid');
+            userPwdresult.innerHTML = '&nbsp;';
+            pwdCheck = true;
+        }
+        else {
+            userPwdresult.classList.add('invalid');
+            userPwdresult.innerHTML = '비밀번호 양식을 확인하십시오.';
+            pwdCheck = false;
+        }
+        if(this.value == "") {
+            userPwdresult.innerHTML = '&nbsp;';
+            pwdCheck = false;
+        }
+    };
+    userPwd.onfocus = function(){
+        if(this.classList.contains('invalid')){
+            this.classList.remove('invalid');
+            userPwdresult.innerHTML = '&nbsp;';
+            pwdCheck = false;
+        }
+    }
+
+    userPwd2.onblur = function(){
+        if(this.value == userPwd.value) {
+            userPwd2result.classList.remove('invalid');
+            userPwd2result.innerHTML = '&nbsp;';
+            pwd2Check = true;
+        }
+        else {
+            userPwd2result.classList.add('invalid');
+            userPwd2result.innerHTML = '비밀번호가 일치하지 않습니다.';
+            pwd2Check = false;
+        }
+        if(this.value == "") {
+            userPwd2result.innerHTML = '&nbsp;';
+            pwd2Check = false;
+        }
+    };
+    userPwd2.onfocus = function(){
+        if(this.classList.contains('invalid')){
+            this.classList.remove('invalid');
+            userPwd2result.innerHTML = '&nbsp;';
+            pwd2Check = false;
+        }
+    }
+    
+    
+    function validate(){
+		if(pwdCheck == false){
+			console.log("비밀번호 변경 불가");
+			userPwd.focus();
+			return;
+		}
+		if(pwd2Check == false){
+			console.log("비밀번호 변경 불가");
+			userPwd2.focus();
+			return;
+		}
+		else{
+			console.log("비밀번호 변경 가능");
+			document.forms.pwdUpdateForm.submit();
+			alert("비밀번호가 변경되었습니다.");
+		}
+	}
+    </script>
+
+
+
+
+
+</body>
+</html>
