@@ -25,6 +25,20 @@ public interface MemberMapper {
 	void withdrawal(WithdrawalReason withdrawal);
 
 	void updateaccSecssionYn(Member member);
+
+	void updateMember(Member member);
+
+	void updateDogInformaion(DogInformation dogInformation);
+
+	void pwdUpdate(Member member);
+
+	int pwdFind(String id, String email);
+
+	void myPageUpdate(Member member);
+
+	int selectDogInformation(int no);
+
+	void updateInsertDogInformaion(DogInformation dogInformation);
 	
 	
 	

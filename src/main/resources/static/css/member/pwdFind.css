@@ -135,3 +135,9 @@
             display:inline-block;
             width: 280px;
         }
+        .invalid{
+		    color: red;
+        }
+        .no{
+		display: none;
+	}

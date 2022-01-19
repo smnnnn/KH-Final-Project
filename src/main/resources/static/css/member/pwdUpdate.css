@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
- .wrapper{
+
+.wrapper{
             width: 1200px;
             height: 1080px;
             margin: auto;
@@ -50,6 +51,7 @@
             color: rgb(167, 164, 164);
             font-weight: bolder;
             margin-left: 130px;
+            font-size: small;
         }
 
         .all{
@@ -108,7 +110,6 @@
             background-position: 10px 10px;
 		    background-repeat: no-repeat;
 		    background-size: 30px 30px;
-            border-bottom: 2px solid rgb(185, 183, 183);
 
         }
 
@@ -118,8 +119,7 @@
             margin-left: 10px;
         }
 
-        input:focus,
-        select:focus {
+        input:focus{
 	    outline: none;
         }
         .button:hover {
@@ -134,6 +134,14 @@
             padding-right: 5px;
             display:inline-block;
             width: 280px;
+        }
+        .u{
+            color: red;
+            margin-left: 130px;
+            font-size: small;
+        }
+        .uu{
+            font-size: small;
         }
         .invalid{
 		    color: red;

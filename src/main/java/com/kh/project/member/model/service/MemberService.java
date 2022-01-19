@@ -17,4 +17,10 @@ public interface MemberService extends UserDetailsService{
 
 	void withdrawal(Member member, WithdrawalReason withdrawal);
 
+	Member myPageUpdate(Member member, DogInformation dogInformation);
+
+	void pwdUpdate(Member member);
+
+	int pwdFind(String id, String email);
+
 }

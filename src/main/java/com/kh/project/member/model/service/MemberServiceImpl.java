@@ -131,6 +131,60 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
+	@Transactional
+	@Override
+	public Member myPageUpdate(Member member, DogInformation dogInformation) {
+		/* BCryptPasswordEncoder 사용한 rawPassword -> encodePassword */
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		member.setPwd(passwordEncoder.encode(member.getPwd()));  //encode 메소드에 인코딩하고 싶은 라우패스워드 넣음  ... 인코딩한걸 멤버객체에 다시 넣음. 인코딩 된 해당값 인서트 할 수 있게
+	
+		
+		
+		/* TBL_MEMBER TABLE INSERT */  
+		memberMapper.myPageUpdate(member); // 멤버 테이블에 대한 인서트 수행에 대한 것
+		
+		// 등록된 도그 값이 있으면 update 없으면 인서트 if문 써서
+		// int dogNo = memberMapper.selectDogInformation(member.getId());
+		int dogNo = memberMapper.selectDogInformation(dogInformation.getUserNo());
+		log.info("service dogNo : " + dogNo);
+		// 빈객체 안에 도그 객체 없음 그냥 클라이언트가 입력한 거 입력 인풋태그랑 핸들러 입력한 값 가져오기 
+		if(dogNo > 0) {
+		memberMapper.updateDogInformaion(dogInformation);
+		log.info("update");
+		}else {
+		memberMapper.updateInsertDogInformaion(dogInformation);
+		log.info("insert");
+
+		}
+		
+		return memberMapper.findMemberById(member.getId());
+		
+	}
+
+
+
+	@Override
+	public void pwdUpdate(Member member) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		member.setPwd(passwordEncoder.encode(member.getPwd()));
+		
+		memberMapper.pwdUpdate(member);
+	}
+
+
+
+	@Override
+	public int pwdFind(String id, String email) {
+		
+		int pwdFindNo = memberMapper.pwdFind(id, email);
+		
+		log.info("service dogNo : " + pwdFindNo);
+		
+		return memberMapper.pwdFind(id, email);
+		
+	}
+
+
 
 	
 

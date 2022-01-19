@@ -16,11 +16,22 @@
     
     <!-- css -->
     <link type="text/css" rel="stylesheet" href="/css/member/pwdFind.css">
+    
+    <link rel="stylesheet" type="text/css" href="css/jquery.realperson.css"> 
+	<script type="text/javascript" src="js/jquery.plugin.js"></script> 
+	<script type="text/javascript" src="js/jquery.realperson.js"></script>
 
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 
 <title>다나은 동물병원</title>
+<script>// 타임리프에선 [[대괄호]] 두 겹 안에 넣어줘야 함
+	const failMessage = '[[${ failMessage }]]';
+	
+	if(failMessage){
+		alert(failMessage);
+	}
+</script>
 </head>
     <body>
     <div th:replace="fragments/header.html"></div>
@@ -36,32 +47,169 @@
 			   <form id="pwdFindForm" th:action="@{/member/pwdFind}" method="post" onsubmit="return validate();"> 
 
                <label class="label2">아이디 </label>
-               <input class ="name" type="text" name="id" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요"><br>
+               <input class ="name" type="text" name="id" id="userId" size="20" minlength="8" maxlength="10" placeholder="아이디를 입력하세요"><label id="userIdCheck_div">&nbsp;</label><br>
     
                <label class="label2">이메일 </label>
-               <input class ="email" type="email" name="email" id="email" placeholder="@포함하여 전부 입력" required>
+               <input class ="email" type="email" name="email" id="email" placeholder="@포함하여 전부 입력" required><label id="emailCheck_div">&nbsp;</label>
                
                <br><br><br><br><br>         
                
-               <input type="button" class="button btn1" th:onclick="|location.href='@{/member/login}'|" value="이전으로"> 
-               <input type="submit" class="button btn2" value="확인"><br><br>
+               <input type="button" class="button btn1" id="before" th:onclick="|location.href='@{/member/login}'|" value="이전으로"> 
+               <input type="submit" class="button btn2" id="pwdFindForm" value="확인"><br><br>
                
 
                <label class="label2">아이디를 찾으시나요 ? </label>
                <a class="a a1" th:href="@{/member/idFind}">아이디 찾기 > </a>
-               <br><br><br>
-               
+               <br><br><br>             
 				</form>
-
-                
-
-
+				
+				
+				
             </div>
-
         </div>
 
 
 <!-- 푸터 -->
     <div th:replace="fragments/footer.html"></div>
+    
+    
+    
+    
+    <script>
+    //컨트롤러에서 보내기
+
+    
+    
+    let userId = document.getElementById("userId");
+	let email = document.getElementById("email");
+	
+	let userIdresult = document.getElementById("userIdCheck_div");
+	let emailresult = document.getElementById("emailCheck_div");
+	
+    let idCheck = false;
+    let emailCheck = false;
+    
+    
+    
+    userId.onblur = function(){
+        let regExp = /(?=.*[a-z])(?=.*[0-9]).{8,10}/;
+        if(regExp.test(this.value)) {
+        	userIdresult.classList.remove('invalid');
+        	userIdresult.innerHTML = '&nbsp;';
+            idCheck = true;
+        }
+        else {
+        	userIdresult.classList.add('invalid');
+        	userIdresult.innerHTML = ' 소문자와 숫자 포함 8~10자리';
+            idCheck = false;
+        }
+        if(this.value == "") {
+        	userIdresult.innerHTML = '&nbsp;';
+            idCheck = false;
+        }
+    };
+    userId.onfocus = function(){
+        if(this.classList.contains('invalid')){
+            this.classList.remove('invalid');
+            userIdresult.innerHTML = '&nbsp;';
+            idCheck = false;
+        }
+    }
+    
+    
+    email.onblur = function(){
+        let regExp = /^([a-zA-z0-9])+@([a-zA-Z])+\.[a-zA-Z]{2,3}/;
+        if(regExp.test(this.value)) {
+            emailresult.classList.remove('invalid');
+            emailresult.innerHTML = '&nbsp;';
+            emailCheck = true;
+        }
+        else {
+            emailresult.classList.add('invalid');
+            emailresult.innerHTML = '이메일 형식을 확인하세요.';
+            emailCheck = false;
+        }
+        if(this.value == "") {
+            emailresult.innerHTML = '&nbsp;';
+            emailCheck = false;
+        }
+    };
+    email.onfocus = function(){
+        if(this.classList.contains('invalid')){
+            this.classList.remove('invalid');
+            emailresult.innerHTML = '&nbsp;';
+            emailCheck = false;
+        }
+    }
+
+/* 		$("#pwdFindForm input[type=button]").on('click', function(){
+			
+			var id = $("[name=id]");
+			var email = $("[name=email]");
+			
+			if(id.val() != "" && email.val() != ""){
+				
+				 var token = $("meta[name='_csrf']").attr("content");
+				  var header = $("meta[name='_csrf_header']").attr("content");
+				    
+				$.ajax({
+					url : "/member/pwdFind",
+					type : "post",
+					//
+					beforeSend : function(xhr){
+						xhr.setRequestHeader(header, token);
+					},
+					data : {id : id.val() ,
+							email : email.val()
+					},
+					success : function (result) {
+						console.log(result);
+						if(result == "fail"){
+							alert("해당하는 아이디가 없습니다. 다시 확인하여 주십시오");
+							idresult.focus();
+						}else{	
+								alert("비밀변호 변경페이지로 이동합니다.");
+								$("#pwdUpdate").click();								
+						}
+					},
+					error : function (e) {
+						console.log(e);
+					}		
+					});			
+				}else if($("#before").click()){
+					
+				}else{
+					alert("값을 입력하여 주십시오.");
+					idresult.focus();
+				}	
+		
+	});  */
+		
+		
+		 function validate(){
+				if(idCheck == false){
+					console.log("비밀번호 찾기 불가");
+					userId.focus();
+					return;
+				}
+				if(emailCheck == false){
+					console.log("비밀번호 찾기 불가");
+					email.focus();
+					return;
+				}
+				else{
+					console.log("비밀번호 찾기 가능");
+					document.forms.pwdFindForm.submit();
+				}
+			}	
+	    </script>
+    
+    
+    
+    
+    
+    
+    
+    
 </body>
 </html>
