@@ -88,6 +88,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/reservation/reservation_timeChoice").authenticated()
 				.antMatchers("/reservation/timeChoice").authenticated()
 				.antMatchers("/reservation/reservation_form/**").authenticated()
+				/* 마이 페이지 */
+				.antMatchers("/member/myPage").authenticated()  
+				.antMatchers("/member/withdrawal").authenticated() 
 				/* 그 외의 요청은 모두 허가함 - 게스트 사용자도 접근 가능 */
 				.anyRequest().permitAll()  
 			.and()	   //요청에 따라 리턴값이 달라지니까 ? 위쪽 설정과 구분 지어서 작성
