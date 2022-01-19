@@ -16,6 +16,7 @@ public interface VeterinarianService {
 	List<Veterinarian> findVeterinarian(String vname);
 	// 의료진 정보 수정
 	int modifyVeterinarian(Veterinarian veterinarianModify);
+	int modifyHoliday(Holiday holiday);
 
 	
 

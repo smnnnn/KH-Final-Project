@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.project.admin.reservationManage.model.vo.Dog;
 import com.kh.project.admin.reservationManage.model.vo.ReservationManage;
+import com.kh.project.admin.common.model.vo.Search;
 import com.kh.project.admin.reservationManage.model.dao.ReservationManageMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +25,18 @@ public class ReservationManageServiceImpl implements ReservationManageService {
 	}
 
 	@Override
-	public List<ReservationManage> selectReservationList() {
+	public int getListCount(int sort, Search search) {
+		search.setSort(sort);
+		return reservationManageMapper.getListCount(search);
+	}
+	
+	@Override
+	public List<ReservationManage> selectReservationList(int startRow, int endRow, int sort, Search search) {
 		
-		List<ReservationManage> reservationList = reservationManageMapper.selectReservationList();
+		search.setStartRow(startRow);
+		search.setEndRow(endRow);
+		search.setSort(sort);
+		List<ReservationManage> reservationList = reservationManageMapper.selectReservationList(search);
 
 		for(ReservationManage reservation : reservationList) {
 			if(reservation.getDogNo() == 0) {
@@ -90,5 +100,6 @@ public class ReservationManageServiceImpl implements ReservationManageService {
 		
 		return result > 0 && dogResult > 0 ? 1 : 0;
 	}
+
 
 }

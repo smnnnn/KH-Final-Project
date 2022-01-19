@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,137 +20,245 @@
 <body>
  <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='1')"></div>
              <!-- 내용 부분 : admincontent-main 안에 작성 -->
-            <div class="admincontent-main">
+            <div class="admincontent-main mainheight">
                 <div class="infowrap">
                     <h3 class="pagetitle">회원 정보 관리</h3>
                     <div class="member-info-area">
                         <img src="/images/admin/member_manage.png">
-                        <h3>kh123</h3>
+                        <h3 th:text="${member.id}"></h3>
                     </div>
                 </div>
-                <form action="" method="" class="formstyle2">
                     <div class="content-wrap2">
                         <div class="contentitem">
                             <h3>회원정보</h3>
                             <div class="text-area">
                                 <h4>이름</h4>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" name="name" th:value="${member.name}" readonly>
                             </div>
                             <div class="text-area">
                                 <h4>이메일</h4>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" class="iptstyle2" name="email" th:value="${member.email}" readonly>
                             </div>
                             <div class="text-area">
                                 <h4>전화번호</h4>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" name="phone" th:value="${member.phone}" readonly>
                             </div>
                             <div class="text-area">
                                 <h4>주소</h4>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" class="iptstyle2" name="address" th:value="${member.address}" readonly>
                             </div>
                             <div class="text-area">
                                 <h4>회원상태</h4>
-                                <select disabled>
-                                    <option name="memberStatus" value="">회원</option>
-                                    <option name="memberStatus" value="">회원탈퇴</option>
-                                </select>
-                            </div>
-                            <!-- 탈퇴상태인 경우만 탈퇴사유 칸 생성-->
-                            <div class="text-area">
-                                <h4>탈퇴사유</h4>
-                                <input type="text" class="disabled" name="" id="" value="시스템 에러 및 서비스 속도" readonly>
+                                <input type="text" name="accSecssionYn" th:if="${member.accSecssionYn} == 'N'" th:value="회원" readonly>
+                                <input type="text" name="accSecssionYn" th:if="${member.accSecssionYn} == 'Y'" th:value="회원탈퇴" readonly>
                             </div>
                             <div class="text-area">
                                 <h4>가입일</h4>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" name="enrollDatetime" th:value="${#dates.format(member.enrollDatetime, 'yyyy-MM-dd')}" readonly>
                             </div>
+                            <!-- 탈퇴상태인 경우만 탈퇴사유 칸 생성-->
+                            <th:block th:if="${member.accSecssionYn} == 'Y'">
+                            <div class="text-area ">
+                                <h4>탈퇴일</h4>
+                                <input type="text" name="accSecssionDatetime" th:value="${#dates.format(member.accSecssionDatetime, 'yyyy-MM-dd')}" readonly>
+                            </div>
+                            <div class="text-area">
+                            	<!-- 관리자가 탈퇴시킨 경우 -->
+                            	<th:block th:if="${#strings.contains(member.accSecessionReason,'[관리자]')}">
+                            		<h4>탈퇴사유</h4>
+	                                <input type="text" class="iptstyle2" name="accSecessionReason" th:value="${member.accSecessionReason}" readonly>
+                            	</th:block>
+                            	<!-- 회원이 탈퇴한 경우 -->
+                            	<th:block th:if="${not #strings.contains(member.accSecessionReason,'[관리자]')}">
+	                                <h4>탈퇴사유</h4>
+	                                <input th:if="${not #strings.isEmpty(member.accSecessionReason)}" type="text" name="accSecessionReason" class="iptstyle2" th:value="${member.accSecessionReason}" readonly>
+	                                <input th:if="${#strings.isEmpty(member.accSecessionReason)}" type="text" name="accSecessionReason" class="iptstyle2" value="없음" readonly>
+                            	</th:block>
+                            </div>
+                            <div class="text-area">
+                           		<!-- 관리자가 탈퇴시킨 경우 -->
+                            	<th:block th:if="${#strings.contains(member.accSecessionReason,'[관리자]')}">
+                            		<h4>비고</h4>
+	                                <input type="text" class="iptstyle2" name="accSecessionReason" th:value="${member.otherOpinions}" readonly>
+                            	</th:block>
+                            	<!-- 회원이 탈퇴한 경우 -->
+                            	<th:block th:if="${not #strings.contains(member.accSecessionReason,'[관리자]')}">
+	                                <h4>개선 요구사항</h4>
+	                                <textarea th:if="${not #strings.isEmpty(member.otherOpinions)}" type="text" name="otherOpinions" class="textsty" th:text="${member.otherOpinions}" readonly></textarea>
+	                                <textarea th:if="${#strings.isEmpty(member.otherOpinions)}" type="text" name="otherOpinions" class="textsty" th:text="없음" readonly></textarea>	                                
+                            	</th:block>
+                            
+                            </div>
+
+                            </th:block>
                         </div>
 
                         <div class="contentitem">
                             <h3>반려견 정보</h3>
                             <div class="text-area">
                                 <h4>이름</h4>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" name="dog.name" th:value="${member.dog.name}" readonly>
                             </div>
                             <div class="text-area">
                                 <h4>성별</h4>
-                                <select disabled>
-                                    <option name="dogGender" value="암컷" selected>암컷</option>
-                                    <option name="dogGender" value="수컷">수컷</option>
-                                </select>
-                                <select disabled>
-                                    <option name="dogGender" value="암컷" selected>암컷</option>
-                                    <option name="dogGender" value="수컷">수컷</option>
-                                </select>
+                                <input type="text" name="dog.gender" th:if="${member.dog.gender} == '암컷'" th:value="암컷" readonly>
+                                <input type="text" name="dog.gender" th:if="${member.dog.gender} == '수컷'" th:value="수컷" readonly>
                             </div>
                             <div class="text-area">
                                 <h4>나이</h4>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" name="dog.age" th:value="${member.dog.age}" readonly>
                             </div>
                             <div class="text-area">
                                 <h4>견종</h4>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
-                                <input type="text" class="disabled" name="" id="" value="admin" readonly>
+                                <input type="text" name="dog.breed" th:value="${member.dog.breed}" readonly>
                             </div>
                             <div class="text-area">
                                 <h4>중성화 유무</h4>
-                                <select disabled>
-                                    <option name="neuteredStatus" value="예" selected>예</option>
-                                    <option name="neuteredStatus" value="아니오">아니오</option>
-                                    <option name="neuteredStatus" value="모름">모름</option>
-                                </select>
-                                <select disabled>
-                                    <option name="neuteredStatus" value="예" selected>예</option>
-                                    <option name="neuteredStatus" value="아니오">아니오</option>
-                                    <option name="neuteredStatus" value="모름">모름</option>
-                                </select>
+                                <input type="text" name="dog.neuteredStatus" th:if="${member.dog.neuteredStatus} == '예'" th:value="예" readonly>
+                                <input type="text" name="dog.neuteredStatus" th:if="${member.dog.neuteredStatus} == '아니오'" th:value="아니오" readonly>
+                                <input type="text" name="dog.neuteredStatus" th:if="${member.dog.neuteredStatus} == '모름'" th:value="모름" readonly>
                             </div>
                         </div>
                     </div>
-                    <div class="content-wrap cs1">
+                     <div class="content-wrap cs1">
                         <h3>예약내역</h3>
-                        <table class="tblstyle">
+                        <table class="tblstyle tbw">
                             <colgroup>
                                 <col width="15%">
                                 <col width="15%">
-                                <col width="20%">
-                                <col width="50%">
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="40%">
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th>예약일</th>
-                                    <th>진료과목</th>
+                                    <th>예약 시간</th>
+                                    <th>진료 과목</th>
                                     <th>반려견 이름</th>
-                                    <th>증상 및 요청사항</th>
+                                    <th>증상</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- 예약내역이 없는 경우 i-->
+                                <th:block th:if="${#lists.isEmpty(member.reservation)}">
                                 <tr class="colored2">
-                                    <td>2021.10.20</td>
-                                    <td>내과</td>
-                                    <td>마루</td>
-                                    <td>눈에 반점이 보이고 눈꼽이 자주 껴요</td>
+                                	<td colspan="5">예약 내역이 없습니다.</td>
                                 </tr>
-                                <tr class="colored2">
-                                    <td>2021.10.20</td>
-                                    <td>내과</td>
-                                    <td>마루</td>
-                                    <td>눈에 반점이 보이고 눈꼽이 자주 껴요</td>
+                                </th:block>
+                                <!-- 예약내역 있는 경우 -->
+                            	<th:block th:if="${not #lists.isEmpty(member.reservation)}">
+                                <tr class="colored2 trstyle" th:each="res : ${member.reservation}" th:onclick="|javascript:viewLayer('${res.reservationNo}','${member.no}')|">
+                                    <td th:text="${#dates.format(res.reservationDate, 'yyyy.MM.dd')}"></td>
+                                    <td th:text="${res.reservationTime}"></td>
+                                    <th:block th:switch="${res.tNo}">
+	                                	<td th:case="1">내과</td>	
+	                                	<td th:case="2">외과</td>
+	                                	<td th:case="3">안과</td>
+	                                	<td th:case="4">정형외과</td>                           	
+	                           		</th:block>
+                                    <td th:text="${res.dog.name}"></td>
+                                    <td th:text="${res.symptom}" class="contentstyle"></td>
                                 </tr>
+                                </th:block>
                             </tbody>
                         </table>
-                    </div>
+                    </div> 
                     <!-- 유효성 검사 후 버튼 활성화 : btn-b , 비활성화 : btn-disabled -->
                     <div class="btnarea2">
-                        <button class="btn-b">회원 정보 수정</button>
-                        <button class="btn-c btns" type="button" onclick="">회원 삭제</button>
+                        <button class="btn-b" type="button" th:onclick="|javascript:memberDelete('${member.no}')|">회원 정보 삭제</button>
+                        <button class="btn-c btns" type="button" th:onclick="'location.href=\'' + @{/admin/member/list} + '\';'">목록으로</button>
                     </div>
-                </form>
             </div>
         </div>
     </div>
+    
+    <!-- 레이어팝업 -->
+    <div id="pop">
+        <div class="popcontent">
+            <div class="innercont2">
+                <div class="res-state">
+                    <p id="resStatus">예약완료</p>
+                </div>
+            </div>
+            <div class="innercont">
+                <div class="text-area2">
+                    <p>예약일</p>
+                    <input type="text" id="resDate" disabled>
+                </div>
+                <div class="text-area2">
+                    <p>예약시간</p>
+                    <input type="text" id="resTime" disabled>
+                </div>
+            </div>
+            <div class="innercont">
+                <div class="text-area2">
+                    <p>진료과목</p>
+                    <input type="text" id="resTreat" disabled>
+                </div>
+                <div class="text-area2">
+                    <p>담당 수의사</p>
+                    <input type="text" id="resVet" disabled>
+                </div>
+            </div>
+            <div class="innercont2">
+                <div class="text-area2">
+                    <p class="textsyl">진료 대상</p>
+                    <span id="resDogName"></span>&nbsp;&nbsp;<span id="resDogAge"></span>&nbsp;&nbsp;<span id="resDogGender"></span>&nbsp;&nbsp;<span id="resDogBreed"></span>
+                </div>
+            </div>
+            <div class="innercont2">
+                <div class="text-area2">
+                    <p>증상</p>
+                    <textarea type="text" id="resSymptom" disabled></textarea>
+                </div>
+            </div>
+
+        </div>
+        <button class="btn_close" type="button" onclick="closeLayer();">Close</button>
+    </div>
+    
+    
+    <script>
+	    function viewLayer(rno, userNo){
+	        $('#pop').css('display', 'block');
+	        
+	        $.ajax({
+	        	url : "/admin/member/detail/" + rno + "/" + userNo,
+	        	type : "get",
+	        	dataType : "json",
+	        	success : function(data){
+	        		console.log(data);
+	        		$('#resStatus').text(data.reservationStatus);
+	        		$('#resDate').val(data.reservationDate);        		
+	        		$('#resTime').val(data.reservationTime);
+	        		$('#resTreat').val(data.tName);
+	        		$('#resVet').val(data.vName);
+	        		$('#resDogName').text(data.dog.name);
+	        		$('#resDogAge').text(data.dog.age + '살');
+	        		$('#resDogGender').text(data.dog.gender);
+	        		$('#resDogBreed').text(data.dog.breed);
+	        		$('#resSymptom').text(data.symptom);
+	        		
+	        	},
+	        	error : function(e){
+	        		console.log(e);
+	        	}
+	        });
+	
+	    }
+	    
+	    function closeLayer(){
+            $('#pop').css('display', 'none');
+        } 
+    	
+	    function memberDelete(memberNo){
+	    	if(confirm("해당 회원을 탈퇴시키겠습니까?")){
+	    		const outReason = prompt("해당 회원을 탈퇴시키는 이유를 적어주세요.", "유해글 유포");
+	    		location.href = "/admin/member/delete/" + memberNo + "/" + outReason;
+	    	}
+	    }
+    </script>
  
 </body>
 </html>

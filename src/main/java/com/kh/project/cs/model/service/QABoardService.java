@@ -11,8 +11,6 @@ public interface QABoardService {
 	
 	int getListCount(Search search);
 	
-//	List<QABoard> selectQAList(int page, Search search);
-	
 	Map<String, Object> selectQAList(int page, Search search);
 
 	int increaseCount(int qNo);
@@ -32,5 +30,7 @@ public interface QABoardService {
 	int updateReply(Answer answer);
 
 	int deleteReply(int qno);
+
+	int selectAdminById(String string);
 	
 }

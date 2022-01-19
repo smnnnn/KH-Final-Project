@@ -1,20 +1,29 @@
 package com.kh.project.member.controller;
 
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import org.springframework.web.servlet.ModelAndView;
+
 
 import com.kh.project.member.model.service.MemberService;
 import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.UserImpl;
 import com.kh.project.member.model.vo.WithdrawalReason;
+import com.kh.project.reservation.model.vo.ReservationInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,10 +57,8 @@ public class MemberController {
 	
 	@GetMapping("/pwdFind")
 	public void pwdFindForm() {}
-	
-	@GetMapping("/reservationConfirmation")
-	public void reservationConfirmationForm() {}
-	
+
+
 	@GetMapping("/withdrawal")
 	public void withdrawalForm() {}
 	
@@ -136,7 +143,21 @@ public class MemberController {
 	}
 
 	
+	/* 진료 예약 */
+	@GetMapping("/reservationConfirmation")
+	public ModelAndView reservationConfirmationForm(Principal principal, ModelAndView mv) {
+		
+		String id = principal.getName();
+		
+		List<ReservationInfo> ReserInfo = memberService.reservationList(id);
+		
+		mv.addObject("ReserInfo", ReserInfo);
+		mv.setViewName("member/reservationConfirmation");
+		
+		return mv;
+	}
 	
+
 	@PostMapping("/myPage")
 	public String myPageUpdate(Member member, DogInformation dogInformation,  @AuthenticationPrincipal UserImpl user) {    //요청하면서 넘어온 데이터를 넘겨야 함 name="id" 멤버 필드랑 이름 똑같이 함, 멤버 객체로 받아올 수 있음
 		//  DogInformation dogInformation 화면에서 넘어온 값
@@ -152,9 +173,9 @@ public class MemberController {
 		return "redirect:/";  // 회원가입 완료되면 루트로 리다이렉트 해줌
 	}
 	
-	@PostMapping("/pwdUpdate")  //포워딩처리했으니까 pwdFind에 적은 id값과 이메일값은 여전히 넘어왔겠지? 아니면 또 따로 처리?
+	@PostMapping("/pwdUpdate")
 	public String pwdUpdate(Member member) { 		
-		log.info("컨트롤러로 오는지 확인 ");
+		
 		memberService.pwdUpdate(member);  
 		
 		
@@ -165,5 +186,15 @@ public class MemberController {
 	
 	
 	
+
+	/* 예약 취소 */
+	@GetMapping("/reservationConfirmation/no/{reservation_no}")
+	@ResponseBody
+	public int ReservationCancel(@PathVariable int reservation_no){
+	
+		return memberService.reservationCancel(reservation_no);
+		
+	}
+
 
 }

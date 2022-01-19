@@ -11,12 +11,14 @@
     <link type="text/css" rel="stylesheet" href="/css/common.css">   
     <!-- 효은 css (메인, 관리자)-->
     <link type="text/css" rel="stylesheet" href="/css/he.css">
-    <link type="text/css" rel="stylesheet" href="/css/calendar.css"/>
     <!-- common js -->
     <script type="text/javascript" src="/js/common.js"></script>
+    <!-- 효은 js (메인, 관리자)-->
+    <script type="text/javascript" src="/js/he.js"></script>
     <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
-    <!-- 캘린더 js -->
+    <!-- 캘린더 js, css -->
 	<script type="text/javascript" src="/js/calendar.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/calendar.css"/>
    
     <title>진료 예약</title>
 </head>
@@ -53,71 +55,23 @@
                 <div id="title_line"></div><br>
                 <div class="reser_date">
                 <!-- 캘린더 -->
-                    <div class="calendar" id="calendar">
-    				
-                        
-                    </div>
-                    <div class="quickDiv">
+                    <div class="calendar" id="calendar"></div>
+                    <!-- <div class="quickDiv">
                         <input type="button" id="type_btn" class="quick" value="빠른예약">
-                    </div>
+                    </div> -->
                 </div>
             </div><br><br><br><br><br>
             
             
-   <!-- 캘린더 일자 선택 -->         
-  <script>
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      //initialDate: '2020-09-12',
-      //locale : "ko",
-      //editable: true,
-      selectable: true, 
-      //businessHours: true,
-      //dayMaxEvents: true, // allow "more" link when too many events
-      //hiddenDays:[1],
-      // 이벤트명 : function(){} : 각 날짜에 대한 이벤트를 통해 처리할 내용..
-      select: function(arg) { 
-    
-        var date = new Date();
-        var year = date.getFullYear();
-        var month = ("0" + (1 + date.getMonth())).slice(-2);
-        var day = ("0" + date.getDate()).slice(-2);
-        let today = year + "-" + month + "-" + day;
-        
-        // 무슨 요일인지 확인 용
-        let dayy = String(arg.start);
-        let week = dayy.split(" ");
-        
-        if(arg.startStr < today) {  //과거 선택한 경우 false
-          console.log('false');
-        } else if(week[0] === 'Mon'){   // 휴무일 선택한 경우 false
-          console.log('false')
-        } else {  // 예약 가능한 일자 선택한 경우 일자 예약 success
-          console.log(arg.startStr); //날짜 보내기
-          console.log(week[0]); //요일 확인용
-        }
-
-          //calendar.unselect() 
-        }
-
-    });
-
-    calendar.render();
-  });
-
-</script> 
-            
             
             
             <div class="time_content">
+            <form th:action="@{/reservation/reservation_form}" method="Post" enctype="multipart/form-data" id="reservation_info" onsubmit="return sub();">
                 <div class="con_title">
                     진료 시간
                 </div>
                 <div id="title_line"></div><br>
-                <table class="time_table">
+                <table class="time_table" id="timeTable">
                     <colgroup>
                         <col style="width: 25%;">
                         <col style="width: 25%;">
@@ -134,26 +88,144 @@
                     </thead>
                     <tbody>
                         <tr th:each="info : ${VList}">
-                            <td th:text="${info.vname}"></td>
-                            <td th:text="${info.tno.tname}"></td>
-                            <td>2021.12.30</td>
+                        	<td th:text="${info.vno}" style="display:none;" id="vno"></td>
+                            <td th:text="${info.vname}" id="vname"></td>
+                            <td th:text="${info.tno}" style="display:none;" id="tno"></td>
+                            <td th:text="${info.tname}" id="tname"></td>
+                            <td id="reservation_date"></td>
                             <td>
-                                <select id="reser_time">
-                                    <option value="10:00">10:00~11:00</option>
-                                    <option value="11:00">11:00~12:00</option>
-                                    <option value="12:00">12:00~13:00</option>
-                                    <option value="14:00">14:00~15:00</option>
-                                    <option value="15:00">15:00~16:00</option>
-                                    <option value="16:00">16:00~17:00</option>
-                                    <option value="17:00">17:00~18:00</option>
+                                <select id="reseration_time" name="reservation_time">
+                                    <option value="10">10:00~11:00</option>
+                                    <option value="11">11:00~12:00</option>
+                                    <option value="12">12:00~13:00</option>
+                                    <option value="14">14:00~15:00</option>
+                                    <option value="15">15:00~16:00</option>
+                                    <option value="16">16:00~17:00</option>
+                                    <option value="17">17:00~18:00</option>
                                 </select>
                             </td>
+                            <td th:text="${info.day}" style="display:none;" id="day"></td>
                         </tr>
                     </tbody>
                 </table>
-                
+                <input type="hidden" name="vno" value="">
+                <input type="hidden" name="vname" value="">
+                <input type="hidden" name="tno" value="">
+                <input type="hidden" name="tname" value="">
+                <input type="hidden" name="reservation_date" value="">
+            <div class="quickDiv">
+            	<button type="submit" id="type_btn" class="reserBtn">예약진행</button>
+            </div>       
+            </form>              
             </div>
         </div>
+        
+   <!-- 캘린더 일자 선택 -->         
+  <script>
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      
+      selectable: true,    
+      googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE",
+      eventSources : [
+         /* 구글 캘린더 api에서 공휴일 가져오기 */
+          {
+                googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com"
+              , className : "koHolidays"
+              , color : "#FF6347"
+          }
+    ],
+  
+      /* 이벤트명 : function(){} : 각 날짜에 대한 이벤트를 통해 처리할 내용*/
+      select: function(arg) { 
+        
+    	/* 오늘 날짜보다 이전 날짜 선택 할 수 없게 처리하기 위해 오늘 날짜 구해오기 */
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = ("0" + (1 + date.getMonth())).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+        let today = year + "-" + month + "-" + day;
+        
+        /* 휴무일 선택할 수 없게 select해온 의료진의 휴무일 가져오기 */
+        var holi = $('#timeTable').find("td:eq(6)").text();
+        
+        /* 선택한 날짜의 요일 확인 용 데이터 */
+        let dayy = String(arg.start);
+        let week = dayy.split(" ");
+        
+        /* 휴무일은 한글값으로 db에 저장되어있어서 바꾸는 과정 필요 */
+        if(holi === '월요일'){
+        	holi = 'Mon';
+        } else if(holi === '화요일'){
+        	holi = 'Tue';
+        } else if(holi === '수요일'){
+        	holi = 'Wed'
+        } else if(holi === '목요일'){
+        	holi = 'Thu';
+        } else if(holi == '금요일'){
+        	holi = 'Fri';
+        }
+        
+        
+        
+        if(arg.startStr < today) { 
+          	alert('선택할 수 없는 날짜입니다.');
+          	
+        } else if( week[0] === holi ){
+        	alert('해당 의료진의 휴무일입니다.');
+        	
+        } else {  /* 예약 가능한 일자 선택한 경우 일자 예약 success */
+          
+          /* 선택한 날짜 진료일에 표시되게 */
+          var Cdate = arg.startStr;
+         
+		  $("#reseration_time > option").prop('hidden', false); /*모든 값 보이게 되돌리기*/
+        
+          document.getElementById("timeTable").getElementsByTagName("td")[4].innerHTML = Cdate; 
+			
+		   /*주말은 평일보다 진료시간이 평일보다 한 시간 적어서 주말을 선택한 경우 해당 option 숨기기*/
+			if(week[0] == 'Sat' || week[0] == 'Sun'){
+				$("#reseration_time option[value = '17']").prop('hidden', true);
+			}else{
+				$("#reseration_time option[value = '17']").prop('hidden', false);
+			}
+			
+          
+          $.ajax({
+				url : "/reservation/timeChoice",
+				data : { vno : vno, reservation_date : Cdate },
+				success : function(data){
+					
+					for(let index in data){
+						const time = data[index].reservation_time; 
+						/* 예약이 들어간 시간은 option 숨기기 */
+						$("#reseration_time option[value = " + time + "]").prop('hidden', true);
+					}
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
+        }
+       }
+    });
+
+    calendar.render();
+  });
+  
+    var vno = $('#timeTable').find("td:eq(0)").text();
+  	var vname = $('#timeTable').find("td:eq(1)").text();
+  	var tno = $('#timeTable').find("td:eq(2)").text();
+	var tname = $('#timeTable').find("td:eq(3)").text();
+
+
+	  
+</script> 
+ 
+        
         <!-- 빠른 메뉴 부분 -->
         <div id="aside">
             <div class="quick-menu">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,13 +52,13 @@
                             <tr>
                                 <th>장비명</th>
                                 <td>
-                                    <input type="text" name="deviceName" required>
+                                    <input type="text" name="deviceName" class="iptstyle" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>모델명</th>
                                 <td>
-                                    <input type="text" name="deviceModel" required>
+                                    <input type="text" name="deviceModel" class="iptstyle" required>
                                 </td>
                             </tr>
                             <tr>

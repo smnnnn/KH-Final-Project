@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.project.subAdmin.model.dao.SubAdminMapper;
 import com.kh.project.subAdmin.model.vo.Holiday;
@@ -24,14 +21,12 @@ public class VeterinarianServiceImpl implements VeterinarianService{
 	
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.SERIALIZABLE, rollbackFor= {Exception.class})
 	public int registVeterinarian(Veterinarian newVeterinarian) {
 		return subAdminMapper.registVeterinarian(newVeterinarian);
 	}
 
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.SERIALIZABLE, rollbackFor= {Exception.class})
 	public int registHoliday(Holiday holiday) {
 		return subAdminMapper.registHoliday(holiday);
 	}
@@ -44,9 +39,14 @@ public class VeterinarianServiceImpl implements VeterinarianService{
 
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.SERIALIZABLE, rollbackFor= {Exception.class})
 	public int modifyVeterinarian(Veterinarian veterinarianModify) {
 		return subAdminMapper.modifyVeterinarian(veterinarianModify);
+	}
+
+
+	@Override
+	public int modifyHoliday(Holiday holiday) {
+		return subAdminMapper.modifyHoliday(holiday);
 	}
 
 	

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extra-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,44 +14,50 @@
     <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
     <!-- 자바스크립트 -->
     <script type="text/javascript" src="/js/common.js"></script> 
+    <script type="text/javascript" src="/js/nh.js"></script> 
 
     <title>다나은 관리자|마이페이지</title>
 </head>	
 <body>
- <div th:replace="fragments/adminMenu.html"></div>
-            <!-- 내용 부분 : admincontent-main 안에 작성 -->
+  <div th:replace="fragments/adminMenu.html"></div> 
+     <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
                 <h3 class="pagetitle">관리자 계정 관리</h3>
-                <form action="" method="" class="formstyle">
+                <form th:action="@{/admin/account/mypageModify}" method="post" class="formstyle" name="adminModify">
                     <div class="content-wrap">
                         <div class="text-area">
                             <h4>아이디</h4>
-                            <input type="text" class="disabled" name="userId" id="userId" value="admin" readonly>
+                            <input type="text" class="disabled" name="id" id="userId" size="20" minlength="8" maxlength="10" th:value="${#authentication.principal.id}" disabled>
                         </div>
                         <div class="text-area">
                             <h4>변경할 비밀번호</h4>
-                            <input type="password" class="disabled" name="userPwd" id="userPwd" readonly>
-                            <button type="button" id="changePwdBtn" class="btn-a">비밀번호 변경</button>
+                            <input type="password" name="pwd" id="userPwdModify" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요" >
+	                        <p class="" id="pwdresult"></p>
                         </div>
                         <div class="text-area">
                             <h4>비밀번호 확인</h4>
-                            <input type="password" class="disabled" id="userPwdCheck" readonly>
-                            <p class="" id="pwdresult"></p>
-                            <!-- 일치하지 않으면 class속성에 error-text 추가하기 & innerHTML '비밀번호가 일치하지 않습니다.'-->
+                            <input type="password" name="pwd2" id="userPwd2Modify" maxlength="15" placeholder="비밀번호를 입력하세요" >
+                            <p class="" id="pwdresult2"></p>
                         </div>
                         <div class="text-area">
                             <h4>이름</h4>
-                            <input type="text" name="userName" id="userName" value="총관리자">
+                            <input type="text" name="name" id="userNameModify" th:value="${#authentication.principal.name}" >
+                            <p class="" id="nameresult"></p>
                         </div>
                         <div class="text-area">
                             <h4>전화번호</h4>
-                            <input type="text" name="phone" id="phone" value="010-1234-5678">
+                            <input type="tel" name="phone" id="phoneModify" th:value="${#authentication.principal.phone}" >
+                            <p class="" id="phoneresult"></p>
+                        </div>
+                        <div class="text-area">
+                            <h4>이메일</h4>
+                            <input type="email" name="email" id="emailModify" th:value="${#authentication.principal.email}" >
+                            <p class="" id="eamilresult"></p>
                         </div>
 
-                        <!-- 유효성 검사 후 버튼 활성화 : btn-b , 비활성화 : btn-disabled -->
                         <div class="btnarea">
-                            <button class="btn-b">수정</button>
-                            <button class="btn-c btns" type="button" onclick="">취소</button>
+                            <button class="btn-b" id="modifyBtn">수정</button>
+                            <button class="btn-c btns" type="button" onclick="location.href='/admin'">취소</button>
                         </div>
                     </div>
                 </form>
@@ -59,5 +65,44 @@
         </div>
     </div>
 
+	<script>
+		// 회원정보수정	
+		document.forms.adminModify.onsubmit = function(){
+			if(document.getElementById('userPwdModify').value != ''){
+				if(!check(/(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,15}$/
+				,document.getElementById('userPwdModify')
+				,"비밀번호는 영문 대소문자 숫자 특수문자 포함 8~15 자리로 입력하세요.")) return false;
+				
+				if(document.getElementById('userPwdModify').value != document.getElementById('userPwd2Modify').value){
+					alert('비밀번호가 일치하지 않습니다.');
+					return false;
+				}
+				
+			}
+				
+				if(!check(/^[가-힣]{2,}$/, document.getElementById('userNameModify')
+				,"이름은 한글로 2~10 자리로 입력하세요.")) return false;
+				
+				if(!check(/^[0-9]{1,}$/, document.getElementById('phoneModify')
+				,"전화번호는 -없이 숫자만 입력해주세요.")) return false;
+				
+				if(!check(/^([a-zA-z0-9])+@([a-zA-Z])+\.[a-zA-Z]{2,3}/
+				, document.getElementById('emailModify')
+				,"이메일은 @포함하여 전부 입력하세요.")) return false;
+				
+				if(document.getElementById('userPwdModify').value != document.getElementById('userPwd2Modify').value){
+					alert('비밀번호가 일치하지 않습니다.');
+					return false;
+				}
+				
+				function check(regExp, input, msg){
+					if(regExp.test(input.value)) return true;
+					alert(msg);
+					input.value = '';
+					input.focus();
+					return false;
+				}
+		}
+	</script>
 </body>
 </html>

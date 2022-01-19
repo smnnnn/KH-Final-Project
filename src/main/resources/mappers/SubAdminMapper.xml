@@ -69,6 +69,7 @@
 		  FROM VETERINARIAN A
 		  JOIN HOLIDAY B ON (A.VNO = B.VNO)
 		 WHERE A.VNAME = #{vname}
+		   AND A.STATUS = 'Y'
 	</select>
 	
 	<update id="modifyVeterinarian" parameterType="com.kh.project.subAdmin.model.vo.Veterinarian">
@@ -76,6 +77,12 @@
 		   SET PROFILE = #{ profile }
 		     , CAREER = #{ career }
 		     , PHONE = #{ phone }
+		 WHERE VNO = #{ vno }
+	</update>
+	
+	<update id="modifyHoliday" parameterType="com.kh.project.subAdmin.model.vo.Holiday">
+		UPDATE HOLIDAY
+		   SET DAY = #{ day }
 		 WHERE VNO = #{ vno }
 	</update>
 </mapper>

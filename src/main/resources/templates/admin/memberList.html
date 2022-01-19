@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,6 +14,7 @@
     <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
     <!-- 자바스크립트 -->
     <script type="text/javascript" src="/js/common.js"></script> 
+    <script type="text/javascript" src="/js/nh.js"></script> 
 
     <title>다나은 관리자|회원관리</title>
 </head>	
@@ -21,124 +22,108 @@
  <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='1')"></div>
              <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
-                <div class="searcharea">
-                    <select class="selecttype">
-                        <option name="searchcondition" value="id" class="opt" selected>아이디</option>
-                        <option name="searchcondition" value="dogname" class="opt">반려견이름</option>
-                        <option name="searchcondition" value="status" class="opt">회원상태</option>
-                    </select>
-                    <div class="listTotal">
-                        <p class="totalCnt">총 32,000건</p>
-                        <div class="sortArea">
-                            <div class="inp_text search">
-                                <input type="text" name="searchvalue" class="searchvalue" placeholder="검색어를 입력하세요">
-                                <button class="btn-a" onclick="">검색</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<!-- 목록 정렬 & 검색 -->
+	                <div class="conditionarea">
+	                    <div class="sortarea">
+	                        <div class="sort1">
+	                            <h3>회원 상태별 보기</h3>
+	                            <input type="radio" id="radioSort" name="memCategory" value="1" th:checked="${sort == 1}">
+	                            <label>회원</label>
+	                            <input type="radio" id="radioSort" name="memCategory" value="2" th:checked="${sort == 2}">
+	                            <label>회원탈퇴</label>
+	                        </div>
+	                    </div>
+			            <form th:action="@{/admin/member/list}" method="get" class="searcharea">
+	                    <div class="searcharea">
+	                        <select class="selecttype" name="searchCategory" th:value="${search.searchCategory}">
+	                            <option value="1" class="opt" th:selected="${search.searchCategory} == '1'">회원아이디</option>
+	                            <option value="2" class="opt" th:selected="${search.searchCategory} == '2'">보호자이름</option>
+	                            <option value="3" class="opt" th:selected="${search.searchCategory} == '3'">반려견이름</option>
+	                        </select>
+	                        <div class="listTotal">
+	                            <p class="totalCnt" th:text="총 + ' ' + ${pagination.totalListCount} + ' ' + 건"></p>
+	                            <div class="sortArea">
+	                                <div class="inp_text search">
+	                                    <input type="text" name="searchKeyword" class="searchvalue" placeholder="검색어를 입력하세요"
+	                                           th:value="${search.searchKeyword}">
+	                                    <button class="btn-a" id="searchBtn">검색</button>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+			            </form>
+	                </div>
                 <div class="list-tbl">
                     <table class="tblstyle">
                         <colgroup>
                             <col width="10%">
-                            <col width="20%">
-                            <col width="20%">
-                            <col width="20%">
+                            <col width="15%">
+                            <col width="10%">
                             <col width="15%">
                             <col width="15%">
+                            <col width="15%">
+                            <col width="10%">
+                            <col width="10%">
                         </colgroup>
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>아이디</th>
+                                <th>회원 아이디</th>
+                                <th>보호자 이름</th>
                                 <th>전화번호</th>
-                                <th>등록된 반려견 수</th>
+                                <th>반려견 이름</th>
+                                <th>가입일</th>
                                 <th>회원상태</th>
                                 <th>관리</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="colored">
-                                <td>1</td>
-                                <td>kh123</td>
-                                <td>010-1212-9393</td>
-                                <td>2</td>
-                                <td>회원탈퇴</td>
-                                <td><a href="#">상세보기</a></td>
-                            </tr>
-                            <tr class="colored">
-                                <td>2</td>
-                                <td>kh123</td>
-                                <td>010-1212-9393</td>
-                                <td>2</td>
-                                <td>회원탈퇴</td>
-                                <td><a href="#">상세보기</a></td>
-                            </tr>
-                            <tr class="colored">
-                                <td>3</td>
-                                <td>kh123</td>
-                                <td>010-1212-9393</td>
-                                <td>2</td>
-                                <td>회원탈퇴</td>
-                                <td><a href="#">상세보기</a></td>
-                            </tr>
-                            <tr class="colored">
-                                <td>4</td>
-                                <td>kh123</td>
-                                <td>010-1212-9393</td>
-                                <td>2</td>
-                                <td>회원탈퇴</td>
-                                <td><a href="#">상세보기</a></td>
-                            </tr>
-                            <tr class="colored">
-                                <td>4</td>
-                                <td>kh123</td>
-                                <td>010-1212-9393</td>
-                                <td>2</td>
-                                <td>회원탈퇴</td>
-                                <td><a href="#">상세보기</a></td>
-                            </tr>
-                            <tr class="colored">
-                                <td>4</td>
-                                <td>kh123</td>
-                                <td>010-1212-9393</td>
-                                <td>2</td>
-                                <td>회원탈퇴</td>
-                                <td><a href="#">상세보기</a></td>
-                            </tr>
-                            <tr class="colored">
-                                <td>4</td>
-                                <td>kh123</td>
-                                <td>010-1212-9393</td>
-                                <td>2</td>
-                                <td>회원탈퇴</td>
-                                <td><a href="#">상세보기</a></td>
-                            </tr>
-                            <tr class="colored">
-                                <td>4</td>
-                                <td>kh123</td>
-                                <td>010-1212-9393</td>
-                                <td>2</td>
-                                <td>회원탈퇴</td>
-                                <td><a href="#">상세보기</a></td>
+                            <tr th:each="mem, i : ${memberInfoList}" class="colored">
+                                <td th:text="${search.startRow + i.index+1 - 1}"></td>  
+                                <td th:text="${mem.id}"></td>
+                                <td th:text="${mem.name}"></td>
+                                <td th:text="${mem.phone}"></td>
+                                <td th:text="${mem.dogName}"></td> 
+                                <td th:text="${#dates.format(mem.enrollDatetime, 'yyyy-MM-dd')}"></td>
+                                <td th:if="${mem.accSecssionYn == 'N'}">회원</td>
+                                <td th:unless="${mem.accSecssionYn == 'N'}" class="unresolved">회원탈퇴</td> 
+                                <td><a th:href="@{/admin/member/detail(no=${mem.no})}">상세보기</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 
-                <div class="paging pagingarea">
-                    <span class="first"><a href="#"><span class="blind"></span></a></span>
-                    <span class="prev"><a href="#"><span class="blind"></span></a></span>
-                    <a href="#">1</a>
-                    <span class="current">2</span>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <span class="next"><a href="#"><span class="blind"></span></a></span>
-                    <span class="last"><a href="#"><span class="blind"></span></a></span>
+                <div class="paging pagingarea" th:with="cate=${search.searchCategory}, val=${search.searchKeyword}">
+                	<!-- 첫 페이지로 이동 -->
+                    <span class="first"><a th:href="@{/admin/member/list(page=1, sort=${sort}, searchCategory=${cate}, searchKeyword=${val})}"><span class="blind"></span></a></span>
+                    <!-- 이전 페이지로 이동 -->
+                    <span th:if="${pagination.page > 1}" class="prev"><a th:href="@{/admin/member/list(page=${pagination.page-1}, sort=${sort}, searchCategory=${cate}, searchKeyword=${val})}"><span class="blind"></span></a></span>
+                    <span th:unless="${pagination.page > 1}" class="prev"><a href="#"><span class="blind"></span></a></span>
+                    <!-- 페이지 넘버 -->
+                    <!-- 목록이 0인 경우 -->
+                    <th:block th:if="${pagination.totalListCount == 0}">
+                   		<a th:text="1" class="current"></a>  
+                    </th:block>
+                    <th:block th:unless="${pagination.totalListCount == 0}">
+	                    <th:block th:each="i : ${#numbers.sequence(pagination.startPage,pagination.endPage)}">                
+	                   		<a th:text="${i}" th:classappend="${pagination.page == i} ? current" th:href="@{/admin/member/list(page=${i}, sort=${sort}, searchCategory=${cate}, searchKeyword=${val})}"></a>        
+	                    </th:block> 
+                    </th:block>
+                    <!-- 다음 페이지로 이동 -->
+                    <span th:if="${pagination.page < pagination.maxPage}" class="next"><a th:href="@{/admin/member/list(page=${pagination.page+1}, sort=${sort}, searchCategory=${cate}, searchKeyword=${val})}"><span class="blind"></span></a></span>
+                    <span th:unless="${pagination.page < pagination.maxPage}" class="next"><a href="#"><span class="blind"></span></a></span> 
+                    <!-- 마지막 페이지로 이동 -->
+                    <span class="last"><a th:href="@{/admin/member/list(page=${pagination.maxPage}, sort=${sort}, searchCategory=${cate}, searchKeyword=${val})}"><span class="blind"></span></a></span>
                 </div>
             </div>
         </div>
     </div>
+    
+    <script>
+	    const message = '[[${memberResultMessage}]]';
+		if(message){
+			alert(message);
+		}
+    </script>
 </body>
 </html>

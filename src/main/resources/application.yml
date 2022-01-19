@@ -17,6 +17,7 @@ spring:
 # mybatis config
 mybatis:
   mapper-locations: mappers/**/*.xml
+
   
 # logging level (root level - 전역 설정)
 logging:

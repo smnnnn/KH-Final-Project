@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.project.admin.common.model.vo.Search;
 import com.kh.project.admin.hospitalManage.model.dao.HospitalManageMapper;
 import com.kh.project.hospital.model.vo.MDeviceFile;
 import com.kh.project.hospital.model.vo.MedicalDevice;
@@ -35,10 +36,20 @@ public class HospitalManageServiceImpl implements HospitalManageService {
 		
 		return result;
 	}
+	
+	@Override
+	public int getListCount(int sort, Search search) {
+		search.setSort(sort);
+		return hospitalManageMapper.getListCount(search);
+	}
 
 	@Override
-	public List<MedicalDevice> selectMedicalDeviceList() {		
-		return hospitalManageMapper.selectMedicalDeviceList();
+	public List<MedicalDevice> selectMedicalDeviceList(int startRow, int endRow, int sort, Search search) {	
+		search.setStartRow(startRow);
+		search.setEndRow(endRow);
+		search.setSort(sort);
+		
+		return hospitalManageMapper.selectMedicalDeviceList(search);
 	}
 
 	@Transactional
@@ -86,5 +97,6 @@ public class HospitalManageServiceImpl implements HospitalManageService {
 	public MDeviceFile selectDeviceFile(int deviceNo) {
 		return hospitalManageMapper.selectDeviceFileByNo(deviceNo);
 	}
+
 
 }

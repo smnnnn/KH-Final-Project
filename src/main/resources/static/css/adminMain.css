@@ -63,7 +63,7 @@ html, body{
     display:none;
     position:absolute;
     top: 49px;
-    right: 120px;
+    right: 233px;
 }
 .sub-menulist2 > li:hover{
     background-color: #F0EFE1;
@@ -124,6 +124,9 @@ html, body{
 	min-height: 900px;
     margin: 50px;   
 }
+.mainheight{
+	min-height: 1100px !important;
+}
 .activemenu{
     background-color:#85B1D6;
 }
@@ -145,7 +148,7 @@ html, body{
 }
 .btn-ab{
     width: 100px;
-    margin-left: 20px;
+    margin-right: 100px; 
     padding: 5px;
     font-size: smaller;
     border:1px solid #85B1D6;
@@ -270,10 +273,11 @@ PAGING
 
 /*-------- 관리자페이지 데시보드 ---------*/
 .manageinfo-wrap{
-    margin: 0 100px;
     display: flex;
     padding: 20px;
     font-size: 13px;
+    width: 900px;
+    margin: 0 auto;
 }
 .manageinfo{
     margin: 10px 0;
@@ -311,9 +315,16 @@ PAGING
 }
 .visitinfo{
     border: 1px solid #C4C4C4; 
-    margin: 50px 200px;
-    width: 600px;
-    height: 300px;
+    margin: 50px auto;
+    width: 900px;
+    height: 400px;
+}
+#canvas{
+	border: 1px solid #C4C4C4; 
+	margin: 50px auto;
+	padding: 10px;
+	width: 600px;
+	height: 400px;
 }
 
 /*------- 관리자 계정 관리페이지 ----------*/
@@ -329,22 +340,27 @@ PAGING
     border:1px solid #dcdcdc;
 }
 .formstyle{
-    margin: 50px 300px;
+	width: 700px;
+    margin: 50px auto;
 }
 .content-wrap{
     display: block;
 }
+
 .text-area{
     display: flex;
     margin: 20px;
     height: 30px;
 }
-
+.text-area > p{
+	margin-left: 10px;
+}	
 .text-area > h4{
     width: 150px;
 }
 .text-area > input{
     padding: 0 5px;
+    border: 1px solid #eeeeee;
 }
 
 .btns{
@@ -364,7 +380,7 @@ PAGING
 .searcharea{
     display: flex;
     justify-content: flex-end;
-    margin-right:100px; 
+    margin: auto 0;
 }
 
 .selecttype{
@@ -388,13 +404,18 @@ PAGING
     font-size: 13px;
 }
 .list-tbl{
-    margin: 80px 60px;
+   /*  margin: 80px 60px; */
+   width: 1000px;
+   margin: 80px auto;
 }
 table.tblstyle{
     width: 1000px;
     border-collapse: collapse;
     border: 2px solid #C4C4C4;
     table-layout: fixed;
+}
+.tbw{
+	width: 800px !important;
 }
 table.tblstyle > thead > tr{
     background-color:#C4C4C4;
@@ -432,6 +453,7 @@ tr.colored > td:last-child > a.deleteele:hover{
 }
 .member-info-area{
     margin-left: 250px;
+    text-align: center;
 }
 .member-info-area > img{
     width: 50px;
@@ -443,10 +465,14 @@ tr.colored > td:last-child > a.deleteele:hover{
 }
 .contentitem > h3, .cs1 > h3{
     margin: 50px 20px;
+    width : 100px;
+    text-align: center;
+    border-bottom: 2px solid #85B1D6;
+    padding-bottom: 5px;
 }
 .content-wrap2{
     display: flex;
-    justify-content: space-around;
+ 	margin: 0 30px;
 }
 .contentitem{
     margin-left: 50px;
@@ -466,15 +492,25 @@ tr.colored > td:last-child > a.deleteele:hover{
 .text-area > select{
     width: 180px;
 }
+.textsty{
+    margin: 10px 0;
+    width: 310px;
+    height: 60px;
+    resize: none;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #eeeeee;
+}
+
 
 /* 문의관리 페이지 */
 .conditionarea{
+	width: 1000px;
+	margin: 10px auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
-.conditionarea > .searcharea{
-    margin: auto 0;
-}
+
 .sortarea{
     display: inline-block;
 }
@@ -490,6 +526,10 @@ tr.colored > td:last-child > a.deleteele:hover{
     padding-right: 20px;
     vertical-align: middle;
     margin: 20px 0;
+}
+.sort2{
+	width: 1000px;
+	margin: 10px auto;
 }
 
 /* 문의 관리 상세/수정 페이지 */
@@ -522,13 +562,16 @@ tr.colored > td:last-child > a.deleteele:hover{
 .iptstyle{
 	width: 600px !important;
 }
+.iptstyle2{
+	width: 300px !important;
+}
 
 /* 의료 장비 목록 페이지 */
 .btn-area{
     justify-content: flex-end;
     display: flex;
     margin-right: 150px;
-    margin-top: 50px;
+/*     margin-top: 50px; */
 }
 .contentstyle{
     overflow: hidden;
@@ -574,3 +617,117 @@ tr.colored > td:last-child > a.deleteele:hover{
 .titleipt{
     width: 500px;
 }
+
+/* 회원관리 예약내용 팝업 */
+.trstyle:hover{
+    background-color : #eeeeee;
+    cursor: pointer;
+}
+#pop{
+    position:absolute; left:600px; top:300px; width:400px; height:550px; z-index:1;
+    display: none;
+    border: 2px solid #C4C4C4;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px -4px;
+}
+.btn_close{
+    border:none;
+    font-size: 15px;
+    width: 80px;
+    background: transparent;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.popcontent{
+    margin: 40px 20px;
+    font-size: 13px;
+}
+.innercont{
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+}
+.innercont2{
+    display: block;
+    margin: 20px 15px;
+}
+.res-state{
+    font-size: 17px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.text-area2 > p{
+    width: 80px;
+    margin-right: 20px;
+}
+.text-area2 > input{
+    width: 150px;
+    margin: 10px 0;
+    border: none;
+    background-color: #fff;
+    font-weight: bold;
+}
+.text-area2 > span{
+    font-weight: bold;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+.text-area2 > textarea{
+    margin: 10px 0;
+    width: 320px;
+    height: 150px;
+    resize: none;
+    background-color: #fff;
+    padding: 5px;
+}
+.textsyl{
+    margin-bottom: 10px;
+}
+
+.modifybtn:hover{
+	 cursor: pointer;
+}
+
+/* 관리자 등급 변경 팝업 */
+#pop2{
+    position:absolute; left:700px; top:100px; width:300px; height:280px; z-index:1;
+    display: none;
+    border: 2px solid #C4C4C4;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px -4px;
+}
+.innercont3{
+	display: block;
+}
+.innercont3 > p{
+	text-align: center;
+	margin: 10px 0;
+}
+.text-area3{
+	display: flex;
+	margin: 20px 10px 15px;
+}
+.text-area3 > p{
+	width: 80px;
+	margin-right: 30px;
+}
+.text-area3 > input{
+	width: 130px;
+	padding-left: 5px;
+}
+.btn-b-small{
+	width: 80px !important;
+    height: 35px !important;
+    font-weight: 700 !important;
+}    
+.btnarea-pop{
+    margin: 20px 90px;
+}    
+    

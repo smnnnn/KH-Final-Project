@@ -37,4 +37,6 @@ public interface QABoardMapper {
 	int updateAnswer(Answer answer);
 
 	int deleteAnswer(int qno);
+
+	int selectAdminById(String string);
 }
