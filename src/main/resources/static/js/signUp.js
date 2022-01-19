@@ -5,7 +5,7 @@
  $(function() { $("#postcodify_search_button").postcodifyPopUp(); });
  
  
- let userId = document.getElementById("userId");
+ 		let userId = document.getElementById("userId");
         let userPwd = document.getElementById("userPwd");
         let userPwd2 = document.getElementById("userPwd2");
         let userName = document.getElementById("userName");
