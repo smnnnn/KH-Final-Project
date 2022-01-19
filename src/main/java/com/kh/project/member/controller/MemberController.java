@@ -84,13 +84,17 @@ public class MemberController {
 	
 	
 	@PostMapping("/pwdFind")
-	public String pwdFind(String id, String email, RedirectAttributes rttr ) {
+	public String pwdFind(String id, String email, RedirectAttributes rttr, Model model ) {
 		
 		int result = memberService.pwdFind(id, email);
 	
 		log.info("controller : " + result);
 		if(result > 0 ) {
-			rttr.addFlashAttribute("successMessage", "계정확인이 완료되었습니다.");
+			//rttr.addFlashAttribute("successMessage", "계정확인이 완료되었습니다.");
+			model.addAttribute("id", id);
+			model.addAttribute("email", email);
+			
+			model.addAttribute("successMessage", "계정확인이 완료되었습니다.");
 			
 			return "member/pwdUpdate";
 			
@@ -148,9 +152,9 @@ public class MemberController {
 		return "redirect:/";  // 회원가입 완료되면 루트로 리다이렉트 해줌
 	}
 	
-	@PostMapping("/pwdUpdate")
+	@PostMapping("/pwdUpdate")  //포워딩처리했으니까 pwdFind에 적은 id값과 이메일값은 여전히 넘어왔겠지? 아니면 또 따로 처리?
 	public String pwdUpdate(Member member) { 		
-		
+		log.info("컨트롤러로 오는지 확인 ");
 		memberService.pwdUpdate(member);  
 		
 		
