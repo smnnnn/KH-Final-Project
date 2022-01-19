@@ -66,7 +66,7 @@
             
             
             <div class="time_content">
-            <form th:action="@{/reservation/reservation_form}" method="Post" enctype="multipart/form-data" id="reservation_info">
+            <form th:action="@{/reservation/reservation_form}" method="Post" enctype="multipart/form-data" id="reservation_info" onsubmit="return sub();">
                 <div class="con_title">
                     진료 시간
                 </div>
@@ -114,7 +114,7 @@
                 <input type="hidden" name="tname" value="">
                 <input type="hidden" name="reservation_date" value="">
             <div class="quickDiv">
-            	<button type="submit" id="type_btn" class="reserBtn" onclick="sub()">예약진행</button>
+            	<button type="submit" id="type_btn" class="reserBtn">예약진행</button>
             </div>       
             </form>              
             </div>

@@ -74,7 +74,7 @@
                         
                         <!-- 회원 -->
                         <th:block sec:authorize="isAuthenticated()">
-                        <th:block th:if="!${#authentication.principal.id.equals('admin001')}"> 
+                     
                         <a th:href="@{/qaBoard(qno=${board.qno})}">
                     	<input type="hidden" id="qnumber" th:value="${board.qno}">
                     	<!-- 비밀글이면 lock,아니면 unlock 아이콘-->
@@ -88,27 +88,10 @@
                         <span th:if="${board.answer.acount} == 1"><img id="answer" src="/images/sm/answer2.png"></span> 
                         <span th:unless="${board.answer.acount} == 1"></span>
                         </a>
-                        </th:block>
+                  
 						</th:block>
                         
-                        
-                        <!-- admin일 경우 모든 글 들어갈수 있음 -->
-                        <th:block sec:authorize="hasRole('ADMIN')">
-                        <a th:href="@{/qaBoard(qno=${board.qno})}">
-                    	<input type="hidden" id="qnumber" th:value="${board.qno}">
-                    	<!-- 비밀글이면 lock,아니면 unlock 아이콘-->
-                        <span id="ss" th:if="${board.secretStatus} == 'Y'"><img id="key" src="/images/sm/lock.png" name="lock"></span>
-                       	<span id="ss" th:if="${board.secretStatus} == 'N'"><img id="key" src="/images/sm/unlock2.png" name="unlock"></span>
-                        <!-- 카테고리명 -->
-                        [<span th:text="${board.categoryName}"></span>] 
-                        <!-- 글제목 -->
-                        <span th:text="${board.qtitle}"></span>
-                        <!-- 댓글 달렸을 경우와 아닐 경우 구분 아이콘-->
-                        <span th:if="${board.answer.acount} == 1"><img id="answer" src="/images/sm/answer2.png"></span> 
-                        <span th:unless="${board.answer.acount} == 1"></span>
-                        </a>
-						</th:block>
-                        
+
 
                         
                     </div>

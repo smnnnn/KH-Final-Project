@@ -24,7 +24,6 @@ public class Review {
 	private String vname;					// 의사이름
 	private String userName;				// 회원이름
 	
-//	private List<ReviewUpload> photoList;	// 사진첨부파일
 	private ReviewUpload thumbnail;			// 썸네일
 
 	public Review() {}

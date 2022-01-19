@@ -2,7 +2,7 @@ package com.kh.project.cs.model.vo;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("Search") //못읽어옴
+@Alias("Search") 
 public class Search {
 
 	private String searchCondition; //검색조건

@@ -89,7 +89,64 @@ public class QABoardController {
 		
 		/* board의 userId와 로그인 user ID 비교해서 일치해야 비밀글 확인 가능(총관리자 계정 제외) */
 		if(user != null) {
-			if(!user.getUsername().equals("admin001")) {
+			
+			// 로그인 유저 권한 조회해오기
+			int result = qaBoardService.selectAdminById(user.getUsername());
+			log.info("result : {}", result);
+			
+			// 총관리자가 가진 권한은 3, 총관리자면 모든 게시글 조회
+			if(result == 3) {
+				/* cookie 활용한 조회수 무한 증가 방지 처리 */
+				Cookie[] cookies = request.getCookies();
+				
+				String bcount = "";
+				
+				if(cookies != null && cookies.length > 0) {
+					for(Cookie c : cookies) {
+						/* 읽은 게시물 bid를 저장해두는 쿠키의 이름 bcount가 있는지 확인*/
+						if(c.getName().equals("bcount")) {
+							bcount = c.getValue();
+						}
+					}
+				}
+				
+				// 처음 읽는 게시글일 경우
+				// Ex. "|1||22||100|" 와 같은 bcount cookie의 value 값에서 indexOf로 해당 문자열 찾기
+				if(bcount.indexOf("|" + QNo + "|") == -1) {
+					// 기본 bcount 값에 지금 요청한 qNo 값 추가하여 새로운 쿠키 생성
+					Cookie newBcount = new Cookie("bcount", bcount + "|" + QNo + "|");
+					// 초 단위로 유효 기간 설정 가능
+					// newBcount.setMaxAge(1 * 24 * 60 * 60);
+					
+					// 설정하지 않을 시 session cookie
+					// 클라이언트가 저장하고 있을 수 있도록 응답에 담는다
+					response.addCookie(newBcount);
+					
+					// DB의 해당 게시글 조회수 증가
+					int result2 = qaBoardService.increaseCount(QNo);
+					
+					if(result2 > 0) {
+						log.info("조회수 증가 성공");
+					} else{
+						log.info("조회수 증가 실패");
+					}		
+				}
+				
+				board = qaBoardService.selectQA(QNo);
+				log.info("게시판 조회 : {}", board);
+				
+				model.addAttribute("board",board);
+				
+				return "cs/qDetail"; 
+			
+			// 나머지는 비밀글이 N일때나 자기가 작성한 글일때만 조회 가능
+			}else if(board.getSecretStatus().equals("Y") && !board.getUserId().equals(user.getUsername())) {
+				rttr.addFlashAttribute("msg", "비밀글입니다");
+				return "redirect:/qaBoard/list";
+			}
+			
+			
+			/*if(!user.getUsername().equals("admin001")) {
 				
 				log.info("board.getUserId() : " + board.getUserId());
 				log.info("user.getUsername() : " + user.getUsername());
@@ -99,7 +156,7 @@ public class QABoardController {
 					
 					return "redirect:/qaBoard/list";
 				}
-			}
+			}*/
 		}
 		//int qNo = Integer.parseInt(request.getParameter("QNo")); // ?
 		

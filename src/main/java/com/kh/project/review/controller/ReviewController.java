@@ -51,11 +51,6 @@ public class ReviewController {
 		return "review/reviewList";
 	}
 	
-/*	@RequestMapping("detail")
-	public String selectReview() { 
-		
-		return "review/reviewDetail";
-	}*/
 	
 	@GetMapping("")
 	public String selectReview(@RequestParam("rvno") int rvno, Model model, HttpServletRequest request, HttpServletResponse response) {

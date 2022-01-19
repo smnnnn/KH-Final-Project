@@ -8,17 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.project.cs.controller.QABoardController;
+
 import com.kh.project.cs.model.dao.QABoardMapper;
 import com.kh.project.cs.model.vo.Answer;
 import com.kh.project.cs.model.vo.PageInfo;
 import com.kh.project.cs.model.vo.QABoard;
 import com.kh.project.cs.model.vo.Search;
 
-import lombok.extern.slf4j.Slf4j;
+
 
 @Transactional
-@Service("qaBoardService") /*qABoardService 이렇게 해야되나?*/
+@Service("qaBoardService") 
 public class QABoardServiceImpl implements QABoardService {
 
 	private final QABoardMapper boardMapper;
@@ -132,6 +132,12 @@ public class QABoardServiceImpl implements QABoardService {
 	public int deleteReply(int qno) {
 		
 		return boardMapper.deleteAnswer(qno);
+	}
+
+	@Override
+	public int selectAdminById(String string) {
+		// TODO Auto-generated method stub
+		return boardMapper.selectAdminById(string);
 	}
 
 
