@@ -91,13 +91,17 @@ public class MemberController {
 	
 	
 	@PostMapping("/pwdFind")
-	public String pwdFind(String id, String email, RedirectAttributes rttr ) {
+	public String pwdFind(String id, String email, RedirectAttributes rttr, Model model ) {
 		
 		int result = memberService.pwdFind(id, email);
 	
 		log.info("controller : " + result);
 		if(result > 0 ) {
-			rttr.addFlashAttribute("successMessage", "계정확인이 완료되었습니다.");
+			//rttr.addFlashAttribute("successMessage", "계정확인이 완료되었습니다.");
+			model.addAttribute("id", id);
+			model.addAttribute("email", email);
+			
+			model.addAttribute("successMessage", "계정확인이 완료되었습니다.");
 			
 			return "member/pwdUpdate";
 			
