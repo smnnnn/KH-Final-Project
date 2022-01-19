@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extra-springsecurity5">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,8 +12,11 @@
     <link type="text/css" rel="stylesheet" href="/css/common.css">
     <!-- 나현 css (메인, 관리자)-->
     <link type="text/css" rel="stylesheet" href="/css/nh.css">
+    <!-- 효은 css -->
+    <link type="text/css" rel="stylesheet" href="/css/he.css">
     <!-- 공통 js -->
     <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 
 
 <title>다나은 동물병원</title>
@@ -38,9 +42,8 @@
             margin: auto;
         }
         .infoForm{
-            border: 1px solid gainsboro;
-            width: 904px;   
-            margin-left: 10px;    
+           margin-left: 3%;
+    	   margin-top: 5%; 
         }
 
         .label{
@@ -132,7 +135,7 @@
             font-size: x-large;
             margin-left: 25px;
             margin-bottom: 10px;
-        }
+        } 
         .etc{
             color: rgb(167, 164, 164);
             font-weight: bolder;
@@ -142,18 +145,7 @@
             margin-left: 50px;
             width: 160px;
             height: 35px;
-        }
-
-        .u{
-            margin-left: 65px;
-            margin-top: 300px;
-        }
-        button:hover{
-            cursor: pointer;
-            color: royalblue;
-        }
-
-
+        }     
 
     </style>
 </head>
@@ -166,34 +158,126 @@
         <div class="wrapper">
             <img class="my" src="/images/member/myPage.png">
             <div>
-            <button class="My btn"> 정보 수정&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button><br>
-            <button class="My btn1"> 예약 확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button>
+            <button class="My btn" th:onclick="|location.href='@{/member/myPage}'|"> 정보 수정&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button><br>
+            <button class="My btn1" th:onclick="|location.href='@{/member/reservationConfirmation}'|"> 예약 확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> </button>
             </div>
+			
             <div class="infoForm item">
-                <label class="label1">예약확인</label><br>
-                <label class="etc"><u></u></label>
-                <br>
-                <label class="u"><u>진료 예약일</u></label>&nbsp;&nbsp;&nbsp;
-                <label class="u"><u>진료 시간</u></label>
-                <label  class="u"><u>진료 담당의</u></label>
-                <label  class="u"><u>진료 과목</u></label>
-                
-  
-
-               <button class="Withdraw">예약취소</button><br><br><br>
-
-
-                 
-
+             	<div class="con_title">
+                   예약 확인
+                </div>
+                <div id="title_line"></div><br>
+             
+                 <!--  <form id="reserSelect">-->
+                	<table class="time_table" id="timeTable">
+                    	<colgroup>
+                        	<col style="width: 20%;">
+                        	<col style="width: 20%;">
+                        	<col style="width: 20%;">
+                        	<col style="width: 20%;">
+                        	<col style="width: 20%;">
+                    	</colgroup>
+                    	<thead>
+                        	<tr>
+                            	<th>예약 일자</th>
+                            	<th>예약 시간</th>
+                            	<th>담당 의료진</th>
+                            	<th>진료 과목</th>
+                            	<th>예약 사항</th>
+                        	</tr>
+                    	</thead>
+                    	<tbody>
+                        	<tr th:each="info : ${ReserInfo}">
+                        		<!-- <td><input type="text" id="reservation_no" value=""></td> -->
+                        		<td th:text="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')}" id="reservation_date"></td>
+                            	<td th:text="|${info.reservation_time}:00|" id="reservation_time"></td>
+                            	<td th:text="${info.vname}" id="vname"></td>
+                            	<td th:text="${info.tname}" id="tname"></td>
+                            	<td th:if="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
+                            			    or ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} == ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
+                            			   	 and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><input th:onclick="getNo([[${info.reservation_no}]]);" type="button" class="reserInfoBtn" id="cancel" value="예약 취소"></td>
+                            	<td th:unless="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
+                            			    or ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} == ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')} 
+                            			     and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button class="reserInfoBtn" id="complete" th:onclick="|location.href='@{/review/insert(resNo=${info.reservation_no},tname=${info.tname})}'|">리뷰 쓰기</button></td>     
+                        	</tr>
+                    	</tbody>
+                	</table>
+                <form id="reserSelect">
+                 <input type="hidden" id="reservation_no" value="">
+               	 <!-- <input type="hidden" name="reservation_date" value="">
+               	 <input type="hidden" name="reservation_time" value="">
+               	 <input type="hidden" name="vname" value="">
+               	 <input type="hidden" name="tname" value=""> -->
+               	</form>
+              <!--  </form>-->
             </div>
-
         </div>
 
 
 
+<script>
+
+//let no = document.getElementById("reservation_no").value;
+//console.log(no);
+
+/* let no = $('#timeTable').find("td:eq(0)").text();
+			console.log(no);
+var date = $('#timeTable').find("td:eq(1)").text();
+console.log(date);
+var time = $('#timeTable').find("td:eq(2)").text();
+console.log(time);
+var vname = $('#timeTable').find("td:eq(3)").text();
+console.log(vname);
+var tname = $('#timeTable').find("td:eq(4)").text();
+console.log(tname);
+
+// submit 시 name으로 값 넘겨주기 위해 input=hidden에 value로 td 값 넣어줌
+$('input[name=reservation_date]').attr('value', date);
+$('input[name=reservation_time]').attr('value', time);
+$('input[name=vname]').attr('value', vname);
+$('input[name=tname]').attr('value', tname);
+ */
 
 
+/* 예약 취소 button 클릭 시 비동기처리 */
 
+	
+	function getNo(reserNo){
+		let reservation_no = reserNo;
+		document.getElementById("reservation_no").value = reservation_no;
+		//console.log(reservation_no);
+		
+	}
+ 
+ $(function(){
+	$("#cancel").on('click', function() {
+			
+	 let reservation_no = $('#reserSelect input[id=reservation_no]').val();
+
+	 	$.ajax({
+				url : "/member/reservationConfirmation/no/" + reservation_no,
+				type : "get",
+				dataType : "json",
+				success : function(data) {
+
+					if(confirm("해당 예약을 취소하시겠습니까?") == true){
+						alert("예약이 취소되었습니다.");
+						location.reload();
+					}  else {
+						return;
+					} 
+					
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			}); 
+	});
+ });
+ 
+ 
+
+</script>
 
 
 

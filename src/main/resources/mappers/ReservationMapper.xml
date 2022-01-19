@@ -4,23 +4,133 @@
 	<resultMap id="VeterinarianResultMap" type="com.kh.project.reservation.model.vo.VeterinarianAndTreatmentType">
 		<id property="vno" column="VNO"/>
 		<result property="vname" column="VNAME"/>
+		<result property="tno" column="TNO"/>
+		<result property="tname" column="TNAME"/>
 		<result property="status" column="STATUS"/>
-		
-		<association property="tno" javaType="com.kh.project.reservation.model.vo.TreatmentType">
-			<id property="tno" column="TNO"/>
-			<result property="tname" column="TNAME"/>
-		</association>
-		
+		<result property="day" column="DAY"/>
+	</resultMap>
+	
+	<resultMap id="selectDogResultMap" type="com.kh.project.reservation.model.vo.DogInformation">
+		<id property="dogNo" column="DOG_NO"/>
+		<result property="dogName" column="DOG_NAME"/>
+		<result property="dogAge" column="DOG_AGE"/>
+		<result property="breed" column="BREED"/>
+		<result property="dogGender" column="DOG_GENDER"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+	
+	<resultMap id="timeResultMap" type="com.kh.project.reservation.model.vo.ReservationInfo">
+		<id property="reservation_no" column="RESERVATION_NO"/>
+		<result property="reservation_date" column="RESERVATION_DATE"/>
+		<result property="reservation_time" column="RESERVATION_TIME"/>
+		<result property="reservation_status" column="RESERVATION_STATUS"/>
+		<result property="symptom" column="SYMPTOM"/>
+		<result property="tno" column="TNO"/>
+		<result property="user_no" column="USER_NO"/>
+		<result property="vno" column="VNO"/>
+		<result property="dog_no" column="DOG_NO"/>
 	</resultMap>
 
+	<select id="notice" resultMap="VeterinarianResultMap">
+		SELECT
+			   A.VNO
+			 , B.TNAME
+			 , C.DAY
+	 	  FROM VETERINARIAN A
+	 	  JOIN TREATMENT_TYPE B ON (A.TNO = B.TNO)
+          JOIN HOLIDAY C ON (A.VNO = C.VNO)
+         ORDER BY A.VNO
+	</select>
 
 	<select id="findVname" resultMap="VeterinarianResultMap">
 		SELECT
-			   A.VNAME
+			   A.VNO
+			 , A.VNAME
+			 , B.TNO
 			 , B.TNAME
+			 , C.DAY			 		 
 		  FROM VETERINARIAN A
 		  JOIN TREATMENT_TYPE B ON (A.TNO = B.TNO)
+		  JOIN HOLIDAY C ON (A.VNO = C.VNO)
 		 WHERE A.TNO = #{tno}
+		   
 	</select>
 
+	<select id="selectTime" resultMap="timeResultMap">
+		SELECT
+           	   RESERVATION_TIME
+	  	  FROM RESERVATION_INFORMATION   
+         WHERE VNO = #{ vno }
+           AND RESERVATION_DATE = #{ reservation_date }
+           AND RESERVATION_STATUS = '예약완료'
+	</select>
+
+
+	<insert id="registReservation" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">
+		<selectKey resultType="_int" keyProperty="user_no" order="BEFORE">
+			SELECT USER_NO
+			  FROM MEMBER
+			 WHERE USER_ID = #{id}
+		</selectKey>
+		INSERT
+		  INTO RESERVATION_INFORMATION
+		  (
+		  	   RESERVATION_NO
+		  	 , RESERVATION_DATE
+		  	 , RESERVATION_TIME
+		  	 , RESERVATION_STATUS
+		  	 , SYMPTOM
+		  	 , TNO
+		  	 , USER_NO
+		  	 , VNO
+		  )
+		  VALUES
+		  (
+		  	    SEQ_RESERVATION_NO.NEXTVAL
+		  	  , #{ reservationInfo.reservation_date }
+		  	  , #{ reservationInfo.reservation_time }
+		  	  , DEFAULT
+		  	  , #{ reservationInfo.symptom }
+		  	  , #{ reservationInfo.tno }
+		  	  , #{ user_no }
+		  	  , #{ reservationInfo.vno }
+		  )
+		<!-- <selectKey resultType="_int" keyProperty="reservation_no" order="AFTER">
+		 SELECT SEQ_RESERVATION_NO.CURRVAL
+		 FROM DUAL
+		</selectKey> -->
+	</insert>
+	
+	
+	<insert id="registDog" parameterType="com.kh.project.reservation.model.vo.DogInformationInput">
+		INSERT
+		  INTO DOG_INFORMATION_INPUT
+		  (
+		  	   RESERVATION_NO
+		  	 , IN_DOG_NAME
+		  	 , IN_BREED
+		  	 , IN_DOG_GENDER
+		  	 , IN_DOG_AGE
+		  )
+		  VALUES
+		  (
+		  	   SEQ_RESERVATION_NO.CURRVAL
+		   	 , #{ in_dog_name }
+		   	 , #{ in_breed }
+		   	 , #{ in_dog_gender }
+		   	 , #{ in_dog_age }
+		  )
+	</insert>
+	
+	<select id="selectDogInfo" resultMap="selectDogResultMap">
+		SELECT
+			   A.DOG_NAME
+			 , A.DOG_AGE
+			 , A.BREED
+			 , A.DOG_GENDER
+		  FROM DOG_INFORMATION A
+		  JOIN MEMBER B ON (A.USER_NO = B.USER_NO)
+		 WHERE B.USER_ID = #{ id }
+	</select>
+	
 </mapper>

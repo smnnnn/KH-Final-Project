@@ -3,6 +3,7 @@ package com.kh.project.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -25,7 +26,13 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		this.memberService = memberService;
 	}
 	
-	
+	/* AuthenticationManager Bean 등록 - 회원정보 수정 세션에 적용하기 위한 빈등록 */
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
 	@Bean
 	public PasswordEncoder passwordEncoder() { 
 		return new BCryptPasswordEncoder();     
@@ -54,8 +61,33 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //				.antMatchers(HttpMethod.GET, "/menu/**").hasRole("MEMBER")
 //				/* "/menu/**"의 POST 요청은 ROLE_ADMIN 권한을 가진 사람에게만 허용 */
 //				.antMatchers(HttpMethod.POST, "/menu/**").hasRole("ADMIN")
-//				/* "/admin/**"의 요청은 ROLE_ADMIN 권환을 가진 사람에게만 허용 */
-//				.antMatchers("/admin/**").hasRole("ADMIN")
+				/* ROLE_SUB_ADMIN 권한을 가진 서브관리자 */
+				.antMatchers("/admin").hasRole("SUB_ADMIN")   
+				.antMatchers("/admin/dashboard").hasRole("SUB_ADMIN")    
+				.antMatchers("/admin/visitCount").hasRole("SUB_ADMIN")  
+				.antMatchers("/admin/mypage").hasRole("SUB_ADMIN")
+				.antMatchers("/admin/sub_veterinarianModify").hasRole("SUB_ADMIN")
+				.antMatchers("/admin/sub_veterinarianRegist").hasRole("SUB_ADMIN")
+				/* ROLE_ADMIN 권환을 가진 총관리자만 허용 */
+				.antMatchers("/admin/account/**").hasRole("ADMIN")
+				.antMatchers("/admin/cs/**").hasRole("ADMIN")
+				.antMatchers("/admin/hospital/**").hasRole("ADMIN")
+				.antMatchers("/admin/member/**").hasRole("ADMIN")
+				.antMatchers("/admin/reservation/**").hasRole("ADMIN")
+				/* 문의게시판 */
+				.antMatchers("/qaBoard").hasRole("MEMBER") 
+				.antMatchers("/qaBoard/insert").authenticated()  
+				.antMatchers("/qaBoard/updateView").authenticated() 
+				.antMatchers("/qaBoard/delete").authenticated()
+				/* 리뷰게시판 */
+				.antMatchers("/review/insert").authenticated()
+				.antMatchers("/review/delete").authenticated()
+				.antMatchers("/review/updateView").authenticated()
+				/* 진료 예약 */
+				.antMatchers("/reservation/reservation_typeChoice").authenticated()
+				.antMatchers("/reservation/reservation_timeChoice").authenticated()
+				.antMatchers("/reservation/timeChoice").authenticated()
+				.antMatchers("/reservation/reservation_form/**").authenticated()
 				/* 그 외의 요청은 모두 허가함 - 게스트 사용자도 접근 가능 */
 				.anyRequest().permitAll()  
 			.and()	   //요청에 따라 리턴값이 달라지니까 ? 위쪽 설정과 구분 지어서 작성

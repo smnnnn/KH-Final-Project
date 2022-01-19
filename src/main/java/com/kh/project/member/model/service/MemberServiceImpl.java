@@ -20,6 +20,7 @@ import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.MemberRole;
 import com.kh.project.member.model.vo.UserImpl;
 import com.kh.project.member.model.vo.WithdrawalReason;
+import com.kh.project.reservation.model.vo.ReservationInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -182,6 +183,20 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberMapper.pwdFind(id, email);
 		
+	}
+
+
+
+	@Override
+	public List<ReservationInfo> reservationList(String id) {
+		return memberMapper.reservationList(id);
+	}
+
+
+
+	@Override
+	public int reservationCancel(int reservation_no) {
+		return memberMapper.reservationCancel(reservation_no);
 	}
 
 

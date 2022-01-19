@@ -50,14 +50,15 @@
                     <div class="vdevice-info-btn">
                         <ul class="vdevice-select">
                             <!-- click하면 ajax로 해당 장비들 아래에 표시. class속성에 vde-active 추가(아닌경우 제거)-->
-                            <li class="vdevice-subject vde-active">영상장비</li>
-                            <li class="vdevice-subject">정형외과</li>
-                            <li class="vdevice-subject">내과</li>
-                            <li class="vdevice-subject">외과</li>
-                            <li class="vdevice-subject">안과</li>
+                            <li class="vdevice-subject vde-active" name="deviceli" value="5">영상장비</li>
+                            <li class="vdevice-subject" name="deviceli" value="4">정형외과</li>
+                            <li class="vdevice-subject" name="deviceli" value="1">내과</li>
+                            <li class="vdevice-subject" name="deviceli" value="2">외과</li>
+                            <li class="vdevice-subject" name="deviceli" value="3">안과</li>
                         </ul>
                     </div>
                     <div class="vdevice-list">
+                        <!-- 장비 내용 1행씩 -->
                         <div class="vdevice-tb-row">
                             <div class="vdevice-img">
                                 <img src="/images/nh/device/CT.png">
@@ -93,6 +94,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="vdevice-tb-row">
+                            <div class="vdevice-img">
+                                <img src="/images/nh/device/ultrasonic waves.png">
+                            </div>
+                            <div class="vdevice-info">
+                                <div class="vdevice-name">
+                                    <h3 class="vd-name">초음파
+                                        <span class="vd-model">초음파 GE logiq S8</span>
+                                    </h3>
+                                </div>
+                                <div class="vdevice-content">
+                                    초음파를 신체로 방사시켜 얻어지는 영상을 통해 진단하는 검사장비.
+									일반 초음파
+									- 뇌 : 두개 내 뇌실의 확장여부 확인
+									- 안구 : 안구 및 안구 후방부의 병변 확인
+									- 복부 : 복강내 모든 장기의 병변 확인
+									- 피하 : 탈장, 종괴, 염증성 병변 등의 확인
+									심장 초음파
+									- 심장의 구조와 움직임 및 심장 내 혈류의 용적과 압력 등을 검사함으로서 다양한 심장 질환의 정확도 높은 평가가 가능합니다.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
            </div>
@@ -102,7 +125,7 @@
             <div class="quick-menu">
                 <ul>
                     <li>
-                        <a href="#">
+                        <a th:href="@{/qaBoard/list}">
                             <img src="/images/common/inquiry.png">
                             <p>문의하기</p>
                         </a>
@@ -127,5 +150,43 @@
         </div>
     </div>
  
+ 	<script>
+ 		$(function(){
+ 			$('li[name=deviceli]').on('click', function(){
+ 				let category = $(this).val();   // 장비카테고리번호
+				// class속성 교체
+				$('li[name=deviceli]').each(function(){
+					$(this).removeClass('vde-active');
+				});
+				$(this).addClass('vde-active');
+				
+				$.ajax({
+					url : "/about/device/" + category,
+					type : "get",
+					dataType : "json",
+					success : function(data){
+						console.log(data);
+						
+						
+						let html = '';
+						
+						for(let i in data){
+							html += "<div class='vdevice-tb-row'><div class='vdevice-img'><img src='" + data[i].mdeviceFile.dfilePath + data[i].mdeviceFile.dchangeName 
+							     + "'></div><div class='vdevice-info'><div class='vdevice-name'><h3 class='vd-name'>"
+							     + data[i].deviceName + "<span class='vd-model'>" + data[i].deviceModel
+							     + "</span></h3></div><div class='vdevice-content'>" + data[i].deviceContent
+							     + "</div></div></div>"
+						}
+						$('.vdevice-list').html(html);
+						
+					},
+					error : function(e){
+						console.log(e);
+					}
+				});
+ 			});
+ 		});
+ 	</script>
+ 	
  <div th:replace="fragments/footer.html"></div>
 </html>

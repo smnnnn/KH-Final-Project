@@ -1,11 +1,14 @@
 package com.kh.project.member.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.MemberRole;
 import com.kh.project.member.model.vo.WithdrawalReason;
+import com.kh.project.reservation.model.vo.ReservationInfo;
 
 @Mapper
 public interface MemberMapper {
@@ -26,6 +29,7 @@ public interface MemberMapper {
 
 	void updateaccSecssionYn(Member member);
 
+
 	void updateMember(Member member);
 
 	void updateDogInformaion(DogInformation dogInformation);
@@ -39,6 +43,11 @@ public interface MemberMapper {
 	int selectDogInformation(int no);
 
 	void updateInsertDogInformaion(DogInformation dogInformation);
+
+	List<ReservationInfo> reservationList(String id);
+
+	int reservationCancel(int reservation_no);
+
 	
 	
 	

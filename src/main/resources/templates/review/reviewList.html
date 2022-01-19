@@ -73,6 +73,10 @@
             grid-template-columns: repeat(5, 1fr);
             place-items: center;
         }
+        
+        .minHeight{
+           min-height:109px;
+        }
 
 </style>
 <body>
@@ -88,20 +92,32 @@
             <div class="slideWrap">
                <div class="reviewSlide">  
 
-                   <div class="contentBox">
-                       <div class="item"><div class="crop"><img class="uploadImg" src="/images/sm/cuttie.jpg"></div></div>
+                   <div class="contentBox" th:each="review : ${reviewList}">
+                       <div class="item">
+                       
+                       <div class="crop" th:if="${review.thumbnail.changedName != null and review.thumbnail.status.toString().equals('N')}"><img class="uploadImg" th:src="${review.thumbnail.filePath}+${review.thumbnail.changedName}"></div>
+                       <div class="thumnail" th:unless="${review.thumbnail.changedName != null and review.thumbnail.status.toString().equals('N')}"></div>
+                       </div>
                        <div class="item reviewTitle">
                            <a href="#">
-                               <span>[외과]</span>십자인대 파열 수술 받았어요
+                               [<span th:text="${review.tname}">진료과목</span>][[${review.rvtitle}]]
                            </a>
                         </div>
-                       <div class="item reviewContent">2021.12.25</div>
                        <div class="item reviewContent">
-                            <a href="#">
-                                우리집 래브라도 리트리버 맥스가 신나게 뛰어놀다가 그만 다리를 다쳤는데 엑스레이를 찍어보니 십자인대 파열이라지 뭐에요 수술을 해야한다고...
-                            </a>
+                       <th:block th:if="${review.modifyDate} != null">
+                       	[[${#dates.format(review.modifyDate, 'yyyy.MM.dd')}]]
+                       </th:block>
+                       <th:block th:unless="${review.modifyDate} != null">
+                       	[[${#dates.format(review.createDate, 'yyyy.MM.dd')}]]
+                       </th:block>
                        </div>
-                       <div class="item goDetail"><a class="bgblue" th:href="@{/review/detail}">자세히보기<img id="arrow" src="/images/sm/arrow.png"></a></div>
+                       <div class="item reviewContent minHeight contentHtml"  id="contentHtml">
+                            <a href="#" th:utext="${review.rvcontent}"> <!-- th:utext는 html 태그 이스케이프 처리 안함 -->
+                            	
+                                우리집 래브라도 리트리버 맥스가 신나게 뛰어놀다가 그만 다리를 다쳤는데 엑스레이를 찍어보니 십자인대 파열이라지 뭐에요 수술을 해야한다고...
+                            </a>                       
+                       </div>
+                       <div class="item goDetail"><a class="bgblue" th:href="@{/review(rvno=${review.rvno})}">자세히보기<img id="arrow" src="/images/sm/arrow.png"></a></div>
                    </div>
                    <div class="contentBox">
                        <div class="item"><div class="crop"><img class="uploadImg" src="/images/sm/choco.jpg"></div></div><!--이미지 있으면 thumnail div 지우고 삽입-->
@@ -190,8 +206,9 @@
 
         </div>
        
-    </div>
+    </div>   
     
+
           <!-- 빠른 메뉴 부분 -->
 	        <div id="aside">
 	            <div class="quick-menu">
@@ -225,6 +242,69 @@
     <!-- 푸터 -->
 	<div th:replace="fragments/footer.html"></div>
 	
+	
+
+	<script>
+	
+	const extractTextPattern = /(<([^>]+)>)/gi;
+	
+	let targets = document.querySelectorAll(".contentHtml");
+	
+	for (let i = 0; i < targets.length; i++) {
+		
+		  const item = targets.item(i);
+		  let src = item.innerHTML;
+		  let extractedText = src.replace(extractTextPattern, '');
+		  
+		  let contentText;
+		  if(extractedText.length >= 106) {	  
+			  contentText = extractedText.substr(0, 106) +"...";
+		  } else {
+			  contentText = extractedText;
+		  }
+		  
+		  item.innerHTML = '<p>'+ contentText + '</p>';
+		}
+  
+	/*
+	
+	$(document).ready(function(){
+		const extractTextPattern = /(<([^>]+)>)/gi;
+	
+		let targets = document.querySelectorAll(".contentHtml");
+		
+		for (let i = 0; i < targets.length; i++) {
+			
+			  const item = targets.item(i);
+			  let src = item.innerHTML;
+			  let extractedText = src.replace(extractTextPattern, '');
+			  
+			  let contentText;
+			  if(extractedText.length >= 106) {	  
+				  contentText = extractedText.substr(0, 106) +"...";
+			  } else {
+				  contentText = extractedText;
+			  }
+			  
+			  item.innerHTML = '<p>'+ contentText + '</p>';
+			}
+		});*/
+
+		
+		
+		/*let target = document.getElementById('contentHtml');
+
+		let src = target.innerHTML;
+		console.log( "src:" + src );
+		
+		let extractedText = src.replace(extractTextPattern, '');
+
+		console.log( "extractedText" + extractedText );
+
+		target.innerHTML = '<p>'+ extractedText + '</p>';*/
+
+
+	</script>
 
 </body>
 </html>

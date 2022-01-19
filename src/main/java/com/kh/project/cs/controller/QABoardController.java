@@ -1,12 +1,12 @@
 package com.kh.project.cs.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.project.cs.model.service.QABoardService;
 import com.kh.project.cs.model.vo.Answer;
 import com.kh.project.cs.model.vo.QABoard;
 import com.kh.project.cs.model.vo.Search;
+import com.kh.project.member.model.vo.UserImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,8 +68,8 @@ public class QABoardController {
 		Map<String, Object> map 
 		= qaBoardService.selectQAList(page, search);
 		
-		/*log.info("페이지 : ", map.get("pi"));
-		log.info("boardList : ",map.get("boardList"));*/
+		log.info("페이지 : {} ", map.get("pi"));
+		log.info("boardList : {} ",map.get("boardList"));
 		
 		mv.addAllObjects(map);
 		mv.setViewName("cs/QABoardList"); 
@@ -77,10 +79,28 @@ public class QABoardController {
 	}
 	
 
-	
+	/* 공개글: 모든 사람 접근 가능(비회원 포함) 비밀글: 인가 받아야만 접근 가능(+본인만) */
 	/*http://localhost:8007/qaBoard?QNo=100*/
 	@GetMapping("") 
-	public String selectQA(@RequestParam("qno") int QNo, Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String selectQA(@RequestParam("qno") int QNo, Model model, @AuthenticationPrincipal UserImpl user, 
+			RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) {
+		
+		QABoard board = qaBoardService.selectQA(QNo);
+		
+		/* board의 userId와 로그인 user ID 비교해서 일치해야 비밀글 확인 가능(총관리자 계정 제외) */
+		if(user != null) {
+			if(!user.getUsername().equals("admin001")) {
+				
+				log.info("board.getUserId() : " + board.getUserId());
+				log.info("user.getUsername() : " + user.getUsername());
+				
+				if(board.getSecretStatus().equals("Y") && !board.getUserId().equals(user.getUsername())) {
+					rttr.addFlashAttribute("msg", "비밀글입니다");
+					
+					return "redirect:/qaBoard/list";
+				}
+			}
+		}
 		//int qNo = Integer.parseInt(request.getParameter("QNo")); // ?
 		
 		/* cookie 활용한 조회수 무한 증가 방지 처리 */
@@ -119,7 +139,7 @@ public class QABoardController {
 			}		
 		}
 		
-		QABoard board = qaBoardService.selectQA(QNo);
+		board = qaBoardService.selectQA(QNo);
 		log.info("게시판 조회 : {}", board);
 		
 		model.addAttribute("board",board);
@@ -128,17 +148,22 @@ public class QABoardController {
 		
 	}
 	
+	/* 인가 받아야만 접근 가능 */
 	@GetMapping("insert")
 	public String insertPage() {
 		return "cs/questionPage";
 	}
-	
+	/* 인가 받아야만 접근 가능 */
 	@PostMapping("insert")
-	public String insertQA(QABoard qaBoard) {
+	public String insertQA(QABoard qaBoard, @AuthenticationPrincipal UserImpl user) {
 		
 		/* 로그인 기능 완성 전 테스트 */
-		int userNo = 1;
-		qaBoard.setUserNo(userNo);
+		/*int userNo = 1;
+		qaBoard.setUserNo(userNo);*/
+		
+		if(user != null) {
+			qaBoard.setUserNo(user.getNo());
+		}
 		
 		int result = qaBoardService.insertQA(qaBoard);
 		
@@ -151,6 +176,7 @@ public class QABoardController {
 		return "redirect:/qaBoard/list";
 	}
 	
+	/* 인가 받아야만 접근 가능(+본인) */
 	// 수정 화면
 	@RequestMapping("updateView")
 	public String updateQAView(int qNo, Model model) {
@@ -166,6 +192,7 @@ public class QABoardController {
 		return "cs/questionUpdateView";
 	}
 	
+	/* 인가 받아야만 접근 가능(+본인) */
 	@PostMapping("update")
 	public String updateQA(QABoard qaBoard, Model model) {
 	
@@ -181,6 +208,7 @@ public class QABoardController {
 		return "redirect:/qaBoard?qno=" + QNo;
 	}
 	
+	/* 인가 받아야만 접근 가능 (+본인,관리자) */
 	@RequestMapping("delete")
 	public String deleteQA(int qNo) {
 		
@@ -196,6 +224,7 @@ public class QABoardController {
 		return "redirect:/qaBoard/list";
 	}
 	
+	/* 관리자만 접근 가능 (비동기)*/
 	@ResponseBody
 	@RequestMapping("insertReply")
 	public Answer insertReply(int qno, String AContent){
@@ -222,7 +251,7 @@ public class QABoardController {
 //		return answer;
 //	}
 	
-
+	/* 관리자만 접근 가능(비동기) */
 	@ResponseBody
 	@PutMapping("/updateReply/{qno}")
 	public int updateAnswer(@PathVariable int qno, @RequestBody Answer answer) {
@@ -232,7 +261,7 @@ public class QABoardController {
 		
 		return updateAnswer;
 	}
-	
+	/* 관리자만 접근 가능(비동기) */
 	@ResponseBody
 	@DeleteMapping("/deleteReply/{qno}")
 	public int deleteBook(@PathVariable int qno) {

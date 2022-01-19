@@ -10,14 +10,10 @@
                         <img src="/images/admin/member_manage.png" class="menuiconimg">
                         <p class="ai">회원 관리</p>
                     </a></li>
-                    <li th:classappend="${currnet == '2' || currnet == '2-1'} ? activemenu"><a href="#">
+                    <li th:classappend="${currnet == '2'} ? activemenu"><a th:href="@{/admin/reservation/list}">
                         <img src="/images/admin/reserve_manage.png" class="menuiconimg">
-                        <p class="ai">예약 관리</p><img src="/images/admin/downarrow.png" class="downarrow"></a>
-                        <ul class="menucate">
-                            <li><a th:href="@{/admin/reservation/list}"><p class="ai2" th:classappend="${currnet == '2'} ? ' ' + activesubmenu">예약 목록 관리</p></a></li>                  
-                            <li><a th:href="@{/admin/}"><p class="ai2" th:classappend="${currnet == '2-1'} ? ' ' + activesubmenu">휴일 관리</p></a></li>
-                        </ul>
-                    </li>
+                        <p class="ai">예약 관리</p>
+                    </a></li>
                     <li th:classappend="${currnet == '3'} ? activemenu"><a th:href="@{/admin/cs/list}">
                         <img src="/images/admin/qna_manage.png" class="menuiconimg">
                         <p class="ai">문의 관리</p>
@@ -26,16 +22,12 @@
                         <img src="/images/admin/hospital_manage.png" class="menuiconimg">
                         <p class="ai">병원 관리</p><img src="/images/admin/downarrow.png" class="downarrow"></a>
                         <ul class="menucate">
-                            <li><a href="#"><p class="ai2" th:classappend="${currnet == '4'} ? ' ' + activesubmenu">의료진 관리</p></a></li>                  
-                            <li><a href="#"><p class="ai2" th:classappend="${currnet == '4-1'} ? ' ' + activesubmenu">의료진 등록</p></a></li>
+                            <li><a th:href="@{/admin/sub_veterinarianModify}"><p class="ai2" th:classappend="${currnet == '4'} ? ' ' + activesubmenu">의료진 관리</p></a></li>                  
+                            <li><a th:href="@{/admin/sub_veterinarianRegist}"><p class="ai2" th:classappend="${currnet == '4-1'} ? ' ' + activesubmenu">의료진 등록</p></a></li>
                             <li><a th:href="@{/admin/hospital/deviceList}"><p class="ai2" th:classappend="${currnet == '4-2'} ? ' ' + activesubmenu">의료장비 관리</p></a></li>
                         </ul>
                     </li>
-                    <li th:classappend="${currnet == '5'} ? activemenu"><a href="#">
-                        <img src="/images/admin/display_manage.png" class="menuiconimg">
-                        <p class="ai">화면 관리</p>
-                    </a></li>
-                    <li th:classappend="${currnet == '6'} ? activemenu"><a href="#">
+                    <li th:classappend="${currnet == '5'} ? activemenu"><a th:href="@{/admin/account/list}">
                         <img src="/images/admin/config_manage.png" class="menuiconimg">
                         <p class="ai">계정 관리</p>
                     </a></li>
@@ -48,11 +40,13 @@
             <div class="topinfo">
                 <p>다나은 동물병원</p>
                 <div class="admin-nameinfo">
+                	<th:block sec:authorize="isAuthenticated()">
                     <img src="/images/admin/member_manage.png">
-                    <span>총관리자</span><span>님</span>
+                    <span sec:authentication="principal.name"></span><span>님</span>
                     <ul class="sub-menulist2">
-                        <li><a href="#">마이페이지</a></li>
-                        <li><a href="#">로그아웃</a></li>
+                        <li><a th:href="@{/admin/mypage}">마이페이지</a></li>
+                        <li><a th:href="@{/member/logout}">로그아웃</a></li>
                     </ul>
+                    </th:block>
                 </div>
             </div>

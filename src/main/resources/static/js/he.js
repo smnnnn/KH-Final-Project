@@ -51,9 +51,48 @@ function doctor_insert(){
 }
 
 function doctor_modify(){
+	
+	let holiday = document.getElementById('holi');
 	let phone = document.getElementById('phone_input');
+	
+	 if(!check(/^[가-힣]{3}$/, holiday, "휴무일은 O요일의 형태만 허용됩니다.")){
+        return false;
+    }
 	
 	if(!check(/^[0-9]{10,11}$/, phone, "전화번호는 숫자로 10~11자 이내만 허용됩니다.")){
         return false;
     }
 }
+
+
+/* 예약 시간 폼 전달 */
+ function sub(){
+	  
+	  
+	var vno = $('#timeTable').find("td:eq(0)").text();
+  	var vname = $('#timeTable').find("td:eq(1)").text();
+  	var tno = $('#timeTable').find("td:eq(2)").text();
+	var tname = $('#timeTable').find("td:eq(3)").text();  
+	var reservation_date = $('#timeTable').find("td:eq(4)").text();
+	var time = $("#reseration_time option:selected").val();
+	
+	if(reservation_date === ""){
+		alert("진료일을 선택해주세요.");
+		return false;
+	}
+
+	
+	/*console.log(vno);
+	console.log(vname);
+	console.log(tno);
+	console.log(tname);
+	console.log(reser_date);
+	console.log(time);
+	*/
+	$('input[name=vno]').attr('value', vno);
+	$('input[name=vname]').attr('value', vname);
+	$('input[name=tno]').attr('value', tno);
+	$('input[name=tname]').attr('value', tname);
+	$('input[name=reservation_date]').attr('value', reservation_date);
+	  
+  }

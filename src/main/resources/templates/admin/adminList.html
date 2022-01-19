@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,14 +18,14 @@
     <title>다나은 관리자|계정관리</title>
 </head>	
 <body>
- <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='6')"></div>
+ <div th:replace="fragments/adminMenu.html :: fragment-nav(currnet='5')"></div>
             <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
                 <div class="sort1">
                     <h3>관리자계정 관리</h3>
                 </div>
                 <div class="btn-area">
-                    <button class="btn-ab" onclick="">+&nbsp;&nbsp;관리자계정 추가</button>
+                    <button class="btn-ab" onclick="location.href='/admin/account/regist'">+&nbsp;&nbsp;관리자계정 추가</button>
                 </div>
                 <div class="list-tbl">
                     <table class="tblstyle">
@@ -34,9 +34,10 @@
                             <col width="10%">
                             <col width="15%">
                             <col width="10%">
+                            <col width="15%">
                             <col width="20%">
-                            <col width="20%">
-                            <col width="20%">
+                            <col width="10%">
+                            <col width="15%">
                         </colgroup>
                         <thead>
                             <tr>
@@ -45,47 +46,136 @@
                                 <th>관리자 아이디</th>
                                 <th>관리자 이름</th>
                                 <th>전화번호</th>
+                                <th>이메일</th>
                                 <th>등록일</th>
                                 <th colspan="2">관리</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="colored">
-                                <td>1</td>
-                                <td>서브관리자</td>
-                                <td>admin</td>
-                                <td>우별림</td>
-                                <td>010-1212-939</td>
-                                <td>2021.06.23 15:50:22</td>
-                                <td><a href="#">수정하기</a>&nbsp;&nbsp;&nbsp;<a href="#" class="deleteele">삭제하기</a></td>
-                            </tr>
-                            <tr class="colored">
-                                <td>1</td>
-                                <td>서브관리자</td>
-                                <td>admin</td>
-                                <td>우별림</td>
-                                <td>010-1212-939</td>
-                                <td>2021.06.23 15:50:22</td>
-                                <td><a href="#">수정하기</a>&nbsp;&nbsp;&nbsp;<a href="#" class="deleteele">삭제하기</a></td>
+                            <tr th:each="admin, i : ${adminList}" class="colored">
+                                <td th:text="${search.startRow + i.index+1 - 1}"></td>
+                                <td th:if="${#lists.size(admin.memberRoleList) == 3}" th:text="총관리자"></td>
+                                <td th:unless="${#lists.size(admin.memberRoleList) == 3}" th:text="서브관리자"></td>
+                                <td th:text="${admin.id}"></td>
+                                <td th:text="${admin.name}"></td>
+                                <td th:text="${admin.phone}"></td>
+                                <td th:text="${admin.email}"></td>
+                                <td th:text="${#dates.format(admin.enrollDatetime, 'yyyy-MM-dd')}"></td>
+                                <td><a class="modifybtn" th:onclick="|javascript:viewLayer('${admin.no}')|">수정</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="#" class="deleteele" th:onclick="|javascript:adminDelete('${admin.no}')|">삭제</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 
-                <div class="paging pagingarea">
-                    <span class="first"><a href="#"><span class="blind"></span></a></span>
-                    <span class="prev"><a href="#"><span class="blind"></span></a></span>
-                    <a href="#">1</a>
-                    <span class="current">2</span>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <span class="next"><a href="#"><span class="blind"></span></a></span>
-                    <span class="last"><a href="#"><span class="blind"></span></a></span>
+                <div class="paging pagingarea" >
+                    <span class="first"><a th:href="@{/admin/account/list(page=1)}"><span class="blind"></span></a></span>
+                    <span th:if="${pagination.page > 1}" class="prev"><a th:href="@{/admin/account/list(page=${pagination.page-1})}"><span class="blind"></span></a></span>
+                    <span th:unless="${pagination.page > 1}" class="prev"><a href="#"><span class="blind"></span></a></span>
+                    <!-- 페이지 넘버 -->
+                    <!-- 목록이 0인 경우 -->
+                    <th:block th:if="${pagination.totalListCount == 0}">
+                   		<a th:text="1" class="current"></a>  
+                    </th:block>
+                    <th:block th:unless="${pagination.totalListCount == 0}">
+	                    <th:block th:each="i : ${#numbers.sequence(pagination.startPage,pagination.endPage)}">
+	                   		<a th:text="${i}" th:classappend="${pagination.page == i} ? current" th:href="@{/admin/account/list(page=${i})}"></a>                
+	                    </th:block>  
+                    </th:block>
+                    <!-- 다음 페이지로 이동 -->
+                    <span th:if="${pagination.page < pagination.maxPage}" class="next"><a th:href="@{/admin/account/list(page=${pagination.page+1})}"><span class="blind"></span></a></span>
+                    <span th:unless="${pagination.page < pagination.maxPage}" class="next"><a href="#"><span class="blind"></span></a></span> 
+                    <!-- 마지막 페이지로 이동 -->
+                    <span class="last"><a th:href="@{/admin/account/list(page=${pagination.maxPage})}"><span class="blind"></span></a></span>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- 레이어팝업 -->
+    <div id="pop2">
+        <div class="popcontent">
+        <form th:action="@{/admin/account/modify}" method="post">
+	        <input type="hidden" name="no" id="adminNo"/>
+	        <input type="hidden" name="authority" id="changeAuthority">
+	            <div class="innercont2">
+	                <div class="res-state">
+	                    <p>관리자 등급 변경</p>
+	                </div>
+	            </div>
+	            <div class="innercont3">
+	                <div class="text-area3">
+	                    <p>계정 아이디</p>
+	                    <input type="text" id="adminId" disabled>
+	                </div>
+	                <div class="text-area3">
+	                    <p>계정 등급</p>
+	                    <input type="text" id="authority" disabled>
+	                </div>
+
+	                <p>해당 내용으로 변경하시겠습니까?</p>	                   
+
+	            </div>
+	        <button class="btn_close" type="button" onclick="closeLayer();">Close</button>
+	        <div class="btnarea-pop">
+	            <button class="btn-b btn-b-small">수정</button>
+	        </div>
+        </form> 
+        </div>
+    </div>
+    
+    <script>
+    	$(function(){
+    		function closeLayer(){
+                $('#pop2').css('display', 'none');
+            } 
+    	});
+    
+	    const message = '[[${adminResultMessage}]]';
+		if(message){
+			alert(message);
+		}
+		
+		// 레이어
+		function viewLayer(adminNo){
+	        $('#pop2').css('display', 'block');
+	        
+	        $.ajax({
+	        	url : "/admin/account/modify/" + adminNo,
+	        	type : "get",
+	        	dataType : "json",
+	        	success : function(data){
+	        		console.log(data);
+	        		$('#adminNo').val(data.no);  
+	        		$('#adminId').val(data.id);  
+	        		const role = data.memberRoleList.length;
+	        		if(role == 2){
+	        			$('#authority').val("총관리자");
+	        			$("#changeAuthority").val(3);
+	        		} else if(role == 3){
+	        			$('#authority').val("서브관리자");
+	        			$("#changeAuthority").val(2);
+	        		}
+	        		
+	        	},
+	        	error : function(e){
+	        		console.log(e);
+	        	}
+	        });
+	
+	    }
+	    
+	    function closeLayer(){
+            $('#pop2').css('display', 'none');
+        } 
+		
+	    // 관리자 계정삭제
+    	function adminDelete(adminNo){
+    		if(confirm("해당 관리자를 삭제하시겠습니까?")){
+    			location.href="/admin/account/delete/" + adminNo;
+    		}
+    	}
+    </script>
 
 </body>
 </html>

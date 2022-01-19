@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>치료후기 작성</title>
+     <!-- 공통 css -->
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
+     <!--font-->
+     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200;400&display=swap" rel="stylesheet">
+     <!-- jquery-->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <!--메인 스크립트-->
+     <script type="text/javascript" src="/js/common.js"></script>
+     <!-- include summernote css/js -->
+     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <style>
+
+
+        .board.content {
+            min-width: 800px;
+            width: 1000px;
+            margin: 0px auto;
+            /*text-align: center;*/
+            margin-bottom: 200px;
+            margin-top:70px;
+        }
+
+
+        #qaTitle {
+            margin-top: 10px;
+            margin-bottom: 60px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+      
+        .line2 {
+            
+            border-bottom: 2px solid #85B1D6;
+            font-size: 0.8rem;
+            padding-bottom: 10px;
+            padding-top: 4px;
+            font-size: 0.9rem;
+            padding-left: 20px;
+        }
+
+        .btn {
+            background-color: #F5F5F5;
+            color: black;
+            width: 441px;
+            height: 31px;
+            border: none;
+            position: relative;
+           
+            border-radius: 4px;
+            margin-top: 10px;
+            margin-top: 12px;
+            
+        }
+        .btnSpace {
+            margin-right: 14px;
+        }
+
+        .btn:hover {
+            opacity: 30%;
+        }
+
+        /* .footer{
+            width: 100%;
+            height: 115px;
+            background-color: rgba(240, 239, 225, 1);
+            position: absolute;
+
+        } */
+
+        .board_wrap {
+            width: 900px;
+            margin-left: 50px;
+            font-size: 0.85rem;
+        }
+
+        #category {
+            width: 109px;
+            height: 31px;
+            /* border:1px solid #85B1D6;
+            border-radius: 10px; */
+            margin-bottom: 7px;
+            margin-right: 5px;
+            background-color: #F5F5F5;
+            border: 1px solid #C7C7C7;
+            border-radius: 4px;
+        }
+
+        #titleArea {
+            width: 760px;
+            height: 29px;
+            /* border:1px solid #85B1D6;
+            border-radius: 10px; */
+            padding-left: 10px;
+            padding-right: 10px;
+            border: 1px solid #C7C7C7;
+            border-radius: 4px;
+        }
+
+        .qTitle {
+            margin-bottom: 10px;
+        }
+
+        .btnArea {
+            margin-top: 8px;
+        }
+
+		.img_area{
+			margin:10px;
+		}
+		
+
+    </style>
+</head>
+<body>
+ 	<!-- 헤더 -->
+ 	<div th:replace="fragments/header.html"></div>
+ 	
+    <!-- 내용 부분 -->
+    <div id="main">
+       
+        <!-- 내용 표시 부분 -->
+        <div class="board content">
+        
+            <div id="qaTitle">치료후기 수정</div>
+            
+            <div class="board_wrap">
+            <form th:action="@{/review/update}" method="post" enctype="multipart/form-data">
+             <input type="hidden" name="rvno" th:value="${review.rvno}">
+             <th:block th:if="${review.thumbnail.changedName != null}">
+             <input type="hidden" name="changedName" th:value="${review.thumbnail.changedName}"><!-- 수정전 파일명 같이 넘겨서 비교-->  
+			 </th:block>
+			 
+                <div class="qTitle">
+                    <select id="category" name="tno"> <!-- 선택된 값만 스크립트로 disabled 풀기 -->   
+                        <option value="1" th:selected="${review.tname} =='내과'" disabled>내과</option>
+                        <option value="2" th:selected="${review.tname} =='외과'" disabled>외과</option>
+                        <option value="3" th:selected="${review.tname} =='안과'" disabled>안과</option>
+                        <option value="4" th:selected="${review.tname} =='정형외과'" disabled>정형외과</option>
+                    </select>
+       
+                    <input type="text" id="titleArea" name="rvtitle" maxlength="100" placeholder="제목을 입력해주세요" th:value="${review.rvtitle}">
+                   
+                </div>
+
+
+                    <textarea id="summernote" name="rvcontent" th:text="${review.rvcontent}"></textarea>
+                    <script>
+                      $('#summernote').summernote({
+                        // placeholder: 'Hello stand alone ui',
+                        tabsize: 2,
+                        height: 300,
+                        toolbar: [
+                          ['style', ['style']],
+                          ['font', ['bold', 'underline', 'clear']],
+                          ['color', ['color']],
+                          ['para', ['ul', 'ol', 'paragraph']],
+                          ['table', ['table']],
+                          ['insert', ['link', 'picture', 'video']],
+                          ['view', ['fullscreen', 'codeview', 'help']]
+                        ]
+                      });
+                      
+                  
+                      
+					$('#category > option:selected').prop('disabled',false)
+		
+                    </script>
+				<br>
+				
+				<div class="img_area">
+					<img class="thumbnail" width="220px" th:src="${review.thumbnail.filePath}+${review.thumbnail.changedName}">
+				</div>
+					썸네일 수정 : <input type="file" id="thumbnail" name="thumbnail" accept="image/gif,image/jpeg,image/png"/>
+                <div class="btnArea"> 
+                    <button class="btn btnSpace" type="button" id="gotoList" th:onclick="|location.href='@{/review(rvno=${review.rvno})}'|">이전으로</button>
+                    <button class="btn" id="write" type="submit">수정하기</button>              
+                </div>
+                
+              </form>
+            </div>
+        </div>
+       
+    </div>
+    
+    <!-- 푸터 -->
+	<div th:replace="fragments/footer.html"></div>
+
+<script>
+	/* input type file 요소 */
+	const fileElement = document.querySelector("#thumbnail");
+	console.log(fileElement);
+	/* div image_area 요소 */
+	const imageArea = document.querySelector(".img_area");
+	console.log(imageArea);
+	/* input type file 요소에 change 이벤트 발생 시 (파일 첨부 발생) */
+	fileElement.addEventListener('change', preview);
+	function preview(event) {
+			console.log(event.target);
+			
+			let reader = new FileReader();			
+			reader.readAsDataURL(fileElement.files[0]);
+			reader.onload = function(){
+			imageArea.innerHTML = "<img width='220px;' src='" + reader.result + "'>'";
+	
+		}
+	}
+	/*왜안돼*/
+</script>
+
+</body>
+</html>

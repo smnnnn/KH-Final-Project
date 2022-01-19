@@ -28,7 +28,7 @@
 		<result property="qno" column="Q_NO"/>
 	</resultMap>
 	
-	<select id="selectQuestionList" resultMap="questionResultMap">
+	<select id="selectQuestionList" parameterType="com.kh.project.admin.common.model.vo.Search" resultMap="questionResultMap">
 		SELECT *
 		  FROM(SELECT 
 		             ROWNUM RNUM
@@ -68,12 +68,21 @@
 			         <if test="sort == 5">
 					   AND A_NO IS NOT NULL
           			   AND A.STATUS = 'N'
-					 </if>						 					 			 					 
+					 </if>						
+			         <if test="searchCategory == 1">
+           			   AND Q_TITLE LIKE '%'||#{searchKeyword}||'%'
+					 </if>	
+			         <if test="searchCategory == 2">
+           			   AND Q_CONTENT LIKE '%'||#{searchKeyword}||'%'
+					 </if>		
+			         <if test="searchCategory == 3">
+           			   AND USER_ID LIKE '%'||#{searchKeyword}||'%'
+					 </if>						 				 				  					 			 					 
 			         ORDER BY Q_NO DESC) T)
 		  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
-	<select id="selectQuestionByNo" resultMap="questionResultMap">
+	<select id="selectQuestionByNo" parameterType="_int" resultMap="questionResultMap">
 		SELECT
 		       Q_NO
 		     , Q_TITLE
@@ -121,26 +130,43 @@
 		 </if>
 		 <if test="sort == 3">
 		   AND CATEGORY_NO = 30
-		 </if>		 		 		 	
+		 </if>			 	 		 		 	
 	</select>
 	
 	<select id="getAnswerStatusCount" parameterType="_int" resultType="_int">
-	SELECT COUNT(*)
-	  FROM(SELECT
-		           Q_NO
-		         , Q.STATUS
-		         , A_NO
-		         , A.STATUS AST
-		      FROM QUESTION Q
-		      LEFT JOIN ANSWER A USING(Q_NO)
-		     WHERE Q.STATUS = 'N') R
-	  <if test="sort == 4">
-	 	WHERE A_NO IS NULL
-	  </if>     
-	  <if test="sort == 5">
-		WHERE A_NO IS NOT NULL
-		  AND AST = 'N'
-	  </if>
+		SELECT COUNT(*)
+		  FROM(SELECT
+			           Q_NO
+			         , Q.STATUS
+			         , A_NO
+			         , A.STATUS AST
+			      FROM QUESTION Q
+			      LEFT JOIN ANSWER A USING(Q_NO)
+			     WHERE Q.STATUS = 'N') R
+		  <if test="sort == 4">
+		 	WHERE A_NO IS NULL
+		  </if>     
+		  <if test="sort == 5">
+			WHERE A_NO IS NOT NULL
+			  AND AST = 'N'
+		  </if>
+	</select>
+	
+	<select id="getSearchListCount" parameterType="com.kh.project.admin.common.model.vo.Search" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM QUESTION
+		  JOIN MEMBER USING(USER_NO)
+		 WHERE STATUS = 'N'
+		 <if test="searchCategory == 1">
+		   AND Q_TITLE LIKE '%'||#{searchKeyword}||'%'		 
+		 </if>
+		 <if test="searchCategory == 2">
+		   AND Q_CONTENT LIKE '%'||#{searchKeyword}||'%'		 
+		 </if>	
+		 <if test="searchCategory == 3">
+		   AND USER_ID LIKE '%'||#{searchKeyword}||'%'		 
+		 </if>			 	 
 	</select>
 
 </mapper>

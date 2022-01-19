@@ -883,6 +883,7 @@ A HORIZONTAL event
 .fc-daygrid-block-event .fc-event-time,
   .fc-daygrid-block-event .fc-event-title {
     padding: 1px;
+    color: white;
   }
 /* --- the dot style of event --- */
 .fc-daygrid-dot-event {

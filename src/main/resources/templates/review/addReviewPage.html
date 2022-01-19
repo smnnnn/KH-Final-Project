@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
 
     <meta charset="UTF-8">
@@ -7,15 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>치료후기 작성</title>
      <!-- 공통 css -->
-    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="/css/common.css">
      <!--font-->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200;400&display=swap" rel="stylesheet">
      <!-- jquery-->
      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
      <!--메인 스크립트-->
-     <script type="text/javascript" src="../resources/js/common.js"></script>
+     <script type="text/javascript" src="/js/common.js"></script>
      <!-- include summernote css/js -->
      <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
      <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
@@ -122,77 +121,34 @@
     </style>
 </head>
 <body>
- <!-- 헤더 -->
- <header id="header">
-    <div class="header-container">
-        <!-- 로그인 -->
-        <div class="homemenu">
-            <!-- 로그인 안한 경우 -->
-            <ul class="nologin">
-                <a href="#">HOME</a>
-                <a href="#">로그인</a>
-                <a href="#">회원가입</a>
-            </ul>
-            <!-- 로그인 한 경우 -->
-            <ul class="userlogin" style="display: none;">
-                <a href="#">HOME</a>
-                <a href="#">로그아웃</a>
-                <a href="#">마이페이지</a>
-            </ul>
-        </div>
-        <div class="main-menu">
-            <!-- 로고 -->
-            <div class="logo">
-                <a href="#">
-                    <img src="../resources/images/common/logo.png"></img>
-                </a>
-            </div>
-            <!-- 메인 메뉴 -->
-            <div class="menulist">
-                <ul>
-                    <li><a href="#">병원소개</a>
-                        <ul class="sub-menulist">
-                            <li><a href="#">병원 소개</a></li>
-                            <li><a href="#">의료진 소개</a></li>
-                            <li><a href="#">의료 장비 소개</a></li>
-                            <li><a href="#">오시는 길</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">진료안내</a>
-                        <ul class="sub-menulist">
-                            <li><a href="#">진료 안내</a></li>
-                            <li><a href="#">진료 과목</a></li>
-                            <li><a href="#">진료 예약</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">고객센터</a></li>
-                    <li><a href="#">치료후기</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
+ 	<!-- 헤더 -->
+ 	<div th:replace="fragments/header.html"></div>
+ 	
     <!-- 내용 부분 -->
     <div id="main">
        
         <!-- 내용 표시 부분 -->
         <div class="board content">
+        
             <div id="qaTitle">치료후기 작성</div>
+            
             <div class="board_wrap">
+            <form th:action="@{/review/insert}" name="boardForm" method="post" enctype="multipart/form-data" onsubmit="return formCheck(this)">
+                <input type="hidden" name="resNo" th:value="${resNo}"> 
                 <div class="qTitle">
-                    <select id="category">
-                        <option>카테고리</option>
-                        <option value="예약문의">정형외과</option>
-                        <option value="일반문의">내과</option>
-                        <option value="기타문의">외과</option>
-                        <option value="기타문의">안과</option>
+                    <select id="category" name="tno" disabled> <!-- 예약정보에서 넘어온 값으로 fix하기 -->
+                          
+                        <option value="1" th:selected="${tname}=='내과'">내과</option>
+                        <option value="2" th:selected="${tname}=='외과'">외과</option>
+                        <option value="3" th:selected="${tname}=='안과'">안과</option>
+                        <option value="4" th:selected="${tname}=='정형외과'">정형외과</option>
                     </select>
        
-                    <input type="text" id="titleArea" maxlength="100" placeholder="제목을 입력해주세요">
+                    <input type="text" id="titleArea" name="rvtitle" maxlength="100" placeholder="제목을 입력해주세요">
                 </div>
 
 
-                    <div id="summernote"></div>
+                    <textarea id="summernote" name="rvcontent" onchange="onlyText();"></textarea>
                     <script>
                       $('#summernote').summernote({
                         // placeholder: 'Hello stand alone ui',
@@ -208,36 +164,91 @@
                           ['view', ['fullscreen', 'codeview', 'help']]
                         ]
                       });
-                    </script>
+                      
+ /*                     
+                  	$(function(){
+                		$('#summernote').summernote({       			
+                			
+                			callbacks: {
+                				onImageUpload: function(files, editor, welEditable) {
+                		            for (var i = files.length - 1; i >= 0; i--) {
+                		            	sendFile(files[i], this);
+                		            }
+                		        }
+                			}
+                			
+                		});
 
+                	})
+                	
+                	function sendFile(file, el) {
+                		var form_data = new FormData();
+                      	form_data.append('file', file);
+                      	$.ajax({
+                        	data: form_data,
+                        	type: "POST",
+                        	url: '/review/uploadImg',
+                        	cache: false,
+                        	contentType: false,
+                        	enctype: 'multipart/form-data',
+                        	processData: false,
+                        	success: function(img_name) {
+                          		$(el).summernote('editor.insertImage', img_name);
+                          		console.log(img_name);
+                        	}
+                      	});
+                    }
+ */                     
+ 
+ 					/*function onlyText(){
+	 
+	 					let intro = document.getElementById("intro");
+	 					var plainText = $($("#summernote").summernote("code")).text();
+
+	 					intro.value = plainText;
+ 					}*/
+ 					
+ 					
+ 					
+ 
+                    </script>
+				<br>
+				
+				
+					썸네일 선택 : <input type="file" name="thumbnail" accept="image/gif,image/jpeg,image/png"/>
+					
                 <div class="btnArea">
-                    <button class="btn btnSpace" id="gotoList">목록으로</button>
-                    <button class="btn" id="write">작성하기</button>
+                    <button class="btn btnSpace" type="button" id="gotoList" onclick="location.href='/review/list'">목록으로</button>
+                    <button class="btn" id="write" type="submit">작성하기</button>                  
                 </div>
+      
+              </form>
             </div>
         </div>
        
     </div>
+    
     <!-- 푸터 -->
-    <!-- <footer id="footer">
-        <div class="footer_container footer">
-       
-        </div>
-    </footer> -->
+	<div th:replace="fragments/footer.html"></div>
 
+<script>
+	function formCheck(frm) {
+	
+		document.getElementById("category").removeAttribute("disabled");
+		
+		if(frm.rvtitle.value == ""){
+			alert("제목을 입력해주세요");
+			frm.rvtitle.focus();
+			return false;
+		} else if(frm.rvcontent.value == ""){
+			alert("내용을 입력해주세요");
+			frm.rvcontent.focus();
+			return false;
+		}
+	
+	}
+</script>
 
-    <footer id="footer">
-        <div class="footer-container">
-            <div class="flogo">
-                <img src="../resources/images/common/logo2.png">
-            </div>
-            <div class="finfo">
-                주소 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
-                TEL 1544-9970 <br>
-                Copyright © 1998-2021 KH Information Educational Institute All Right Reserved
-            </div>
-        </div>
-    </footer>
 
 </body>
 </html>

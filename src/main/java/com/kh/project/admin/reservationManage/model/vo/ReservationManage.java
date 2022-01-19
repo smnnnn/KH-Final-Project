@@ -5,8 +5,9 @@ import java.sql.Date;
 public class ReservationManage {
 	
 	private int reservationNo;           // 예약번호
-	private int tNo;                     // 진료과목
-	private String vName;                // 수의사
+	private int tNo;                     // 진료과목코드
+	private String tName;                // 진료과목명
+ 	private String vName;                // 수의사
 	private Date reservationDate;        // 예약일
 	private String reservationTime;      // 예약시간
 	private String userName;             // 예약자이름
@@ -19,11 +20,13 @@ public class ReservationManage {
 	
 	public ReservationManage() {}
 
-	public ReservationManage(int reservationNo, int tNo, String vName, Date reservationDate, String reservationTime,
-			String userName, String phone, int dogNo, String symptom, String reservationStatus, Dog dog) {
+	public ReservationManage(int reservationNo, int tNo, String tName, String vName, Date reservationDate,
+			String reservationTime, String userName, String phone, int dogNo, String symptom, String reservationStatus,
+			Dog dog) {
 		super();
 		this.reservationNo = reservationNo;
 		this.tNo = tNo;
+		this.tName = tName;
 		this.vName = vName;
 		this.reservationDate = reservationDate;
 		this.reservationTime = reservationTime;
@@ -49,6 +52,14 @@ public class ReservationManage {
 
 	public void settNo(int tNo) {
 		this.tNo = tNo;
+	}
+
+	public String gettName() {
+		return tName;
+	}
+
+	public void settName(String tName) {
+		this.tName = tName;
 	}
 
 	public String getvName() {
@@ -125,10 +136,10 @@ public class ReservationManage {
 
 	@Override
 	public String toString() {
-		return "ReservationManage [reservationNo=" + reservationNo + ", tNo=" + tNo + ", vName=" + vName
-				+ ", reservationDate=" + reservationDate + ", reservationTime=" + reservationTime + ", userName="
-				+ userName + ", phone=" + phone + ", dogNo=" + dogNo + ", symptom=" + symptom + ", reservationStatus="
-				+ reservationStatus + ", dog=" + dog + "]";
+		return "ReservationManage [reservationNo=" + reservationNo + ", tNo=" + tNo + ", tName=" + tName + ", vName="
+				+ vName + ", reservationDate=" + reservationDate + ", reservationTime=" + reservationTime
+				+ ", userName=" + userName + ", phone=" + phone + ", dogNo=" + dogNo + ", symptom=" + symptom
+				+ ", reservationStatus=" + reservationStatus + ", dog=" + dog + "]";
 	}
 
 

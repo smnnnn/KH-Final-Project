@@ -323,3 +323,21 @@ th, td {
 tbody tr td {
     text-align: center;
 }
+
+/* 권한 오류 페이지 */
+.warning{
+    width:400px;
+    margin: 100px auto;
+}
+.warning > img{
+    width: 100%;
+    
+}
+.warning > p{
+    color: #85B1D6;
+    text-align: center;
+    font-weight: 800;
+}
+
+
+
