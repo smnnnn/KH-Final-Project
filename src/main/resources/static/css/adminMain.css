@@ -148,7 +148,7 @@ html, body{
 }
 .btn-ab{
     width: 100px;
-    margin-right: 50px; 
+    margin-right: 100px; 
     padding: 5px;
     font-size: smaller;
     border:1px solid #85B1D6;
@@ -380,7 +380,7 @@ PAGING
 .searcharea{
     display: flex;
     justify-content: flex-end;
-    margin-right:100px; 
+    margin: auto 0;
 }
 
 .selecttype{
@@ -404,7 +404,9 @@ PAGING
     font-size: 13px;
 }
 .list-tbl{
-    margin: 80px 60px;
+   /*  margin: 80px 60px; */
+   width: 1000px;
+   margin: 80px auto;
 }
 table.tblstyle{
     width: 1000px;
@@ -503,12 +505,12 @@ tr.colored > td:last-child > a.deleteele:hover{
 
 /* 문의관리 페이지 */
 .conditionarea{
+	width: 1000px;
+	margin: 10px auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
-.conditionarea > .searcharea{
-    margin: auto 0;
-}
+
 .sortarea{
     display: inline-block;
 }
@@ -524,6 +526,10 @@ tr.colored > td:last-child > a.deleteele:hover{
     padding-right: 20px;
     vertical-align: middle;
     margin: 20px 0;
+}
+.sort2{
+	width: 1000px;
+	margin: 10px auto;
 }
 
 /* 문의 관리 상세/수정 페이지 */
@@ -565,7 +571,7 @@ tr.colored > td:last-child > a.deleteele:hover{
     justify-content: flex-end;
     display: flex;
     margin-right: 150px;
-    margin-top: 50px;
+/*     margin-top: 50px; */
 }
 .contentstyle{
     overflow: hidden;
