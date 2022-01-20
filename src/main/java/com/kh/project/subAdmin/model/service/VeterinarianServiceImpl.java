@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.project.subAdmin.model.dao.SubAdminMapper;
 import com.kh.project.subAdmin.model.vo.Holiday;
 import com.kh.project.subAdmin.model.vo.Veterinarian;
+import com.kh.project.subAdmin.model.vo.VeterinarianAndHoliday;
 
 @Service("veterinarianService")
 public class VeterinarianServiceImpl implements VeterinarianService{
@@ -19,7 +20,13 @@ public class VeterinarianServiceImpl implements VeterinarianService{
 		this.subAdminMapper = subAdminMapper;
 	}
 	
+	
+	@Override
+	public int modifyStatusVeterinarian(int tno) {
+		return subAdminMapper.modifyStatusVeterinarian(tno);
+	}
 
+	
 	@Override
 	public int registVeterinarian(Veterinarian newVeterinarian) {
 		return subAdminMapper.registVeterinarian(newVeterinarian);
@@ -33,7 +40,7 @@ public class VeterinarianServiceImpl implements VeterinarianService{
 
 
 	@Override
-	public List<Veterinarian> findVeterinarian(String vname) {
+	public List<VeterinarianAndHoliday> findVeterinarian(String vname) {
 		return subAdminMapper.findVeterinarian(vname);
 	}
 

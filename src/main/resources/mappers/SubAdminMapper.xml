@@ -18,6 +18,12 @@
 			</association>	
 	</resultMap>
 	
+	<update id="modifyStatusVeterinarian" parameterType="com.kh.project.subAdmin.model.vo.Veterinarian">
+		UPDATE VETERINARIAN
+		   SET STATUS = 'N'
+		 WHERE TNO = #{ tno }
+	</update>
+	
 	<insert id="registVeterinarian" parameterType="com.kh.project.subAdmin.model.vo.Veterinarian">
 		INSERT
 		  INTO VETERINARIAN
