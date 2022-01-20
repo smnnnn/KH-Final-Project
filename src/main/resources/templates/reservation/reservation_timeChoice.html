@@ -142,12 +142,13 @@
       /* 이벤트명 : function(){} : 각 날짜에 대한 이벤트를 통해 처리할 내용*/
       select: function(arg) { 
         
-    	/* 오늘 날짜보다 이전 날짜 선택 할 수 없게 처리하기 위해 오늘 날짜 구해오기 */
+    	/* 진료예약은 최소 2일 전 예약을 원칙으로 하기 때문에 이전 날짜 선택 할 수 없게 처리하기 위해 오늘 날짜+2 구해오기 */
         var date = new Date();
         var year = date.getFullYear();
         var month = ("0" + (1 + date.getMonth())).slice(-2);
-        var day = ("0" + date.getDate()).slice(-2);
-        let today = year + "-" + month + "-" + day;
+        var day = ("0" + (date.getDate()+2)).slice(-2);
+        let ableday = year + "-" + month + "-" + day;
+        console.log(ableday);
         
         /* 휴무일 선택할 수 없게 select해온 의료진의 휴무일 가져오기 */
         var holi = $('#timeTable').find("td:eq(6)").text();
@@ -171,7 +172,7 @@
         
         
         
-        if(arg.startStr < today) { 
+        if(arg.startStr < ableday) { 
           	alert('선택할 수 없는 날짜입니다.');
           	
         } else if( week[0] === holi ){

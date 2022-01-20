@@ -77,7 +77,7 @@
                         <br>
                         <span>성별*</span>
                         <br>
-                        <select id="box_select" name="in_dog_gender" required>
+                        <select id="box_select" name="in_dog_gender">
                             <option value="암컷">암컷</option>
                             <option value="수컷">수컷</option>
                         </select>
@@ -88,9 +88,9 @@
                             <input type="number" id="dog_age" name="in_dog_age" placeholder="숫자로만 입력이 가능합니다.">
                         </div>
                         <br>
-                        <span>증상 및 요청</span><br>
+                        <span>증상 및 요청*</span><br>
                         <div class="areaDiv">
-                            <textarea class="requestArea" id="request" name="symptom" placeholder="200자 이내만 입력이 가능합니다."></textarea>
+                            <textarea class="requestArea" id="request" name="symptom" placeholder="200자 이내만 입력이 가능합니다." required></textarea>
                             <span class="charCnt"><em>0</em>/200</span>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                         <label><input type="checkbox" id="agree_chk" value="agree" required>약관에 동의합니다.</label>
                         <br><br><br>
                         <div  class="reservation_btn">
-                            <button type="submit" id="type_btn" onclick="reservation()">예약 신청</button>
+                            <button type="submit" id="type_btn">예약 신청</button>
                         </div>
                     </div>
                 </div>
