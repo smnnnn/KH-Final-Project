@@ -2,7 +2,7 @@
  * 
  */
  
- src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"
+
  
 // "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 
 	 $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); 
