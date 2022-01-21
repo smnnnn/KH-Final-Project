@@ -240,6 +240,7 @@
 		 <if test="resNum == 4">
 		   AND TNO = 4
 		 </if>
+		   AND RESERVATION_STATUS != '예약취소'
 	</select>
 	
 	<select id="getCSCount" parameterType="_int" resultType="_int">

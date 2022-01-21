@@ -38,6 +38,7 @@
 							alert("해당하는 아이디가 없습니다. 다시 확인하여 주십시오.");
 							userNameresult.innerHTML ="&nbsp;";
 							emailresult.innerHTML ="&nbsp;"; 
+							location.replace('idFind'); 
 							userNameresult.focus();
 						}else{							
 								// 다시 아이디 입력 공간을 바꿀 수 있도록 처리

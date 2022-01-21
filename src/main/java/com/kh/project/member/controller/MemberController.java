@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -69,6 +70,26 @@ public class MemberController {
 	public void pwdUpdateForm() {}
 	
 	
+	//@GetMapping("/loginFail") 
+	@PostMapping("/loginFail")
+	public void loginFail(@RequestParam(value = "error", required = false)String error, 
+			@RequestParam(value = "exception", required = false)String exception, 
+			Model model) { 
+		log.info("error : " + error);
+		log.info("exception : " + exception);
+		model.addAttribute("error", error); 
+		model.addAttribute("exception", exception); }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@ResponseBody
 	@PostMapping("/idCheck")
 	public String idCheck(String userId ) {
@@ -79,6 +100,7 @@ public class MemberController {
 	}
 	
 	
+
 	
 	@ResponseBody
 	@PostMapping("/idFind")

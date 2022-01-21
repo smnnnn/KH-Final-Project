@@ -114,25 +114,30 @@
 	    				backgroundColor: [
 	    					"#85B1D6"
 	    				],
-	    				/* barThickness: 30, */
 	    				borderColor: "#85B1D6",
 	    			}
 	    		],
 	    	},
 	    	options: {
+	    		plugins: {	   // 최신버전은 plugins로 감싸야함. 			
+		    		title: {
+		    			display: true,
+		    			text: '방문자 현황'   // 타이틀명
+		    		},
+		    		legend: {
+		    			// 차트 위 범례 삭제
+		    			display: false  
+		    		},
+	    		},
 	    		scales: {
-	    			yAxes: [
-	    				{
-		    				ticks: {
-		    					/* y축 0부터 시작 */
-		    					beginAtZero: true,
-		    					/* y축 간격 */
-								stepSize: 1,
-								/* y축 최소값 */
-								suggestedMin: 0
-		    				}
+	    			yAxes: [{
+	    				ticks: {
+	    					/* y축 0부터 시작 */
+	    					beginAtZero: true, 
+	    					 /* y축 간격 */
+	    					stepSize: 2      
 	    				}
-	    			]   			
+	    			}]		
 	    		}
 	    	}
 	    });
@@ -151,11 +156,6 @@
 				console.log(e);
 			}
 		});
-		
-	    // 동적 차트 작성하기
-/* 	    barChart.data.labels = [1, 2, 3, 4, 5];
-	    barChart.data.datasets[0].data = [1, 2, 3, 4, 5];
-	    barChart.update();	   */
 	    
     </script>
 </body>

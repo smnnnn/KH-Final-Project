@@ -22,7 +22,6 @@
             <!-- 내용 부분 : admincontent-main 안에 작성 -->
             <div class="admincontent-main">
                 <h3 class="pagetitle">문의 정보 관리</h3>
-                <form action="" method="" class="">
                     <table class="tblstyle2">
                         <colgroup>
                             <col width="20%">
@@ -97,7 +96,6 @@
                         <button class="btn-b" type="button" th:onclick="'location.href=\'' + @{/qaBoard(qno=${question.qno})} + '\';'">문의글로 이동</button>
                         <button class="btn-c btns" type="button" th:onclick="|javascript:questionDelete('${question.qno}','${question.answer.ano}')|">문의글 삭제</button>
                     </div>
-                </form>
             </div>
         </div>
     </div>
