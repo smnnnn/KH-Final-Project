@@ -95,7 +95,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 <br>
                 <label for="petBreed" class="label">견종 </label> 
                 <select class ="input all" name="breed" required th:value="${#authentication.principal.dogInformation?.breed}" > <!-- th:value="${#authentication.principal.breed}" -->
-                    <option th:selected="${phone}=='010'">010</option>
+                    <!-- <option th:selected="${phone}=='010'">010</option> -->
 
                     <option th:selected="${#authentication.principal.dogInformation?.breed}=='골든 리트리버'" value="골든 리트리버">골든 리트리버</option>
                     <option th:selected="${#authentication.principal.dogInformation?.breed}=='말티즈'" value="말티즈">말티즈</option>
