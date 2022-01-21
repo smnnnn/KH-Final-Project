@@ -10,8 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet"> 
     <!-- 공통 css -->
     <link type="text/css" rel="stylesheet" href="/css/common.css">
-    <!-- 나현 css (메인, 관리자)-->
-    <link type="text/css" rel="stylesheet" href="/css/nh.css">
     <!-- 효은 css -->
     <link type="text/css" rel="stylesheet" href="/css/he.css">
     <!-- 공통 js -->
@@ -46,67 +44,6 @@
     	   margin-top: 5%; 
         }
 
-        .label{
-            min-width: 160px;
-            display:inline-block;
-            margin-top: 25px;
-            margin-left: 30px;
-            font-weight: bold;
-        }
-
-        .all{
-            height: 23px;
-            border: 1px solid gainsboro;
-            border-radius: 5px;
-            padding-left: 5px;
-            padding-right: 5px;
-
-        }
-
-        .input{
-            display:inline-block;
-            width: 180px;
-        }
-
-        .select{
-            display:inline-block;
-            width: 150px;
-        }
-
-        .input2{
-            display:inline-block;
-            width: 450px;
-        }
-
-        .button1{
-            margin-left: 20px;
-            width: 100px;
-            height: 33px;
-        }
-
-        .button2{
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 30px;
-            margin-bottom: 10px;
-            width: 180px;
-            text-align: center;
-            height: 40px;
-        }
-
-        input:focus,
-        select:focus {
-	    outline: none;
-        }
-        .button1:hover {
-	    cursor: pointer;
-        }
-        .button2:hover {
-	    cursor: pointer;
-        }
-
-
         .My{
             display: block;
             margin-top: 303px;
@@ -127,37 +64,6 @@
             margin-top: -18px;
             color: rgb(21, 60, 162);
         }
-        .label1{
-            min-width: 160px;
-            display:inline-block;
-            margin-top: 25px;
-            font-weight: bold;
-            font-size: x-large;
-            margin-left: 25px;
-            margin-bottom: 10px;
-        } 
-        .etc{
-            color: rgb(167, 164, 164);
-            font-weight: bolder;
-            margin-left: 25px;
-        }
-        .Withdraw{
-            margin-left: 50px;
-            width: 160px;
-            height: 35px;
-        }
-        
-        #btn_disabled {
-    		margin : auto;
-    		display: block;
-    		background-color: rgb(218, 214, 214);
-    		color: white;
-    		width: 110px;
-    		height: 35px;
-    		font-weight:bolder;
-    		border : 0;
-    		border-radius: 5px;
-		}		     
 
     </style>
 </head>
@@ -198,26 +104,22 @@
                         	</tr>
                     	</thead>
                     	<tbody>
-                        	<tr th:each="info : ${ReserInfo}">
+                        	<tr th:each="info : ${afterReserInfo}">
                         		<td th:text="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')}" id="reservation_date"></td>
                             	<td th:text="|${info.reservation_time}:00|" id="reservation_time"></td>
                             	<td th:text="${info.vname}" id="vname"></td>
                             	<td th:text="${info.tname}" id="tname"></td>
-                            	<!-- <td th:if="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
+                            	<td th:if="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
                             			    or ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} == ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
-                            			   	 and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><input th:onclick="getNo([[${info.reservation_no}]]);" type="button" class="reserInfoBtn" id="cancel" value="예약 취소"></td>
+                            			   	 and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button th:onclick="getNo([[${info.reservation_no}]]);" type="button" class="reserInfoBtn" id="cancel">예약 취소</button></td>
                             	<td th:unless="${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}
                             			    or ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} == ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')} 
-                            			     and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button class="reserInfoBtn" id="complete" th:onclick="|location.href='@{/review/insert(resNo=${info.reservation_no},tname=${info.tname})}'|">리뷰 쓰기</button></td> -->
-                            	<!-- <td th:if="${info.reservation_status} == '예약완료' and ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"><input th:onclick="getNo([[${info.reservation_no}]]);" type="button" class="reserInfoBtn" id="cancel" value="예약 취소"></td>
-                            	<td th:unless="${info.reservation_status} == '예약완료' and ${#dates.format({info.reservation_date}, 'yyyy-MM-dd')} > ${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"><input type="button" id="btn_disabled" value="예약 완료"></td> -->		     
-                            	<td th:if="${info.reservation_status} == '예약완료' and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button th:onclick="getNo([[${info.reservation_no}]]);" type="button" class="reserInfoBtn" id="cancel">예약 취소</button></td>
-                            	<td th:unless="${info.reservation_status} == '예약완료' and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button class="reserInfoBtn" id="complete" th:onclick="|location.href='@{/review/insert(resNo=${info.reservation_no},tname=${info.tname})}'|">리뷰 쓰기</button></td>		          
+                            			     and ${info.reservation_time} > ${#calendars.format(#calendars.createNow(), 'HH:mm')}"><button class="reserInfoBtn" id="complete" th:onclick="|location.href='@{/review/insert(resNo=${info.reservation_no},tname=${info.tname})}'|">리뷰 쓰기</button></td>
                         	</tr>
                     	</tbody>
                 	</table>
                 <form id="reserSelect">
-                 <input type="hidden" id="reservation_no">
+                 <input type="hidden" id="reservation_no" value="">
                	</form>
              
             </div>
@@ -229,18 +131,17 @@
 
 /* 예약 취소 button 클릭 시 비동기처리 */
 
-	function getNo(reserNo){
-		let reser = reserNo;
-		document.getElementById("reservation_no").value = reser;
-		console.log(reser);
+	 function getNo(reserNo){
+		let reservation_no = reserNo;
+		document.getElementById("reservation_no").value = reservation_no;
+		
 	}
  
  
- $(function(){
-	$("#cancel").on('click', function() {
+ $(document).ready(function(){
+	$("button[id='cancel']").click(function() {
 			
-	    let reservation_no = $('#reserSelect input[id=reservation_no]').val();
-	    console.log(reservation_no);
+	 let reservation_no = $('#reserSelect input[id=reservation_no]').val();
 	 
 	 if(confirm("해당 예약을 취소하시겠습니까?")){
 
