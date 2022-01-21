@@ -11,8 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.kh.project.configuration.auth.CunstomAuthFailureHandler;
 import com.kh.project.member.model.service.MemberService;
 
 
@@ -20,6 +22,9 @@ import com.kh.project.member.model.service.MemberService;
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	private MemberService memberService;
+	/* 로그인 실패 핸들러 의존성 주입 */
+	private AuthenticationFailureHandler customFailurHandler;
+
 	
 	@Autowired  
 	public SpringSecurityConfiguration(MemberService memberService) {
@@ -53,14 +58,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			/* .csrf().disable() */
 			/* 요청에 대한 권한 체크 */
 			.authorizeRequests()
-				/* 요청 보안 수준의 세부적인 설정 */
-				/* "/menu/**" 요청은 인증이 되어야 함을 명시 */
-//				.antMatchers("/menu/**").authenticated()  //로그인 한 사람만 ()요청 수행가능
-//				/* 더 상세하게 "/menu/**"의 get 요청은 ROLE_MEMBER 권한을 가진 사람에게만 허용 */
-//				/* hasRole 안의 값 앞에는 자동으로 ROLE_가 붙음 */
-//				.antMatchers(HttpMethod.GET, "/menu/**").hasRole("MEMBER")
-//				/* "/menu/**"의 POST 요청은 ROLE_ADMIN 권한을 가진 사람에게만 허용 */
-//				.antMatchers(HttpMethod.POST, "/menu/**").hasRole("ADMIN")
 				/* ROLE_SUB_ADMIN 권한을 가진 서브관리자 */
 				.antMatchers("/admin").hasRole("SUB_ADMIN")   
 				.antMatchers("/admin/dashboard").hasRole("SUB_ADMIN")    
@@ -100,6 +97,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.loginPage("/member/login")
 				/* 로그인 성공 시 랜딩 페이지 설정 */
 				.successForwardUrl("/")
+				/* 로그인 실패 시 핸들러 */
+				.failureHandler(failureHandler())
+				.usernameParameter("username")
+				.passwordParameter("password")
 			.and()
 				/* 로그아웃 설정 */
 				.logout()
@@ -112,7 +113,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				/* 로그아웃 성공 시 랜딩 페이지 */
 				.logoutSuccessUrl("/")
 			.and()
-				/* exception 발생했을 때 설정? */
+				/* exception 발생했을 때 설정 */
 				.exceptionHandling()
 				/* 인가 되지 않았을 때 - 권한이 없을 때 이동할 페이지 */
 				.accessDeniedPage("/common/denied");
@@ -120,7 +121,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 	}
 	
-	@Override    //AuthenticationManagerBuilder 로그인 됐나 관리 할때  passwordEncoder() 인코더 사용할 것.
+	@Override   
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		/* 로그인, 로그아웃은 MemberController에 작성하지 않고 스프링 시큐리티 모듈을 통해 처리 */
 		/* 유저 인증을 위해 사용할 MemberService 등록, 사용하는 패스워드 인코딩 방식 설정 */
@@ -128,8 +129,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	
-	
-	
+	 @Bean
+	    public AuthenticationFailureHandler failureHandler() {
+	        return new CunstomAuthFailureHandler();
+	    }
 	
 	
 	
