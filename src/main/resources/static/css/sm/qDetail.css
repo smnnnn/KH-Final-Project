@@ -38,7 +38,7 @@
             height: 28px;
             border: none;
             position: relative;
-            left: 40%;
+            /*left: 40%;*/
             border-radius: 4px;
             margin: 5px;
         }
@@ -219,3 +219,24 @@
         	white-space: -o-pre-wrap;
         	word-break:break-all;
         }
+        
+        .byte {
+        	position:relative;
+        	width:200px;
+        	left:700px;
+        	bottom:68px;
+
+        }
+        
+        #byteInfo {
+       	 	color : #85B1D6;
+       	 	font-size:0.8rem;
+       	 	
+        }
+        
+        #byte {
+        	color : #85B1D6;
+        	font-size:0.8rem;
+        }
+        
+        

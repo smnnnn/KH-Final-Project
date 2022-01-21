@@ -24,6 +24,7 @@
  <style>
  	.buttons {
  		margin:30px;
+ 		text-align:center;
  	}
  </style>
 </head>
@@ -106,8 +107,9 @@
  				<th:block sec:authorize="hasRole('ADMIN')">
  				<th:block th:unless="${board.answer} != null">
  				<div class="addreplyBox" id="addreplyBox">
-                    <textarea id="replyArea" name="aContent"></textarea>
+                    <textarea id="replyArea" name="aContent" onKeyUp="javascript:fnChkByte(this,'2800')"></textarea>
                     <button class="bigBtn" onclick="addReply();">답변등록</button>
+                    <div class="byte"><span id="byteInfo">0</span><span id="byte"> / 2800bytes</span></div>
                 </div>              
  				</th:block>
  				</th:block>
@@ -183,6 +185,47 @@
 		    });
 		});
 		
+		/* 답변 글자수 체크 */
+		function fnChkByte(obj, maxByte)
+		{
+		    let str = obj.value;
+		    let str_len = str.length;
+		
+		
+		    let rbyte = 0;
+		    let rlen = 0;
+		    let one_char = "";
+		    let str2 = "";
+		
+		
+		    for(let i=0; i<str_len; i++)
+		    {
+		        one_char = str.charAt(i);
+		        if(escape(one_char).length > 4) {
+		            rbyte += 2;                //한글2Byte
+		        }else{
+		            rbyte++;                   //영문 등 나머지 1Byte
+		        }
+		        if(rbyte <= maxByte){
+		            rlen = i+1;                //return할 문자열 갯수
+		        }
+		     }
+		     if(rbyte > maxByte)
+		     {
+		        // alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
+		        alert("답변은 최대 " + maxByte + "byte를 초과할 수 없습니다.")
+		        str2 = str.substr(0,rlen);     //문자열 자르기
+		        obj.value = str2;
+		        fnChkByte(obj, maxByte);
+		     }
+		     else
+		     {
+		        document.getElementById('byteInfo').innerText = rbyte;
+		     }
+		}
+		
+		
+		
 		/* 답변 등록 */
 		function addReply() {
 			qno = '[[${board.qno}]]';
@@ -225,7 +268,7 @@
 			let text = acontent.innerText;
 			const div = document.getElementById('ifadd');
 			div.innerHTML =
-				'<div class="addreplyBox" id="addreplyBox"><textarea id="replyArea" name="aContent">' + text + '</textarea><button class="bigBtn" onclick="updateReply();">답변수정</button></div>';
+				'<div class="addreplyBox" id="addreplyBox"><textarea id="replyArea" name="aContent" onKeyUp="javascript:fnChkByte(this,`2800`)">' + text + '</textarea><button class="bigBtn" onclick="updateReply();">답변수정</button></div><div class="byte"><span id="byteInfo">0</span><span id="byte"> / 2800bytes</span></div>';
 			
 		
 		}
@@ -292,6 +335,9 @@
 				}
 			});
 		}
+		
+		
+
 	</script>
 	
 	
