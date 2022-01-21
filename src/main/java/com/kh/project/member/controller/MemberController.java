@@ -1,6 +1,8 @@
 package com.kh.project.member.controller;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.project.member.model.service.MemberService;
 import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.member.model.vo.Member;
+import com.kh.project.member.model.vo.ReservationSelect;
 import com.kh.project.member.model.vo.UserImpl;
 import com.kh.project.member.model.vo.WithdrawalReason;
 import com.kh.project.reservation.model.vo.ReservationInfo;
@@ -149,9 +152,37 @@ public class MemberController {
 		
 		String id = principal.getName();
 		
-		List<ReservationInfo> ReserInfo = memberService.reservationList(id);
 		
-		mv.addObject("ReserInfo", ReserInfo);
+		/* 조회해온 예약 내역 리스트 중 에약일이 오늘 날짜 이전인 경우 status 값을 update */
+		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		
+		String today = sdformat.format(now);
+		
+		List<ReservationSelect> ReserInfo = memberService.reservationList(id);
+		
+		for(ReservationSelect reser : ReserInfo) {
+			if(reser.getReservation_status().equalsIgnoreCase("예약완료")) {
+				
+				Date reserD = reser.getReservation_date();
+				String reserDate = sdformat.format(reserD);
+				
+				/* 예약일이 오늘 이전이면 예약 상태를 "진료완료"로 변경 */
+				 if(today.compareTo(reserDate) > 0) {
+					 memberService.reservationUpdate(reser.getReservation_no());
+				 }
+				 
+			}
+		}
+		
+		List<ReservationSelect> afterReserInfo = memberService.afterReservationList(id);
+		
+		/*
+		 * log.info("예약 내역 : " + ReserInfo); 
+		 * log.info("업뎃 후 예약 내역 : " + afterReserInfo);
+		 */
+		
+		mv.addObject("afterReserInfo", afterReserInfo);
 		mv.setViewName("member/reservationConfirmation");
 		
 		return mv;

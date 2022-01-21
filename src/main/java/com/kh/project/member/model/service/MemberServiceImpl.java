@@ -18,6 +18,7 @@ import com.kh.project.member.model.vo.Authority;
 import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.MemberRole;
+import com.kh.project.member.model.vo.ReservationSelect;
 import com.kh.project.member.model.vo.UserImpl;
 import com.kh.project.member.model.vo.WithdrawalReason;
 import com.kh.project.reservation.model.vo.ReservationInfo;
@@ -188,16 +189,31 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public List<ReservationInfo> reservationList(String id) {
+	public List<ReservationSelect> reservationList(String id) {
 		return memberMapper.reservationList(id);
+	}
+	
+	
+	@Override
+	public int reservationUpdate(int reservation_no) {
+		return memberMapper.reservationUpdate(reservation_no);
 	}
 
 
+	@Override
+	public List<ReservationSelect> afterReservationList(String id) {
+		return memberMapper.afterReservationList(id);
+	}
+	
 
 	@Override
 	public int reservationCancel(int reservation_no) {
 		return memberMapper.reservationCancel(reservation_no);
 	}
+
+
+
+
 
 
 
