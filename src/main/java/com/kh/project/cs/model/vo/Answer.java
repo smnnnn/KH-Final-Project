@@ -9,14 +9,14 @@ import lombok.Data;
 @Data
 public class Answer {
 
-	private int ano; //
-	private String acontent; //
+	private int ano; 
+	private String acontent; 
 	@JsonFormat(pattern = "yyyy.MM.dd HH:mm")
 	private Date createDate;
 	@JsonFormat(pattern = "yyyy.MM.dd HH:mm")
 	private Date modifyDate;
 	private String status;
-	private int qno; //
+	private int qno; 
 	private int acount;
 	
 }
