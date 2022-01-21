@@ -43,8 +43,6 @@ public class QABoardController {
 
 	@RequestMapping("list")
 	public ModelAndView selectQAList(Search search, ModelAndView mv,HttpServletRequest request) {
-		/*HttpServletRequest 써서 가져오는 방법 말고 생각해보기 */
-		
 		
 		// 기본적으로 게시판은 1페이지부터 시작
 		int page = 1;
@@ -52,17 +50,7 @@ public class QABoardController {
 		// 하지만 페이지 전환 시 전달 받은 현재 페이지가 있을 경우 해당 페이지를 page로 적용
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
-		}
-				
-		// 검색 관련 파라미터 추출
-//		String searchCondition = request.getParameter("searchCondition"); //검색조건(선택 카테고리)
-//		String searchValue = request.getParameter("searchValue"); //검색어
-		
-		//page랑 검색조건 전달
-//		List<QABoard> qaBoardList = qaBoardService.selectQAList(page, new Search(searchCondition, searchValue)); 
-//		mv.addObject("qaBoardList", qaBoardList);
-//		mv.setViewName("qaBoard/list");
-		
+		}	
 		
 		// 페이징과 관련 된 데이터, 조회 된 boardList를 map에 담아 리턴
 		Map<String, Object> map 
@@ -85,16 +73,18 @@ public class QABoardController {
 	public String selectQA(@RequestParam("qno") int QNo, Model model, @AuthenticationPrincipal UserImpl user, 
 			RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) {
 		
-		QABoard board = qaBoardService.selectQA(QNo);
 		
 		/* board의 userId와 로그인 user ID 비교해서 일치해야 비밀글 확인 가능(총관리자 계정 제외) */
+		
+		QABoard board = qaBoardService.selectQA(QNo);
+		
 		if(user != null) {
 			
-			// 로그인 유저 권한 조회해오기
+			// 일단 로그인 유저의 권한 조회해오기
 			int result = qaBoardService.selectAdminById(user.getUsername());
 			log.info("result : {}", result);
 			
-			// 총관리자가 가진 권한은 3, 총관리자면 모든 게시글 조회
+			// 총관리자가 가진 권한은 3, 총관리자면 모든 게시글 조회 가능
 			if(result == 3) {
 				/* cookie 활용한 조회수 무한 증가 방지 처리 */
 				Cookie[] cookies = request.getCookies();
@@ -139,26 +129,16 @@ public class QABoardController {
 				
 				return "cs/qDetail"; 
 			
-			// 나머지는 비밀글이 N일때나 자기가 작성한 글일때만 조회 가능
+				
+			// 비밀글일 경우 문의글 작성자와 로그인 유저 아이디가 일치하지 않는 경우 비밀글입니다 알리고 목록으로 redirect
 			}else if(board.getSecretStatus().equals("Y") && !board.getUserId().equals(user.getUsername())) {
 				rttr.addFlashAttribute("msg", "비밀글입니다");
 				return "redirect:/qaBoard/list";
 			}
 			
-			
-			/*if(!user.getUsername().equals("admin001")) {
-				
-				log.info("board.getUserId() : " + board.getUserId());
-				log.info("user.getUsername() : " + user.getUsername());
-				
-				if(board.getSecretStatus().equals("Y") && !board.getUserId().equals(user.getUsername())) {
-					rttr.addFlashAttribute("msg", "비밀글입니다");
-					
-					return "redirect:/qaBoard/list";
-				}
-			}*/
 		}
-		//int qNo = Integer.parseInt(request.getParameter("QNo")); // ?
+		
+		/* 비밀글 아닐 경우 다른 member는 조회 가능 */
 		
 		/* cookie 활용한 조회수 무한 증가 방지 처리 */
 		Cookie[] cookies = request.getCookies();
@@ -210,13 +190,10 @@ public class QABoardController {
 	public String insertPage() {
 		return "cs/questionPage";
 	}
+	
 	/* 인가 받아야만 접근 가능 */
 	@PostMapping("insert")
 	public String insertQA(QABoard qaBoard, @AuthenticationPrincipal UserImpl user) {
-		
-		/* 로그인 기능 완성 전 테스트 */
-		/*int userNo = 1;
-		qaBoard.setUserNo(userNo);*/
 		
 		if(user != null) {
 			qaBoard.setUserNo(user.getNo());
@@ -299,14 +276,6 @@ public class QABoardController {
 		return answer;
 	}
 	
-//	@ResponseBody
-//	@GetMapping("/updateReply/{qno}")
-//	public Answer updateAnswerView(@PathVariable int qno) {
-//		
-//		Answer answer = qaBoardService.selectReply(qno);
-//		
-//		return answer;
-//	}
 	
 	/* 관리자만 접근 가능(비동기) */
 	@ResponseBody
@@ -318,6 +287,7 @@ public class QABoardController {
 		
 		return updateAnswer;
 	}
+	
 	/* 관리자만 접근 가능(비동기) */
 	@ResponseBody
 	@DeleteMapping("/deleteReply/{qno}")
