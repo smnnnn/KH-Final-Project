@@ -1,35 +1,15 @@
-// 입력 값 정규식
+/*입력 값 정규식*/
 function check(regExp, input, msg){
-    // 정규 표현식을 만족할 경우 true 리턴
+    /*정규 표현식을 만족할 경우 true */
     if(regExp.test(input.value)) return true;
-    // 정규 표현식 불만족할 경우 false 리턴 
+    /*불만족할 경우 false 리턴*/
     alert(msg);
-    input.value = '';  // 값 비우고
-    input.focus();  // 포커스 들어가게
+    input.value = '';
+    input.focus();
     return false;
 
 }
 
-// 예약 동물 정보 입력 폼
-function reservation(){
-    //let name = document.getElementById('dog_name');
-    //let breed = document.getElementById('dog_breed');
-    //let gender = document.getElementById('box_select');
-    let age = document.getElementById('dog_age');
-    //let request = document.getElementById('request');
-    //let agree = document.getElementById('agree_chk');
-//_disabled
-    //console.log(name.value);
-    //console.log(breed.value);
-    //console.log(age.value);
-    //console.log(request.value);
-    //console.log(agree.value);
-
-    if(!check(/^[0-9]{1,3}$/, age, "나이는 숫자로만 입력할 수 있습니다.")){
-        return false;
-    }
-
-}
 
 function doctor_insert(){
     let name = document.getElementById('input_name');
@@ -82,13 +62,6 @@ function doctor_modify(){
 	}
 
 	
-	/*console.log(vno);
-	console.log(vname);
-	console.log(tno);
-	console.log(tname);
-	console.log(reser_date);
-	console.log(time);
-	*/
 	$('input[name=vno]').attr('value', vno);
 	$('input[name=vname]').attr('value', vname);
 	$('input[name=tno]').attr('value', tno);

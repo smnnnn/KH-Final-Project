@@ -319,21 +319,43 @@
 
 	<!-- 예약 조회 -->
 	<select id="reservationList" resultMap="reservatinoInfoResultMap">
-	SELECT
-		   a.RESERVATION_NO
-		 , a.RESERVATION_DATE
-		 , a.RESERVATION_TIME
-		 , b.VNAME
-		 , c.TNAME
-	  FROM RESERVATION_INFORMATION a
-      INNER JOIN VETERINARIAN b ON(a.VNO = b.VNO)
-      INNER JOIN TREATMENT_TYPE c ON(a.TNO = c.TNO)
-      INNER JOIN MEMBER d ON(a.USER_NO = d.USER_NO)
-      WHERE d.user_id = #{id}
-        AND a.RESERVATION_STATUS = '예약완료'
-      ORDER BY a.RESERVATION_NO
+		SELECT
+		     a.RESERVATION_NO
+		   , a.RESERVATION_DATE
+		   , a.RESERVATION_STATUS
+	    FROM RESERVATION_INFORMATION a
+       INNER JOIN MEMBER b ON(a.USER_NO = b.USER_NO)
+       WHERE b.user_id = #{id}
+       ORDER BY a.RESERVATION_DATE, a.RESERVATION_TIME
 	</select>
 	
+	<!-- 진료 예약일 < 오늘일 때 예약 상태 update -->
+	<update id="reservationUpdate" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">		
+		UPDATE RESERVATION_INFORMATION
+   		   SET 
+         	   RESERVATION_STATUS = '진료완료'
+   		 WHERE RESERVATION_NO = #{ reservation_no }		
+	</update>
+	
+	<!-- 예약 상태 업데이트 후 예약 조회 -->
+	<select id="afterReservationList" resultMap="reservatinoInfoResultMap">
+		SELECT
+		     a.RESERVATION_NO
+		   , a.RESERVATION_DATE
+		   , a.RESERVATION_TIME
+		   , a.RESERVATION_STATUS
+		   , b.VNAME
+		   , c.TNAME
+	    FROM RESERVATION_INFORMATION a
+       INNER JOIN VETERINARIAN b ON(a.VNO = b.VNO)
+       INNER JOIN TREATMENT_TYPE c ON(a.TNO = c.TNO)
+       INNER JOIN MEMBER d ON(a.USER_NO = d.USER_NO)
+       WHERE d.user_id = #{id}
+         AND a.RESERVATION_STATUS != '예약취소'
+       ORDER BY a.RESERVATION_DATE, a.RESERVATION_TIME
+	</select>
+	
+	<!-- 예약 취소 -->
 	<update id="reservationCancel" parameterType="com.kh.project.member.model.vo.ReservationSelect">
 		UPDATE RESERVATION_INFORMATION
 		   SET RESERVATION_STATUS = '예약취소'

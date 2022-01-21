@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.kh.project.member.model.vo.DogInformation;
 import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.MemberRole;
+import com.kh.project.member.model.vo.ReservationSelect;
 import com.kh.project.member.model.vo.WithdrawalReason;
 import com.kh.project.reservation.model.vo.ReservationInfo;
 
@@ -44,9 +45,15 @@ public interface MemberMapper {
 
 	void updateInsertDogInformaion(DogInformation dogInformation);
 
-	List<ReservationInfo> reservationList(String id);
+	List<ReservationSelect> reservationList(String id);
 
+	int reservationUpdate(int reservation_no);
+
+	List<ReservationSelect> afterReservationList(String id);
+	
 	int reservationCancel(int reservation_no);
+
+
 
 	
 	
