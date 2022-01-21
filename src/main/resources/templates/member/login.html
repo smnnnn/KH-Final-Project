@@ -18,6 +18,8 @@
     <link type="text/css" rel="stylesheet" href="/css/member/login.css">
 
 <title>다나은 동물병원</title>
+
+
 </head>
     <body>
     <div th:replace="fragments/header.html"></div>
@@ -30,10 +32,11 @@
             
     
                <label class="label">로그인</label><br><br>
-               <label class="etc">다나은 동물병원의 회원이 되시면 다양한 정보를 이용하실 수 있습니다</label><br><br><br><br><br><br>
+               <label class="etc">다나은 동물병원의 회원이 되시면 다양한 정보를 이용하실 수 있습니다</label><br><br><br><br>
 
-			<form th:action="@{/member/login}" method="post"> 
-               <input class ="login all" type="text" name="username" size="20" maxlength="10" placeholder="아이디를 입력하세요"><br>
+			<form th:action="@{/member/login}" method="post"> 		
+				<!-- <label th:if="${error}=='true'" th:text="${exception}" class="invalid"></label><br><br> -->
+               <input class ="login all" type="text" name="username" size="20" maxlength="10" placeholder="아이디를 입력하세요"><br><!-- 나중에 해볼 때는 리다이렉트 풀고 모델에 넣고 th:value="${username}" -->
     
                <input class ="pwd all" type="password" name="password" minlength="8" maxlength="15" placeholder="비밀번호를 입력하세요"><br><br><br>             
 
