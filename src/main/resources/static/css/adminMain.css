@@ -72,7 +72,7 @@ html, body{
     display:block;
 }
 /* 메인 메뉴바 */
-.logo-area > img{
+.logo-area > a > img{
     width: 200px;
     height: 100px;
     padding: 20px;
