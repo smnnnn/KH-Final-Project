@@ -235,6 +235,7 @@
 	<update id="updateaccSecssionYn" parameterType="com.kh.project.member.model.vo.Member">
 		UPDATE MEMBER
 		SET ACC_SECESSION_YN = 'Y'
+		, ACC_SECESSION_DATETIME = SYSDATE	
 		WHERE USER_NO = #{no}
 	</update>
 	
