@@ -14,7 +14,9 @@
     <link type="text/css" rel="stylesheet" href="/css/adminMain.css">
     <!-- 자바스크립트 -->
     <script type="text/javascript" src="/js/common.js"></script> 
-    <script type="text/javascript" src="/js/nh.js"></script> 
+
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 
     <title>다나은 관리자|마이페이지</title>
 </head>	
@@ -24,6 +26,8 @@
             <div class="admincontent-main">
                 <h3 class="pagetitle">관리자 계정 관리</h3>
                 <form th:action="@{/admin/account/mypageModify}" method="post" class="formstyle" name="adminModify">
+<!--                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> -->
+
                     <div class="content-wrap">
                         <div class="text-area">
                             <h4>아이디</h4>

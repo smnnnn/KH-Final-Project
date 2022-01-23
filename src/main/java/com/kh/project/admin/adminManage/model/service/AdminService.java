@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.project.admin.adminManage.model.vo.DashBoard;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
 import com.kh.project.admin.visit.model.vo.VisitCount;
+import com.kh.project.member.model.vo.Member;
 
 public interface AdminService {
 
@@ -21,7 +22,7 @@ public interface AdminService {
 
 	int registAdmin(MemberInfo admin);
 
-	int modifyAdminInfo(MemberInfo changeInfo);
+	Member modifyAdminInfo(MemberInfo changeInfo);
 
 	DashBoard dashBoard();
 
