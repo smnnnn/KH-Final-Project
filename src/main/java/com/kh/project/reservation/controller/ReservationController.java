@@ -107,10 +107,16 @@ public class ReservationController {
 		 * dog info input 테이블도 입력받은 정보로 insert 
 		 */
 		
-		String id = principal.getName();
-		reservationService.registReservation(reservationInfo, id);
+		log.info(reservationInfo.getDog_no() + "");
 		
-		reservationService.registDog(dogInfo);
+		String id = principal.getName();
+		
+		if(reservationInfo.getDog_no() == 0){
+			reservationService.registReservation(reservationInfo, id);
+			reservationService.registDog(dogInfo);
+		} else {
+			reservationService.registReser(reservationInfo, id);
+		}
 		
 		rttr.addFlashAttribute("successMessage", "진료 예약이 완료되었습니다.");
 		return "redirect:/main";

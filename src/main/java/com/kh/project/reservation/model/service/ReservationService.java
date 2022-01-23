@@ -22,5 +22,7 @@ public interface ReservationService {
 
 	List<DogInformation> selectDogInfo(String id);
 
+	int registReser(ReservationInfo reservationInfo, String id);
+
 	
 }
