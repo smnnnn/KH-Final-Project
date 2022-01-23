@@ -15,8 +15,7 @@
 		<result property="categoryName" column="CATEGORY_NAME"/>
 		<result property="userNo" column="USER_NO"/>
 		<result property="categoryNo" column="CATEGORY_NO"/>
-		<result property="userId" column="USER_ID"/>
-		
+		<result property="userId" column="USER_ID"/>	
 		<association property="answer" resultMap="answerResultMap"/>
 	</resultMap>
 	
@@ -27,11 +26,10 @@
 		<result property="modifyDate" column="A_MODIFY_DATE"/>		
 		<result property="status" column="STATUS"/>
 		<result property="qno" column="Q_NO"/>
-		<result property="acount" column="ACOUNT"/>
+		<result property="acount" column="ACOUNT"/> <!-- 답변여부 -->
 	</resultMap>
 	
 	<select id="getListCount" parameterType="com.kh.project.cs.model.vo.Search" resultType="Integer">
-	<!-- resultType int 맞나? 검색어 넘어올 경우 동적쿼리 추가 -->
 			SELECT
 			   COUNT(*)
 	      FROM QUESTION Q
@@ -54,7 +52,7 @@
 	</select>
 	
 	<select id="selectQAList" parameterType="map" resultMap="qaBoardResultMap">
-	<!-- 검색어 넘어올 경우 동적쿼리, 파라미터 타입 pi도 추가해야되는데 두개일경우 어떡하지? 맵으로 받아오기-->	
+	<!-- 검색어 넘어올 경우 동적쿼리, 파라미터 타입 두개일경우 맵으로 받아오기-->	
 		  
           SELECT *
 	FROM (SELECT ROWNUM RNUM, A.*
@@ -76,7 +74,6 @@
 		  	  FROM QUESTION Q
 		   	  JOIN CATEGORY USING(CATEGORY_NO)
 		   	  JOIN MEMBER USING(USER_NO)
-		   	 -- LEFT JOIN ANSWER A USING(Q_NO)
 		 	 WHERE Q.STATUS = 'N'
 		 	
 			 <if test="searchCondition != null and searchValue != null">
@@ -93,7 +90,7 @@
 		     	</choose>
 		     </if>
 		 	 ORDER BY Q_NO DESC) A)
-  WHERE RNUM BETWEEN #{ startRow } AND #{ endRow }	<!-- ?부분 pi에서 가져온 스타트로우랑 엔드로우로 수정 -->  
+  WHERE RNUM BETWEEN #{ startRow } AND #{ endRow }	
 	</select>
 	
 	

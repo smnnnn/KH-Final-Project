@@ -70,16 +70,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public Review selectReview(int rvno) {
-
-	/*	Review review = reviewMapper.selectReview(rvno);
-		
-		ReviewUpload reviewUpload;
-		
-		reviewUpload = reviewMapper.selectThumbnail(rvno);
-
-		review.setThumbnail(reviewUpload);*/
-		
-		// thumbnail 없다고 null뜨는데
 		
 		return reviewMapper.selectReview(rvno);
 	}
@@ -99,8 +89,6 @@ public class ReviewServiceImpl implements ReviewService {
 		int reviewResult = reviewMapper.deleteReview(rvno);
 		
 		int thumbResult = reviewMapper.deleteThumbnail(rvno);
-		
-		/* 하는중 */
 		
 		if(reviewResult > 0 && thumbResult > 0) {
 			

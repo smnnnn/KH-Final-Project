@@ -38,7 +38,6 @@ public class QABoardServiceImpl implements QABoardService {
 
 	@Override
 	public Map<String, Object> selectQAList(int page, Search search) {
-//		public List<QABoard> selectQAList(int page, Search search) {
 
 		// 게시글 총 개수 구하기
 		int listCount = boardMapper.getListCount(search);
@@ -55,15 +54,11 @@ public class QABoardServiceImpl implements QABoardService {
 		// 페이징 처리된 게시글 목록 조회
 		List<QABoard> boardList = boardMapper.selectQAList(startRow, endRow, searchCondition, searchValue);
 
-		// 페이징 처리된 게시글 목록 조회
-//		List<QABoard> boardList = boardMapper.selectQAList(pi, search);
 		
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("pi", pi);
 		returnMap.put("boardList", boardList);
 		
-		//페이지 인포
-//		return boardMapper.selectQAList(pi, search); 
 		return returnMap;
 	}
 

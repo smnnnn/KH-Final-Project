@@ -54,9 +54,7 @@
                         slidesToScroll: 1
                     }
                     }
-                    // You can unslick at a given breakpoint now by adding:
-                    // settings: "unslick"
-                    // instead of a settings object
+
                 ]
              });
         });
@@ -93,29 +91,30 @@
                <div class="reviewSlide">  
 
                    <div class="contentBox" th:each="review : ${reviewList}">
-                       <div class="item">
-                       
-                       <div class="crop" th:if="${review.thumbnail.changedName != null and review.thumbnail.status.toString().equals('N')}"><img class="uploadImg" th:src="${review.thumbnail.filePath}+${review.thumbnail.changedName}"></div>
-                       <div class="thumnail" th:unless="${review.thumbnail.changedName != null and review.thumbnail.status.toString().equals('N')}"></div>
+                       <div class="item">                      
+	                       <div class="crop" th:if="${review.thumbnail.changedName != null and review.thumbnail.status.toString().equals('N')}">
+	                       		<img class="uploadImg" th:src="${review.thumbnail.filePath}+${review.thumbnail.changedName}">
+	                       </div>
+	                       <div class="thumnail" th:unless="${review.thumbnail.changedName != null and review.thumbnail.status.toString().equals('N')}"></div>
                        </div>
                        <div class="item reviewTitle">
-                           <a href="#">
+                           <a th:href="@{/review(rvno=${review.rvno})}">
                                [<span th:text="${review.tname}">진료과목</span>][[${review.rvtitle}]]
                            </a>
                         </div>
                        <div class="item reviewContent">
-                       <th:block th:if="${review.modifyDate} != null">
-                       	[[${#dates.format(review.modifyDate, 'yyyy.MM.dd')}]]
-                       </th:block>
-                       <th:block th:unless="${review.modifyDate} != null">
-                       	[[${#dates.format(review.createDate, 'yyyy.MM.dd')}]]
-                       </th:block>
+	                       <th:block th:if="${review.modifyDate} != null">
+	                       	[[${#dates.format(review.modifyDate, 'yyyy.MM.dd')}]]
+	                       </th:block>
+	                       <th:block th:unless="${review.modifyDate} != null">
+	                       	[[${#dates.format(review.createDate, 'yyyy.MM.dd')}]]
+	                       </th:block>
                        </div>
                        <div class="item reviewContent minHeight contentHtml"  id="contentHtml">
-                            <a href="#" th:utext="${review.rvcontent}"> <!-- th:utext는 html 태그 이스케이프 처리 안함 -->
+                            <p th:utext="${review.rvcontent}"> <!-- th:utext는 html 태그 이스케이프 처리 안함 -->
                             	
                                 우리집 래브라도 리트리버 맥스가 신나게 뛰어놀다가 그만 다리를 다쳤는데 엑스레이를 찍어보니 십자인대 파열이라지 뭐에요 수술을 해야한다고...
-                            </a>                       
+                            </p>                       
                        </div>
                        <div class="item goDetail"><a class="bgblue" th:href="@{/review(rvno=${review.rvno})}">자세히보기<img id="arrow" src="/images/sm/arrow.png"></a></div>
                    </div>
@@ -134,7 +133,7 @@
 	            <div class="quick-menu">
 	                <ul>
 	                    <li>
-	                    	<!-- 로그인 안했을시 로그인 페이지로 이동 변경하기 -->
+	                    	<!-- 로그인 안했을시 로그인 페이지로 이동(권한처리 따로함) -->
 	                        <a th:href="@{/qaBoard/insert}">
 	                            <img src="/images/common/inquiry.png">
 	                            <p>문의하기</p>
@@ -167,7 +166,7 @@
 	<script>
 	
 	const extractTextPattern = /(<([^>]+)>)/gi;
-	
+
 	let targets = document.querySelectorAll(".contentHtml");
 	
 	for (let i = 0; i < targets.length; i++) {
@@ -175,9 +174,10 @@
 		  const item = targets.item(i);
 		  let src = item.innerHTML;
 		  let extractedText = src.replace(extractTextPattern, '');
-		  
+		  /*.replaceAll("\r|\n|&nbsp;","")*/
 		  let contentText;
-		  if(extractedText.length >= 106) {	  
+
+		  if(extractedText.trim().length >= 106) {	  
 			  contentText = extractedText.substr(0, 106) +"...";
 		  } else {
 			  contentText = extractedText;

@@ -1,7 +1,6 @@
 package com.kh.project.review.model.vo;
 
 import java.util.Date;
-import java.util.List;
 
 import lombok.Data;
 

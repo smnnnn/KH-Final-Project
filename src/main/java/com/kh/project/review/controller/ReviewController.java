@@ -2,19 +2,17 @@ package com.kh.project.review.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,24 +51,12 @@ public class ReviewController {
 	
 	
 	@GetMapping("")
-	public String selectReview(@RequestParam("rvno") int rvno, Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String selectReview(@RequestParam("rvno") int rvno, Model model, @CookieValue(value="rvhit", required=false) String rvhit, HttpServletResponse response) {
 		
 		/* cookie 활용한 조회수 무한 증가 방지 처리 */
-		Cookie[] cookies = request.getCookies();
 		
-		String rvhit = "";
-		
-		if(cookies != null && cookies.length > 0) {
-			for(Cookie c : cookies) {
-				/* 읽은 게시물 rvno를 저장해두는 쿠키의 이름 rvhit이 있는지 확인*/
-				if(c.getName().equals("rvhit")) {
-					rvhit = c.getValue();
-				}
-			}
-		}
-		
-		// 처음 읽는 게시글일 경우
 		// Ex. "|1||22||100|" 와 같은 rvhit cookie의 value 값에서 indexOf로 해당 문자열 찾기
+		// 처음 읽는 게시글일 경우 없으므로 -1
 		if(rvhit.indexOf("|" + rvno + "|") == -1) {
 			// 기본 rvhit 값에 지금 요청한 rvno 값 추가하여 새로운 쿠키 생성
 			Cookie newRvhit = new Cookie("rvhit", rvhit + "|" + rvno + "|");
@@ -107,6 +93,7 @@ public class ReviewController {
 		
 		model.addAttribute("tname",tname);
 		model.addAttribute("resNo", resNo);
+		
 		return "review/addReviewPage";
 	}
 	
@@ -194,9 +181,7 @@ public class ReviewController {
 			String root = request.getSession().getServletContext().getRealPath("/");
 			File deletedPhoto = new File(root + deletedUpload.getFilePath() + deletedUpload.getChangedName());
 			deletedPhoto.delete();
-		} else {
-			/*에러 메세지*/
-		}
+		} 
 		
 		return "redirect:/review/list";
 	}

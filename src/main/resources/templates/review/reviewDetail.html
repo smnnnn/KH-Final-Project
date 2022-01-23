@@ -67,13 +67,6 @@
             opacity: 30%;
         }
 
-        /* .footer{
-            width: 100%;
-            height: 115px;
-            background-color: rgba(240, 239, 225, 1);
-            position: absolute;
-
-        } */
 
         .board_wrap {
             width: 900px;
@@ -89,8 +82,6 @@
             border-radius: 10px;
             font-size: 0.9rem;
             margin-top:15px;
-            /* padding-top: 35px;
-            padding-bottom: 35px; */
         }
 
         .name,.date{
@@ -142,7 +133,6 @@
         }
 
         .resInfo {
-
             margin-left: 65%;
   
         }
@@ -161,22 +151,15 @@
         .thumbnailArea {
             width: 832px;
             height: 640px;
-           /* margin-left: 68px;
-            margin-top: 60px;
-            margin-bottom: 65px;*/
             margin-top:20px;
-            margin-bottom:35px;
-            /*margin-left:9px;*/
-          
-       
+            margin-bottom:35px;      
             overflow: hidden;
         }
         
         .contentArea {
-        	margin-bottom:20px;
-     
-        	
+        	margin-bottom:20px;          	
         }
+        
     </style>
 </head>
 <body>
@@ -208,13 +191,8 @@
                 <th:block th:unless="${review.thumbnail.changedName != null and review.thumbnail.toString().equals('N')}">
                 </th:block>
                     <div class="contentArea" th:utext="${review.rvcontent}"></div>
-
                 </div>
-                <!-- <div class="replyBox">
-                    <span class="bold"><img class="replyIcon" src="../resources/images/sm/rep.png">답변</span>
-                    <span>안녕하세요. 고객님 예약 번호 조회 결과 17일 오후 두시 예약하신걸로 나옵니다.  20일 이후로 시간 관계없이 변경 가능합니다. 변경 원하시는 날짜와 시간이 있으시면 남겨주세요.</span>
-                    <span class="bold">2021.12.09</span>
-                </div> -->
+
                 <div class="btnArea">
                     <button class="btn" id="gotoList" onclick="location.href='/review/list'">목록으로</button>
                     <!-- 작성자만 보이게 -->
