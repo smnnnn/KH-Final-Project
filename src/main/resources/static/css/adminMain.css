@@ -563,7 +563,7 @@ tr.colored > td:last-child > a.deleteele:hover{
 	width: 600px !important;
 }
 .iptstyle2{
-	width: 300px !important;
+	width: 350px !important;
 }
 
 /* 의료 장비 목록 페이지 */
@@ -665,6 +665,8 @@ tr.colored > td:last-child > a.deleteele:hover{
 .text-area2 > p{
     width: 80px;
     margin-right: 20px;
+    color: #696969;
+
 }
 .text-area2 > input{
     width: 150px;
