@@ -18,6 +18,8 @@ import com.kh.project.admin.adminManage.model.dao.AdminMapper;
 import com.kh.project.admin.adminManage.model.vo.DashBoard;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
 import com.kh.project.admin.visit.model.vo.VisitCount;
+import com.kh.project.member.model.dao.MemberMapper;
+import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.MemberRole;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,10 +29,12 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminServiceImpl implements AdminService{
 	
 	private AdminMapper adminMapper;
+	private MemberMapper memberMapper;
 	
 	@Autowired
-	public AdminServiceImpl(AdminMapper adminMapper) {
+	public AdminServiceImpl(AdminMapper adminMapper, MemberMapper memberMapper) {
 		this.adminMapper = adminMapper;
+		this.memberMapper = memberMapper;
 	}
 
 	@Override
@@ -104,15 +108,17 @@ public class AdminServiceImpl implements AdminService{
 		return result > 0 && baseRole > 0 && role > 0 ? 1 : 0;
 	}
 
+	@Transactional
 	@Override
-	public int modifyAdminInfo(MemberInfo changeInfo) {
+	public Member modifyAdminInfo(MemberInfo changeInfo) {
 		/* BCryptPasswordEncoder 사용한 rawPassword -> encodePassword */
 		if(changeInfo.getPwd() != null) {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			changeInfo.setPwd(passwordEncoder.encode(changeInfo.getPwd()));  			
 		}
+		int result = adminMapper.modifyAdminInfo(changeInfo);
 		
-		return adminMapper.modifyAdminInfo(changeInfo);
+		return memberMapper.findMemberById(changeInfo.getId());
 	}
 
 	@Override

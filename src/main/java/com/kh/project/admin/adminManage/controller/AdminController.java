@@ -5,10 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +25,7 @@ import com.kh.project.admin.common.model.vo.Pagination;
 import com.kh.project.admin.common.model.vo.Search;
 import com.kh.project.admin.memberManage.model.vo.MemberInfo;
 import com.kh.project.admin.visit.model.vo.VisitCount;
+import com.kh.project.member.model.vo.Member;
 import com.kh.project.member.model.vo.UserImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -124,6 +125,7 @@ public class AdminController {
 	
 	@PostMapping("/account/mypageModify")
 	public String mypageModify(@AuthenticationPrincipal UserImpl user, MemberInfo admin, RedirectAttributes rttr) {
+		log.info("admin : {}, user : {}", admin, user);
 		MemberInfo changeInfo = new MemberInfo();
 		changeInfo.setId(user.getId());
 		if(!admin.getPwd().equals("")) changeInfo.setPwd(admin.getPwd());
@@ -131,18 +133,10 @@ public class AdminController {
 		if(!admin.getPhone().equals("")) changeInfo.setPhone(admin.getPhone());
 		if(!admin.getEmail().equals("")) changeInfo.setEmail(admin.getEmail());
 		
-		int result = adminService.modifyAdminInfo(changeInfo);
-		if(result > 0) {			
-			/* 변경된 세션 등록 - 로그아웃처리됨.. */ 
-			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())); 
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			
-			rttr.addFlashAttribute("adminMessage", "정보 수정에 성공하였습니다.");	
-			
-		} else {
-			rttr.addFlashAttribute("adminMessage", "정보 수정에 실패하였습니다.");			
-		}
+		Member member = adminService.modifyAdminInfo(changeInfo);
 
+		user.setDetails(member);  // 로그인정보에 수정내용 적용시켜 재로그인방지
+		
 		return "redirect:/admin";
 	}
 	
