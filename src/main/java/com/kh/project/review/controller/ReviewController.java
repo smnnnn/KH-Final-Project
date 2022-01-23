@@ -54,7 +54,6 @@ public class ReviewController {
 	public String selectReview(@RequestParam("rvno") int rvno, Model model, @CookieValue(value="rvhit", required=false) String rvhit, HttpServletResponse response) {
 		
 		/* cookie 활용한 조회수 무한 증가 방지 처리 */
-
 		
 		// Ex. "|1||22||100|" 와 같은 rvhit cookie의 value 값에서 indexOf로 해당 문자열 찾기
 		// 처음 읽는 게시글일 경우 없으므로 -1
@@ -94,6 +93,7 @@ public class ReviewController {
 		
 		model.addAttribute("tname",tname);
 		model.addAttribute("resNo", resNo);
+		
 		return "review/addReviewPage";
 	}
 	
@@ -181,9 +181,7 @@ public class ReviewController {
 			String root = request.getSession().getServletContext().getRealPath("/");
 			File deletedPhoto = new File(root + deletedUpload.getFilePath() + deletedUpload.getChangedName());
 			deletedPhoto.delete();
-		} else {
-			/*에러 메세지*/
-		}
+		} 
 		
 		return "redirect:/review/list";
 	}

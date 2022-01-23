@@ -71,13 +71,6 @@
             opacity: 30%;
         }
 
-        /* .footer{
-            width: 100%;
-            height: 115px;
-            background-color: rgba(240, 239, 225, 1);
-            position: absolute;
-
-        } */
 
         .board_wrap {
             width: 900px;
@@ -88,8 +81,6 @@
         #category {
             width: 109px;
             height: 31px;
-            /* border:1px solid #85B1D6;
-            border-radius: 10px; */
             margin-bottom: 7px;
             margin-right: 5px;
             background-color: #F5F5F5;
@@ -100,8 +91,6 @@
         #titleArea {
             width: 760px;
             height: 29px;
-            /* border:1px solid #85B1D6;
-            border-radius: 10px; */
             padding-left: 10px;
             padding-right: 10px;
             border: 1px solid #C7C7C7;
@@ -136,8 +125,7 @@
             <form th:action="@{/review/insert}" name="boardForm" method="post" enctype="multipart/form-data" onsubmit="return formCheck(this)">
                 <input type="hidden" name="resNo" th:value="${resNo}"> 
                 <div class="qTitle">
-                    <select id="category" name="tno" disabled> <!-- 예약정보에서 넘어온 값으로 fix하기 -->
-                          
+                    <select id="category" name="tno" disabled>                        
                         <option value="1" th:selected="${tname}=='내과'">내과</option>
                         <option value="2" th:selected="${tname}=='외과'">외과</option>
                         <option value="3" th:selected="${tname}=='안과'">안과</option>
@@ -164,52 +152,7 @@
                           ['view', ['fullscreen', 'codeview', 'help']]
                         ]
                       });
-                      
- /*                     
-                  	$(function(){
-                		$('#summernote').summernote({       			
-                			
-                			callbacks: {
-                				onImageUpload: function(files, editor, welEditable) {
-                		            for (var i = files.length - 1; i >= 0; i--) {
-                		            	sendFile(files[i], this);
-                		            }
-                		        }
-                			}
-                			
-                		});
-
-                	})
-                	
-                	function sendFile(file, el) {
-                		var form_data = new FormData();
-                      	form_data.append('file', file);
-                      	$.ajax({
-                        	data: form_data,
-                        	type: "POST",
-                        	url: '/review/uploadImg',
-                        	cache: false,
-                        	contentType: false,
-                        	enctype: 'multipart/form-data',
-                        	processData: false,
-                        	success: function(img_name) {
-                          		$(el).summernote('editor.insertImage', img_name);
-                          		console.log(img_name);
-                        	}
-                      	});
-                    }
- */                     
- 
- 					/*function onlyText(){
-	 
-	 					let intro = document.getElementById("intro");
-	 					var plainText = $($("#summernote").summernote("code")).text();
-
-	 					intro.value = plainText;
- 					}*/
- 					
- 					
- 					
+                      					
  
                     </script>
 				<br>
@@ -232,6 +175,7 @@
 	<div th:replace="fragments/footer.html"></div>
 
 <script>
+
 	function formCheck(frm) {
 	
 		document.getElementById("category").removeAttribute("disabled");
@@ -247,6 +191,7 @@
 		}
 	
 	}
+	
 </script>
 
 

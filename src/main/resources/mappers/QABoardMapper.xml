@@ -74,7 +74,6 @@
 		  	  FROM QUESTION Q
 		   	  JOIN CATEGORY USING(CATEGORY_NO)
 		   	  JOIN MEMBER USING(USER_NO)
-		   	 -- LEFT JOIN ANSWER A USING(Q_NO)
 		 	 WHERE Q.STATUS = 'N'
 		 	
 			 <if test="searchCondition != null and searchValue != null">
@@ -91,7 +90,7 @@
 		     	</choose>
 		     </if>
 		 	 ORDER BY Q_NO DESC) A)
-  WHERE RNUM BETWEEN #{ startRow } AND #{ endRow }	<!-- ?부분 pi에서 가져온 스타트로우랑 엔드로우로 수정 -->  
+  WHERE RNUM BETWEEN #{ startRow } AND #{ endRow }	
 	</select>
 	
 	

@@ -43,16 +43,8 @@ public class QABoardController {
 	
 
 	@RequestMapping("list")
-	public ModelAndView selectQAList(Search search, ModelAndView mv,HttpServletRequest request) {
-		
-		// 기본적으로 게시판은 1페이지부터 시작
-		int page = 1;
-				
-		// 하지만 페이지 전환 시 전달 받은 현재 페이지가 있을 경우 해당 페이지를 page로 적용
-		if(request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page"));
-		}	
-		
+	public ModelAndView selectQAList(Search search, ModelAndView mv, @RequestParam(value="page", required=false, defaultValue="1") int page) {		
+
 		// 페이징과 관련 된 데이터, 조회 된 boardList를 map에 담아 리턴
 		Map<String, Object> map 
 		= qaBoardService.selectQAList(page, search);
@@ -71,8 +63,11 @@ public class QABoardController {
 	/* 공개글: 모든 사람 접근 가능(비회원 포함) 비밀글: 인가 받아야만 접근 가능(+본인만) */
 	/*http://localhost:8007/qaBoard?QNo=100*/
 	@GetMapping("") 
-	public String selectQA(@RequestParam("qno") int QNo, Model model, @AuthenticationPrincipal UserImpl user, 
-			RedirectAttributes rttr, @CookieValue(value="bcount", required=false) String bcount, HttpServletResponse response) {
+	public String selectQA(@RequestParam("qno") int QNo, Model model,
+						   @AuthenticationPrincipal UserImpl user, 
+						   RedirectAttributes rttr, 
+						   @CookieValue(value="bcount", required=false) String bcount, 
+						   HttpServletResponse response) {
 
 		/* board의 userId와 로그인 user ID 비교해서 일치해야 비밀글 확인 가능(총관리자 계정 제외) */
 		
@@ -119,7 +114,7 @@ public class QABoardController {
 				return "cs/qDetail"; 
 			
 				
-			// 비밀글일 경우 작성자와 로그인 아이디가 일치하지 않는 경우 비밀글입니다 알리고 목록으로 redirect
+			// 비밀글이고 작성자와 로그인 아이디가 일치하지 않는 경우 비밀글입니다 alert 보내고 목록으로 redirect
 			}else if(board.getSecretStatus().equals("Y") && !board.getUserId().equals(user.getUsername())) {
 				
 				rttr.addFlashAttribute("msg", "비밀글입니다");
@@ -131,8 +126,8 @@ public class QABoardController {
 		}
 		
 		/* 비밀글 아닐 경우 member 조회 가능 */
+		
 		/* cookie 활용한 조회수 무한 증가 방지 처리 */
-
 		if(bcount.indexOf("|" + QNo + "|") == -1) {
 
 			Cookie newBcount = new Cookie("bcount", bcount + "|" + QNo + "|");

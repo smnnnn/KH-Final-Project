@@ -72,7 +72,7 @@
     width: 250px;
     background-color: #2C2C2C;
 }
-.logo-area > img{
+.logo-area > a > img{
     width: 200px;
     height: 100px;
     padding: 20px;

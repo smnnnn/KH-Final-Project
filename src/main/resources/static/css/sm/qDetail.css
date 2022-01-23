@@ -29,6 +29,7 @@
             padding-top: 4px;
             font-size: 1rem;
             padding-left: 20px;
+            font-weight: bold;
         }
 
         .btn {
@@ -81,6 +82,7 @@
         .name,.date{
             padding-left: 20px;
             font-size: 0.9rem;
+            font-weight: bold;
         }
 
         .name{
@@ -164,6 +166,7 @@
 
         .bold {
             font-weight: bold;
+            margin-top:10px;
         }
         
         .addreplyBox{
@@ -218,6 +221,10 @@
         	white-space: -pre-wrap;
         	white-space: -o-pre-wrap;
         	word-break:break-all;
+        	line-height: 1.5rem;
+        	margin-top: 10px;
+        	margin-bottom:10px;
+        	font-weight: bold;
         }
         
         .byte {
