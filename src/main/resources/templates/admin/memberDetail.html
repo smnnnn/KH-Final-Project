@@ -234,11 +234,11 @@
 	        		$('#resTime').val(data.reservationTime + ':00');
 	        		$('#resTreat').val(data.tName);
 	        		$('#resVet').val(data.vName);
-	        		$('#resDogName').val(data.dog.name);
-	        		$('#resDogAge').val(data.dog.age + '살');
+	        		$('#resDogName').text(data.dog.name);
+	        		$('#resDogAge').text(data.dog.age + '살');
 	        		$('#resDogGender').text(data.dog.gender);
 	        		$('#resDogBreed').text(data.dog.breed);
-	        		$('#resSymptom').val(data.symptom);
+	        		$('#resSymptom').html(data.symptom);
 	        		
 	        	},
 	        	error : function(e){
