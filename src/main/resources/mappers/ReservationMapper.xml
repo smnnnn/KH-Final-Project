@@ -96,11 +96,7 @@
 		  	  , #{ reservationInfo.tno }
 		  	  , #{ user_no }
 		  	  , #{ reservationInfo.vno }
-		  )
-		<!-- <selectKey resultType="_int" keyProperty="reservation_no" order="AFTER">
-		 SELECT SEQ_RESERVATION_NO.CURRVAL
-		 FROM DUAL
-		</selectKey> -->
+		  )		
 	</insert>
 	
 	
@@ -126,7 +122,8 @@
 	
 	<select id="selectDogInfo" resultMap="selectDogResultMap">
 		SELECT
-			   A.DOG_NAME
+			   A.DOG_NO
+			 , A.DOG_NAME
 			 , A.DOG_AGE
 			 , A.BREED
 			 , A.DOG_GENDER
@@ -135,11 +132,39 @@
 		 WHERE B.USER_ID = #{ id }
 	</select>
 	
-	<!-- <update id="reservationUpdate" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">		
-		UPDATE RESERVATION_INFORMATION
-   		   SET 
-         	   RESERVATION_STATUS = '진료완료'
-   		 WHERE RESERVATION_NO = #{ reservation_no }		
-	</update> -->
+	<insert id="registReser" parameterType="com.kh.project.reservation.model.vo.ReservationInfo">
+		<selectKey resultType="_int" keyProperty="user_no" order="BEFORE">
+			SELECT USER_NO
+			  FROM MEMBER
+			 WHERE USER_ID = #{id}
+		</selectKey>
+		INSERT
+		  INTO RESERVATION_INFORMATION
+		  (
+		  	   RESERVATION_NO
+		  	 , RESERVATION_DATE
+		  	 , RESERVATION_TIME
+		  	 , RESERVATION_STATUS
+		  	 , SYMPTOM
+		  	 , TNO
+		  	 , USER_NO
+		  	 , VNO
+		  	 , DOG_NO
+		  )
+		  VALUES
+		  (
+		  	    SEQ_RESERVATION_NO.NEXTVAL
+		  	  , #{ reservationInfo.reservation_date }
+		  	  , #{ reservationInfo.reservation_time }
+		  	  , DEFAULT
+		  	  , #{ reservationInfo.symptom }
+		  	  , #{ reservationInfo.tno }
+		  	  , #{ user_no }
+		  	  , #{ reservationInfo.vno }
+		  	  , #{ reservationInfo.dog_no }
+		  )		
+	
+	</insert>
+	
 	
 </mapper>

@@ -66,6 +66,7 @@
                         <div class="text_input">
                             <input type="text" id="dog_name" name="in_dog_name" required>
                         </div>
+                        <input type="text" id="dog_no" name="dog_no" value="0">
                         <br>
                         <span>견종</span>
                         <br>
@@ -139,7 +140,9 @@
         					type : "get",
         					dataType : "json",
         					success : function(data){
+        						console.log(data);
         						
+        						let dog_no="";
         						let dog_name="";
         						let dog_age="";
         						let dog_breed="";
@@ -166,6 +169,11 @@
         							dog_name += data[index].dogName
         						}
         						$(".reservation_form_content #dog_name").val(dog_name);
+        						
+        						for(let index in data){
+        							dog_no += data[index].dogNo
+        						}
+        						$(".reservation_form_content #dog_no").val(dog_no);
         					},
         					error : function(e){
         						console.log(e);
@@ -178,6 +186,7 @@
         					$(".reservation_form_content #dog_age").val('');
         					$("#box_select > option[value='암컷']").prop("selected", "ture");
         					$(".reservation_form_content #dog_name").val('');
+        					$(".reservation_form_content #dog_no").val('0');
         			}
    			 	});
 			});

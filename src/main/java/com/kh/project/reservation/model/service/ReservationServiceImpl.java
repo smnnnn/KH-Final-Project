@@ -52,5 +52,10 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationMapper.selectDogInfo(id);
 	}
 
+	@Override
+	public int registReser(ReservationInfo reservationInfo, String id) {
+		return reservationMapper.registReser(reservationInfo, id);
+	}
+
 
 }
