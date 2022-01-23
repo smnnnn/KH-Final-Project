@@ -46,7 +46,10 @@ public class HospitalController {
 	}
 	
 	@GetMapping("device")
-	public String medicalDeviceIntroduce() {
+	public String medicalDeviceIntroduce(Model model) {
+		int category = 5;   // 영상장비
+		List<MedicalDevice> deviceList = hospitalService.selectDeviceListByCategory(category);
+		model.addAttribute("deviceList", deviceList);
 		return "about/device";
 	}
 	
