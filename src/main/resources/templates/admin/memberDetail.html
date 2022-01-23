@@ -150,7 +150,7 @@
                             	<th:block th:if="${not #lists.isEmpty(member.reservation)}">
                                 <tr class="colored2 trstyle" th:each="res : ${member.reservation}" th:onclick="|javascript:viewLayer('${res.reservationNo}','${member.no}')|">
                                     <td th:text="${#dates.format(res.reservationDate, 'yyyy.MM.dd')}"></td>
-                                    <td th:text="${res.reservationTime}"></td>
+                                    <td th:text="${res.reservationTime}+':00'"></td>
                                     <th:block th:switch="${res.tNo}">
 	                                	<td th:case="1">내과</td>	
 	                                	<td th:case="2">외과</td>
@@ -231,7 +231,7 @@
 	        		console.log(data);
 	        		$('#resStatus').text(data.reservationStatus);
 	        		$('#resDate').val(data.reservationDate);        		
-	        		$('#resTime').val(data.reservationTime);
+	        		$('#resTime').val(data.reservationTime + ':00');
 	        		$('#resTreat').val(data.tName);
 	        		$('#resVet').val(data.vName);
 	        		$('#resDogName').text(data.dog.name);

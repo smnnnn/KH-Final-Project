@@ -59,63 +59,20 @@
                     </div>
                     <div class="vdevice-list">
                         <!-- 장비 내용 1행씩 -->
-                        <div class="vdevice-tb-row">
+                        <div class="vdevice-tb-row" th:each="device: ${deviceList}">
                             <div class="vdevice-img">
-                                <img src="/images/nh/device/CT.png">
+                                <img th:src="@{${device.mdeviceFile.dfilePath}}+${device.mdeviceFile.dchangeName}">
                             </div>
                             <div class="vdevice-info">
                                 <div class="vdevice-name">
-                                    <h3 class="vd-name">CT
-                                        <span class="vd-model">GE light speed plus</span>
+                                    <h3 class="vd-name" >[[${device.deviceName}]]
+                                        <span class="vd-model" th:text="${device.deviceModel}"></span>
                                     </h3>
                                 </div>
-                                <div class="vdevice-content">
-                                    신체에 방사선을 연속적으로 투과 시킴으로써 얻어지는 다수의 단층영상을 통해 진단하는 검사장비.
-                                    연속되는 다수의 단층영상을 통해 신체의 모든 부위를 겹침 없이 영상화함으로써 신체 전반의 보다 
-                                    정확한 해부학적 구조 및 병변을 평가할 수 있습니다.
+                                <div class="vdevice-content" th:text="${device.deviceContent}">
                                 </div>
                             </div>
-                        </div>
-                        <div class="vdevice-tb-row">
-                            <div class="vdevice-img">
-                                <img src="/images/nh/device/x-ray.png">
-                            </div>
-                            <div class="vdevice-info">
-                                <div class="vdevice-name">
-                                    <h3 class="vd-name">X-RAY
-                                        <span class="vd-model">comed titan 2000v</span>
-                                    </h3>
-                                </div>
-                                <div class="vdevice-content">
-                                    방사선을 신체에 투과시켜 얻어지는 영상을 통해 진단하는 검사 장비. 두개골, 척추, 사지 골격과 관절
-                                    등의 병변 뿐 아니라 심장과 폐 그리고 간담도계, 소화기계, 비뇨기계 등 흉강 및 복강 내 장기의 
-                                    이상유무를 전반적으로 확인할 수 있으며, 조영 촬영을 통해 비뇨기계 및 소화기계의 보다 정밀한 
-                                    검사가 가능합니다.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="vdevice-tb-row">
-                            <div class="vdevice-img">
-                                <img src="/images/nh/device/ultrasonic waves.png">
-                            </div>
-                            <div class="vdevice-info">
-                                <div class="vdevice-name">
-                                    <h3 class="vd-name">초음파
-                                        <span class="vd-model">초음파 GE logiq S8</span>
-                                    </h3>
-                                </div>
-                                <div class="vdevice-content">
-                                    초음파를 신체로 방사시켜 얻어지는 영상을 통해 진단하는 검사장비.
-									일반 초음파
-									- 뇌 : 두개 내 뇌실의 확장여부 확인
-									- 안구 : 안구 및 안구 후방부의 병변 확인
-									- 복부 : 복강내 모든 장기의 병변 확인
-									- 피하 : 탈장, 종괴, 염증성 병변 등의 확인
-									심장 초음파
-									- 심장의 구조와 움직임 및 심장 내 혈류의 용적과 압력 등을 검사함으로서 다양한 심장 질환의 정확도 높은 평가가 가능합니다.
-                                </div>
-                            </div>
-                        </div>
+                        </div>                     
                     </div>
                 </div>
            </div>
