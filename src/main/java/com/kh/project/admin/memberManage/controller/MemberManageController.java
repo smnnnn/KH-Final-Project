@@ -64,13 +64,14 @@ public class MemberManageController {
 		
 		MemberInfo member = memberManageService.selectMemberByNo(no);
 		model.addAttribute("member", member);
-		
+		log.info("member : {}", member);
 		return "admin/memberDetail";
 	}
 	
 	@GetMapping(value = {"detail/{rno}/{userNo}"})
 	@ResponseBody
 	public ReservationManage getReservationInfo(@PathVariable int rno, @PathVariable int userNo) {
+		log.info("rno : {}, userNo : {}", rno, userNo);
 		ReservationManage reservationManage = memberManageService.getReservationInfo(rno, userNo);
 		if(reservationManage == null) reservationManage = new ReservationManage();
 		return reservationManage;

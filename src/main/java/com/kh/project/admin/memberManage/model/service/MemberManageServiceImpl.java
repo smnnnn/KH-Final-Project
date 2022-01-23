@@ -70,11 +70,14 @@ public class MemberManageServiceImpl implements MemberManageService{
 	@Override
 	public ReservationManage getReservationInfo(int rno, int userNo) {
 		ReservationManage reservation = memberManageMapper.getReservationInfo(rno);
+		log.info("reservation : {}", reservation);
 		if(reservation.getDogNo() == 0) {
 			Dog inputDog = memberManageMapper.selectDogInputInfo(rno);
+			log.info("userRNO  : {}", rno);
 			reservation.setDog(inputDog);
-		} else {
+		} else if(reservation.getDogNo() != 0) {
 			Dog dog = memberManageMapper.selectDogInfo(userNo);
+			log.info("userNONO  : {}", userNo);
 			reservation.setDog(dog);
 		}
 		return reservation;
