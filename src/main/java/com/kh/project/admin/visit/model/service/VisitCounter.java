@@ -35,7 +35,7 @@ public class VisitCounter implements HttpSessionListener {
 	public void sessionCreated(HttpSessionEvent event) {		
 		// 세션이 만들어질 때 호출
 		HttpSession session = event.getSession();  // request에서 얻는 session과 동일한 객체
-		session.setMaxInactiveInterval(60*20);  // 타임아웃설정(초 단위) : 일정시간동안 요청이 없으면 세션 제거
+		session.setMaxInactiveInterval(60*50);  // 타임아웃설정(초 단위) : 일정시간동안 요청이 없으면 세션 제거
 		
 		count++;
 		
