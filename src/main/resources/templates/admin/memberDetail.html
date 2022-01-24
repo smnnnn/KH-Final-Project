@@ -255,7 +255,9 @@
 	    function memberDelete(memberNo){
 	    	if(confirm("해당 회원을 탈퇴시키겠습니까?")){
 	    		const outReason = prompt("해당 회원을 탈퇴시키는 이유를 적어주세요.", "유해글 유포");
-	    		location.href = "/admin/member/delete/" + memberNo + "/" + outReason;
+	    		if(outReason != null){
+		    		location.href = "/admin/member/delete/" + memberNo + "/" + outReason;    			
+	    		}
 	    	}
 	    }
     </script>
