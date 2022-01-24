@@ -223,7 +223,7 @@ public class MemberController {
 		user.setDetails(member);  // 로그인정보에
 
 		
-		return "redirect:/";  // 회원가입 완료되면 루트로 리다이렉트 해줌
+		return "redirect:/member/myPage";  // 회원가입 완료되면 루트로 리다이렉트 해줌  
 	}
 	
 	@PostMapping("/pwdUpdate")
