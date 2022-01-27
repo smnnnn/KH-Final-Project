@@ -278,14 +278,11 @@
 				success : function(data) {
 					console.log(data)
 					/*수정후 화면*/
-					date = '[[${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd.  HH:mm')}]]';
-					acontent = $("[name=aContent]").val();
 					const div = document.getElementById('ifadd');
 					div.innerHTML =
 						'<div class="replyBox"><span class="bold"><img class="replyIcon" src="/images/sm/rep.png"> 답변</span><pre class="acontent">'
-			            + acontent + '</pre><span class="bold">' + date + 
-			            '<span class="btns"><button class="miniBtn" onclick="updateReplyView();">수정</button><button class="miniBtn" onclick="deleteReply();">삭제</button></span></span>';
-					
+			            + data.acontent + '</pre><span class="bold">' + data.modifyDate + 
+			            '<span class="btns"><button class="miniBtn" onclick="updateReplyView();">수정</button><button class="miniBtn" onclick="deleteReply();">삭제</button></span></span>';					
 				},
 				error : function(e) {
 					console.log(e);

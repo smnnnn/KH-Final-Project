@@ -118,9 +118,17 @@ public class QABoardServiceImpl implements QABoardService {
 	}
 
 	@Override
-	public int updateReply(Answer answer) {
+	public Answer updateReply(Answer answer) {
 		
-		return boardMapper.updateAnswer(answer);
+		Answer updatedAnswer = null;
+		
+		int result = boardMapper.updateAnswer(answer);
+		
+		if(result > 0) {
+			updatedAnswer = boardMapper.selectAnswer(answer.getQno());	
+		}
+		
+		return updatedAnswer;
 	}
 
 	@Override
@@ -131,7 +139,7 @@ public class QABoardServiceImpl implements QABoardService {
 
 	@Override
 	public int selectAdminById(String string) {
-		// TODO Auto-generated method stub
+		
 		return boardMapper.selectAdminById(string);
 	}
 

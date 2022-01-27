@@ -27,7 +27,7 @@ public interface QABoardService {
 
 	Answer selectReply(int qno);
 
-	int updateReply(Answer answer);
+	Answer updateReply(Answer answer);
 
 	int deleteReply(int qno);
 
