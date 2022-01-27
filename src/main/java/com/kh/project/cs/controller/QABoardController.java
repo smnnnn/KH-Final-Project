@@ -242,10 +242,11 @@ public class QABoardController {
 	/* 관리자만 접근 가능(비동기) */
 	@ResponseBody
 	@PutMapping("/updateReply/{qno}")
-	public int updateAnswer(@PathVariable int qno, @RequestBody Answer answer) {
+	public Answer updateAnswer(@PathVariable int qno, @RequestBody Answer answer) {
 		
 		log.info("answer {} : " , answer);
-		int updateAnswer = qaBoardService.updateReply(answer);
+		//int updateAnswer = qaBoardService.updateReply(answer);
+		Answer updateAnswer = qaBoardService.updateReply(answer);
 		
 		return updateAnswer;
 	}
