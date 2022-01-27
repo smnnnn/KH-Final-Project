@@ -63,7 +63,7 @@ public class QABoardController {
 	/* 공개글: 모든 사람 접근 가능(비회원 포함) 비밀글: 인가 받아야만 접근 가능(+본인만) */
 	/*http://localhost:8007/qaBoard?QNo=100*/
 	@GetMapping("") 
-	public String selectQA(@RequestParam("qno") int QNo, Model model,
+	public String selectQA(@RequestParam("qno") int qno, Model model,
 						   @AuthenticationPrincipal UserImpl user, 
 						   RedirectAttributes rttr, 
 						   @CookieValue(value="bcount", required=false) String bcount, 
@@ -72,7 +72,7 @@ public class QABoardController {
 		/* board의 userId와 로그인 user ID 비교해서 일치해야 비밀글 확인 가능(총관리자 계정 제외) */
 		
 		/* board 조회해오기 */
-		QABoard board = qaBoardService.selectQA(QNo);
+		QABoard board = qaBoardService.selectQA(qno);
 		
 		if(user != null) {		
 			// 로그인 유저가 가진 권한 몇개인지 조회해오기
@@ -86,9 +86,9 @@ public class QABoardController {
 		
 				// Ex. "|1||22||100|" 와 같은 bcount cookie의 value 값에서 indexOf로 해당 문자열 찾기
 				// 처음 읽는 게시글일 경우 (해당 쿠키 없음 (-1))
-				if(bcount.indexOf("|" + QNo + "|") == -1) {
+				if(bcount.indexOf("|" + qno + "|") == -1) {
 					// 기본 bcount 값에 지금 요청한 qNo 값 추가하여 새로운 쿠키 생성
-					Cookie newBcount = new Cookie("bcount", bcount + "|" + QNo + "|");
+					Cookie newBcount = new Cookie("bcount", bcount + "|" + qno + "|");
 					// 초 단위로 유효 기간 설정 가능
 					// newBcount.setMaxAge(1 * 24 * 60 * 60);
 					
@@ -97,7 +97,7 @@ public class QABoardController {
 					response.addCookie(newBcount);
 					
 					// DB의 해당 게시글 조회수 증가
-					int increaseCountResult = qaBoardService.increaseCount(QNo);
+					int increaseCountResult = qaBoardService.increaseCount(qno);
 					
 					if(increaseCountResult > 0) {
 						log.info("조회수 증가 성공");
@@ -106,7 +106,7 @@ public class QABoardController {
 					}		
 				}
 				
-				board = qaBoardService.selectQA(QNo);
+				board = qaBoardService.selectQA(qno);
 				log.info("게시판 조회 : {}", board);
 				
 				model.addAttribute("board",board);
@@ -128,17 +128,17 @@ public class QABoardController {
 		/* 비밀글 아닐 경우 member 조회 가능 */
 		
 		/* cookie 활용한 조회수 무한 증가 방지 처리 */
-		if(bcount.indexOf("|" + QNo + "|") == -1) {
+		if(bcount.indexOf("|" + qno + "|") == -1) {
 
-			Cookie newBcount = new Cookie("bcount", bcount + "|" + QNo + "|");
+			Cookie newBcount = new Cookie("bcount", bcount + "|" + qno + "|");
 
 			response.addCookie(newBcount);
 			
-			qaBoardService.increaseCount(QNo);
+			qaBoardService.increaseCount(qno);
 				
 		}
 		
-		board = qaBoardService.selectQA(QNo);
+		board = qaBoardService.selectQA(qno);
 		log.info("게시판 조회 : {}", board);
 		
 		model.addAttribute("board",board);
