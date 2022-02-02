@@ -22,5 +22,5 @@ public class QABoard {
 	private int categoryNo;
 	private String userId;
 	
-	private int acount; // 답변 여부
+	//private int acount; // 답변 여부
 }

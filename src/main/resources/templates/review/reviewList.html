@@ -165,30 +165,8 @@
 
 	<script>
 	
-	const extractTextPattern = /(<([^>]+)>)/gi;
-
-	let targets = document.querySelectorAll(".contentHtml");
-	
-	for (let i = 0; i < targets.length; i++) {
-		
-		  const item = targets.item(i);
-		  let src = item.innerHTML;
-		  let extractedText = src.replace(extractTextPattern, '');
-		  /*.replaceAll("\r|\n|&nbsp;","")*/
-		  let contentText;
-
-		  if(extractedText.trim().length >= 106) {	  
-			  contentText = extractedText.substr(0, 106) +"...";
-		  } else {
-			  contentText = extractedText;
-		  }
-		  
-		  item.innerHTML = '<p>'+ contentText + '</p>';
-		}
-  
-	/*
-	
 	$(document).ready(function(){
+	
 		const extractTextPattern = /(<([^>]+)>)/gi;
 	
 		let targets = document.querySelectorAll(".contentHtml");
@@ -198,9 +176,10 @@
 			  const item = targets.item(i);
 			  let src = item.innerHTML;
 			  let extractedText = src.replace(extractTextPattern, '');
-			  
+
 			  let contentText;
-			  if(extractedText.length >= 106) {	  
+	
+			  if(extractedText.trim().length >= 106) {	  
 				  contentText = extractedText.substr(0, 106) +"...";
 			  } else {
 				  contentText = extractedText;
@@ -208,21 +187,7 @@
 			  
 			  item.innerHTML = '<p>'+ contentText + '</p>';
 			}
-		});*/
-
-		
-		
-		/*let target = document.getElementById('contentHtml');
-
-		let src = target.innerHTML;
-		console.log( "src:" + src );
-		
-		let extractedText = src.replace(extractTextPattern, '');
-
-		console.log( "extractedText" + extractedText );
-
-		target.innerHTML = '<p>'+ extractedText + '</p>';*/
-
+	});
 
 	</script>
 
