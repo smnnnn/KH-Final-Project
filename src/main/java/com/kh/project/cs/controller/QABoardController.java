@@ -66,7 +66,7 @@ public class QABoardController {
 	public String selectQA(@RequestParam("qno") int qno, Model model,
 						   @AuthenticationPrincipal UserImpl user, 
 						   RedirectAttributes rttr, 
-						   @CookieValue(value="bcount", required=false) String bcount, 
+						   @CookieValue(value="bcount", required=false, defaultValue="0") String bcount, 
 						   HttpServletResponse response) {
 
 		/* board의 userId와 로그인 user ID 비교해서 일치해야 비밀글 확인 가능(총관리자 계정 제외) */

@@ -42,7 +42,7 @@ public class ReviewController {
 	
 		List<Review> reviewList = reviewService.selectReviewList();
 		
-		log.info("리뷰 목록 {} ",reviewList);
+		//log.info("리뷰 목록 {} ",reviewList);
 		
 		model.addAttribute(reviewList);
 		
@@ -51,7 +51,7 @@ public class ReviewController {
 	
 	
 	@GetMapping("")
-	public String selectReview(@RequestParam("rvno") int rvno, Model model, @CookieValue(value="rvhit", required=false) String rvhit, HttpServletResponse response) {
+	public String selectReview(@RequestParam("rvno") int rvno, Model model, @CookieValue(value="rvhit", required=false, defaultValue="rvhit") String rvhit, HttpServletResponse response) {
 		
 		/* cookie 활용한 조회수 무한 증가 방지 처리 */
 		
@@ -79,7 +79,7 @@ public class ReviewController {
 		
 		Review review = reviewService.selectReview(rvno);
 		
-		log.info("리뷰 조회 : {}", review);
+		//log.info("리뷰 조회 : {}", review);
 		
 		model.addAttribute("review",review);
 		
