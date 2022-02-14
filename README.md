@@ -85,6 +85,9 @@
 
    ### 3. 문의 게시판
 
+   * 비밀글, 공개글 기능
+   * 답변 등록시 글 제목 우측에 답변 아이콘
+   * 검색 기능
    * 페이징 처리
 
    ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/86585267/153903931-d60262d7-0d2d-4861-8408-dc6915a4f03d.gif)
