@@ -1,6 +1,9 @@
 # KH-Final-Project
 예약 가능한 동물병원 사이트 '다나은'
 
+#### 리뷰 게시판
+
+![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/86585267/153907406-ca2b218b-b4f5-4fcf-9813-6b01602412a5.gif)
 
 
 #### 고객센터 메인 페이지
@@ -13,4 +16,4 @@
 
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/86585267/153903931-d60262d7-0d2d-4861-8408-dc6915a4f03d.gif)
 
-#### 리뷰 게시판
+
