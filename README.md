@@ -27,7 +27,10 @@
 * ## ERD
     ![Copy of kh final](https://user-images.githubusercontent.com/86585267/153937736-ba2ba433-50b8-4f88-a432-8f4ae679c39d.png)
 
- 
+* ## 시퀀스다이어그램
+   ![ReviewSequence](https://user-images.githubusercontent.com/86585267/153945296-30953170-6e6a-473a-8b7e-309ef92b58bb.jpg)
+
+
 * ## 역할 분담
    - 이효은(팀장) : 회원 별 진료 예약 등록, 수정, 취소, 서브 관리자 의료진 관리, 의료진 등록, 휴무일 변경    
    - **김소민 : lombok 추가, log4j2 버전 업그레이드, 고객센터 메인(자주 묻는 질문), 문의 게시판, 치료 후기 게시판**    
