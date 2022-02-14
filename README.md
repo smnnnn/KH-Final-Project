@@ -28,8 +28,8 @@
     ![Copy of kh final](https://user-images.githubusercontent.com/86585267/153937736-ba2ba433-50b8-4f88-a432-8f4ae679c39d.png)
 
 * ## 시퀀스
-   ![ReviewSequence](https://user-images.githubusercontent.com/86585267/153945296-30953170-6e6a-473a-8b7e-309ef92b58bb.jpg)
 
+   <div align=center><img width="910" alt="시퀀스" src="https://user-images.githubusercontent.com/86585267/153945296-30953170-6e6a-473a-8b7e-309ef92b58bb.jpg"></div>
 
 * ## 역할 분담
    - 이효은(팀장) : 회원 별 진료 예약 등록, 수정, 취소, 서브 관리자 의료진 관리, 의료진 등록, 휴무일 변경    
@@ -63,17 +63,17 @@
 
       - 마이페이지-예약 확인 진료완료건에 대해 '리뷰쓰기' 버튼이 뜨고, 리뷰 작성 가능
       - 작성 시 진료과목 카테고리는 변경 못하도록 처리
-      - 썸네일 첨부 안할시 디폴트 이미지 등록
+      - 썸네일 첨부 안할시 기본 이미지 등록
 
    ![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/86585267/153909450-a6506115-e348-468a-85b5-29543343cb8e.gif)
 
 
-   * 리뷰 수정
+   * 리뷰 수정 (썸네일 수정 시 기존 이미지 삭제, 저장 db에는 파일정보 update)
 
    ![ezgif com-gif-maker (6)](https://user-images.githubusercontent.com/86585267/153911211-dac203bb-2d48-484f-8e79-5c0c2b58ad82.gif)
 
 
-   * 리뷰 삭제
+   * 리뷰 삭제 (업로드된 파일도 함께 삭제)
 
    ![ezgif com-gif-maker (7)](https://user-images.githubusercontent.com/86585267/153912227-7874802d-30aa-4c67-8e8a-0b82bb195b61.gif)
 
@@ -88,7 +88,8 @@
 
    ### 3. 문의 게시판
 
-   * 비밀글, 공개글 기능
+   * 비밀글, 공개글 기능(자물쇠로 구분)
+   * 다른 회원의 비밀글 클릭 시 '비밀글입니다' alert
    * 답변 등록시 글 제목 우측에 답변 아이콘
    * 검색 기능
    * 페이징 처리
