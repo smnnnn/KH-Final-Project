@@ -24,6 +24,9 @@
   - Team Coop : Github, ERDCloud, starUML, Figma     
   - Open API : Full Calendar, Summer Note     
 
+* ## ERD
+    [Click here](https://www.erdcloud.com/d/aerqW72KWN6nsBDyE)
+ 
 * ## 역할 분담
    - 이효은(팀장) : 회원 별 진료 예약 등록, 수정, 취소, 서브 관리자 의료진 관리, 의료진 등록, 휴무일 변경    
    - **김소민 : lombok 추가, log4j2 버전 업그레이드, 고객센터 메인(자주 묻는 질문), 문의 게시판, 치료 후기 게시판**    
