@@ -27,7 +27,7 @@
 * ## ERD
     ![Copy of kh final](https://user-images.githubusercontent.com/86585267/153937736-ba2ba433-50b8-4f88-a432-8f4ae679c39d.png)
 
-* ## 시퀀스다이어그램
+* ## 시퀀스
    ![ReviewSequence](https://user-images.githubusercontent.com/86585267/153945296-30953170-6e6a-473a-8b7e-309ef92b58bb.jpg)
 
 
