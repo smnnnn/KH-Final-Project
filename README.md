@@ -68,7 +68,7 @@
    ![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/86585267/153909450-a6506115-e348-468a-85b5-29543343cb8e.gif)
 
 
-   * 리뷰 수정 (썸네일 수정 시 기존 등록된 이미지 있었다면 삭제, 새로 저장 db에는 파일정보 update)
+   * 리뷰 수정 (썸네일 수정 시 기존 업로드된 이미지 있었다면 삭제, 새로 저장 db에는 파일정보 update)
 
    ![ezgif com-gif-maker (6)](https://user-images.githubusercontent.com/86585267/153911211-dac203bb-2d48-484f-8e79-5c0c2b58ad82.gif)
 
