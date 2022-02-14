@@ -25,7 +25,8 @@
   - Open API : Full Calendar, Summer Note     
 
 * ## ERD
-    [Click here](https://www.erdcloud.com/d/aerqW72KWN6nsBDyE)
+    ![Copy of kh final](https://user-images.githubusercontent.com/86585267/153937736-ba2ba433-50b8-4f88-a432-8f4ae679c39d.png)
+
  
 * ## 역할 분담
    - 이효은(팀장) : 회원 별 진료 예약 등록, 수정, 취소, 서브 관리자 의료진 관리, 의료진 등록, 휴무일 변경    
